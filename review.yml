@@ -1,0 +1,415 @@
+aid: enphase
+name: Enphase Energy
+review:
+  question: >-
+    Does Enphase Energy operate under an energy consumer-data mandate, and does it publish a
+    real, downloadable, self-serve public API surface?
+  answer: >-
+    No mandate applies. Yes to the API surface — three complete machine-readable contracts
+    were downloaded anonymously and all three parse.
+  date: '2026-07-27'
+  reviewer: API Evangelist
+  homeMarket: United States
+  tier: solar-der
+
+mandate:
+  regime: none
+  status: not-applicable
+  rationale: >-
+    Enphase Energy is a hardware manufacturer and DER cloud operator, not a utility, retailer,
+    meter operator or distributor. It does not sell electricity, own a revenue meter, or hold
+    customer utility billing records, so it is not a data holder under any energy consumer
+    data right. The United States has no compulsory retail energy data mandate at the federal
+    level; Green Button exists as a real NAESB/NIST-derived standard (Download My Data /
+    Connect My Data) but nothing compels adoption, and Ontario's Green Button regulation and
+    Australia's CDR energy extension both reach utilities and retailers, not equipment vendors.
+    Enphase is outside all of them by kind, not by evasion.
+  regimesConsidered:
+    - regime: cdr-energy
+      applies: false
+      note: Australian CDR energy designates retailers and AEMO, not US equipment manufacturers. Enphase has no CDR register entry and no Consumer Data Standards energy base URI.
+    - regime: green-button-ontario
+      applies: false
+      note: Ontario's regulation binds Ontario utilities. Enphase is not an Ontario utility.
+    - regime: green-button-voluntary
+      applies: false
+      note: >-
+        Considered and rejected on evidence, not assumption. Every harvested spec and every
+        fetched documentation page was grepped for "green button", "espi", "naesb", "openadr",
+        "IEEE 2030.5", "2030.5", "61968", "61970" and "CIM" — zero hits across all three specs.
+        Enphase has not voluntarily adopted Green Button; it is not that it adopted it loosely.
+    - regime: smart-meter-infrastructure
+      applies: false
+      note: UK DCC-style infrastructure mandate; no UK smart-metering obligation reaches Enphase.
+  verificationMethod: >-
+    No register entry, conformance statement, or standards-body listing was sought or found
+    because no obligation exists to verify against. The negative was established by exhaustive
+    keyword search of the three downloaded specification documents plus the portal
+    documentation, plans and quickstart pages listed under probes below.
+
+dataStandard:
+  primary: >-
+    OCPP 1.6 (Open Charge Point Protocol) — the only recognised interoperability standard
+    implemented anywhere in the Enphase API surface.
+  evidence: >-
+    Confirmed in openapi/enphase-vpp-api-openapi.json. Three EVSE endpoints —
+    POST /api/v1/systems/{site_id}/devices/evse/{serial_no}/ocpp_configuration,
+    POST /api/v1/systems/{site_id}/devices/evse/{serial_no}/ocpp_reset, and
+    GET /api/v1/systems/{site_id}/devices/evse/{serial_no}/ocpp_configuration/status —
+    carry OCPPConfigurationRequest / OCPPResetResponse / OCPPConfigurationStatusResponse
+    schemas. The documented example connectionUrl is "ws://ocpp.chargehq.net/ocpp16/30239503",
+    pinning version 1.6, and the request fields reference the partner's CSMS (Charging Station
+    Management System) with securityProfile and authKey, which is OCPP vocabulary.
+  consumerDataStandard: >-
+    None. The Monitoring API's production, consumption and battery telemetry is a proprietary
+    Enphase JSON shape. No Green Button / ESPI Energy Usage Information payload, no Atom
+    feed, no NAESB REQ.21 conformance. "No standard reference found" is the honest answer for
+    the consumer-data path.
+  otherStandardsAbsent:
+    - Green Button / ESPI
+    - NAESB REQ.21
+    - OpenADR
+    - IEEE 2030.5 (SEP2)
+    - IEC CIM 61968 / 61970
+    - OCPI
+
+consumerVsMarketData:
+  consumer_data_api: true
+  consumer_data_note: >-
+    A third-party developer can obtain an individual customer's energy usage data through a
+    documented, self-serve API. The Monitoring API exposes site-level consumption and
+    production, IQ Battery telemetry and device-level microinverter data for a named system,
+    gated by the system owner's explicit OAuth 2.0 consent. The important qualification: this
+    is DER-side data from equipment Enphase manufactures — what the homeowner's own solar
+    array generated and what the house drew — not utility revenue-meter reads and not billing
+    records. It answers the functional test (third party, individual customer, documented
+    API, consented) while sitting outside the regulatory one.
+  market_data_open: false
+  market_data_note: >-
+    Enphase publishes no open grid, wholesale market, system-wide generation, or aggregate
+    fleet data. Nothing in the 124 harvested operations returns anonymous non-customer data;
+    every endpoint across all three specs is scoped to a site_id, a system, a company, or a
+    VPP that the caller is authorised for. There is no public data portal, no bulk download,
+    no /data subdomain — data.enphase.com does not resolve (curl exit 000).
+  finding: >-
+    The split runs opposite to the classic utility profile. Utilities in this sector are
+    typically open on aggregate market data and closed on consumer data; Enphase is the
+    inverse — genuinely self-serve on individual consumer telemetry and completely closed on
+    anything system-wide. It is a manufacturer monetising access to its own installed fleet,
+    not a grid operator with a public-interest disclosure duty.
+
+accessGate:
+  gate: self-serve
+  gateNote: >-
+    Recorded as self-serve because the entry tier genuinely is, but the surface is tiered and
+    the other two tiers are not. Stated verbatim in the quickstart: "Anyone can register on
+    the platform, create an application, and can get access to the system data."
+  tiers:
+    - name: Watt
+      api: Monitoring API
+      gate: self-serve
+      cost: Free
+      rateLimits: 10 hits/minute, 1,000 hits/month
+      accessControls: System Details, Site Level Production Monitoring, Site Level Consumption Monitoring, EV Charger Monitoring
+      howToGetIn: >-
+        Sign up at https://developer-v4.enphase.com/signup, activate via emailed link, log in,
+        create an application on the Applications page (plan defaults to Watt), tick the
+        Access Controls that become the application's scope, and receive an API key. No
+        review, no approval, no credit card.
+    - name: Kilowatt / Megawatt
+      api: Monitoring API
+      gate: self-serve
+      cost: Paid — credit card added to account; overage $0.005/hit by arrangement with api@enphaseenergy.com
+      rateLimits: Kilowatt 50 hits/minute, 50,000 hits/month
+      accessControls: Adds Device Level Production Monitoring
+      howToGetIn: Same self-serve flow plus a card on file; no human approval documented.
+    - name: Partner
+      api: Commissioning API
+      gate: application-approval
+      cost: 10,000 hits/month free, then $0.005/hit; $2 per activation created
+      rateLimits: 300 hits/minute, 1,500,000 hits/month
+      howToGetIn: >-
+        "Available only to registered Enphase installers with at least 10 installations."
+        Requires a separate partner application, a credit card, and Enphase cloud credentials.
+        Eligibility is a business-relationship test, not a form.
+    - name: VPP
+      api: VPP API
+      gate: partner-only
+      cost: Contact us — no published pricing
+      howToGetIn: >-
+        "Available only to aggregators/utilities/TPOs registered as Enphase Grid Services
+        partners... To sign up to be a Grid Services partner with Enphase and access the VPP
+        plan, please contact us for a demo." A commercial deal precedes access.
+  licenceRequired: >-
+    Yes, but click-through rather than negotiated. The quickstart states "By using the API,
+    you agree to the Enphase Energy API License Agreement" (https://enphase.com/api-license-agreement-v4,
+    HTTP 200). No signature or counter-execution is required for the self-serve tiers.
+
+authModel:
+  scheme: OAuth 2.0 plus an application API key
+  authorizationEndpoint: https://api.enphaseenergy.com/oauth/authorize
+  tokenEndpoint: https://api.enphaseenergy.com/oauth/token
+  grants:
+    - grant: authorization_code
+      usedBy: Developer applications (Monitoring API)
+      note: >-
+        Full consent redirect. The developer sends the system owner to /oauth/authorize with
+        response_type=code, redirect_uri and state; the homeowner approves; the returned code
+        is exchanged at /oauth/token. The application name is shown to the owner at approval
+        and again inside the Enphase App, so consent is visible and attributable.
+    - grant: password
+      usedBy: Partner applications (Commissioning API)
+      note: >-
+        Documented as /oauth/token?grant_type=password&username=your_enlighten_email&password=your_enlighten_password.
+        A resource-owner password credentials grant, which is deprecated in OAuth 2.1 and
+        worth flagging — the installer's own Enlighten credentials are sent to the token
+        endpoint rather than redirected.
+    - grant: refresh_token
+      usedBy: Both
+  apiKey: >-
+    A `key` query parameter accompanies the bearer token on requests; the quickstart shows
+    https://api.enphaseenergy.com/api/v4/systems?key=... Two distinct example key values
+    appear in the public quickstart HTML — these are documentation samples, not harvested
+    secrets, and were not saved.
+  scopes: >-
+    Not OAuth scopes in the conventional sense. Authorisation is bounded by the "Access
+    Controls" ticked when the application is created, which are themselves bounded by the
+    subscribed plan. No scope strings are published and none were invented.
+  openidConnect: >-
+    Not served. https://developer-v4.enphase.com/.well-known/openid-configuration returned 404
+    and https://api.enphaseenergy.com/.well-known/openid-configuration returned 404, both
+    fetched anonymously. Plain OAuth 2.0, no OIDC discovery.
+  transport: TLS 1.2 minimum, enforced since 1 April 2023 per the portal-wide announcement banner.
+
+developerPortal:
+  url: https://developer-v4.enphase.com
+  confirmed: true
+  httpStatus: 200
+  platform: 3scale (portal footer reads "Powered by 3scale"; /javascripts/3scale.js loaded on doc pages)
+  note: >-
+    A real self-serve developer portal with public documentation, published plans and rate
+    limits, a public signup route and anonymously readable specs — not a customer account
+    login. Distinct from https://enlighten.enphaseenergy.com/ (HTTP 200), which is the
+    homeowner/installer monitoring application, and from the legacy v2 portal.
+  legacyPortal:
+    url: https://developer.enphase.com
+    httpStatus: 200
+    note: >-
+      Still serving, but superseded. Its own banner reads "The end of life for Enphase API v2
+      has been extended from August 15, 2022 to June 30, 2024" and directs developers to
+      developer-v4.enphase.com. Treated as deprecated; no artifacts harvested from it.
+
+specsHarvested:
+  count: 3
+  totalPaths: 124
+  allParse: true
+  note: All three were fetched anonymously with no key, no login and no referer, and all three parse.
+  artifacts:
+    - file: openapi/enphase-monitoring-api-openapi.json
+      sourceURL: https://developer-v4.enphase.com/swagger/spec/System_API.json
+      httpStatus: 200
+      fetchDate: '2026-07-27'
+      bytes: 291957
+      format: Swagger 2.0
+      title: Monitoring API
+      version: v4
+      paths: 48
+      tags: [System Details, Site Level Production Monitoring, Site Level Consumption Monitoring, Device Level Monitoring, EV Charger Monitoring, EV Charger Control, System Configurations, Streaming APIs]
+      discovery: >-
+        Referenced as url_system feeding a SwaggerUI container on
+        https://developer-v4.enphase.com/docs/monitoring_api.
+      integrityNote: >-
+        Saved verbatim, including a defect worth recording: the document's `host` field is
+        `api-qa2.enphaseenergy.com`, a QA environment hostname leaked into the published
+        production specification. The documented production base URL in the quickstart is
+        https://api.enphaseenergy.com/api/v4, which is what apis.yml records as baseURL. The
+        spec was not edited to correct this.
+    - file: openapi/enphase-commissioning-api-openapi.json
+      sourceURL: https://developer-v4.enphase.com/swagger/spec/partner_api.json
+      httpStatus: 200
+      fetchDate: '2026-07-27'
+      bytes: 177727
+      format: Swagger 2.0
+      title: Commissioning API
+      version: v4
+      paths: 21
+      host: api.enphaseenergy.com
+      tags: [Activations, Arrays, Companies, Users, Home Owner, Meters, Grid Profiles, Tariff, Estimate, PvManufacturers, PvModels]
+      discovery: Referenced as url_partner feeding a SwaggerUI container on /docs/commissioning_api.
+    - file: openapi/enphase-vpp-api-openapi.json
+      sourceURL: https://vpp.enphaseenergy.com/auth/getApiSpec
+      httpStatus: 200
+      fetchDate: '2026-07-27'
+      bytes: 539590
+      format: OpenAPI 3.0.1
+      title: API Reference
+      version: 1.1.0
+      paths: 55
+      servers: [https://vpp.enphaseenergy.com]
+      tags: [Manage VPPs, Programs, Events, Applications, Forecast, System Details And Telemetry, System and Device Configuration, Auth]
+      discovery: >-
+        Referenced as vpp_url = "https://vpp.enphaseenergy.com/auth/getApiSpec" in an inline
+        script on /docs/vpp_api. Notable that the API itself is partner-only and the host root
+        returns 403, yet its full contract is served anonymously.
+  securityDefinitionsNote: >-
+    None of the three documents declare securityDefinitions (Swagger 2.0) or
+    components.securitySchemes (OpenAPI 3). The OAuth model is documented only in prose in the
+    quickstart and, in the VPP spec, as a manually described Authorization header parameter
+    with example "Bearer your-access-token". The contracts are therefore not
+    machine-actionable for auth.
+
+probes:
+  - url: https://enphase.com
+    status: 200
+  - url: https://developer-v4.enphase.com
+    status: 200
+    note: Current developer portal — confirmed self-serve.
+  - url: https://developer.enphase.com
+    status: 200
+    note: Legacy v2 portal, EOL 2024-06-30.
+  - url: https://developers.enphase.com
+    status: 000
+    note: Does not resolve.
+  - url: https://docs.enphase.com
+    status: 000
+  - url: https://data.enphase.com
+    status: 000
+    note: No open-data subdomain exists.
+  - url: https://api.enphaseenergy.com
+    status: 406
+    note: API host live; rejects an unauthenticated browser request at root.
+  - url: https://vpp.enphaseenergy.com
+    status: 403
+  - url: https://enlighten.enphaseenergy.com/
+    status: 200
+    note: Customer monitoring application, not a developer portal.
+  - url: https://enphase.com/developers
+    status: 404
+  - url: https://enphase.com/api
+    status: 404
+  - url: https://developer-v4.enphase.com/docs/quickstart.html
+    status: 200
+  - url: https://developer-v4.enphase.com/docs/monitoring_api
+    status: 200
+  - url: https://developer-v4.enphase.com/docs/commissioning_api
+    status: 200
+  - url: https://developer-v4.enphase.com/docs/vpp_api
+    status: 200
+  - url: https://developer-v4.enphase.com/developer-plans
+    status: 200
+  - url: https://developer-v4.enphase.com/installer-plans
+    status: 200
+  - url: https://developer-v4.enphase.com/vpp-plans
+    status: 200
+  - url: https://developer-v4.enphase.com/signup
+    status: 200
+  - url: https://developer-v4.enphase.com/docs/release_notes
+    status: 200
+  - url: https://developer-v4.enphase.com/docs/support
+    status: 200
+  - url: https://developer-v4.enphase.com/aboutproduct.html
+    status: 200
+  - url: https://enphase.com/api-license-agreement-v4
+    status: 200
+  - url: https://developer-v4.enphase.com/swagger/spec/System_API.json
+    status: 200
+    note: Harvested.
+  - url: https://developer-v4.enphase.com/swagger/spec/partner_api.json
+    status: 200
+    note: Harvested.
+  - url: https://vpp.enphaseenergy.com/auth/getApiSpec
+    status: 200
+    note: Harvested.
+  - url: https://developer-v4.enphase.com/openapi.json
+    status: 404
+  - url: https://developer-v4.enphase.com/swagger.json
+    status: 404
+  - url: https://developer-v4.enphase.com/api-docs
+    status: 404
+  - url: https://developer-v4.enphase.com/docs.html
+    status: 404
+  - url: https://developer-v4.enphase.com/pricing.html
+    status: 404
+  - url: https://api.enphaseenergy.com/openapi.json
+    status: 404
+  - url: https://developer-v4.enphase.com/.well-known/openid-configuration
+    status: 404
+  - url: https://api.enphaseenergy.com/.well-known/openid-configuration
+    status: 404
+  - url: https://enphase.com/.well-known/security.txt
+    status: 403
+
+duplicateWarning:
+  note: >-
+    A separate repository for the same company already exists at
+    /Users/kinlane/GitHub/all/enphase-energy/ (aid enphase-energy, created 2026-06-13),
+    carrying nine tag-split OpenAPIs and a populated apis.yml. This repo (aid enphase) was
+    bootstrapped as instructed, but the two describe one company and should be reconciled
+    under the duplicate-provider-retirement process — pick a survivor, tombstone the other —
+    before either is published or scored, or the catalog will double-count Enphase.
+
+findings:
+  summary: >-
+    Enphase is the clean control case for the central question of this sector: it proves that
+    a good energy API and an energy data mandate have nothing to do with each other. No
+    obligation reaches it — not CDR, not Ontario's Green Button regulation, not a US federal
+    right that does not exist — and it has not voluntarily adopted Green Button either, which
+    was verified by grepping all three contracts and the portal docs for Green Button, ESPI,
+    NAESB, OpenADR, IEEE 2030.5 and CIM and finding nothing. And yet it ships the most
+    accessible surface most utilities in this sector will never match: a live 3scale portal,
+    published plans and rate limits, a free tier anyone can self-register for, and 124
+    operations across three specifications that download anonymously without a key. The
+    posture is consumer-data-open and market-data-closed, the mirror image of the typical
+    utility, because Enphase is a manufacturer monetising telemetry from equipment it sold
+    rather than a grid operator disclosing in the public interest. Two things temper the
+    picture: the OAuth model is documented only in prose, with no securityDefinitions in any
+    contract, and the Commissioning API's resource-owner password grant is a deprecated
+    pattern for a surface that manages installer accounts and site activations. One defect
+    was found and preserved rather than fixed — the published Monitoring API spec declares
+    host api-qa2.enphaseenergy.com, a QA hostname shipped in a production contract.
+  strengths:
+    - Genuinely self-serve free tier with published rate limits, rare in energy.
+    - Three complete machine-readable contracts served anonymously, including for a partner-only API.
+    - Real OAuth 2.0 authorization-code consent with the application name shown to the homeowner.
+    - OCPP 1.6 implemented for EV charger control rather than a proprietary shape.
+    - Product segmentation in the docs maps cleanly to the three contracts.
+  weaknesses:
+    - No securityDefinitions or securitySchemes in any of the three specs; auth is prose-only.
+    - Deprecated password grant on the installer-facing Commissioning API.
+    - QA hostname api-qa2.enphaseenergy.com published in the Monitoring API contract.
+    - No open data of any kind; nothing anonymous, aggregate, or system-wide.
+    - No standard on the consumer-data path — proprietary JSON, no Green Button/ESPI.
+    - Legacy v2 portal still serving years past its stated 2024-06-30 end of life.
+    - Portal homepage still carries unreplaced "Lorem ipsum" placeholder text in three panels.
+
+sources:
+  - url: https://developer-v4.enphase.com/docs/quickstart.html
+    type: Documentation
+    note: Auth flows, OAuth endpoints, signup process, "Anyone can register" statement, license agreement notice.
+  - url: https://developer-v4.enphase.com/developer-plans
+    type: Plans
+    note: Watt/Kilowatt/Megawatt tiers, rate limits, access controls, $0.005/hit overage.
+  - url: https://developer-v4.enphase.com/installer-plans
+    type: Plans
+    note: Partner plan eligibility — 10+ installations, $2 per activation.
+  - url: https://developer-v4.enphase.com/vpp-plans
+    type: Plans
+    note: VPP partner-only gate, Grid Services partner requirement, OCPP-based EVSE control listed.
+  - url: https://developer-v4.enphase.com/docs/monitoring_api
+    type: APIReference
+  - url: https://developer-v4.enphase.com/docs/commissioning_api
+    type: APIReference
+  - url: https://developer-v4.enphase.com/docs/vpp_api
+    type: APIReference
+  - url: https://enphase.com/api-license-agreement-v4
+    type: LicenseAgreement
+
+actions:
+  apisYmlCreated: true
+  readmeCreated: true
+  openapiHarvested: true
+  specsSaved: 3
+  fabrication: none
+  note: >-
+    Only artifacts actually fetched at HTTP 200 were saved. No endpoint, host, scope, or spec
+    was invented, and no spec was edited — including the one carrying a QA hostname.
