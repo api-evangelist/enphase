@@ -1,0 +1,489 @@
+generated: '2026-07-27'
+method: derived
+source:
+- openapi/enphase-monitoring-api-openapi.json
+- openapi/enphase-commissioning-api-openapi.json
+- openapi/enphase-vpp-api-openapi.json
+format: vendor-json
+rfc9457: false
+notes: Enphase does not use RFC 9457 application/problem+json. Three distinct error envelopes are in use
+  across the three APIs, all served as application/json; the live-status stream serves its errors inside
+  a text/event-stream frame.
+envelopes:
+- name: monitoring-object
+  shape:
+    message: string
+    details: string
+    code: integer
+  used_by: Monitoring API 400/401/403/404/422/429/500
+  schema: openapi/enphase-monitoring-api-openapi.json#/definitions/ErrorResponse
+- name: array-reason
+  shape:
+    message: array of string
+    reason: string (HTTP status as string)
+  used_by: Monitoring API 405/501 and the whole Commissioning API
+  schema: openapi/enphase-monitoring-api-openapi.json#/definitions/ErrorResponseArray
+- name: stream-error-frame
+  shape:
+    error:
+      code: integer
+      message: string
+      status: string
+      details: array
+    timestamp_epoch: integer
+    timestamp_utc: string
+    type: validation_error | site_connectivity_error | server_error
+  used_by: GET /api/v4/systems/{system_id}/live_data (text/event-stream)
+  schema: openapi/enphase-monitoring-api-openapi.json#getLiveData
+- name: commissioning-422
+  shape:
+    errorMessages: array of string
+    errorCode: string (optional)
+  used_by: Commissioning API 422
+non_standard_status_codes:
+- status: 461
+  status_name: INVALID_DURATION
+  meaning: Live-status duration below the 30s minimum
+- status: 462
+  status_name: INVALID_DURATION
+  meaning: Live-status duration above the 300s maximum
+- status: 463
+  status_name: INVALID_DURATION
+  meaning: Live-status duration is not an integer
+- status: 466
+  status_name: UNSUPPORTED_ENVOY
+  meaning: IQ Gateway (Envoy) must be active and on firmware 6.0.0 or later
+- status: 468
+  status_name: INVALID_SYSTEM_ID
+  meaning: System ID does not exist
+- status: 472
+  status_name: LIVE_STREAM_NOT_SUPPORTED
+  meaning: Site metering configuration does not support live stream
+- status: 473
+  status_name: IQ_GATEWAY_NOT_REPORTING
+  meaning: IQ Gateway is not reporting to the Enlighten cloud
+- status: 550
+  status_name: SERVICE_UNREACHABLE
+  meaning: Live-status service unreachable, retry
+- status: 551
+  status_name: SERVICE_UNREACHABLE
+  meaning: Live-status service unreachable, retry
+- status: 552
+  status_name: CONNECTION_NOT_ESTABLISHED
+  meaning: Unable to establish the live-status connection, retry
+documented_error_messages:
+- status: 401
+  message: API Key -Client mismatch
+  details: API Key and Client ID of the access token do not match
+  source: https://developer-v4.enphase.com/docs/release_notes
+- status: 429
+  message: Too Many Requests
+  details: Usage limit exceeded for plan <plan name> - the per-minute or per-month plan quota was exceeded
+  source: https://developer-v4.enphase.com/developer-plans
+- status: 501
+  message: Not Implemented
+  details: Returned for any HTTP method outside POST, PUT, GET, DELETE, HEAD, OPTIONS, PATCH on every
+    v4 endpoint
+  source: https://developer-v4.enphase.com/docs/release_notes
+problems:
+- status: 400
+  api: Enphase Monitoring API
+  title: Possible Bad request reasons
+  occurrences: 8
+  source_operation: openapi/enphase-monitoring-api-openapi.json#fetchChargersSummary
+  example:
+    application/octet-stream:
+      message: Bad request
+      code: '400'
+      details: Invalid system_id
+- status: 401
+  api: Enphase Monitoring API
+  title: Authentication Error
+  occurrences: 51
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems
+  example:
+    application/json:
+      message: Not Authorized
+      details: User is not authorized
+      code: 401
+- status: 403
+  api: Enphase Monitoring API
+  title: Forbidden
+  occurrences: 46
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}
+  example:
+    application/json:
+      message: Forbidden
+      details: Not authorized to access this resource
+      code: 403
+- status: 404
+  api: Enphase Monitoring API
+  title: Not Found
+  occurrences: 39
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}
+  example:
+    application/json:
+      message: Not Found
+      details: System not found for {:id=>"1"}
+      code: 404
+- status: 405
+  api: Enphase Monitoring API
+  title: Method Not Allowed
+  occurrences: 50
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems
+  example:
+    application/json:
+      reason: '405'
+      message:
+      - Method not allowed
+- status: 422
+  api: Enphase Monitoring API
+  title: Unprocessable Entity
+  occurrences: 34
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems
+  example:
+    application/json:
+      message: Unprocessable Entity
+      details: Invalid request because of 'The sorting parameter is not supported. Please use id for sorting
+        by Asc or -id for sorting by Desc'
+      code: 422
+- status: 429
+  api: Enphase Monitoring API
+  title: Too Many Requests
+  occurrences: 43
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems
+  example:
+    application/json:
+      message: Too Many Requests
+      details: Usage limit exceeded for plan Kilowatt
+      code: 429
+- status: 461
+  api: Enphase Monitoring API
+  title: Duration is less than 30 seconds. Response content type is application/json
+  occurrences: 1
+  source_operation: openapi/enphase-monitoring-api-openapi.json#getLiveData
+  example:
+    text/event-stream:
+      error:
+        code: 461
+        details:
+        - {}
+        message: Duration cannot be less than 30
+        status: INVALID_DURATION
+      timestamp_epoch: 1679041508556
+      timestamp_utc: '2023-03-17 08:25:08.556'
+      type: validation_error
+- status: 462
+  api: Enphase Monitoring API
+  title: Duration is greater than 300 seconds. Response content type is application/json
+  occurrences: 1
+  source_operation: openapi/enphase-monitoring-api-openapi.json#getLiveData
+  example:
+    text/event-stream:
+      error:
+        code: 462
+        details:
+        - {}
+        message: Duration cannot be greater than 300
+        status: INVALID_DURATION
+      timestamp_epoch: 1679041508556
+      timestamp_utc: '2023-03-17 08:25:08.556'
+      type: validation_error
+- status: 463
+  api: Enphase Monitoring API
+  title: Duration is not integer. Response content type is application/json
+  occurrences: 1
+  source_operation: openapi/enphase-monitoring-api-openapi.json#getLiveData
+  example:
+    text/event-stream:
+      error:
+        code: 463
+        details:
+        - {}
+        message: Duration must be an integer
+        status: INVALID_DURATION
+      timestamp_epoch: 1679041508556
+      timestamp_utc: '2023-03-17 08:25:08.556'
+      type: validation_error
+- status: 466
+  api: Enphase Monitoring API
+  title: Envoy must be active and envoy version must be at least 6.0.0. Response content type is application/json
+  occurrences: 1
+  source_operation: openapi/enphase-monitoring-api-openapi.json#getLiveData
+  example:
+    text/event-stream:
+      error:
+        code: 466
+        details:
+        - {}
+        message: Envoy must be active and envoy version must be at least 6.0.0
+        status: UNSUPPORTED_ENVOY
+      timestamp_epoch: 1679041508556
+      timestamp_utc: '2023-03-17 08:25:08.556'
+      type: validation_error
+- status: 468
+  api: Enphase Monitoring API
+  title: System ID does not exist. Response content type is application/json
+  occurrences: 1
+  source_operation: openapi/enphase-monitoring-api-openapi.json#getLiveData
+  example:
+    text/event-stream:
+      error:
+        code: 468
+        details:
+        - {}
+        message: System ID doesn't exist
+        status: INVALID_SYSTEM_ID
+      timestamp_epoch: 1677854252
+      timestamp_utc: '2023-03-17 08:25:08.556'
+      type: validation_error
+- status: 472
+  api: Enphase Monitoring API
+  title: For Ensemble sites, live stream will be supported in the following cases - If site has an active
+    battery or active system controller, then site must have  active production meter and active consumptio
+  occurrences: 1
+  source_operation: openapi/enphase-monitoring-api-openapi.json#getLiveData
+  example:
+    text/event-stream:
+      error:
+        code: 472
+        details:
+        - {}
+        message: The system doesn’t support live stream
+        status: LIVE_STREAM_NOT_SUPPORTED
+      timestamp_epoch: 1677854252
+      timestamp_utc: '2023-03-17 08:25:08.556'
+      type: validation_error
+- status: 473
+  api: Enphase Monitoring API
+  title: IQ gateway is not reporting. Response content type is application/json
+  occurrences: 1
+  source_operation: openapi/enphase-monitoring-api-openapi.json#getLiveData
+  example:
+    text/event-stream:
+      error:
+        code: 473
+        details:
+        - {}
+        message: IQ gateway is not reporting
+        status: IQ_GATEWAY_NOT_REPORTING
+      timestamp_epoch: 1677854252
+      timestamp_utc: '2023-03-17 08:25:08.556'
+      type: site_connectivity_error
+- status: 500
+  api: Enphase Monitoring API
+  title: Internal Server Error
+  occurrences: 10
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/devices
+  example:
+    application/json:
+      message: Internal Server Error
+      details: unable to fetch data
+      code: 500
+- status: 501
+  api: Enphase Monitoring API
+  title: Not Implemented
+  occurrences: 42
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems
+  example:
+    application/json:
+      reason: '501'
+      message:
+      - Not Implemented
+- status: 550
+  api: Enphase Monitoring API
+  title: Service unreachable. Response content type is application/json
+  occurrences: 1
+  source_operation: openapi/enphase-monitoring-api-openapi.json#getLiveData
+  example:
+    text/event-stream:
+      error:
+        code: 550
+        details:
+        - {}
+        message: Service unreachable, please try again
+        status: SERVICE_UNREACHABLE
+      timestamp_epoch: 1677854252
+      timestamp_utc: '2023-03-17 08:25:08.556'
+      type: server_error
+- status: 551
+  api: Enphase Monitoring API
+  title: Service unreachable. Response content type is application/json
+  occurrences: 1
+  source_operation: openapi/enphase-monitoring-api-openapi.json#getLiveData
+  example:
+    text/event-stream:
+      error:
+        code: 551
+        details:
+        - {}
+        message: Service unreachable, please try again
+        status: SERVICE_UNREACHABLE
+      timestamp_epoch: 1677854252
+      timestamp_utc: '2023-03-17 08:25:08.556'
+      type: server_error
+- status: 552
+  api: Enphase Monitoring API
+  title: Unable to connect. Response content type is application/json
+  occurrences: 1
+  source_operation: openapi/enphase-monitoring-api-openapi.json#getLiveData
+  example:
+    text/event-stream:
+      error:
+        code: 552
+        details:
+        - {}
+        message: Unable to connect, please try again
+        status: CONNECTION_NOT_ESTABLISHED
+      timestamp_epoch: 1677854252
+      timestamp_utc: '2023-03-17 08:25:08.556'
+      type: server_error
+- status: 401
+  api: Enphase Commissioning API
+  title: Unauthorized
+  occurrences: 31
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/battery_mode
+  example:
+    application/json:
+      reason: '401'
+      message:
+      - Not authorized to access requested resource.
+      - API Key missing in url/headers!
+- status: 404
+  api: Enphase Commissioning API
+  title: Not found
+  occurrences: 24
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/battery_mode
+  example:
+    application/json:
+      reason: '404'
+      message:
+      - System not found
+- status: 405
+  api: Enphase Commissioning API
+  title: Method Not Allowed
+  occurrences: 31
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/battery_mode
+  example:
+    application/json:
+      reason: '405'
+      message:
+      - Method not allowed
+- status: 422
+  api: Enphase Commissioning API
+  title: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional
+    errorCode
+  occurrences: 20
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/battery_mode
+  example:
+    application/json:
+      errorMessages:
+      - This is a PV only site. Battery mode can only be fetched for sites with Enphase battery systems
+- status: 429
+  api: Enphase Commissioning API
+  title: Too Many Requests
+  occurrences: 31
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/battery_mode
+  example:
+    application/json:
+      reason: '429'
+      message:
+      - Usage limit exceeded for plan Partner (custom)
+- status: 501
+  api: Enphase Commissioning API
+  title: Not Implemented
+  occurrences: 31
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/battery_mode
+  example:
+    application/json:
+      reason: '501'
+      message:
+      - Not Implemented
+- status: 400
+  api: Enphase VPP API
+  title: Bad Request
+  occurrences: 66
+  source_operation: openapi/enphase-vpp-api-openapi.json#getVPPByKey
+  example:
+    '*/*':
+      case-0: "{\r\n  \"code\": \"400\",\r\n  \"displayMessage\": \"Type Mismatch\",\r\n  \"additionalInfo\"\
+        : \"Cannot cast the parameter to required type xxxx\",\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\"\
+        ,\r\n}"
+      case-1: "{\r\n  \"code\": \"400\",\r\n  \"displayMessage\": \"Missing Parameter\",\r\n  \"additionalInfo\"\
+        : \"Required xxx parameter abc is not present\",\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\r\n\
+        }"
+      case-2: "{\r\n  \"code\": \"400\",\r\n  \"displayMessage\": \"Constraint Violation\",\r\n  \"additionalInfo\"\
+        : \"xxxx\",\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\r\n}"
+      case-3: "{\r\n  \"code\": \"400\",\r\n  \"displayMessage\": \"Content-Type invalid\",\r\n  \"additionalInfo\"\
+        : \"Content type xxx not supported\",\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\r\n}"
+      case-4: "{\r\n  \"code\": \"400\",\r\n  \"displayMessage\": \"Request headers or parameters are\
+        \ not appropriate\",\r\n  \"additionalInfo\": \"Request headers or parameters are not appropriate.\
+        \ Please check request headers and parameters\",\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\r\n\
+        }"
+- status: 401
+  api: Enphase VPP API
+  title: Unauthorized
+  occurrences: 66
+  source_operation: openapi/enphase-vpp-api-openapi.json#getVPPByKey
+  example:
+    '*/*':
+      case-0: "{\r\n  \"code\": \"401\",\r\n  \"displayMessage\": \"Authorization is not provided or invalid\"\
+        ,\r\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\"\
+        ,\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\r\n}"
+      case-1: "{\r\n  \"code\": \"401\",\r\n  \"displayMessage\": \"You are not authorized for this access\"\
+        ,\r\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\"\
+        ,\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\r\n}"
+- status: 403
+  api: Enphase VPP API
+  title: Forbidden
+  occurrences: 66
+  source_operation: openapi/enphase-vpp-api-openapi.json#getVPPByKey
+  example:
+    '*/*':
+      case-0: "{\r\n  \"code\": \"403\",\r\n  \"displayMessage\": \"VPP not found with key XYZ\",\r\n\
+        \  \"additionalInfo\": null,\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\r\n}"
+      case-1: "{\r\n  \"code\": \"403\",\r\n  \"displayMessage\": \"Account Id does not match with VPP\
+        \ Creator\",\r\n  \"additionalInfo\": null,\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\r\n}"
+      case-2: "{\r\n  \"message\": \"Forbidden\"\r\n}"
+      case-3: "{\r\n  \"code\": \"403\",\r\n  \"displayMessage\": \"x-api-key is not provided or invalid\"\
+        ,\r\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\"\
+        ,\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\r\n}"
+      case-4: "{\r\n  \"code\": \"403\",\r\n  \"displayMessage\": \"No account found for specified Authorization\"\
+        ,\r\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\"\
+        ,\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\r\n}"
+      case-5: "{\r\n  \"code\": \"403\",\r\n  \"displayMessage\": \"x-api-key is not valid for this account\"\
+        ,\r\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\"\
+        ,\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\r\n}"
+      case-6: "{\r\n  \"code\": \"403\",\r\n  \"displayMessage\": \"You do not have access to this resource\"\
+        ,\r\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\"\
+        ,\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\r\n}"
+- status: 404
+  api: Enphase VPP API
+  title: Not Found
+  occurrences: 66
+  source_operation: openapi/enphase-vpp-api-openapi.json#getVPPByKey
+  example:
+    '*/*':
+      case-0: "{\r\n  \"code\": \"404\",\r\n  \"displayMessage\": \"Requested resource Not Found\",\r\n\
+        \  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\r\n  \"errorRefNo\"\
+        : \"e20fdf9aa241bea9\",\r\n}"
+- status: 409
+  api: Enphase VPP API
+  title: Conflict
+  occurrences: 1
+  source_operation: openapi/enphase-vpp-api-openapi.json#createApplication
+  example:
+    '*/*':
+      case-0: "{\r\n  \"code\": \"409\",\r\n  \"displayMessage\": \"Application ID: xxxx for site_id =\
+        \ xxxx processed successfully but Enrollment creation rejected. Reason - xxxx\",\r\n  \"additionalInfo\"\
+        : null,\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\r\n}"
+- status: 422
+  api: Enphase VPP API
+  title: Unprocessable Entity
+  occurrences: 66
+  source_operation: openapi/enphase-vpp-api-openapi.json#getVPPByKey
+  example:
+    '*/*':
+      case-0: "{\r\n  \"code\": \"422\",\r\n  \"displayMessage\": \"Unprocessable Entity\",\r\n  \"additionalInfo\"\
+        : \"Unprocessable Entity. Please check your request\",\r\n  \"errorRefNo\": \"e20fdf9aa241bea9\"\
+        ,\r\n}"

@@ -1,0 +1,80 @@
+generated: '2026-07-27'
+method: searched
+source: https://developer-v4.enphase.com/aboutproduct.html
+versioning:
+  scheme: uri-path
+  current:
+  - api: Enphase Monitoring API
+    version: v4
+    path: /api/v4
+  - api: Enphase Commissioning API
+    version: v4
+    path: /api/v4
+  - api: Enphase VPP API
+    version: v1 with a v2 events resource
+    path: /api/v1, /api/v2
+    spec_version: 1.1.0
+  docs: https://developer-v4.enphase.com/docs/quickstart.html
+  notes: >-
+    No header or date-based versioning. v4 launched February 23, 2022 as a separate portal from
+    the v2 developer site; v2 credentials and applications did not carry over.
+deprecation:
+  formal_policy_published: false
+  policy_url: https://developer-v4.enphase.com/aboutproduct.html
+  sunset_header: false
+  deprecation_header: false
+  practice: >-
+    Enphase announces end-of-life by dated notice on the About API v4 page and by banner on every
+    developer portal page, then repeats it in the release notes. It publishes no written notice
+    period, no RFC 8594 Sunset or Deprecation headers, and no deprecated flags in any spec.
+  announced_end_of_life:
+  - subject: Enphase API v2
+    original_date: '2022-08-15'
+    extended_to: '2024-06-30'
+    note: >-
+      Announced with the v4 launch, extended twice, phased out for all customers. v4 carries a
+      different pricing model and a different licence agreement.
+    source: https://developer-v4.enphase.com/aboutproduct.html
+  - subject: TLS versions below 1.2
+    date: '2023-04-01'
+    note: The API accepts only TLS 1.2 from this date and rejects applications on older TLS versions.
+    source: https://developer-v4.enphase.com/docs/quickstart.html
+  behaviour_changes_without_version_bump:
+  - date: '2023-07-03'
+    change: >-
+      GET /api/v4/systems and POST /api/v4/systems/search permanently return energy_lifetime,
+      energy_today and system_size as -1. Shipped inside v4 with no new version.
+    source: https://developer-v4.enphase.com/docs/release_notes
+  deprecated_operations: []
+status_page:
+  published: false
+  evidence:
+  - url: https://enphase.statuspage.io
+    status: 200
+    note: Atlassian Statuspage exists but is marked "Page Inactive - can only be viewed by team members".
+  - url: https://status.enphase.com
+    status: no DNS
+  - url: https://status.enphaseenergy.com
+    status: no DNS
+  note: No public uptime, incident or maintenance page for the developer APIs.
+sla:
+  published: false
+  note: >-
+    No uptime target or service credit is published for any plan, including the paid Kilowatt
+    ($249/mo), Megawatt ($999/mo) and Partner plans. The API licence agreement is the only
+    contractual document.
+  licence: https://enphase.com/api-license-agreement-v4
+support:
+  channel: email + web form
+  url: https://developer-v4.enphase.com/docs/support
+  email: api@enphaseenergy.com
+  community: https://community.enphase.com/
+release_notes: https://developer-v4.enphase.com/docs/release_notes
+changelog_artifact: changelog/enphase-changelog.yml
+data_retention:
+- subject: events and alarms
+  window: readable for 6 months, maximum 7 days per request
+- subject: interval telemetry
+  window: start date must be within 2 years, maximum 7 days per request
+- subject: lifetime series
+  window: no restriction

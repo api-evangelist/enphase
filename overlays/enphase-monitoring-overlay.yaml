@@ -1,0 +1,63 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Enphase Monitoring API
+  version: 1.0.0
+extends: openapi/enphase-monitoring-api-openapi.json
+x-generated: '2026-07-27'
+x-method: generated
+x-notes:
+- 'Production host corrected: the published spec declares host api-qa2.enphaseenergy.com (an Enphase QA
+  host). The documented production host is api.enphaseenergy.com.'
+- 'Security schemes added: the published spec declares none, but every operation requires an OAuth 2.0
+  bearer token plus the application API key as the key query parameter.'
+actions:
+- target: $.info
+  description: Stamp API Evangelist provenance
+  update:
+    x-apievangelist-slug: enphase
+    x-apievangelist-api: enphase:enphase-monitoring-api
+    x-apievangelist-source: https://developer-v4.enphase.com/swagger/spec/System_API.json
+    x-apievangelist-artifacts:
+    - authentication/enphase-authentication.yml
+    - conventions/enphase-conventions.yml
+    - errors/enphase-problem-types.yml
+    - rate-limits/enphase-rate-limits.yml
+- target: $
+  description: Correct the QA host to the documented production host
+  update:
+    host: api.enphaseenergy.com
+- target: $
+  description: Declare the security schemes the docs require but the spec omits
+  update:
+    securityDefinitions:
+      oauth2:
+        type: oauth2
+        flow: accessCode
+        authorizationUrl: https://api.enphaseenergy.com/oauth/authorize
+        tokenUrl: https://api.enphaseenergy.com/oauth/token
+        scopes:
+          read: Read system data the system owner has approved
+          write: Write system configuration the system owner has approved
+      api_key:
+        type: apiKey
+        name: key
+        in: query
+        description: Application API key issued by the Enphase Developer Portal
+    security:
+    - oauth2:
+      - read
+      - write
+      api_key: []
+- target: $.info
+  description: Record the plan-gated access-control model
+  update:
+    x-access-controls:
+    - System Details
+    - Site Level Production Monitoring
+    - Site Level Consumption Monitoring
+    - Device Level Monitoring
+    - System Configurations
+    - Streaming API
+    - EV Charger Monitoring
+    - EV Charger Control
+    x-plans: plans/enphase-plans.yml

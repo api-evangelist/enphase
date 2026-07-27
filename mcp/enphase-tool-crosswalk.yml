@@ -1,0 +1,370 @@
+generated: '2026-07-27'
+method: derived
+source: https://github.com/xianman/enphase-mcp + openapi/enphase-monitoring-api-openapi.json
+notes: Enphase publishes no first-party MCP server, so the tool column here is the published tool list
+  of the community Enphase Solar MCP Server (MIT, wraps the official Developer API v4). Every tool is
+  bound to the Monitoring API operation that backs it, which is where its real inputSchema comes from.
+  The Monitoring spec omits operationIds on most operations, so bindings are recorded as METHOD path except
+  for the ten operations that do carry an operationId. Mapped by name and by the endpoint list published
+  in the server README - no live tool schemas were introspected.
+surfaces:
+  openapi:
+  - openapi/enphase-monitoring-api-openapi.json
+  - openapi/enphase-commissioning-api-openapi.json
+  - openapi/enphase-vpp-api-openapi.json
+  graphql: null
+  mcp:
+    url: null
+    repo: https://github.com/xianman/enphase-mcp
+    official: false
+    transport: stdio
+    gated: tools/list requires running the server locally with a homeowner-authorised OAuth token; no
+      hosted endpoint exists
+crosswalk:
+- tool: get_systems
+  category: overview
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems
+  binding: rest
+  confidence: high
+- tool: get_system_summary
+  category: overview
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/summary
+  binding: rest
+  confidence: high
+- tool: get_latest_telemetry
+  category: overview
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/latest_telemetry
+  binding: rest
+  confidence: high
+- tool: get_live_data
+  category: overview
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#getLiveData
+  binding: rest
+  confidence: high
+  note: text/event-stream live-status stream; Streaming API access control, Kilowatt plan or above
+- tool: get_devices
+  category: overview
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/devices
+  binding: rest
+  confidence: high
+- tool: get_lifetime_production
+  category: lifetime
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/energy_lifetime
+  binding: rest
+  confidence: high
+- tool: get_lifetime_consumption
+  category: lifetime
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/consumption_lifetime
+  binding: rest
+  confidence: high
+- tool: get_lifetime_battery
+  category: lifetime
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/battery_lifetime
+  binding: rest
+  confidence: high
+- tool: get_lifetime_grid_import
+  category: lifetime
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/energy_import_lifetime
+  binding: rest
+  confidence: high
+- tool: get_lifetime_grid_export
+  category: lifetime
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/energy_export_lifetime
+  binding: rest
+  confidence: high
+- tool: get_production_telemetry
+  category: telemetry
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/telemetry/production_meter
+  binding: rest
+  confidence: high
+- tool: get_consumption_telemetry
+  category: telemetry
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/telemetry/consumption_meter
+  binding: rest
+  confidence: high
+- tool: get_battery_telemetry
+  category: telemetry
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/telemetry/battery
+  binding: rest
+  confidence: high
+- tool: get_grid_import_telemetry
+  category: telemetry
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/energy_import_telemetry
+  binding: rest
+  confidence: high
+- tool: get_grid_export_telemetry
+  category: telemetry
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/energy_export_telemetry
+  binding: rest
+  confidence: high
+- tool: get_events
+  category: events
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/events
+  binding: rest
+  confidence: high
+- tool: get_open_events
+  category: events
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/open_events
+  binding: rest
+  confidence: high
+- tool: get_alarms
+  category: events
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/alarms
+  binding: rest
+  confidence: high
+- tool: get_open_alarms
+  category: events
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/open_alarms
+  binding: rest
+  confidence: high
+- tool: get_event_types
+  category: events
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/event_types
+  binding: rest
+  confidence: high
+- tool: get_battery_settings
+  category: config-read
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/config/{system_id}/battery_settings
+  binding: rest
+  confidence: high
+- tool: get_storm_guard_settings
+  category: config-read
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/config/{system_id}/storm_guard
+  binding: rest
+  confidence: high
+- tool: get_grid_status
+  category: config-read
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/config/{system_id}/grid_status
+  binding: rest
+  confidence: high
+- tool: get_load_control_settings
+  category: config-read
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/config/{system_id}/load_control
+  binding: rest
+  confidence: high
+- tool: get_ev_charger_devices
+  category: ev-charger
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#fetchChargersSummary
+  binding: rest
+  confidence: high
+- tool: get_ev_charger_events
+  category: ev-charger
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#fetchEvents
+  binding: rest
+  confidence: high
+- tool: get_ev_charger_lifetime
+  category: ev-charger
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#fetchDailyEnergyConsumptionData
+  binding: rest
+  confidence: high
+- tool: get_ev_charger_telemetry
+  category: ev-charger
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#fetchEnergyConsumptionData
+  binding: rest
+  confidence: high
+- tool: get_ev_charger_sessions
+  category: ev-charger
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#fetchChargerSessionHistory
+  binding: rest
+  confidence: high
+- tool: get_ev_charger_schedules
+  category: ev-charger
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#fetchSchedules
+  binding: rest
+  confidence: high
+- tool: update_battery_settings
+  category: write
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#PUT /api/v4/systems/config/{system_id}/battery_settings
+  binding: rest
+  confidence: high
+  note: 'Physical consequence: changes battery operating mode and reserve. Megawatt or Partner plan (System
+    Configurations access control).'
+- tool: start_ev_charging
+  category: write
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#startCharging
+  binding: rest
+  confidence: high
+  note: 'Physical consequence: energises an IQ EV charger. Partner plan (EV Charger Control access control).'
+- tool: stop_ev_charging
+  category: write
+  rest:
+  - openapi/enphase-monitoring-api-openapi.json#stopCharging
+  binding: rest
+  confidence: high
+  note: 'Physical consequence: stops an active charge session. Partner plan (EV Charger Control access
+    control).'
+mcp_only: []
+rest_only:
+- capability: Enphase Commissioning API
+  operations:
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/battery_mode
+  - openapi/enphase-commissioning-api-openapi.json#PUT /api/v4/activations/{activation_id}/battery_mode
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/activations
+  - openapi/enphase-commissioning-api-openapi.json#POST /api/v4/partner/activations
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/activations/{activation_id}
+  - openapi/enphase-commissioning-api-openapi.json#PUT /api/v4/partner/activations/{activation_id}
+  - openapi/enphase-commissioning-api-openapi.json#DELETE /api/v4/partner/activations/{activation_id}
+  - openapi/enphase-commissioning-api-openapi.json#POST /api/v4/activations/{activation_id}/users/{user_id}
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/users/{user_id}
+  - openapi/enphase-commissioning-api-openapi.json#PUT /api/v4/activations/{activation_id}/users/{user_id}
+  - openapi/enphase-commissioning-api-openapi.json#DELETE /api/v4/activations/{activation_id}/users/{user_id}
+  - openapi/enphase-commissioning-api-openapi.json#POST /api/v4/activations/{activation_id}/ops/production_mode
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/ops/production_mode
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/companies/{company_id}/users
+  - openapi/enphase-commissioning-api-openapi.json#POST /api/v4/companies/{company_id}/users
+  - openapi/enphase-commissioning-api-openapi.json#POST /api/v4/users
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/users/search
+  - openapi/enphase-commissioning-api-openapi.json#PUT /api/v4/companies/{company_id}/users/{user_id}
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/users/{user_id}
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/users/self
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/companies/self/branches
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/companies/self/authorized_subcontractors
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/estimate
+  - openapi/enphase-commissioning-api-openapi.json#PUT /api/v4/activations/{activation_id}/estimate
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/grid_profiles
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/systems/{system_id}/meters/{serial_number}
+  - openapi/enphase-commissioning-api-openapi.json#POST /api/v4/activations/{activation_id}/meters/{serial_number}/meter_control
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/pv_manufacturers
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/pv_manufacturers/{pv_manufacturer_id}/pv_models
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/systems/config/{system_id}/tariff
+  - openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/systems/{system_id}/arrays
+- capability: Enphase Monitoring API
+  operations:
+  - openapi/enphase-monitoring-api-openapi.json#POST /api/v4/systems/search
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/retrieve_system_id
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/production_meter_readings
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/consumption_meter_readings
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/storage_meter_readings
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/rgm_stats
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/inverters_summary_by_envoy_or_site
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/telemetry/production_micro
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/devices/micros/telemetry
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/devices/micros/{serial_no}/telemetry
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/devices/encharges/{serial_no}/telemetry
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/{serial_no}/evse_lifetime
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/hp_lifetime
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/{serial_no}/evse_telemetry
+  - openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/hp_telemetry
+  - openapi/enphase-monitoring-api-openapi.json#PUT /api/v4/systems/config/{system_id}/storm_guard
+  - openapi/enphase-monitoring-api-openapi.json#PUT /api/v4/systems/config/{system_id}/load_control
+- capability: Enphase VPP API - Applications
+  operations:
+  - openapi/enphase-vpp-api-openapi.json#getApplicationBySiteId
+  - openapi/enphase-vpp-api-openapi.json#updateApplication
+  - openapi/enphase-vpp-api-openapi.json#withdrawApplication
+  - openapi/enphase-vpp-api-openapi.json#getApplications
+  - openapi/enphase-vpp-api-openapi.json#createApplication
+- capability: Enphase VPP API - Auth
+  operations:
+  - openapi/enphase-vpp-api-openapi.json#getToken
+- capability: Enphase VPP API - Events
+  operations:
+  - openapi/enphase-vpp-api-openapi.json#getEventDetails
+  - openapi/enphase-vpp-api-openapi.json#updateEvent
+  - openapi/enphase-vpp-api-openapi.json#cancelEvent
+  - openapi/enphase-vpp-api-openapi.json#optOutOptInEvent
+  - openapi/enphase-vpp-api-openapi.json#getEvents
+  - openapi/enphase-vpp-api-openapi.json#createEvent
+  - openapi/enphase-vpp-api-openapi.json#getEvents_1
+  - openapi/enphase-vpp-api-openapi.json#createEvent_1
+  - openapi/enphase-vpp-api-openapi.json#getEventDetails_1
+  - openapi/enphase-vpp-api-openapi.json#cancelEvent_1
+- capability: Enphase VPP API - Forecast
+  operations:
+  - openapi/enphase-vpp-api-openapi.json#getForecast
+- capability: Enphase VPP API - Manage VPPs
+  operations:
+  - openapi/enphase-vpp-api-openapi.json#getVPPByKey
+  - openapi/enphase-vpp-api-openapi.json#updateVPP
+  - openapi/enphase-vpp-api-openapi.json#deleteVPPByKey
+  - openapi/enphase-vpp-api-openapi.json#getAllVPPByKey
+  - openapi/enphase-vpp-api-openapi.json#createVPP
+- capability: Enphase VPP API - Programs
+  operations:
+  - openapi/enphase-vpp-api-openapi.json#getAllPrograms
+  - openapi/enphase-vpp-api-openapi.json#getProgramByKey
+- capability: Enphase VPP API - System Details And Telemetry
+  operations:
+  - openapi/enphase-vpp-api-openapi.json#getDeviceLevelEVSETelemetry
+  - openapi/enphase-vpp-api-openapi.json#getDeviceLevelEVSELifeTimeTelemetry
+  - openapi/enphase-vpp-api-openapi.json#getProductionMicroTelemetry
+  - openapi/enphase-vpp-api-openapi.json#getProductionMeterReadings
+  - openapi/enphase-vpp-api-openapi.json#getProductionMeterTelemetry
+  - openapi/enphase-vpp-api-openapi.json#getImportTelemetry
+  - openapi/enphase-vpp-api-openapi.json#getExportTelemetry
+  - openapi/enphase-vpp-api-openapi.json#getConsumptionMeterReadings
+  - openapi/enphase-vpp-api-openapi.json#getConsumptionMeterTelemetry
+  - openapi/enphase-vpp-api-openapi.json#getBatteryTelemetry
+  - openapi/enphase-vpp-api-openapi.json#getSiteSummary
+  - openapi/enphase-vpp-api-openapi.json#getStormGuardSettings
+  - openapi/enphase-vpp-api-openapi.json#getStorageMeterReadings
+  - openapi/enphase-vpp-api-openapi.json#getSiteOpenEvents
+  - openapi/enphase-vpp-api-openapi.json#getSiteEvents
+  - openapi/enphase-vpp-api-openapi.json#getSiteAlarms
+  - openapi/enphase-vpp-api-openapi.json#getProductionLifeTime
+  - openapi/enphase-vpp-api-openapi.json#getPELPCSSettings
+  - openapi/enphase-vpp-api-openapi.json#getLatestTelemetry
+  - openapi/enphase-vpp-api-openapi.json#getLifeTimeImport
+  - openapi/enphase-vpp-api-openapi.json#getDeviceLevelHPTelemetry
+  - openapi/enphase-vpp-api-openapi.json#getDeviceLevelHPLifeTimeTelemetry
+  - openapi/enphase-vpp-api-openapi.json#getGridStatusSettings
+  - openapi/enphase-vpp-api-openapi.json#getLifeTimeExport
+  - openapi/enphase-vpp-api-openapi.json#getDevices
+  - openapi/enphase-vpp-api-openapi.json#getDeviceLevelPVProductionTelemetry
+  - openapi/enphase-vpp-api-openapi.json#getDeviceLevelEnchargeTelemetry
+  - openapi/enphase-vpp-api-openapi.json#getConsumptionLifeTime
+  - openapi/enphase-vpp-api-openapi.json#getBatterySettings
+  - openapi/enphase-vpp-api-openapi.json#getBatteryLifeTime
+  - openapi/enphase-vpp-api-openapi.json#getSystems
+  - openapi/enphase-vpp-api-openapi.json#getEventTypes
+- capability: Enphase VPP API - System and Device Configuration
+  operations:
+  - openapi/enphase-vpp-api-openapi.json#stopStream
+  - openapi/enphase-vpp-api-openapi.json#startStream
+  - openapi/enphase-vpp-api-openapi.json#getSiteSettings
+  - openapi/enphase-vpp-api-openapi.json#updateSiteSettings
+  - openapi/enphase-vpp-api-openapi.json#registerSiteForLiveStream
+  - openapi/enphase-vpp-api-openapi.json#generateLocalApiToken
+  - openapi/enphase-vpp-api-openapi.json#resetEvse
+  - openapi/enphase-vpp-api-openapi.json#registerEvse
+  - openapi/enphase-vpp-api-openapi.json#getLiveStreamRegistrationStatus
+  - openapi/enphase-vpp-api-openapi.json#getEVSEConfigurationStatus
+coverage:
+  tools_named: 33
+  tools_bound: 33
+  mcp_only: 0
+  rest_operations_total: 148
+  rest_operations_with_a_tool: 33

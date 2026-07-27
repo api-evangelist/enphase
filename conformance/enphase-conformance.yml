@@ -1,0 +1,148 @@
+generated: '2026-07-27'
+method: searched
+source: https://developer-v4.enphase.com/docs/quickstart.html
+derived_from:
+- openapi/enphase-monitoring-api-openapi.json
+- openapi/enphase-commissioning-api-openapi.json
+- openapi/enphase-vpp-api-openapi.json
+summary: >-
+  Enphase implements exactly one recognised interoperability standard in its API surface - OCPP
+  1.6, on the VPP EV-charger endpoints. Everything else is house-style REST over OAuth 2.0. No
+  energy-sector data standard appears anywhere: every spec and every fetched documentation page
+  was searched for green button, ESPI, NAESB, OpenADR, IEEE 2030.5, IEC 61968, IEC 61970 and CIM
+  with zero hits, consistent with Enphase being a DER manufacturer rather than a utility or
+  retailer under any consumer energy data mandate.
+standards:
+- id: oauth2
+  name: OAuth 2.0 (RFC 6749)
+  conforms: true
+  evidence: >-
+    Authorization-code grant for developer applications, resource-owner password grant for
+    installer/partner applications, client-credentials grant for the VPP API. Token endpoint
+    https://api.enphaseenergy.com/oauth/token and https://vpp.enphaseenergy.com/auth/oauth2/token.
+  source: https://developer-v4.enphase.com/docs/quickstart.html
+  caveat: >-
+    The password grant is removed in OAuth 2.1; PKCE is not offered; token requests pass
+    parameters in the query string rather than a form body in the published samples.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on api.enphaseenergy.com and
+    developer-v4.enphase.com. No id_token is issued.
+- id: rfc8414-as-metadata
+  name: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returns 404 on every Enphase host probed.
+- id: rfc9116-security-txt
+  name: security.txt (RFC 9116)
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on api.enphaseenergy.com and
+    developer-v4.enphase.com, 403 on enphase.com.
+- id: rfc9457-problem-details
+  name: Problem Details for HTTP APIs (RFC 9457)
+  conforms: false
+  evidence: Errors are vendor JSON objects; no application/problem+json anywhere in the three specs.
+- id: rfc8594-sunset-header
+  name: Sunset HTTP Header (RFC 8594)
+  conforms: false
+  evidence: No Sunset or Deprecation headers documented; end-of-life is announced on a web page.
+- id: ocpp-1.6
+  name: Open Charge Point Protocol 1.6
+  conforms: true
+  evidence: >-
+    POST /api/v1/systems/{site_id}/devices/evse/{serial_no}/ocpp_configuration (registerEvse),
+    POST .../ocpp_reset (resetEvse) and GET .../ocpp_configuration/status
+    (getEVSEConfigurationStatus) configure an Enphase IQ EV charger against a third-party Charging
+    Station Management System over OCPP 1.6, using OCPPConfigurationRequest /
+    OCPPConfigurationResponse / OCPPResetResponse / OCPPConfigurationStatusResponse schemas.
+  source: openapi/enphase-vpp-api-openapi.json
+- id: openapi-3
+  name: OpenAPI 3.0.1
+  conforms: true
+  evidence: The VPP API publishes OpenAPI 3.0.1 with 55 paths, 96 component schemas and 8 tags at
+    https://vpp.enphaseenergy.com/auth/getApiSpec.
+- id: swagger-2
+  name: Swagger 2.0
+  conforms: true
+  evidence: The Monitoring API (48 paths) and Commissioning API (21 paths) publish Swagger 2.0 at
+    https://developer-v4.enphase.com/swagger/spec/System_API.json and /swagger/spec/partner_api.json.
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: >-
+    Enphase publishes no AsyncAPI document and operates no webhook or broker surface. The only
+    event-shaped surface is the HTTP live-status SSE stream, captured as a derived AsyncAPI in
+    asyncapi/enphase-live-status-asyncapi.yml.
+- id: json-api
+  name: 'JSON:API'
+  conforms: false
+  evidence: Responses are plain JSON with a house pagination envelope (total/current_page/size/count/items).
+- id: odata
+  name: OData
+  conforms: false
+- id: scim
+  name: SCIM 2.0
+  conforms: false
+  evidence: Commissioning API user management is a proprietary /users surface.
+- id: fhir-r4
+  name: FHIR R4
+  conforms: false
+  applicable: false
+- id: fapi
+  name: FAPI
+  conforms: false
+  applicable: false
+- id: psd2
+  name: PSD2
+  conforms: false
+  applicable: false
+- id: green-button-espi
+  name: Green Button / ESPI (NAESB REQ.21)
+  conforms: false
+  evidence: >-
+    Zero hits for "green button", "espi" or "naesb" across all three specs and every fetched
+    portal page. Enphase is not a data holder under any energy consumer data right.
+- id: openadr
+  name: OpenADR 2.0b / 3.0
+  conforms: false
+  evidence: >-
+    Zero hits for "openadr" across the specs. VPP demand-response events are dispatched through
+    Enphase's own /api/v2/events surface, not an OpenADR VTN/VEN exchange.
+- id: ieee-2030.5
+  name: IEEE 2030.5 (SEP2)
+  conforms: false
+  evidence: Zero hits for "2030.5" across the specs.
+- id: iec-61968-cim
+  name: IEC 61968 / 61970 CIM
+  conforms: false
+  evidence: Zero hits for "61968", "61970" or "CIM" across the specs.
+- id: cdr-energy
+  name: Australian Consumer Data Right - energy
+  conforms: false
+  applicable: false
+  evidence: CDR energy designates retailers and AEMO, not equipment manufacturers. See review.yml.
+- id: tls-1.2
+  name: TLS 1.2 minimum
+  conforms: true
+  evidence: >-
+    Announced April 1, 2023 - the API accepts only TLS 1.2 and above. Live probe confirms TLSv1.2
+    on enphase.com and developer-v4.enphase.com, TLSv1.3 on api.enphaseenergy.com.
+  source: security/enphase-domain-security.yml
+compliance_claims:
+- claim: EU Radio Equipment Directive (RED) Article 3.3 cybersecurity requirements
+  scope: product/hardware - all Enphase products subject to RED Article 3.3
+  effective: '2025-08-01'
+  announced: '2025-08-21'
+  certification_body: not disclosed
+  source: https://investor.enphase.com/news-releases/news-release-details/enphase-energy-achieves-compliance-europes-new-cybersecurity
+  note: >-
+    A product-level radio-equipment cybersecurity certification announced by press release. It is
+    not an organisational or cloud certification and Enphase publishes no SOC 2, ISO 27001, PCI
+    DSS, HIPAA or FedRAMP attestation, and no trust centre.
+gaps:
+- No trust centre, no published certifications for the Enlighten cloud or the developer APIs.
+- No machine-readable discovery documents of any kind (/.well-known is empty on every host).
+related:
+- security/enphase-vulnerability-disclosure.yml
+- security/enphase-domain-security.yml
+- well-known/enphase-well-known.yml

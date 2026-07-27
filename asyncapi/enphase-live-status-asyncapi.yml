@@ -1,0 +1,173 @@
+asyncapi: 3.0.0
+info:
+  title: Enphase Enlighten Live Status Stream
+  version: v4
+  description: Server-sent event stream of a single Enphase system's real-time power state. Derived by
+    API Evangelist from the published Monitoring API operation getLiveData, which produces text/event-stream
+    and carries a complete message schema and example in the spec. Enphase publishes no AsyncAPI document
+    and operates no webhook or message-broker surface; this HTTP live-status stream is the only event-shaped
+    surface in the Enphase v4 platform. The stream is opened by an HTTP GET and runs for a caller-chosen
+    30-300 seconds, then closes.
+  contact:
+    name: Enphase API Support
+    email: api@enphaseenergy.com
+    url: https://developer-v4.enphase.com/docs/support
+  x-generated: '2026-07-27'
+  x-method: derived
+  x-source: openapi/enphase-monitoring-api-openapi.json#getLiveData
+  x-source-url: https://developer-v4.enphase.com/swagger/spec/System_API.json
+  x-plan-requirement: Streaming API access control - Kilowatt plan or above
+servers:
+  production:
+    host: api.enphaseenergy.com
+    protocol: https
+    description: Enphase Enlighten Systems API v4
+channels:
+  liveStatus:
+    address: /api/v4/systems/{system_id}/live_data
+    title: System live status
+    description: SSE frames for the requested duration. The duration header accepts 30-300 seconds, default
+      30. Requires an IQ Gateway on firmware 6.0.0 or later.
+    parameters:
+      system_id:
+        description: The unique numeric ID of the Enlighten system
+    messages:
+      liveStatusFrame:
+        $ref: '#/components/messages/liveStatusFrame'
+      streamError:
+        $ref: '#/components/messages/streamError'
+operations:
+  receiveLiveStatus:
+    action: receive
+    channel:
+      $ref: '#/channels/liveStatus'
+    summary: Receive real-time PV, consumption, battery, generator and grid power for one system
+    security:
+    - $ref: '#/components/securitySchemes/oauth2'
+    - $ref: '#/components/securitySchemes/apiKey'
+    messages:
+    - $ref: '#/channels/liveStatus/messages/liveStatusFrame'
+    - $ref: '#/channels/liveStatus/messages/streamError'
+components:
+  messages:
+    liveStatusFrame:
+      name: liveStatusFrame
+      title: Live status frame
+      contentType: text/event-stream
+      payload:
+        properties:
+          data:
+            properties:
+              battery_mode:
+                description: Battery mode of the site; Possible values are Savings Mode, Full Backup,
+                  and Self-consumption
+                type: string
+              battery_power:
+                description: Battery power in watts; Power will be positive in case of discharge and negative
+                  in case of charge
+                type: integer
+              battery_soc:
+                description: Battery soc in percentage
+                type: integer
+              consumption_power:
+                description: Consumption power in watts
+                type: integer
+              envoy_serial_number:
+                items:
+                  description: Serial number of the envoy; For multi-envoy sites, the data will be returned
+                    only for one of the envoys
+                  type: string
+                type: array
+              generator_power:
+                description: Generator power in watts
+                type: integer
+              grid_power:
+                description: Grid power in watts; Power will be negative in case of export and positive
+                  in case of import
+                type: integer
+              grid_status:
+                description: Grid state of the site; Possible values are On Grid, Off Grid, Unknown
+                type: string
+              pv_power:
+                description: PV power in watts
+                type: integer
+              system_id:
+                description: The unique numeric ID of the system
+                type: integer
+            type: object
+          timestamp_epoch:
+            description: timestamp in epoch format
+            type: integer
+          timestamp_utc:
+            description: timestamp in UTC format
+            type: string
+          type:
+            description: response
+            type: string
+        type: object
+      examples:
+      - name: sample
+        payload:
+          data:
+            battery_mode: Savings Mode
+            battery_power: 5
+            battery_soc: 40
+            consumption_power: 15
+            envoy_serial_number:
+            - '1234'
+            generator_power: 0
+            grid_power: -10
+            grid_status: On Grid
+            pv_power: 30
+            system_id: 123
+          timestamp_epoch: 1679041508556
+          timestamp_utc: '2023-03-17 08:25:08.556'
+          type: response
+    streamError:
+      name: streamError
+      title: Live status error frame
+      contentType: text/event-stream
+      summary: 'Error frames carry the Enphase stream error envelope. Codes: 401, 403, 429, 461/462/463
+        INVALID_DURATION, 466 UNSUPPORTED_ENVOY, 468 INVALID_SYSTEM_ID, 472 LIVE_STREAM_NOT_SUPPORTED,
+        473 IQ_GATEWAY_NOT_REPORTING, 550/551 SERVICE_UNREACHABLE, 552 CONNECTION_NOT_ESTABLISHED. See
+        errors/enphase-problem-types.yml.'
+      payload:
+        type: object
+        properties:
+          error:
+            type: object
+            properties:
+              code:
+                type: integer
+              message:
+                type: string
+              status:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+          timestamp_epoch:
+            type: integer
+          timestamp_utc:
+            type: string
+          type:
+            type: string
+            enum:
+            - validation_error
+            - site_connectivity_error
+            - server_error
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.enphaseenergy.com/oauth/authorize
+          tokenUrl: https://api.enphaseenergy.com/oauth/token
+          availableScopes:
+            read: Read system data approved by the system owner
+    apiKey:
+      type: httpApiKey
+      name: key
+      in: query
+      description: Application API key issued by the Enphase Developer Portal

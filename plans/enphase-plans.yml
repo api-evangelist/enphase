@@ -1,0 +1,122 @@
+generated: '2026-07-27'
+method: searched
+source: https://developer-v4.enphase.com/developer-plans
+also:
+- https://developer-v4.enphase.com/installer-plans
+- https://developer-v4.enphase.com/vpp-plans
+currency: USD
+model: >-
+  Self-serve tiered subscription on the Monitoring API, application-approval Partner tier for the
+  Commissioning API, and contact-sales only for the VPP API. Paid plans require a credit card on
+  file; overage is metered per hit. Access controls - the endpoint groups an application may call
+  - are attached to the plan, so the plan is also the authorization tier. See
+  scopes/enphase-scopes.yml.
+overage_contact: api@enphaseenergy.com
+plans:
+- name: Watt
+  audience: developers and homeowners
+  price: 0
+  price_display: Free
+  rate_limits:
+    per_minute: 10
+    per_month: 1000
+  access_controls:
+  - System Details
+  - Site Level Production Monitoring
+  - Site Level Consumption Monitoring
+  - EV Charger Monitoring
+  signup: https://developer-v4.enphase.com/signup
+  self_serve: true
+  card_required: false
+- name: Kilowatt
+  audience: developers needing device-level data
+  price: 249
+  price_display: USD 249.00/mo.
+  rate_limits:
+    per_minute: 50
+    per_month: 50000
+  metered:
+  - unit: Live Status hit
+    price: 0.1
+  overage:
+    unit: hit
+    price: 0.005
+    note: enabled on request via api@enphaseenergy.com
+  access_controls:
+  - System Details
+  - Site Level Production Monitoring
+  - Site Level Consumption Monitoring
+  - Device Level Monitoring
+  - Streaming API
+  - EV Charger Monitoring
+  self_serve: true
+  card_required: true
+- name: Megawatt
+  audience: developers needing system configuration writes
+  price: 999
+  price_display: USD 999.00/mo.
+  rate_limits:
+    per_minute: 100
+    per_month: 300000
+  metered:
+  - unit: Live Status hit
+    price: 0.1
+  overage:
+    unit: hit
+    price: 0.005
+    note: enabled on request via api@enphaseenergy.com
+  access_controls:
+  - System Details
+  - Site Level Production Monitoring
+  - Site Level Consumption Monitoring
+  - Device Level Monitoring
+  - System Configurations
+  - Streaming API
+  - EV Charger Monitoring
+  self_serve: true
+  card_required: true
+- name: Partner
+  audience: registered Enphase installers with at least 10 installations
+  price_display: Free access to 10,000 hits per month, then metered
+  included_hits_per_month: 10000
+  rate_limits:
+    per_minute: 300
+    per_month: 1500000
+  metered:
+  - unit: hit beyond the included 10,000
+    price: 0.005
+  - unit: create activation
+    price: 2
+  - unit: Live Status hit
+    price: 0.1
+  access_controls:
+  - System Details
+  - Site Level Production Monitoring
+  - Site Level Consumption Monitoring
+  - Device Level Monitoring
+  - Commissioning API
+  - System Configurations
+  - Streaming API
+  - EV Charger Monitoring
+  - EV Charger Control
+  self_serve: false
+  card_required: true
+  eligibility: >-
+    Self-installer or member of an installer company with at least ten installed systems; Enphase
+    cloud (Enlighten) credentials are verified before the application is enabled.
+  source: https://developer-v4.enphase.com/installer-plans
+- name: VPP
+  audience: utilities, aggregators, DERMS providers and third-party owners registered as Enphase
+    Grid Services partners
+  price_display: Contact us
+  self_serve: false
+  published_pricing: false
+  access_controls:
+  - Manage VPPs
+  - Programs
+  - Events
+  - Enrolment via Applications
+  - Forecast
+  - System Details And Telemetry
+  - System and Device Configuration
+  source: https://developer-v4.enphase.com/vpp-plans

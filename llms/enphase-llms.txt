@@ -1,0 +1,82 @@
+# Enphase Energy
+
+> Enphase Energy is a Petaluma, California home-energy technology company and the dominant supplier of solar microinverters in the United States. Its Enlighten cloud exposes three public v4 APIs: a self-serve Monitoring API for a system owner's solar production, consumption, battery and EV charger data; an installer-only Commissioning API for site activations, companies, users, grid profiles and tariffs; and a partner-only Virtual Power Plant API for grid services, demand-response dispatch, fleet forecasting and OCPP 1.6 EV charger control. All three publish complete, anonymously downloadable machine-readable contracts. Authorization is OAuth 2.0 with an application API key on every call.
+
+generated: 2026-07-27
+method: generated
+source: apis.yml + repo artifacts (no /llms.txt is published on any Enphase host - all four hosts probed, 404/403)
+
+## APIs
+
+- [Enphase Monitoring API](https://developer-v4.enphase.com/docs/monitoring_api): 48 paths of system details, site-level production and consumption, battery and microinverter telemetry, events and alarms, EV charger monitoring and control, system configuration, and a live-status SSE stream. Base URL https://api.enphaseenergy.com/api/v4. Self-serve from the free Watt plan.
+- [Enphase Commissioning API](https://developer-v4.enphase.com/docs/commissioning_api): 21 paths for activations, installer companies and users, meters, grid profiles, tariff, estimates and the PV manufacturer/model catalog. Base URL https://api.enphaseenergy.com/api/v4. Partner plan only - registered Enphase installers with at least ten installations.
+- [Enphase VPP API](https://developer-v4.enphase.com/docs/vpp_api): 55 paths for managing VPPs and programs, enrolling sites, dispatching demand-response events, forecasting fleet capacity, reading site telemetry and configuring devices, including OCPP 1.6 EVSE configuration and reset. Base URL https://vpp.enphaseenergy.com. Grid-services partners only.
+
+## Specs
+
+- [Monitoring API Swagger 2.0](https://developer-v4.enphase.com/swagger/spec/System_API.json): saved verbatim as openapi/enphase-monitoring-api-openapi.json
+- [Commissioning API Swagger 2.0](https://developer-v4.enphase.com/swagger/spec/partner_api.json): saved verbatim as openapi/enphase-commissioning-api-openapi.json
+- [VPP API OpenAPI 3.0.1](https://vpp.enphaseenergy.com/auth/getApiSpec): saved verbatim as openapi/enphase-vpp-api-openapi.json
+
+## Getting started
+
+- [Quick start guide](https://developer-v4.enphase.com/docs/quickstart.html): account creation, application details, plan and access-control selection, and both OAuth flows end to end
+- [Sign up](https://developer-v4.enphase.com/signup) and [sign in](https://developer-v4.enphase.com/login)
+- [Developer plans](https://developer-v4.enphase.com/developer-plans): Watt free (10/min, 1,000/month), Kilowatt $249/mo (50/min, 50,000/month), Megawatt $999/mo (100/min, 300,000/month)
+- [Installer plans](https://developer-v4.enphase.com/installer-plans): Partner (300/min, 1,500,000/month, 10,000 free hits then $0.005/hit, $2 per created activation)
+- [VPP plans](https://developer-v4.enphase.com/vpp-plans): contact sales
+- [FAQ](https://developer-v4.enphase.com/docs/faq) and [support](https://developer-v4.enphase.com/docs/support) - api@enphaseenergy.com
+
+## Authentication
+
+- Developer applications use the OAuth 2.0 authorization-code grant. The system owner approves at https://api.enphaseenergy.com/oauth/authorize; tokens come from https://api.enphaseenergy.com/oauth/token with the client id and secret as HTTP Basic. Access tokens last one day, refresh tokens one month.
+- Installer/Partner applications use the OAuth 2.0 password grant against Enphase cloud (Enlighten) credentials at the same token endpoint.
+- The VPP API uses the client-credentials grant at https://vpp.enphaseenergy.com/auth/oauth2/token, 3600-second tokens, no refresh token.
+- Every request carries both the bearer token and the application API key: `?key=` on Monitoring and Commissioning, `x-api-key` header on VPP.
+- TLS 1.2 is the minimum since April 1, 2023.
+- Detail: authentication/enphase-authentication.yml, scopes/enphase-scopes.yml
+
+## Conventions
+
+- URI-path versioning (/api/v4, /api/v1). Page-number pagination: page, size (max 100), sort_by; envelope total/current_page/size/count/items.
+- Epoch-second time windows. Telemetry, events and alarms are capped at 7 days per request; telemetry start must be within 2 years; events and alarms are retained 6 months.
+- No idempotency keys, no request-id tracing header, no rate-limit response headers, no RFC 9457 problem details, no webhooks.
+- Rate limiting returns 429 with `{"message":"Too Many Requests","details":"Usage limit exceeded for plan ..."}`.
+- Any method outside POST, PUT, GET, DELETE, HEAD, OPTIONS, PATCH returns 501.
+- Detail: conventions/enphase-conventions.yml, errors/enphase-problem-types.yml, rate-limits/enphase-rate-limits.yml
+
+## Repo artifacts
+
+- openapi/ - three verbatim published specs (148 operations)
+- authentication/enphase-authentication.yml - full OAuth and API-key profile
+- scopes/enphase-scopes.yml - read/write OAuth scopes plus the nine plan-gated access-control groups
+- conventions/enphase-conventions.yml - pagination, versioning, error envelope, rate-limit signalling
+- errors/enphase-problem-types.yml - every 4xx/5xx across the three specs, including the non-standard 461-473 and 550-552 live-status codes
+- lifecycle/enphase-lifecycle.yml - versioning, v2 end-of-life, TLS sunset, no status page, no SLA
+- changelog/enphase-changelog.yml - the dated release-notes window
+- plans/enphase-plans.yml and rate-limits/enphase-rate-limits.yml - published prices and quotas
+- data-model/enphase-data-model.yml - entity graph and root identifiers
+- asyncapi/enphase-live-status-asyncapi.yml - the live-status SSE stream as AsyncAPI 3.0.0 (derived)
+- mcp/enphase-mcp.yml and mcp/enphase-tool-crosswalk.yml - candidate MCP tool surface and its binding to REST operations
+- skills/ - packaged agent skills for the marquee flows
+- security/ - domain security probe and the HackerOne-backed vulnerability disclosure policy
+- conformance/enphase-conformance.yml - OCPP 1.6 yes; Green Button, ESPI, OpenADR, IEEE 2030.5, CIM all absent
+- overlays/ - OpenAPI Overlay 1.0.0 documents carrying our corrections (production host, security schemes)
+
+## Cautions for agents
+
+- The published Monitoring spec declares the host `api-qa2.enphaseenergy.com`, an Enphase QA host. The production host is `api.enphaseenergy.com`.
+- None of the three specs declares a securityScheme even though every operation requires two credentials.
+- Most Monitoring and Commissioning operations have no operationId; reference them by method and path.
+- Writes have physical consequences: battery settings, storm guard, load control, EV charger start/stop, OCPP reset and VPP event dispatch all change equipment behaviour in a real home. There is no idempotency key and no undo. See agentic-access/enphase-agentic-access.yml.
+- Creating an activation costs $2 per call on the Partner plan and is not de-duplicated.
+
+## Company
+
+- [Enphase Energy](https://enphase.com)
+- [Developer portal](https://developer-v4.enphase.com)
+- [Newsroom](https://newsroom.enphase.com/newsroom)
+- [Community](https://community.enphase.com/)
+- [GitHub](https://github.com/enphase) - hardware and lab tooling only, no API client libraries
+- [Cybersecurity reporting policy](https://enphase.com/cybersecurity) and [advisories](https://enphase.com/cybersecurity/advisories)
+- [API licence agreement](https://enphase.com/api-license-agreement-v4), [terms of service](https://enphase.com/legal/terms-of-service), [privacy policy](https://enphase.com/legal/privacy-policy)

@@ -1,0 +1,73 @@
+generated: '2026-07-27'
+method: searched
+source: https://developer-v4.enphase.com/docs/quickstart.html
+docs: https://developer-v4.enphase.com/developer-plans
+notes: >-
+  Enphase runs OAuth 2.0 but does not publish a scope reference page, and no published spec
+  declares an oauth2 securityScheme, so derive-oauth-scopes.py finds nothing. Two real
+  authorization surfaces exist and both are captured here. The OAuth token itself carries only
+  the coarse pair "read write" - visible in every token sample response in the quick start guide.
+  The fine-grained surface is the portal's Access Controls: an application is created against a
+  plan, the developer ticks the access-control groups that plan allows, and that tick list
+  becomes the application's effective scope, shown to the homeowner on the consent screen. Access
+  controls are selected at application-registration time, not requested per authorization
+  request, so they never appear as an OAuth scope parameter.
+oauth_scopes:
+- scope: read
+  description: Read the system data the system owner has approved for this application.
+  flows:
+  - authorizationCode
+  - password
+  - clientCredentials
+  evidence: 'token sample response: "scope": "read write"'
+- scope: write
+  description: Write system configuration and control operations the system owner has approved.
+  flows:
+  - authorizationCode
+  - password
+  evidence: 'token sample response: "scope": "read write"'
+access_controls:
+  model: plan-gated application permissions, selected at registration and shown on the consent screen
+  docs: https://developer-v4.enphase.com/developer-plans
+  groups:
+  - name: System Details
+    plans: [Watt, Kilowatt, Megawatt, Partner]
+    covers: System listing, search, summary, devices, events, alarms, event types
+  - name: Site Level Production Monitoring
+    plans: [Watt, Kilowatt, Megawatt, Partner]
+    covers: Production meter readings, energy lifetime, production meter telemetry, RGM stats
+  - name: Site Level Consumption Monitoring
+    plans: [Watt, Kilowatt, Megawatt, Partner]
+    covers: Consumption meter readings and telemetry, consumption lifetime, import/export lifetime
+  - name: EV Charger Monitoring
+    plans: [Watt, Kilowatt, Megawatt, Partner]
+    covers: IQ EV charger devices, events, sessions, schedules, lifetime and telemetry
+  - name: Device Level Monitoring
+    plans: [Kilowatt, Megawatt, Partner]
+    covers: Per-microinverter and per-IQ-Battery telemetry, EVSE and heat-pump device telemetry
+  - name: Streaming API
+    plans: [Kilowatt, Megawatt, Partner]
+    covers: The live-status text/event-stream endpoint (getLiveData), billed at $0.10 per hit
+  - name: System Configurations
+    plans: [Megawatt, Partner]
+    covers: Battery settings, storm guard, grid status, load control read and write
+  - name: Commissioning API
+    plans: [Partner]
+    covers: Activations, companies, users, meters, grid profiles, tariff, estimate, PV catalog
+  - name: EV Charger Control
+    plans: [Partner]
+    covers: start_charging and stop_charging on an IQ EV charger
+vpp_authorization:
+  model: contract-scoped, no user-selectable scopes
+  notes: >-
+    The VPP API is sold to utilities, aggregators, DERMS providers and third-party owners
+    registered as Enphase Grid Services partners. Its client_credentials token carries no scope
+    field; entitlement is bound to the partner account and the VPP/program records it owns.
+  docs: https://developer-v4.enphase.com/vpp-plans
+gaps:
+- No published scope reference page and no scopes map in any spec.
+- Access controls cannot be stepped up per authorization request; changing them means creating a
+  new application and re-obtaining homeowner consent.
+related:
+- authentication/enphase-authentication.yml
+- plans/enphase-plans.yml

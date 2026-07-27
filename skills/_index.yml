@@ -1,0 +1,86 @@
+generated: '2026-07-27'
+method: generated
+source: openapi/enphase-monitoring-api-openapi.json, openapi/enphase-commissioning-api-openapi.json,
+  openapi/enphase-vpp-api-openapi.json
+notes: >-
+  Enphase publishes no AGENTS.md and no provider-authored agent skills; these are generated from
+  the three published specs plus the developer-portal documentation and the artifacts in this
+  repo. Every step is grounded in a real operation - by operationId where the spec declares one,
+  otherwise by method and path, because the Monitoring and Commissioning Swagger 2.0 documents
+  omit operationIds on most operations.
+skills:
+- file: enphase-authorize-and-read-system-energy.md
+  name: Authorize a homeowner and read their system energy
+  api: openapi/enphase-monitoring-api-openapi.json
+  plan: Watt (free) for site-level; Kilowatt for device-level and battery telemetry
+  operations:
+  - GET /api/v4/systems
+  - GET /api/v4/systems/{system_id}/summary
+  - GET /api/v4/systems/{system_id}/energy_lifetime
+  - GET /api/v4/systems/{system_id}/telemetry/production_meter
+  - GET /api/v4/systems/{system_id}/telemetry/consumption_meter
+  - GET /api/v4/systems/{system_id}/telemetry/battery
+  - GET /api/v4/systems/{system_id}/devices
+- file: enphase-battery-and-load-control.md
+  name: Read and change battery, storm guard and load control settings
+  api: openapi/enphase-monitoring-api-openapi.json
+  plan: Megawatt or Partner (System Configurations access control)
+  physical_consequence: true
+  operations:
+  - GET /api/v4/systems/config/{system_id}/battery_settings
+  - PUT /api/v4/systems/config/{system_id}/battery_settings
+  - GET /api/v4/systems/config/{system_id}/storm_guard
+  - PUT /api/v4/systems/config/{system_id}/storm_guard
+  - GET /api/v4/systems/config/{system_id}/grid_status
+  - GET /api/v4/systems/config/{system_id}/load_control
+  - PUT /api/v4/systems/config/{system_id}/load_control
+- file: enphase-ev-charger-sessions.md
+  name: Monitor and control an Enphase IQ EV charger
+  api: openapi/enphase-monitoring-api-openapi.json
+  plan: any plan to read; Partner for EV Charger Control
+  physical_consequence: true
+  operations:
+  - fetchChargersSummary
+  - fetchEvents
+  - fetchChargerSessionHistory
+  - fetchSchedules
+  - fetchDailyEnergyConsumptionData
+  - fetchEnergyConsumptionData
+  - startCharging
+  - stopCharging
+- file: enphase-vpp-dispatch-event.md
+  name: Dispatch and manage a VPP demand-response event
+  api: openapi/enphase-vpp-api-openapi.json
+  plan: Enphase Grid Services partner (contact sales)
+  physical_consequence: true
+  operations:
+  - getToken
+  - getAllPrograms
+  - getProgramByKey
+  - getSystems
+  - getForecast
+  - createEvent
+  - getEvents
+  - getEventDetails
+  - updateEvent
+  - optOutOptInEvent
+  - cancelEvent
+- file: enphase-commission-a-site.md
+  name: Commission a site as an Enphase installer
+  api: openapi/enphase-commissioning-api-openapi.json
+  plan: Partner (registered installer, 10+ installations)
+  billable_action: 'POST /api/v4/partner/activations charges $2 per created activation'
+  operations:
+  - GET /api/v4/partner/users/self
+  - GET /api/v4/companies/self/branches
+  - GET /api/v4/partner/activations
+  - POST /api/v4/partner/activations
+  - GET /api/v4/partner/activations/{activation_id}
+  - PUT /api/v4/partner/activations/{activation_id}
+  - POST /api/v4/activations/{activation_id}/users/{user_id}
+  - GET /api/v4/partner/grid_profiles
+  - GET /api/v4/pv_manufacturers
+  - GET /api/v4/pv_manufacturers/{pv_manufacturer_id}/pv_models
+  - GET /api/v4/systems/config/{system_id}/tariff
+  - GET /api/v4/activations/{activation_id}/estimate
+  - PUT /api/v4/activations/{activation_id}/estimate

@@ -1,0 +1,115 @@
+generated: '2026-07-27'
+method: searched
+result: none
+summary: >-
+  Enphase publishes no /.well-known discovery surface. All five standard documents were probed
+  against every host in this repo - the two API base hosts, the developer portal and the corporate
+  site - and none returned a document. api.enphaseenergy.com and developer-v4.enphase.com answer
+  404; vpp.enphaseenergy.com and enphase.com answer 403 to any non-browser request, so nothing is
+  anonymously discoverable there either. No file was saved because none exists, and no WellKnown
+  or SecurityTxt pointer is wired into apis.yml. The vulnerability-disclosure policy that a
+  security.txt would normally advertise is published as a web page instead - see
+  security/enphase-vulnerability-disclosure.yml.
+hosts:
+- host: https://api.enphaseenergy.com
+  role: Monitoring API and Commissioning API base URL, OAuth authorize/token endpoints
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://vpp.enphaseenergy.com
+  role: VPP API base URL
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /llms.txt
+    status: 403
+  note: >-
+    The host blocks unauthenticated non-browser requests wholesale; the same client does retrieve
+    the OpenAPI at /auth/getApiSpec with a browser user agent and portal referer.
+- host: https://developer-v4.enphase.com
+  role: Developer portal and documentation host (3scale)
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://enphase.com
+  role: Corporate site, legal documents, cybersecurity policy
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /llms.txt
+    status: 404
+spec_discovery:
+  note: >-
+    The machine-readable contracts are not at any conventional root path. They are served from the
+    portal's Swagger UI loader paths and the VPP auth controller, all anonymously downloadable.
+  documents:
+  - url: https://developer-v4.enphase.com/swagger/spec/System_API.json
+    status: 200
+    api: Enphase Monitoring API
+    saved_as: openapi/enphase-monitoring-api-openapi.json
+    verified_identical: true
+  - url: https://developer-v4.enphase.com/swagger/spec/partner_api.json
+    status: 200
+    api: Enphase Commissioning API
+    saved_as: openapi/enphase-commissioning-api-openapi.json
+    verified_identical: true
+  - url: https://vpp.enphaseenergy.com/auth/getApiSpec
+    status: 200
+    api: Enphase VPP API
+    saved_as: openapi/enphase-vpp-api-openapi.json
+    verified_identical: true
+  probed_and_missing:
+  - path: /openapi.json
+    hosts_404: [api.enphaseenergy.com, developer-v4.enphase.com, enphase.com]
+  - path: /openapi.yaml
+    hosts_404: [api.enphaseenergy.com, developer-v4.enphase.com, enphase.com]
+  - path: /swagger.json
+    hosts_404: [api.enphaseenergy.com, developer-v4.enphase.com, enphase.com]
+  - path: /api-docs
+    hosts_404: [api.enphaseenergy.com, developer-v4.enphase.com, enphase.com]
+  - path: /v1/openapi.json
+    hosts_404: [api.enphaseenergy.com, developer-v4.enphase.com, enphase.com]
+  graphql: none - no /graphql surface on any Enphase host
+  mcp: none - no hosted MCP endpoint; see mcp/enphase-mcp.yml

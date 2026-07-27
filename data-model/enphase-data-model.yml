@@ -1,0 +1,1421 @@
+generated: '2026-07-27'
+method: derived
+source:
+- openapi/enphase-monitoring-api-openapi.json
+- openapi/enphase-commissioning-api-openapi.json
+- openapi/enphase-vpp-api-openapi.json
+notes: Derived from the published specs. The Commissioning API spec (Swagger 2.0) declares no reusable
+  definitions - every response is inlined - so it contributes identifier keys and path relationships only.
+  The Monitoring API spec declares 16 definitions, all in the EV-charger and error families; its telemetry
+  responses are inlined too. The VPP API (OpenAPI 3.0.1) carries the real component graph.
+root_identifiers:
+- id: system_id
+  aka:
+  - site_id
+  type: integer/string
+  domain: The Enlighten site. Called system_id in the Monitoring and Commissioning APIs and site_id in
+    the VPP API - the same identifier.
+- id: activation_id
+  type: integer
+  domain: A Commissioning API activation - the installer-side record that becomes a system.
+- id: serial_no
+  aka:
+  - serial_number
+  type: string
+  domain: 'Device serial: IQ Microinverter, IQ Battery (Encharge), IQ Gateway (Envoy), IQ EV Charger (EVSE),
+    heat pump, meter.'
+- id: company_id
+  type: integer
+  domain: Installer company in the Commissioning API.
+- id: user_id
+  type: integer
+  domain: Enlighten user attached to a company or an activation.
+- id: vpp_id
+  type: string
+  domain: A Virtual Power Plant in the VPP API.
+- id: program_id
+  type: string
+  domain: A grid-services program a VPP runs.
+- id: event_id
+  type: string
+  domain: A demand-response event dispatched against a program.
+- id: pv_manufacturer_id
+  type: integer
+  domain: PV module manufacturer in the Commissioning API catalog.
+core_relationships:
+- from: Company
+  to: Activation
+  kind: has_many
+  via: company_id
+  evidence: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/activations
+- from: Company
+  to: User
+  kind: has_many
+  via: company_id
+  evidence: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/companies/{company_id}/users
+- from: Activation
+  to: User
+  kind: has_many
+  via: activation_id
+  evidence: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/users/{user_id}
+- from: Activation
+  to: System
+  kind: has_one
+  via: activation_id
+  evidence: An approved activation becomes the Enlighten system the Monitoring API reads.
+- from: System
+  to: Device
+  kind: has_many
+  via: system_id
+  evidence: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/devices
+- from: System
+  to: Meter
+  kind: has_many
+  via: serial_number
+  evidence: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/systems/{system_id}/meters/{serial_number}
+- from: System
+  to: Tariff
+  kind: has_one
+  via: system_id
+  evidence: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/systems/config/{system_id}/tariff
+- from: System
+  to: Array
+  kind: has_many
+  via: system_id
+  evidence: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/systems/{system_id}/arrays
+- from: System
+  to: SiteEvent
+  kind: has_many
+  via: system_id
+  evidence: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/events
+- from: System
+  to: Alarm
+  kind: has_many
+  via: system_id
+  evidence: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/alarms
+- from: VPP
+  to: Program
+  kind: has_many
+  via: vpp_id
+  evidence: openapi/enphase-vpp-api-openapi.json#getAllPrograms
+- from: Program
+  to: Event
+  kind: has_many
+  via: program_id
+  evidence: openapi/enphase-vpp-api-openapi.json#createEvent
+- from: Program
+  to: Application
+  kind: has_many
+  via: program_id
+  evidence: openapi/enphase-vpp-api-openapi.json#getApplications
+- from: Application
+  to: System
+  kind: belongs_to
+  via: site_id
+  evidence: openapi/enphase-vpp-api-openapi.json#getApplicationBySiteId
+- from: PvManufacturer
+  to: PvModel
+  kind: has_many
+  via: pv_manufacturer_id
+  evidence: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/pv_manufacturers/{pv_manufacturer_id}/pv_models
+schema_relationships:
+- from: BatteryTelemetryInterval
+  to: Charge
+  kind: has_one
+  via: charge
+- from: BatteryTelemetryInterval
+  to: DisCharge
+  kind: has_one
+  via: discharge
+- from: BatteryTelemetryInterval
+  to: SOC
+  kind: has_one
+  via: soc
+- from: ConsumptionMeterReadings
+  to: MeterReadings
+  kind: has_many
+  via: meter_readings
+- from: ConsumptionMeterReadings
+  to: MeterReadingsMeta
+  kind: has_one
+  via: meta
+- from: DeviceLevelEVSETelemetryResponse
+  to: EVSETelemetryInterval
+  kind: has_many
+  via: intervals
+- from: DeviceLevelEnchargeTelemetryResponse
+  to: EnchargeInterval
+  kind: has_many
+  via: intervals
+- from: DeviceLevelHPTelemetryResponse
+  to: HPTelemetryInterval
+  kind: has_many
+  via: intervals
+- from: DeviceLevelPVProductionResponse
+  to: PVProductionInterval
+  kind: has_many
+  via: intervals
+- from: EnchargeInterval
+  to: ChargeDischargeValue
+  kind: has_one
+  via: charge
+- from: EnchargeInterval
+  to: ChargeDischargeValue
+  kind: has_one
+  via: discharge
+- from: EnchargeInterval
+  to: SocPercent
+  kind: has_one
+  via: soc
+- from: EventTypesResponse
+  to: EnlightenEventType
+  kind: has_many
+  via: event_types
+- from: EventsListResponse
+  to: GsApiVppEventResponse
+  kind: has_many
+  via: eventList
+- from: ForecastData
+  to: ForecastTimeSeries
+  kind: has_many
+  via: intervals
+- from: ForecastResponse
+  to: ForecastData
+  kind: has_one
+  via: forecastData
+- from: GsApiApplication
+  to: GsApiApplicationFormFields
+  kind: has_one
+  via: site_info
+- from: GsApiListApplicationResponse
+  to: GsApiApplication
+  kind: has_many
+  via: applications
+- from: GsApiProgram
+  to: Season
+  kind: has_many
+  via: seasons
+- from: GsApiVPP
+  to: SitesQuery
+  kind: has_one
+  via: query
+- from: GsApiVppEventResponse
+  to: GsApiEventResponse
+  kind: has_many
+  via: events
+- from: ProductionMeterReadings
+  to: MeterReadings
+  kind: has_many
+  via: meter_readings
+- from: ProductionMeterReadings
+  to: MeterReadingsMeta
+  kind: has_one
+  via: meta
+- from: ProgramsListResponse
+  to: GsApiListProgram
+  kind: has_many
+  via: programs
+- from: SiteAlarmsResponse
+  to: Alarm
+  kind: has_many
+  via: alarms
+- from: SiteEventsResponse
+  to: SiteEvent
+  kind: has_many
+  via: events
+- from: SiteOpenEventsResponse
+  to: SiteEvent
+  kind: has_many
+  via: events
+- from: StorageMeterReadings
+  to: StorageMeter
+  kind: has_many
+  via: meter_readings
+- from: StorageMeterReadings
+  to: MeterReadingsMeta
+  kind: has_one
+  via: meta
+- from: SystemsBatteryLifeTimeResponse
+  to: Meta
+  kind: has_one
+  via: meta
+- from: SystemsBatteryTelemetryResponse
+  to: BatteryTelemetryInterval
+  kind: has_many
+  via: intervals
+- from: SystemsConsumptionLifeTimeResponse
+  to: Meta
+  kind: has_one
+  via: meta
+- from: SystemsConsumptionMeterResponse
+  to: ConsumptionMeterInterval
+  kind: has_many
+  via: intervals
+- from: SystemsConsumptionMeterResponse
+  to: Meta
+  kind: has_one
+  via: meta
+- from: SystemsDetails
+  to: SystemsAddress
+  kind: has_one
+  via: address
+- from: SystemsDetailsResponse
+  to: SystemsDetails
+  kind: has_many
+  via: systems
+- from: SystemsDevicesResponse
+  to: DeviceStatus
+  kind: has_one
+  via: devices
+- from: SystemsExportLifeTimeResponse
+  to: Meta
+  kind: has_one
+  via: meta
+- from: SystemsImportLifeTimeResponse
+  to: Meta
+  kind: has_one
+  via: meta
+- from: SystemsLatestTelemetryResponse
+  to: DeviceLatestTelemetry
+  kind: has_one
+  via: devices
+- from: SystemsProductionLifeTimeResponse
+  to: Meta
+  kind: has_one
+  via: meta
+- from: SystemsProductionMeterResponse
+  to: ProductionMeterInterval
+  kind: has_many
+  via: intervals
+- from: SystemsProductionMicroResponse
+  to: ProductionMicroInterval
+  kind: has_many
+  via: intervals
+- from: SystemsProductionMicroResponse
+  to: Meta
+  kind: has_one
+  via: meta
+- from: SystemsTelemetryExportResponse
+  to: ExportInterval
+  kind: has_many
+  via: intervals
+- from: SystemsTelemetryImportResponse
+  to: ImportInterval
+  kind: has_many
+  via: intervals
+- from: VPPCreateRequest
+  to: SitesQuery
+  kind: has_one
+  via: query
+- from: VPPUpdateRequest
+  to: SitesQuery
+  kind: has_one
+  via: query
+- from: VPPsListResponse
+  to: GsApiVPP
+  kind: has_many
+  via: vpps
+entities:
+- name: APIResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/APIResponse
+  field_count: 3
+  fields:
+  - meta
+  - data
+  - error
+- name: AccessTokenResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/AccessTokenResponse
+  field_count: 3
+  fields:
+  - access_token
+  - expires_in
+  - token_type
+- name: Alarm
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/Alarm
+  field_count: 0
+  fields: []
+- name: BatteryTelemetryInterval
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/BatteryTelemetryInterval
+  field_count: 4
+  fields:
+  - end_at
+  - charge
+  - discharge
+  - soc
+- name: Charge
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/Charge
+  field_count: 2
+  fields:
+  - enwh
+  - devices_reporting
+- name: ChargeDischargeValue
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ChargeDischargeValue
+  field_count: 1
+  fields:
+  - enwh
+- name: ConsumptionMeterInterval
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ConsumptionMeterInterval
+  field_count: 3
+  fields:
+  - end_at
+  - devices_reporting
+  - enwh
+- name: ConsumptionMeterReadings
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ConsumptionMeterReadings
+  field_count: 3
+  fields:
+  - system_id
+  - meter_readings
+  - meta
+- name: CountryResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/CountryResponse
+  field_count: 2
+  fields:
+  - country
+  - states
+- name: DeviceLatestTelemetry
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/DeviceLatestTelemetry
+  field_count: 7
+  fields:
+  - id
+  - name
+  - serial_number
+  - channel
+  - last_report_at
+  - power
+  - operational_mode
+- name: DeviceLevelEVSETelemetryResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/DeviceLevelEVSETelemetryResponse
+  field_count: 7
+  fields:
+  - system_id
+  - granularity
+  - interval_duration
+  - start_at
+  - end_at
+  - items
+  - intervals
+- name: DeviceLevelEnchargeTelemetryResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/DeviceLevelEnchargeTelemetryResponse
+  field_count: 12
+  fields:
+  - system_id
+  - serial_number
+  - start_at
+  - start_date
+  - end_at
+  - end_date
+  - granularity
+  - total_devices
+  - items
+  - intervals
+  - last_reported_time
+  - last_reported_soc
+- name: DeviceLevelHPTelemetryResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/DeviceLevelHPTelemetryResponse
+  field_count: 7
+  fields:
+  - system_id
+  - granularity
+  - interval_duration
+  - start_at
+  - end_at
+  - items
+  - intervals
+- name: DeviceLevelPVProductionResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/DeviceLevelPVProductionResponse
+  field_count: 10
+  fields:
+  - system_id
+  - serial_number
+  - start_at
+  - start_date
+  - end_at
+  - end_date
+  - granularity
+  - total_devices
+  - items
+  - intervals
+- name: DeviceStatus
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/DeviceStatus
+  field_count: 11
+  fields:
+  - id
+  - last_report_at
+  - name
+  - serial_number
+  - part_number
+  - sku
+  - model
+  - status
+  - active
+  - state
+  - product_name
+- name: DisCharge
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/DisCharge
+  field_count: 2
+  fields:
+  - enwh
+  - devices_reporting
+- name: EVSELifeTimeTelemetryResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/EVSELifeTimeTelemetryResponse
+  field_count: 4
+  fields:
+  - system_id
+  - start_date
+  - end_date
+  - consumption
+- name: EVSETelemetryInterval
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/EVSETelemetryInterval
+  field_count: 2
+  fields:
+  - end_at
+  - wh_consumed
+- name: EnchargeInterval
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/EnchargeInterval
+  field_count: 4
+  fields:
+  - end_at
+  - charge
+  - discharge
+  - soc
+- name: EnlightenEventType
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/EnlightenEventType
+  field_count: 6
+  fields:
+  - event_type_id
+  - event_type_key
+  - stateful
+  - event_name
+  - event_description
+  - recommended_action
+- name: EventCreateRequest
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/EventCreateRequest
+  field_count: 11
+  fields:
+  - program_id
+  - site_id
+  - vpp_ids
+  - function
+  - mode
+  - target_soc
+  - rate_watt
+  - start_time
+  - end_time
+  - superseded
+  - site_ids
+- name: EventCreateRequestV2
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/EventCreateRequestV2
+  field_count: 14
+  fields:
+  - program_id
+  - vpp_ids
+  - measuring_reference
+  - functions
+  - rate_watt
+  - mode
+  - target_soc
+  - start_time
+  - end_time
+  - duration
+  - superseded
+  - evse_serial_no
+  - site_ids
+  - export_limit
+- name: EventOptoutOptinRequest
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/EventOptoutOptinRequest
+  field_count: 2
+  fields:
+  - site_id
+  - optout
+- name: EventOptoutOptinResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/EventOptoutOptinResponse
+  field_count: 3
+  fields:
+  - message
+  - event_id
+  - site_id
+- name: EventResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/EventResponse
+  field_count: 6
+  fields:
+  - message
+  - event_id
+  - name
+  - no_of_sites
+  - program_id
+  - total_watts
+- name: EventTypesResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/EventTypesResponse
+  field_count: 1
+  fields:
+  - event_types
+- name: EventUpdateRequest
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/EventUpdateRequest
+  field_count: 2
+  fields:
+  - target_soc
+  - rate_watt
+- name: EventsListResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/EventsListResponse
+  field_count: 3
+  fields:
+  - program_id
+  - total_count
+  - eventList
+- name: ExportInterval
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ExportInterval
+  field_count: 2
+  fields:
+  - end_at
+  - wh_exported
+- name: ForecastData
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ForecastData
+  field_count: 2
+  fields:
+  - battery_capacity_wh
+  - intervals
+- name: ForecastRequest
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ForecastRequest
+  field_count: 4
+  fields:
+  - site_ids
+  - vpp_id
+  - granularity
+  - duration
+- name: ForecastResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ForecastResponse
+  field_count: 7
+  fields:
+  - vpp_id
+  - valid_sites_list
+  - granularity
+  - duration
+  - forecastData
+  - forecast_unavailable_sites_list
+  - invalid_sites_list
+- name: ForecastTimeSeries
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ForecastTimeSeries
+  field_count: 21
+  fields:
+  - timestamp
+  - cons_forecast_uncontrolled_wh
+  - evse_forecast_wh
+  - water_heater_forecast_wh
+  - heat_pump_forecast_wh
+  - pv_forecast_wh
+  - battery_soc_percent_forecast
+  - available_battery_energy_wh
+  - available_battery_power_w
+  - battery_charging_forecast_wh
+  - battery_discharging_forecast_wh
+  - grid_import_forecast_wh
+  - grid_export_forecast_wh
+  - cons_forecast_uncontrolled_accuracy_percent
+  - evse_forecast_accuracy_percent
+  - water_heater_forecast_accuracy_percent
+  - heat_pump_forecast_accuracy_percent
+  - pv_forecast_accuracy_percent
+  - battery_soc_percent_forecast_accuracy_percent
+  - battery_charging_forecast_accuracy_percent
+  - grid_import_forecast_accuracy_percent
+- name: GridStatusSettingsResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/GridStatusSettingsResponse
+  field_count: 3
+  fields:
+  - system_id
+  - grid_status
+  - last_report_date
+- name: GsApiApplication
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/GsApiApplication
+  field_count: 10
+  fields:
+  - site_id
+  - program_id
+  - application_id
+  - application_status
+  - created_at
+  - approved_at
+  - rejected_at
+  - withdrawn_at
+  - site_info
+  - application_type
+- name: GsApiApplicationFormFields
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/GsApiApplicationFormFields
+  field_count: 9
+  fields:
+  - city
+  - state
+  - country
+  - zip
+  - ean
+  - first_name
+  - last_name
+  - siteState
+  - postal_code
+- name: GsApiEventResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/GsApiEventResponse
+  field_count: 21
+  fields:
+  - site_id
+  - evse_serial_no
+  - event_status
+  - failure_code
+  - failure_reason
+  - start_time
+  - end_time
+  - created_at
+  - completed_at
+  - cancelled_at
+  - cancellation_request
+  - function
+  - functions
+  - duration
+  - mode
+  - target_soc
+  - rate_watt
+  - superseded
+  - command_delivery_status
+  - measuring_reference
+  - export_limit
+- name: GsApiListApplicationResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/GsApiListApplicationResponse
+  field_count: 5
+  fields:
+  - page_no
+  - page_size
+  - count
+  - total_count
+  - applications
+- name: GsApiListProgram
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/GsApiListProgram
+  field_count: 7
+  fields:
+  - description
+  - name
+  - program_status
+  - program_id
+  - state
+  - utility_name
+  - incentive_structure
+- name: GsApiProgram
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/GsApiProgram
+  field_count: 16
+  fields:
+  - description
+  - program_end_date
+  - event_cancellation_allowed_for_upcoming_events
+  - event_ending_allowed_for_ongoing_event
+  - min_envoyversion
+  - name
+  - program_status
+  - program_id
+  - program_types
+  - seasons
+  - state
+  - utility_name
+  - incentive_structure
+  - creation_date_time
+  - asset_type
+  - min_allowed_soc
+- name: GsApiUtility
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/GsApiUtility
+  field_count: 3
+  fields:
+  - country
+  - name
+  - states
+- name: GsApiVPP
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/GsApiVPP
+  field_count: 12
+  fields:
+  - name
+  - query
+  - vpp_id
+  - created_at
+  - updated_at
+  - program_id
+  - total_systems
+  - total_energy_kwh
+  - total_power_kw
+  - available_energy_kwh
+  - available_power_kw
+  - site_ids
+- name: GsApiVppEventResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/GsApiVppEventResponse
+  field_count: 4
+  fields:
+  - event_id
+  - name
+  - program_id
+  - events
+- name: HPLifeTimeTelemetryResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/HPLifeTimeTelemetryResponse
+  field_count: 4
+  fields:
+  - system_id
+  - start_date
+  - end_date
+  - consumption
+- name: HPTelemetryInterval
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/HPTelemetryInterval
+  field_count: 2
+  fields:
+  - end_at
+  - wh_consumed
+- name: ImportInterval
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ImportInterval
+  field_count: 2
+  fields:
+  - end_at
+  - wh_imported
+- name: Meta
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/Meta
+  field_count: 4
+  fields:
+  - status
+  - last_report_at
+  - last_energy_at
+  - operational_at
+- name: MeterReadings
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/MeterReadings
+  field_count: 3
+  fields:
+  - serial_num
+  - value
+  - read_at
+- name: MeterReadingsMeta
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/MeterReadingsMeta
+  field_count: 4
+  fields:
+  - status
+  - last_report_at
+  - last_energy_at
+  - operational_at
+- name: OCPPConfigurationRequest
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/OCPPConfigurationRequest
+  field_count: 3
+  fields:
+  - connectionUrl
+  - securityProfile
+  - authKey
+- name: OCPPConfigurationResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/OCPPConfigurationResponse
+  field_count: 1
+  fields:
+  - status
+- name: OCPPConfigurationStatusResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/OCPPConfigurationStatusResponse
+  field_count: 6
+  fields:
+  - configurationStatus
+  - connectionUrl
+  - securityProfile
+  - authKey
+  - connectionStatus
+  - configurationStatusFailureReason
+- name: OCPPResetResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/OCPPResetResponse
+  field_count: 1
+  fields:
+  - message
+- name: PVProductionInterval
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/PVProductionInterval
+  field_count: 3
+  fields:
+  - end_at
+  - enwh
+  - pwr
+- name: ProductionMeterInterval
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ProductionMeterInterval
+  field_count: 3
+  fields:
+  - end_at
+  - devices_reporting
+  - wh_del
+- name: ProductionMeterReadings
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ProductionMeterReadings
+  field_count: 3
+  fields:
+  - system_id
+  - meter_readings
+  - meta
+- name: ProductionMicroInterval
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ProductionMicroInterval
+  field_count: 4
+  fields:
+  - end_at
+  - devices_reporting
+  - enwh
+  - powr
+- name: ProgramsListResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ProgramsListResponse
+  field_count: 2
+  fields:
+  - total_count
+  - programs
+- name: RegisterLiveStreamStatusResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/RegisterLiveStreamStatusResponse
+  field_count: 2
+  fields:
+  - serial_number
+  - status
+- name: ReservedSOCUpdateRequest
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/ReservedSOCUpdateRequest
+  field_count: 1
+  fields:
+  - vpp_event_reserve_soc
+- name: SOC
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SOC
+  field_count: 2
+  fields:
+  - percent
+  - devices_reporting
+- name: Season
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/Season
+  field_count: 6
+  fields:
+  - frequency
+  - name
+  - duration
+  - start_month
+  - end_month
+  - performance_incentives_per_kw
+- name: SiteAlarmsResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SiteAlarmsResponse
+  field_count: 2
+  fields:
+  - systems_id
+  - alarms
+- name: SiteEvent
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SiteEvent
+  field_count: 5
+  fields:
+  - status
+  - event_type_id
+  - event_start_time
+  - event_end_time
+  - serial_number
+- name: SiteEventsResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SiteEventsResponse
+  field_count: 2
+  fields:
+  - system_id
+  - events
+- name: SiteOpenEventsResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SiteOpenEventsResponse
+  field_count: 2
+  fields:
+  - system_id
+  - events
+- name: SiteSettingsResponseDTO
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SiteSettingsResponseDTO
+  field_count: 1
+  fields:
+  - vpp_event_reserve_soc
+- name: SitesQuery
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SitesQuery
+  field_count: 2
+  fields:
+  - tags
+  - operator
+- name: SocPercent
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SocPercent
+  field_count: 1
+  fields:
+  - percent
+- name: StartStreamResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/StartStreamResponse
+  field_count: 2
+  fields:
+  - serial_number
+  - status
+- name: StopStreamResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/StopStreamResponse
+  field_count: 2
+  fields:
+  - serial_number
+  - status
+- name: StorageMeter
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/StorageMeter
+  field_count: 4
+  fields:
+  - serial_num
+  - value_charged
+  - value_discharged
+  - read_at
+- name: StorageMeterReadings
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/StorageMeterReadings
+  field_count: 3
+  fields:
+  - system_id
+  - meter_readings
+  - meta
+- name: StormGuardSettingsResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/StormGuardSettingsResponse
+  field_count: 3
+  fields:
+  - system_id
+  - storm_guard_status
+  - storm_alert
+- name: SystemSummaryResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemSummaryResponse
+  field_count: 15
+  fields:
+  - system_id
+  - current_power
+  - energy_lifetime
+  - energy_today
+  - last_interval_end_at
+  - last_report_at
+  - modules
+  - operational_at
+  - size_w
+  - source
+  - status
+  - summary_date
+  - battery_charge_w
+  - battery_discharge_w
+  - battery_capacity_wh
+- name: SystemsAddress
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsAddress
+  field_count: 3
+  fields:
+  - state
+  - country
+  - postal_code
+- name: SystemsBatteryLifeTimeResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsBatteryLifeTimeResponse
+  field_count: 5
+  fields:
+  - charge
+  - discharge
+  - meta
+  - system_id
+  - start_date
+- name: SystemsBatterySettingsResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsBatterySettingsResponse
+  field_count: 6
+  fields:
+  - system_id
+  - battery_mode
+  - reserve_soc
+  - energy_independence
+  - charge_from_grid
+  - battery_shutdown_level
+- name: SystemsBatteryTelemetryResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsBatteryTelemetryResponse
+  field_count: 11
+  fields:
+  - system_id
+  - total_devices
+  - start_at
+  - end_at
+  - items
+  - granularity
+  - soc
+  - soh
+  - last_report_at
+  - capacity_wh
+  - intervals
+- name: SystemsConsumptionLifeTimeResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsConsumptionLifeTimeResponse
+  field_count: 5
+  fields:
+  - consumption
+  - meta
+  - system_id
+  - start_date
+  - meter_start_date
+- name: SystemsConsumptionMeterResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsConsumptionMeterResponse
+  field_count: 8
+  fields:
+  - system_id
+  - total_devices
+  - start_at
+  - end_at
+  - items
+  - granularity
+  - intervals
+  - meta
+- name: SystemsDetails
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsDetails
+  field_count: 12
+  fields:
+  - system_id
+  - name
+  - public_name
+  - timezone
+  - connection_type
+  - status
+  - attachment_type
+  - interconnect_date
+  - last_energy_at
+  - last_report_at
+  - operational_at
+  - address
+- name: SystemsDetailsResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsDetailsResponse
+  field_count: 6
+  fields:
+  - total
+  - current_page
+  - size
+  - count
+  - items
+  - systems
+- name: SystemsDevicesResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsDevicesResponse
+  field_count: 4
+  fields:
+  - system_id
+  - total_devices
+  - items
+  - devices
+- name: SystemsExportLifeTimeResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsExportLifeTimeResponse
+  field_count: 5
+  fields:
+  - export
+  - meta
+  - system_id
+  - start_date
+  - meter_start_date
+- name: SystemsImportLifeTimeResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsImportLifeTimeResponse
+  field_count: 5
+  fields:
+  - meta
+  - system_id
+  - start_date
+  - meter_start_date
+  - import
+- name: SystemsLatestTelemetryResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsLatestTelemetryResponse
+  field_count: 3
+  fields:
+  - system_id
+  - items
+  - devices
+- name: SystemsPELPCSResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsPELPCSResponse
+  field_count: 4
+  fields:
+  - pcs_limit_enabled
+  - pcs_limt
+  - pel_enabled
+  - pel
+- name: SystemsProductionLifeTimeResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsProductionLifeTimeResponse
+  field_count: 7
+  fields:
+  - meta
+  - system_id
+  - start_date
+  - meter_start_date
+  - production
+  - micro_production
+  - meter_production
+- name: SystemsProductionMeterResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsProductionMeterResponse
+  field_count: 7
+  fields:
+  - system_id
+  - total_devices
+  - start_at
+  - end_at
+  - items
+  - granularity
+  - intervals
+- name: SystemsProductionMicroResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsProductionMicroResponse
+  field_count: 8
+  fields:
+  - system_id
+  - total_devices
+  - start_at
+  - end_at
+  - items
+  - granularity
+  - intervals
+  - meta
+- name: SystemsTelemetryExportResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsTelemetryExportResponse
+  field_count: 8
+  fields:
+  - granularity
+  - intervals
+  - site_id
+  - start_at
+  - start_date
+  - end_at
+  - end_date
+  - total_devices
+- name: SystemsTelemetryImportResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/SystemsTelemetryImportResponse
+  field_count: 8
+  fields:
+  - granularity
+  - intervals
+  - site_id
+  - start_at
+  - start_date
+  - end_at
+  - end_date
+  - total_devices
+- name: VPPCreateRequest
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/VPPCreateRequest
+  field_count: 3
+  fields:
+  - name
+  - query
+  - program_id
+- name: VPPUpdateRequest
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/VPPUpdateRequest
+  field_count: 1
+  fields:
+  - query
+- name: VPPsListResponse
+  api: Enphase VPP API
+  source: openapi/enphase-vpp-api-openapi.json#/components/schemas/VPPsListResponse
+  field_count: 2
+  fields:
+  - total
+  - vpps
+- name: ChargeSessionDetail
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/ChargeSessionDetail
+  field_count: 7
+  fields:
+  - start_time
+  - end_time
+  - duration
+  - energy_added
+  - charge_time
+  - miles_added
+  - cost
+- name: ChargeSessionDetailsResponse
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/ChargeSessionDetailsResponse
+  field_count: 3
+  fields:
+  - count
+  - system_id
+  - sessions
+- name: ChargerSummary
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/ChargerSummary
+  field_count: 9
+  fields:
+  - id
+  - sku
+  - status
+  - serial_number
+  - name
+  - model
+  - part_number
+  - firmware
+  - active
+- name: ChargerSummaryResponse
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/ChargerSummaryResponse
+  field_count: 4
+  fields:
+  - items
+  - total_devices
+  - system_id
+  - devices
+- name: DefaultCommandResponse
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/DefaultCommandResponse
+  field_count: 1
+  fields:
+  - message
+- name: EVEnergyResponse
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/EVEnergyResponse
+  field_count: 3
+  fields:
+  - system_id
+  - start_date
+  - consumption
+- name: EVEventsResponse
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/EVEventsResponse
+  field_count: 3
+  fields:
+  - count
+  - events
+  - system_id
+- name: EVIntervalEnergyResponse
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/EVIntervalEnergyResponse
+  field_count: 7
+  fields:
+  - granularity
+  - consumption
+  - system_id
+  - start_date
+  - end_date
+  - start_at
+  - end_at
+- name: EnergyConsumption
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/EnergyConsumption
+  field_count: 2
+  fields:
+  - consumption
+  - end_at
+- name: ErrorResponse
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/ErrorResponse
+  field_count: 3
+  fields:
+  - message
+  - code
+  - details
+- name: ErrorResponseArray
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/ErrorResponseArray
+  field_count: 2
+  fields:
+  - message
+  - reason
+- name: EventDetail
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/EventDetail
+  field_count: 4
+  fields:
+  - status
+  - triggered_date
+  - cleared_date
+  - details
+- name: Schedule
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/Schedule
+  field_count: 4
+  fields:
+  - days
+  - start_time
+  - end_time
+  - charging_level
+- name: ScheduleList
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/ScheduleList
+  field_count: 5
+  fields:
+  - schedules
+  - type
+  - is_active
+  - reminder_flag
+  - reminder_timer
+- name: SchedulesBodyResponse
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/SchedulesBodyResponse
+  field_count: 2
+  fields:
+  - system_id
+  - charger_schedules
+- name: StartChargingRequestBody
+  api: Enphase Monitoring API
+  source: openapi/enphase-monitoring-api-openapi.json#/definitions/StartChargingRequestBody
+  field_count: 2
+  fields:
+  - connectorId
+  - chargingLevel

@@ -14,7 +14,8 @@ description: >-
   Enphase Developer Portal at developer-v4.enphase.com is a genuine self-serve 3scale portal
   where anyone can register, create an application and subscribe to a free Watt plan, and it
   publishes three complete, anonymously downloadable machine-readable contracts covering 124
-  operations. The split that defines Enphase is consumer-data-open, market-data-closed: a
+  paths and 148 operations. The split that defines Enphase is consumer-data-open,
+  market-data-closed: a
   third-party developer can retrieve an individual homeowner's site production, consumption,
   battery and EV charger telemetry through documented OAuth 2.0 authorization-code flows with
   the system owner's explicit approval, but Enphase publishes no open grid, wholesale market
@@ -70,6 +71,12 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/enphase-monitoring-api-openapi.json
+  - type: Overlay
+    url: overlays/enphase-monitoring-overlay.yaml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
   - type: Documentation
     url: https://developer-v4.enphase.com/docs/monitoring_api
   - type: Documentation
@@ -104,6 +111,10 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/enphase-commissioning-api-openapi.json
+  - type: Overlay
+    url: overlays/enphase-commissioning-overlay.yaml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
   - type: Documentation
     url: https://developer-v4.enphase.com/docs/commissioning_api
   - type: Documentation
@@ -138,11 +149,57 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/enphase-vpp-api-openapi.json
+  - type: Overlay
+    url: overlays/enphase-vpp-overlay.yaml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
   - type: Documentation
     url: https://developer-v4.enphase.com/docs/vpp_api
   - type: Plans
     url: https://developer-v4.enphase.com/vpp-plans
 common:
+- type: AgenticAccess
+  url: agentic-access/enphase-agentic-access.yml
+- type: DomainSecurity
+  url: security/enphase-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/enphase-vulnerability-disclosure.yml
+- type: Security
+  url: https://enphase.com/cybersecurity
+- type: Authentication
+  url: authentication/enphase-authentication.yml
+- type: OAuthScopes
+  url: scopes/enphase-scopes.yml
+- type: Conventions
+  url: conventions/enphase-conventions.yml
+- type: ErrorCatalog
+  url: errors/enphase-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/enphase-lifecycle.yml
+- type: Deprecation
+  url: https://developer-v4.enphase.com/aboutproduct.html
+- type: ChangeLog
+  url: changelog/enphase-changelog.yml
+- type: Conformance
+  url: conformance/enphase-conformance.yml
+- type: DataModel
+  url: data-model/enphase-data-model.yml
+- type: Packages
+  url: packages/enphase-packages.yml
+- type: Plans
+  url: plans/enphase-plans.yml
+- type: RateLimits
+  url: rate-limits/enphase-rate-limits.yml
+- type: MCPServer
+  url: mcp/enphase-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/enphase-tool-crosswalk.yml
+- type: AsyncAPI
+  url: asyncapi/enphase-live-status-asyncapi.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/enphase-llms.txt
 - type: Website
   url: https://enphase.com
 - type: DeveloperPortal
@@ -183,6 +240,14 @@ common:
   url: https://investor.enphase.com/
 - type: Email
   url: mailto:api@enphaseenergy.com
+- type: APIReference
+  url: https://developer-v4.enphase.com/docs/monitoring_api
+- type: FAQ
+  url: https://developer-v4.enphase.com/docs/faq
+- type: GitHubOrganization
+  url: https://github.com/enphase
+- type: SecurityAdvisories
+  url: https://enphase.com/cybersecurity/advisories
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

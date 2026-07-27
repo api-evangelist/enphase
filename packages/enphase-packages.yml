@@ -1,0 +1,80 @@
+generated: '2026-07-27'
+method: searched
+source: npm, PyPI, RubyGems, Packagist, NuGet, crates.io, pkg.go.dev, Maven Central,
+  https://github.com/enphase, https://developer-v4.enphase.com
+official_sdks: 0
+summary: >-
+  Enphase ships no first-party client library in any language. Its GitHub organisation
+  (github.com/enphase, 6 public repos, contact open-source@enphaseenergy.com) publishes hardware
+  and lab engineering tools - a Rust fixed-point filter library, an NL5 circuit-simulator binding,
+  pyqtgraph scope plots, a KiCad constraint matrix and a lab interlock controller - and nothing
+  that touches the Enlighten Systems API. The developer portal offers copy-paste cURL, raw HTTP,
+  PHP-cURL and Python http.client samples in the quick start guide instead of an SDK. Every client
+  library below is community-maintained; none is endorsed by Enphase.
+packages: []
+community_packages:
+- language: python
+  registry: pypi
+  name: Enphase-API
+  version_seen: 1.0.0
+  url: https://pypi.org/project/Enphase-API/
+  install: pip install Enphase-API
+  official: false
+  scope: >-
+    Targets the LOCAL IQ Gateway (Envoy) API on the home network, not the cloud Enlighten Systems
+    API v4 documented in this repo.
+- language: multiple
+  registry: github
+  name: NathanBaulch/EnphaseOpenAPI
+  url: https://github.com/NathanBaulch/EnphaseOpenAPI
+  official: false
+  scope: >-
+    Unofficial OpenAPI specifications plus OpenAPI Generator clients for the Enlighten Systems
+    API. Generated packages are published in-repo per language rather than to package registries.
+- language: python
+  registry: github
+  name: RobertJansen1/enphase_v4_api_python
+  url: https://github.com/RobertJansen1/enphase_v4_api_python
+  official: false
+  licence: Apache-2.0
+  scope: Minimal example client for the v4 systems API OAuth flow and data fetch.
+- language: python
+  registry: github
+  name: xianman/enphase-mcp
+  url: https://github.com/xianman/enphase-mcp
+  official: false
+  licence: MIT
+  scope: >-
+    MCP server over the official Developer API v4 - 30 read tools plus 3 opt-in write tools.
+    Catalogued in mcp/enphase-mcp.yml and mcp/enphase-tool-crosswalk.yml.
+registry_probes:
+- registry: npm
+  query: enphase
+  first_party_result: none
+- registry: pypi
+  query: enphase
+  first_party_result: none
+- registry: rubygems
+  query: enphase
+  first_party_result: none
+- registry: packagist
+  query: enphase
+  first_party_result: none
+- registry: nuget
+  query: enphase
+  first_party_result: none
+- registry: crates.io
+  query: enphase
+  first_party_result: none
+- registry: pkg.go.dev
+  query: enphase
+  first_party_result: none
+- registry: maven-central
+  query: enphase
+  first_party_result: none
+github_organization:
+  url: https://github.com/enphase
+  name: Enphase Energy
+  public_repos: 6
+  email: open-source@enphaseenergy.com
+  api_client_libraries: 0

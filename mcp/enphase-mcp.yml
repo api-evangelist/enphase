@@ -1,0 +1,921 @@
+generated: '2026-07-27'
+method: derived
+status: candidate
+source:
+- openapi/enphase-monitoring-api-openapi.json
+- openapi/enphase-commissioning-api-openapi.json
+- openapi/enphase-vpp-api-openapi.json
+official_server: null
+notes: 'Enphase publishes no first-party MCP server. This is a candidate tool surface derived one-for-one
+  from the operations in the three published specs, so an MCP server built over the Enphase v4 APIs has
+  a real, verifiable inputSchema source for every tool - the backing operation parameters. Tool names
+  come from the spec operationId where one exists; the Monitoring and Commissioning specs omit operationIds
+  on most operations, so those names are derived from method + path and flagged name_derived: true.'
+third_party_servers:
+- name: Enphase Solar MCP Server
+  repo: https://github.com/xianman/enphase-mcp
+  transport: stdio
+  official: false
+  license: MIT
+  tools: 33
+  note: 'Community server wrapping the official Developer API v4: 30 read tools always on, 3 write tools
+    behind ENPHASE_ENABLE_WRITES=1. Crosswalked in mcp/enphase-tool-crosswalk.yml.'
+auth:
+  model: Bearer OAuth 2.0 access token plus the application API key
+  detail: authentication/enphase-authentication.yml
+tool_count: 148
+tools:
+- name: get_systems
+  description: Fetch systems
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems
+  name_derived: true
+  mutating: false
+- name: create_systems_search
+  description: Search and filter systems
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#POST /api/v4/systems/search
+  name_derived: true
+  mutating: true
+- name: get_systems_system_id
+  description: Retrieves a System by id
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_summary
+  description: Retrieves a system summary
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/summary
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_devices
+  description: Retrieves devices for a given system
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/devices
+  name_derived: true
+  mutating: false
+- name: get_systems_retrieve_system_id
+  description: Retrieve system for a given envoy serial number
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/retrieve_system_id
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_events
+  description: To retrieve the list of events for a site
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/events
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_alarms
+  description: To retrieve the list of alarms for a site
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/alarms
+  name_derived: true
+  mutating: false
+- name: get_systems_event_types
+  description: To retrieve the list of event_type_id along with event_description and recommended_action
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/event_types
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_open_events
+  description: To retrieve the list of all open events of a site
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/open_events
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_open_alarms
+  description: To retrieve the list of all open alarms of a site
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/open_alarms
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_production_meter_readings
+  description: production_meter_readings
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/production_meter_readings
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_consumption_meter_readings
+  description: consumption_meter_readings
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/consumption_meter_readings
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_storage_meter_readings
+  description: storage_meter_readings
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/storage_meter_readings
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_rgm_stats
+  description: rgm_stats
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/rgm_stats
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_consumption_lifetime
+  description: consumption_lifetime
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/consumption_lifetime
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_energy_lifetime
+  description: energy_lifetime
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/energy_lifetime
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_battery_lifetime
+  description: battery_lifetime
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/battery_lifetime
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_energy_import_lifetime
+  description: import_lifetime
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/energy_import_lifetime
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_energy_export_lifetime
+  description: export_lifetime
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/energy_export_lifetime
+  name_derived: true
+  mutating: false
+- name: get_systems_inverters_summary_by_envoy_or_site
+  description: inverters_summary_by_envoy_or_site
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/inverters_summary_by_envoy_or_site
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_telemetry_production_micro
+  description: Retrieves telemetry for all production micros for a system
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/telemetry/production_micro
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_telemetry_production_meter
+  description: Retrieves telemetry for all production meters for a system
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/telemetry/production_meter
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_telemetry_battery
+  description: Retrieves telemetry for all batteries for a system
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/telemetry/battery
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_telemetry_consumption_meter
+  description: Retrieves telemetry for all consumption meters for a system
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/telemetry/consumption_meter
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_devices_micros_telemetry
+  description: Retrieves telemetry for all micros/PCUs in a system.
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/devices/micros/telemetry
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_devices_micros_serial_no_telemetry
+  description: Retrieves telemetry for single micro/pcu.
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/devices/micros/{serial_no}/telemetry
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_devices_encharges_serial_no_telemetry
+  description: Retrieves telemetry for single Encharge
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/devices/encharges/{serial_no}/telemetry
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_serial_no_evse_lifetime
+  description: Retrieves daily time-series telemetry data of the 3rd party EVSE charger
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/{serial_no}/evse_lifetime
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_hp_lifetime
+  description: Retrieves daily time-series telemetry data of the HP
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/hp_lifetime
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_serial_no_evse_telemetry
+  description: Retrieves telemetry data of the EVSE charger at regular intervals.
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/{serial_no}/evse_telemetry
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_hp_telemetry
+  description: Retrieves energy consumed by HP in regular intervals.
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/hp_telemetry
+  name_derived: true
+  mutating: false
+- name: get_systems_config_system_id_battery_settings
+  description: Returns the current battery settings of a system
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/config/{system_id}/battery_settings
+  name_derived: true
+  mutating: false
+- name: update_systems_config_system_id_battery_settings
+  description: Updates the current battery settings of a system
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#PUT /api/v4/systems/config/{system_id}/battery_settings
+  name_derived: true
+  mutating: true
+- name: get_systems_config_system_id_storm_guard
+  description: Returns the current storm guard settings of a system
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/config/{system_id}/storm_guard
+  name_derived: true
+  mutating: false
+- name: update_systems_config_system_id_storm_guard
+  description: Updates the current storm guard settings of a system
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#PUT /api/v4/systems/config/{system_id}/storm_guard
+  name_derived: true
+  mutating: true
+- name: get_systems_config_system_id_grid_status
+  description: Returns the current grid status of a system
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/config/{system_id}/grid_status
+  name_derived: true
+  mutating: false
+- name: get_systems_config_system_id_load_control
+  description: Returns the current load control settings of a system
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/config/{system_id}/load_control
+  name_derived: true
+  mutating: false
+- name: update_systems_config_system_id_load_control
+  description: Updates the current load control settings of a system
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#PUT /api/v4/systems/config/{system_id}/load_control
+  name_derived: true
+  mutating: true
+- name: get_systems_system_id_energy_import_telemetry
+  description: Retrieves energy imported from grid in regular intervals
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/energy_import_telemetry
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_energy_export_telemetry
+  description: Retrieves energy exported to grid in regular intervals
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/energy_export_telemetry
+  name_derived: true
+  mutating: false
+- name: get_live_data
+  description: Site Level Live Status
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#getLiveData
+  name_derived: false
+  mutating: false
+- name: get_systems_system_id_latest_telemetry
+  description: Returns a system's last reported PV Power, Consumption Power, and Battery Power in Watts.
+    Return’s operational mode for Battery, HP, and EVSE
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems/{system_id}/latest_telemetry
+  name_derived: true
+  mutating: false
+- name: fetch_chargers_summary
+  description: Fetch active chargers for a system
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#fetchChargersSummary
+  name_derived: false
+  mutating: false
+- name: fetch_events
+  description: Fetch events
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#fetchEvents
+  name_derived: false
+  mutating: false
+- name: fetch_charger_session_history
+  description: Charger session history
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#fetchChargerSessionHistory
+  name_derived: false
+  mutating: false
+- name: fetch_schedules
+  description: Get Schedule
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#fetchSchedules
+  name_derived: false
+  mutating: false
+- name: fetch_daily_energy_consumption_data
+  description: Daily energy api
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#fetchDailyEnergyConsumptionData
+  name_derived: false
+  mutating: false
+- name: fetch_energy_consumption_data
+  description: Interval energy api
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#fetchEnergyConsumptionData
+  name_derived: false
+  mutating: false
+- name: start_charging
+  description: Start charging. Illustrative only - access via VPP api for partners
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#startCharging
+  name_derived: false
+  mutating: true
+- name: stop_charging
+  description: Stop charging. Illustrative only - access via VPP api for partners
+  api: Enphase Monitoring API
+  source_operation: openapi/enphase-monitoring-api-openapi.json#stopCharging
+  name_derived: false
+  mutating: true
+- name: get_activations_activation_id_battery_mode
+  description: API endpoint to get battery charge/discharge setting.
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/battery_mode
+  name_derived: true
+  mutating: false
+- name: update_activations_activation_id_battery_mode
+  description: API endpoint to update battery charge/discharge setting.
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#PUT /api/v4/activations/{activation_id}/battery_mode
+  name_derived: true
+  mutating: true
+- name: get_partner_activations
+  description: List of Activations
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/activations
+  name_derived: true
+  mutating: false
+- name: create_partner_activations
+  description: Create new activation.
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#POST /api/v4/partner/activations
+  name_derived: true
+  mutating: true
+- name: get_partner_activations_activation_id
+  description: Retrieves an Activation by id
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/activations/{activation_id}
+  name_derived: true
+  mutating: false
+- name: update_partner_activations_activation_id
+  description: Update an activation.
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#PUT /api/v4/partner/activations/{activation_id}
+  name_derived: true
+  mutating: true
+- name: delete_partner_activations_activation_id
+  description: Delete an activation by id
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#DELETE /api/v4/partner/activations/{activation_id}
+  name_derived: true
+  mutating: true
+- name: create_activations_activation_id_users_user_id
+  description: Grant Access
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#POST /api/v4/activations/{activation_id}/users/{user_id}
+  name_derived: true
+  mutating: true
+- name: get_activations_activation_id_users_user_id
+  description: Returns the requested user
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/users/{user_id}
+  name_derived: true
+  mutating: false
+- name: update_activations_activation_id_users_user_id
+  description: Update user
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#PUT /api/v4/activations/{activation_id}/users/{user_id}
+  name_derived: true
+  mutating: true
+- name: delete_activations_activation_id_users_user_id
+  description: Revoke Access
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#DELETE /api/v4/activations/{activation_id}/users/{user_id}
+  name_derived: true
+  mutating: true
+- name: create_activations_activation_id_ops_production_mode
+  description: Set production mode
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#POST /api/v4/activations/{activation_id}/ops/production_mode
+  name_derived: true
+  mutating: true
+- name: get_activations_activation_id_ops_production_mode
+  description: Get production mode
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/ops/production_mode
+  name_derived: true
+  mutating: false
+- name: get_companies_company_id_users
+  description: Get all users with in a company
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/companies/{company_id}/users
+  name_derived: true
+  mutating: false
+- name: create_companies_company_id_users
+  description: Create company user
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#POST /api/v4/companies/{company_id}/users
+  name_derived: true
+  mutating: true
+- name: create_users
+  description: Create Home owner
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#POST /api/v4/users
+  name_derived: true
+  mutating: true
+- name: get_users_search
+  description: Search user
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/users/search
+  name_derived: true
+  mutating: false
+- name: update_companies_company_id_users_user_id
+  description: Update company user
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#PUT /api/v4/companies/{company_id}/users/{user_id}
+  name_derived: true
+  mutating: true
+- name: get_partner_users_user_id
+  description: Returns the requested user
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/users/{user_id}
+  name_derived: true
+  mutating: false
+- name: get_partner_users_self
+  description: Return the current logged in user detail
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/users/self
+  name_derived: true
+  mutating: false
+- name: get_companies_self_branches
+  description: User's company and its branches
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/companies/self/branches
+  name_derived: true
+  mutating: false
+- name: get_companies_self_authorized_subcontractors
+  description: User's company and its authorized subcontractors.
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/companies/self/authorized_subcontractors
+  name_derived: true
+  mutating: false
+- name: get_activations_activation_id_estimate
+  description: Returns the estimate for this system.
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/activations/{activation_id}/estimate
+  name_derived: true
+  mutating: false
+- name: update_activations_activation_id_estimate
+  description: Update the estimate for this system.
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#PUT /api/v4/activations/{activation_id}/estimate
+  name_derived: true
+  mutating: true
+- name: get_partner_grid_profiles
+  description: Lists the available profiles
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/grid_profiles
+  name_derived: true
+  mutating: false
+- name: get_systems_system_id_meters_serial_number
+  description: Returns the requested meter detail.
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/systems/{system_id}/meters/{serial_number}
+  name_derived: true
+  mutating: false
+- name: create_activations_activation_id_meters_serial_number_meter_control
+  description: Enable or Disable the meters.
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#POST /api/v4/activations/{activation_id}/meters/{serial_number}/meter_control
+  name_derived: true
+  mutating: true
+- name: get_pv_manufacturers
+  description: Returns PV module manufacturers
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/pv_manufacturers
+  name_derived: true
+  mutating: false
+- name: get_pv_manufacturers_pv_manufacturer_id_pv_models
+  description: Returns PV module manufacturers
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/pv_manufacturers/{pv_manufacturer_id}/pv_models
+  name_derived: true
+  mutating: false
+- name: get_systems_config_system_id_tariff
+  description: Get tariff for a system
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/systems/config/{system_id}/tariff
+  name_derived: true
+  mutating: false
+- name: get_partner_systems_system_id_arrays
+  description: Fetch particular system Array details
+  api: Enphase Commissioning API
+  source_operation: openapi/enphase-commissioning-api-openapi.json#GET /api/v4/partner/systems/{system_id}/arrays
+  name_derived: true
+  mutating: false
+- name: get_v_p_p_by_key
+  description: Retrieve details of a VPP
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getVPPByKey
+  name_derived: false
+  mutating: false
+- name: update_v_p_p
+  description: Update an existing VPP in a program
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#updateVPP
+  name_derived: false
+  mutating: true
+- name: delete_v_p_p_by_key
+  description: Delete VPP by vpp id
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#deleteVPPByKey
+  name_derived: false
+  mutating: true
+- name: stop_stream
+  description: Stop the live stream for an enrolled site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#stopStream
+  name_derived: false
+  mutating: true
+- name: start_stream
+  description: Start the live stream for an enrolled site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#startStream
+  name_derived: false
+  mutating: true
+- name: get_site_settings
+  description: Fetch site settings for an enrolled site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getSiteSettings
+  name_derived: false
+  mutating: false
+- name: update_site_settings
+  description: Update site settings for an enrolled site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#updateSiteSettings
+  name_derived: false
+  mutating: true
+- name: get_event_details
+  description: Retrieve details of a specific event
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getEventDetails
+  name_derived: false
+  mutating: false
+- name: update_event
+  description: Update an existing Event in a program
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#updateEvent
+  name_derived: false
+  mutating: true
+- name: cancel_event
+  description: Cancel or End Event
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#cancelEvent
+  name_derived: false
+  mutating: true
+- name: opt_out_opt_in_event
+  description: Optout-Optin site from the event
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#optOutOptInEvent
+  name_derived: false
+  mutating: true
+- name: get_application_by_site_id
+  description: Retrieve an application
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getApplicationBySiteId
+  name_derived: false
+  mutating: false
+- name: update_application
+  description: Update a rejected application
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#updateApplication
+  name_derived: false
+  mutating: true
+- name: withdraw_application
+  description: Withdraw an application that is not yet approved
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#withdrawApplication
+  name_derived: false
+  mutating: true
+- name: get_token
+  description: Generate OAuth 2.0 access token
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getToken
+  name_derived: false
+  mutating: true
+- name: get_events
+  description: Retrieve all events in a program
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getEvents
+  name_derived: false
+  mutating: false
+- name: create_event
+  description: Create a new Event in a program
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#createEvent
+  name_derived: false
+  mutating: true
+- name: get_all_v_p_p_by_key
+  description: Retrieve all VPPs of a program
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getAllVPPByKey
+  name_derived: false
+  mutating: false
+- name: create_v_p_p
+  description: Create a new VPP in a program
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#createVPP
+  name_derived: false
+  mutating: true
+- name: register_site_for_live_stream
+  description: Register Site for live stream
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#registerSiteForLiveStream
+  name_derived: false
+  mutating: true
+- name: generate_local_api_token
+  description: Generate access token for IQ gateway local api. This token will be valid for 12 hours and
+    can be generated any number of times once the site is enrolled.
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#generateLocalApiToken
+  name_derived: false
+  mutating: true
+- name: reset_evse
+  description: API to reset the communication between the charger and partner’s CSMS
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#resetEvse
+  name_derived: false
+  mutating: true
+- name: register_evse
+  description: API to initiate the establishment of communication between the charger and partner’s CSMS
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#registerEvse
+  name_derived: false
+  mutating: true
+- name: get_forecast
+  description: API to fetch energy forecasts and respective accuracy percentages
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getForecast
+  name_derived: false
+  mutating: true
+- name: get_events_1
+  description: Retrieve all events in a program
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getEvents_1
+  name_derived: false
+  mutating: false
+- name: create_event_1
+  description: Create a new Event in a program
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#createEvent_1
+  name_derived: false
+  mutating: true
+- name: get_applications
+  description: Retrieve all applications of a program
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getApplications
+  name_derived: false
+  mutating: false
+- name: create_application
+  description: Create new application
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#createApplication
+  name_derived: false
+  mutating: true
+- name: get_event_details_1
+  description: Retrieve details of a specific event
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getEventDetails_1
+  name_derived: false
+  mutating: false
+- name: cancel_event_1
+  description: Cancel or End Event
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#cancelEvent_1
+  name_derived: false
+  mutating: true
+- name: get_device_level_e_v_s_e_telemetry
+  description: Retrieves telemetry data of the EVSE charger at regular intervals
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getDeviceLevelEVSETelemetry
+  name_derived: false
+  mutating: false
+- name: get_device_level_e_v_s_e_life_time_telemetry
+  description: Retrieves daily time-series telemetry data of the EVSE charger
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getDeviceLevelEVSELifeTimeTelemetry
+  name_derived: false
+  mutating: false
+- name: get_production_micro_telemetry
+  description: Get telemetry for all production micros for a site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getProductionMicroTelemetry
+  name_derived: false
+  mutating: false
+- name: get_production_meter_readings
+  description: To retrieve the last known reading of each production meter on the system as of the requested
+    time
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getProductionMeterReadings
+  name_derived: false
+  mutating: false
+- name: get_production_meter_telemetry
+  description: Get telemetry for all production meters for a site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getProductionMeterTelemetry
+  name_derived: false
+  mutating: false
+- name: get_import_telemetry
+  description: Get the import telemetry data per interval for a given site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getImportTelemetry
+  name_derived: false
+  mutating: false
+- name: get_export_telemetry
+  description: Get the export telemetry data per interval for a given site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getExportTelemetry
+  name_derived: false
+  mutating: false
+- name: get_consumption_meter_readings
+  description: To retrieve the last known reading of each consumption meter on the system as of the requested
+    time
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getConsumptionMeterReadings
+  name_derived: false
+  mutating: false
+- name: get_consumption_meter_telemetry
+  description: Get telemetry for all consumption meters for a site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getConsumptionMeterTelemetry
+  name_derived: false
+  mutating: false
+- name: get_battery_telemetry
+  description: Get telemetry for all batteries for a site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getBatteryTelemetry
+  name_derived: false
+  mutating: false
+- name: get_site_summary
+  description: Get a site summary
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getSiteSummary
+  name_derived: false
+  mutating: false
+- name: get_storm_guard_settings
+  description: Get the current storm guard settings of a site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getStormGuardSettings
+  name_derived: false
+  mutating: false
+- name: get_storage_meter_readings
+  description: To retrieve the last known reading of each storage meter on the system as of the requested
+    time
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getStorageMeterReadings
+  name_derived: false
+  mutating: false
+- name: get_site_open_events
+  description: To retrieve the list of open events for a site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getSiteOpenEvents
+  name_derived: false
+  mutating: false
+- name: get_site_events
+  description: To retrieve the list of events for a site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getSiteEvents
+  name_derived: false
+  mutating: false
+- name: get_site_alarms
+  description: To retrieve the list of alarms for a site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getSiteAlarms
+  name_derived: false
+  mutating: false
+- name: get_live_stream_registration_status
+  description: Get Live Stream Registration status for a site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getLiveStreamRegistrationStatus
+  name_derived: false
+  mutating: false
+- name: get_production_life_time
+  description: production_lifetime
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getProductionLifeTime
+  name_derived: false
+  mutating: false
+- name: get_p_e_l_p_c_s_settings
+  description: API to show the export limit, import limit, and PCS limit of a site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getPELPCSSettings
+  name_derived: false
+  mutating: false
+- name: get_latest_telemetry
+  description: Returns a system's last reported PV Power, Consumption Power and Battery Power in Watts.
+    Returns the operational mode for Battery, HP, and EVSE.
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getLatestTelemetry
+  name_derived: false
+  mutating: false
+- name: get_life_time_import
+  description: import_lifetime
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getLifeTimeImport
+  name_derived: false
+  mutating: false
+- name: get_device_level_h_p_telemetry
+  description: Retrieves energy consumed by HP in regular intervals.
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getDeviceLevelHPTelemetry
+  name_derived: false
+  mutating: false
+- name: get_device_level_h_p_life_time_telemetry
+  description: Retrieves daily time-series telemetry data of the HP
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getDeviceLevelHPLifeTimeTelemetry
+  name_derived: false
+  mutating: false
+- name: get_grid_status_settings
+  description: Get the current grid status settings of a site
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getGridStatusSettings
+  name_derived: false
+  mutating: false
+- name: get_life_time_export
+  description: export_lifetime
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getLifeTimeExport
+  name_derived: false
+  mutating: false
+- name: get_devices
+  description: Get all devices for a system
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getDevices
+  name_derived: false
+  mutating: false
+- name: get_device_level_p_v_production_telemetry
+  description: Retrieves telemetry for single micro/pcu.
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getDeviceLevelPVProductionTelemetry
+  name_derived: false
+  mutating: false
+- name: get_e_v_s_e_configuration_status
+  description: API to fetch the current enrollment configuration of a charger that has been onboarded
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getEVSEConfigurationStatus
+  name_derived: false
+  mutating: false
+- name: get_device_level_encharge_telemetry
+  description: Device level encharge telemetry data
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getDeviceLevelEnchargeTelemetry
+  name_derived: false
+  mutating: false
+- name: get_consumption_life_time
+  description: consumption_lifetime
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getConsumptionLifeTime
+  name_derived: false
+  mutating: false
+- name: get_battery_settings
+  description: Returns the current battery settings of a system
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getBatterySettings
+  name_derived: false
+  mutating: false
+- name: get_battery_life_time
+  description: battery_lifetime
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getBatteryLifeTime
+  name_derived: false
+  mutating: false
+- name: get_systems
+  description: Get all systems enrolled into the program with details
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getSystems
+  name_derived: false
+  mutating: false
+- name: get_event_types
+  description: To retrieve the list of event_type_id along with event_description and recommended_action
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getEventTypes
+  name_derived: false
+  mutating: false
+- name: get_all_programs
+  description: Retrieve all programs under an account
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getAllPrograms
+  name_derived: false
+  mutating: false
+- name: get_program_by_key
+  description: Retrieve individual program details by program_id
+  api: Enphase VPP API
+  source_operation: openapi/enphase-vpp-api-openapi.json#getProgramByKey
+  name_derived: false
+  mutating: false

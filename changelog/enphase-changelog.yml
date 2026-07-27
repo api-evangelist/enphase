@@ -1,0 +1,105 @@
+generated: '2026-07-27'
+method: searched
+source: https://developer-v4.enphase.com/docs/release_notes
+scheme: dated entries, no release version numbers
+current_version: v4 (Monitoring and Commissioning); VPP API Reference 1.1.0
+cadence: irregular - roughly every one to three months
+latest_entry: '2025-10-15'
+notes: >-
+  The developer portal publishes a single dated Release Notes page covering the Monitoring and
+  Commissioning APIs. Entries are not versioned and carry no breaking-change flag; the entries
+  below record which ones are additive and which change existing behaviour. The VPP API has no
+  separate changelog - its only version signal is the 1.1.0 in the spec info block.
+entries:
+- date: '2025-10-15'
+  breaking: false
+  additions:
+  - IQ collar details added to GET /api/v4/systems/{system_id}/devices
+- date: '2025-10-01'
+  breaking: false
+  additions:
+  - GET /api/v4/systems/{system_id}/open_events - all open events on a site
+  highlights:
+  - Descriptions of the events and alarms endpoints clarified, including the difference between an
+    event and an alarm
+  - Latest-telemetry description clarified for how consumption power is calculated across
+    consumption CT configurations
+- date: '2025-08-13'
+  breaking: false
+  additions:
+  - IQ EVSE charger details added to the devices endpoint response
+  highlights:
+  - System summary now returns min and max charge/discharge power of every EVSE at a site
+  - POST /api/v4/systems/search enhanced to include live_stream status
+- date: '2025-06-16'
+  breaking: false
+  additions:
+  - GET /api/v4/systems/{system_id}/events - active and closed events, 7-day window, 6-month retention
+  - GET /api/v4/systems/{system_id}/alarms - active and closed alarms, 7-day window, 6-month retention
+  - GET /api/v4/systems/event_types - static event_type_id, key, description and recommended action
+- date: '2025-06-09'
+  breaking: false
+  additions:
+  - GET /api/v4/activations/{activation_id}/battery_mode
+  - PUT /api/v4/activations/{activation_id}/battery_mode
+  highlights:
+  - NMI added to the system summary endpoint
+  - Heat pump and EVSE operational mode added to latest telemetry
+  - System summary accepts summary_date and returns lifetime values as of that date
+- date: '2025-04-23'
+  breaking: false
+  additions:
+  - GET /api/v4/systems/{system_id}/{serial_no}/evse_lifetime
+  - GET /api/v4/systems/{system_id}/{serial_no}/evse_telemetry
+  - GET /api/v4/systems/{system_id}/hp_lifetime
+  - GET /api/v4/systems/{system_id}/hp_telemetry
+- date: '2024-12-18'
+  breaking: false
+  highlights:
+  - Third-party-owner companies can set maintainers and subcontractors through the activation endpoints
+  - Interconnection date and Permission to Operate flag added to the Activations API for Net Billing
+    Tariff (NEM 3.0) systems
+  - Activations can now be created against retired Envoys
+  - Homeowner password change no longer invalidates an authorized application access token
+  - System size mismatch in the systems summary endpoint fixed
+  - Battery settings Savings Mode no longer resets the account tariff settings
+- date: '2024-05-11'
+  breaking: false
+  highlights:
+  - POST /api/v4/systems/search can filter on reference and other_references
+  - grid_connection_type, battery_grid_mode, third_party_storage_device_installed and
+    third_party_storage_device_manufacturer added to the Activations API
+  - Address became mandatory when creating a United States activation
+- date: '2024-01-15'
+  breaking: false
+  additions:
+  - GET /api/v4/systems/{system_id}/latest_telemetry - last reported PV, consumption and battery power
+  highlights:
+  - battery_charge_w, battery_discharge_w and battery_capacity_wh added to the system summary
+  - FAQ page added to the developer portal
+- date: '2023-10-16'
+  breaking: false
+  highlights:
+  - Refresh token expiry extended from 1 week to 30 days for all developer portal applications,
+    new and existing
+  - product_name field added to the fetch devices response
+  - Device counts corrected in the telemetry endpoints
+- date: '2023-07-03'
+  breaking: true
+  highlights:
+  - GET /api/v4/systems and POST /api/v4/systems/search now always return energy_lifetime,
+    energy_today and system_size as -1; callers must use the per-system summary endpoint instead
+  - Live Status reports battery mode "DR Event Active" during an ongoing Grid Services event
+  - New 401 "API Key -Client mismatch" error when the API key and the access token client ID
+    belong to different applications
+  - 501 Not Implemented returned for methods outside POST, PUT, GET, DELETE, HEAD, OPTIONS, PATCH
+- date: '2023-06-20'
+  breaking: false
+  additions:
+  - Live Status endpoint - real-time stream for 30 to 300 seconds, IQ Gateway 6.0.0 or later only
+- date: '2023-04-24'
+  breaking: true
+  highlights:
+  - Telemetry endpoints return an empty list instead of an error when the requested window falls
+    between the last reported interval and now
+  - Authorized subcontractors of a site gain Partner-plan access to all endpoints for that site

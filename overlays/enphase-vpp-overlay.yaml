@@ -1,0 +1,57 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Enphase VPP API
+  version: 1.0.0
+extends: openapi/enphase-vpp-api-openapi.json
+x-generated: '2026-07-27'
+x-method: generated
+x-notes:
+- 'Security schemes added: the spec documents the Authorization and x-api-key headers as plain header
+  parameters on every operation rather than as securitySchemes.'
+- OCPP 1.6 is the one recognised interoperability standard in the Enphase surface, exposed on the EVSE
+  configuration/reset operations.
+actions:
+- target: $.info
+  description: Stamp API Evangelist provenance
+  update:
+    x-apievangelist-slug: enphase
+    x-apievangelist-api: enphase:enphase-vpp-api
+    x-apievangelist-source: https://vpp.enphaseenergy.com/auth/getApiSpec
+    x-apievangelist-artifacts:
+    - authentication/enphase-authentication.yml
+    - conformance/enphase-conformance.yml
+    - data-model/enphase-data-model.yml
+- target: $
+  description: Declare the security schemes as schemes rather than header parameters
+  update:
+    components:
+      securitySchemes:
+        oauth2_client_credentials:
+          type: oauth2
+          flows:
+            clientCredentials:
+              tokenUrl: https://vpp.enphaseenergy.com/auth/oauth2/token
+              scopes: {}
+        api_key:
+          type: apiKey
+          name: x-api-key
+          in: header
+          description: Unique API key of the grid-services partner account
+    security:
+    - oauth2_client_credentials: []
+      api_key: []
+- target: $.paths['/api/v1/systems/{site_id}/devices/evse/{serial_no}/ocpp_configuration'].post
+  description: Tag the OCPP 1.6 conformance point
+  update:
+    x-standard: OCPP 1.6
+    x-conformance: conformance/enphase-conformance.yml
+- target: $.paths['/api/v1/systems/{site_id}/devices/evse/{serial_no}/ocpp_reset'].post
+  description: Tag the OCPP 1.6 conformance point
+  update:
+    x-standard: OCPP 1.6
+    x-conformance: conformance/enphase-conformance.yml
+- target: $.paths['/api/v1/systems/{site_id}/devices/evse/{serial_no}/ocpp_configuration/status'].get
+  description: Tag the OCPP 1.6 conformance point
+  update:
+    x-standard: OCPP 1.6
+    x-conformance: conformance/enphase-conformance.yml

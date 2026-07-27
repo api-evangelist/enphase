@@ -1,0 +1,49 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Enphase Commissioning API
+  version: 1.0.0
+extends: openapi/enphase-commissioning-api-openapi.json
+x-generated: '2026-07-27'
+x-method: generated
+x-notes:
+- 'Security schemes added: the published spec declares none. The Commissioning API uses the OAuth 2.0
+  password grant against Enphase cloud (Enlighten) credentials plus the application API key.'
+- 'Access is Partner-plan only: registered Enphase installers with at least ten installations.'
+actions:
+- target: $.info
+  description: Stamp API Evangelist provenance
+  update:
+    x-apievangelist-slug: enphase
+    x-apievangelist-api: enphase:enphase-commissioning-api
+    x-apievangelist-source: https://developer-v4.enphase.com/swagger/spec/partner_api.json
+    x-apievangelist-artifacts:
+    - authentication/enphase-authentication.yml
+    - errors/enphase-problem-types.yml
+    - plans/enphase-plans.yml
+- target: $
+  description: Declare the security schemes the docs require but the spec omits
+  update:
+    securityDefinitions:
+      oauth2_password:
+        type: oauth2
+        flow: password
+        tokenUrl: https://api.enphaseenergy.com/oauth/token
+        scopes:
+          read: Read installer-scoped data
+          write: Create and update activations, users and configuration
+      api_key:
+        type: apiKey
+        name: key
+        in: query
+        description: Application API key issued by the Enphase Developer Portal
+    security:
+    - oauth2_password:
+      - read
+      - write
+      api_key: []
+- target: $.info
+  description: Record the access tier
+  update:
+    x-access-tier: partner-only
+    x-eligibility: Registered Enphase installer with at least 10 installations, credit card on file
+    x-plans: plans/enphase-plans.yml

@@ -1,0 +1,66 @@
+generated: '2026-07-27'
+method: searched
+source: https://developer-v4.enphase.com/developer-plans
+also: https://developer-v4.enphase.com/installer-plans
+model: per-application quota, enforced per minute and per calendar month by plan
+enforcement:
+  status_code: 429
+  body: '{"message":"Too Many Requests","details":"Usage limit exceeded for plan <plan name>","code":429}'
+  commissioning_body: '{"reason":"429","message":["Usage limit exceeded for plan Partner (custom)"]}'
+  headers: none - Enphase publishes no RateLimit, X-RateLimit or Retry-After response headers
+  gateway: 3scale
+rate_limits:
+- plan: Watt
+  limit_count: 10
+  limit_unit: minute
+  api: all subscribed
+- plan: Watt
+  limit_count: 1000
+  limit_unit: month
+  api: all subscribed
+- plan: Kilowatt
+  limit_count: 50
+  limit_unit: minute
+  api: all subscribed
+- plan: Kilowatt
+  limit_count: 50000
+  limit_unit: month
+  api: all subscribed
+- plan: Megawatt
+  limit_count: 100
+  limit_unit: minute
+  api: all subscribed
+- plan: Megawatt
+  limit_count: 300000
+  limit_unit: month
+  api: all subscribed
+- plan: Partner
+  limit_count: 300
+  limit_unit: minute
+  api: Monitoring API and Commissioning API
+- plan: Partner
+  limit_count: 1500000
+  limit_unit: month
+  api: Monitoring API and Commissioning API
+request_shaping_limits:
+- subject: interval telemetry endpoints
+  limit: maximum 7-day range per request; start date must be within 2 years of now
+  source: https://developer-v4.enphase.com/docs/faq
+- subject: events and alarms
+  limit: maximum 7-day range per request; data older than 6 months is not readable
+  source: https://developer-v4.enphase.com/docs/release_notes
+- subject: system listing
+  limit: page size default 10, maximum 100
+  source: openapi/enphase-monitoring-api-openapi.json
+- subject: live status stream
+  limit: duration 30-300 seconds per stream, default 30; billed at $0.10 per hit
+  source: openapi/enphase-monitoring-api-openapi.json#getLiveData
+overage:
+  unit: hit
+  price_usd: 0.005
+  note: >-
+    Kilowatt, Megawatt and Partner plans can have additional hits enabled by contacting
+    api@enphaseenergy.com. The Watt plan is hard-capped at 1,000 hits per month.
+vpp:
+  published: false
+  note: The VPP API publishes no rate limits; terms are set per grid-services partner contract.

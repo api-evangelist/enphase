@@ -1,0 +1,114 @@
+generated: '2026-07-27'
+method: searched
+source: https://developer-v4.enphase.com/docs/quickstart.html
+derived_from:
+- openapi/enphase-monitoring-api-openapi.json
+- openapi/enphase-commissioning-api-openapi.json
+- openapi/enphase-vpp-api-openapi.json
+summary: >-
+  Enphase v4 is a plain REST/JSON surface over HTTPS with URI-path versioning, page/size
+  pagination, epoch-second time windows, a two-credential auth model, and plan-quota rate
+  limiting. It publishes no idempotency contract, no request-id tracing header, no
+  RFC 9457 problem details, and no rate-limit response headers.
+authentication:
+  style: OAuth 2.0 bearer access token plus an application API key on every request
+  header: 'Authorization: Bearer <access_token>'
+  api_key: 'query parameter key= on Monitoring and Commissioning; header x-api-key on VPP'
+  detail: authentication/enphase-authentication.yml
+idempotency:
+  supported: false
+  evidence: >-
+    No Idempotency-Key header, parameter or documentation exists anywhere in the three published
+    specs or the developer portal. Retrying POST /api/v4/partner/activations is chargeable
+    ($2 per created activation) and is not de-duplicated by Enphase, and the EV charger
+    start_charging/stop_charging operations return 202 with no request identifier to correlate.
+  guidance: >-
+    Callers must implement their own de-duplication - check GET /api/v4/partner/activations by
+    reference before creating, and confirm charger state with the EV charger session/telemetry
+    reads after a 202 rather than blindly retrying.
+pagination:
+  style: page-number
+  request_params:
+  - name: page
+    description: Page to return. Default 1, minimum 1.
+  - name: size
+    description: Records per page. Default 10, minimum 1, maximum 100.
+  - name: sort_by
+    description: 'id for ascending, -id for descending (systems list only).'
+  response_fields:
+  - total
+  - current_page
+  - size
+  - count
+  - items
+  notes: >-
+    The items field names the array key in the payload (for example "systems"). VPP list
+    responses carry a meta block instead. No cursor, Link header or next-page URL is returned.
+  evidence: openapi/enphase-monitoring-api-openapi.json#GET /api/v4/systems
+time_windows:
+  format: epoch seconds (start_at / end_at); some responses also carry ISO-8601 UTC strings
+  interval_granularity: 5-minute microinverter telemetry, 15-minute meter telemetry, daily lifetime series
+  limits:
+  - Telemetry requests are capped at a 7-day range per call and the start date must be within
+    2 years of now.
+  - Events and alarms are capped at a 7-day range and data older than 6 months is not readable.
+  - Lifetime endpoints have no date-range restriction.
+  source: https://developer-v4.enphase.com/docs/faq
+field_expansion:
+  supported: false
+  notes: No expand, fields or sparse-fieldset parameter exists. Response shape is fixed per endpoint.
+metadata:
+  supported: false
+  notes: >-
+    No customer-defined metadata bag. The nearest equivalents are the activation reference and
+    other_references strings, which are searchable via POST /api/v4/systems/search.
+request_tracing:
+  request_id_header: none
+  notes: >-
+    No X-Request-Id, correlation or trace header is documented or returned. Support requests are
+    filed by pasting a sample request and response into the support form.
+  support: https://developer-v4.enphase.com/docs/support
+versioning:
+  scheme: uri-path
+  current:
+  - api/v4 (Monitoring, Commissioning)
+  - api/v1 and api/v2 (VPP - v2 exists only for the events resource)
+  header_versioning: false
+  detail: lifecycle/enphase-lifecycle.yml
+error_envelope:
+  primary:
+    message: string
+    details: string
+    code: integer
+  secondary:
+    message: array of string
+    reason: string
+  problem_json: false
+  detail: errors/enphase-problem-types.yml
+rate_limit_signaling:
+  response_headers: none published
+  status: 429 with body {"message":"Too Many Requests","details":"Usage limit exceeded for plan <plan>"}
+  retry_after: not returned
+  quotas: per-minute and per-month, set by plan
+  detail: rate-limits/enphase-rate-limits.yml
+content_types:
+  request: application/json; application/x-www-form-urlencoded on the token endpoints
+  response: application/json; text/event-stream on the live-status endpoint
+  compression: not documented
+methods:
+  allowed: POST, PUT, GET, DELETE, HEAD, OPTIONS, PATCH
+  notes: Any other method returns 501 Not Implemented on every v4 endpoint.
+  source: https://developer-v4.enphase.com/docs/release_notes
+webhooks:
+  supported: false
+  notes: >-
+    Enphase operates no webhook or callback surface. The redirect_uri in the OAuth flow is
+    sometimes described as a webhook URL in the quick start guide, but it only receives the
+    one-time authorization code. The only push-shaped surface is the HTTP live-status stream -
+    see asyncapi/enphase-live-status-asyncapi.yml.
+related:
+- authentication/enphase-authentication.yml
+- errors/enphase-problem-types.yml
+- lifecycle/enphase-lifecycle.yml
+- rate-limits/enphase-rate-limits.yml
+- scopes/enphase-scopes.yml
