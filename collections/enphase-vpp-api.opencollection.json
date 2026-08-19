@@ -1,0 +1,2712 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Reference",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Manage VPPs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details of a VPP",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/vpps/:vpp_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "fetchLatestValues",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to fetch the latest values for available_power and available_energy.Defaults to false."
+              },
+              {
+                "name": "vpp_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the VPP"
+              }
+            ]
+          },
+          "docs": "Returns details of a VPP based on the inputted vpp_id.\nThe API provides information on VPP created and update time along with the systems count,\nsystems list, total energy in kWh and total power in kW.\nIf no VPP is associated with the id, a 404 will be returned.\n"
+        },
+        {
+          "info": {
+            "name": "Update an existing VPP in a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vpp.enphaseenergy.com/api/v1/vpps/:vpp_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "vpp_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing VPP in a program based on the inputted VPP_ID.\nThe update can be done by grouping sites based on system-defined parameters\nsuch as STATE, CITY, SITE_IDS, and ZIP/POSTAL_CODE (only one of ZIP or postal code).\nFor each parameter, if multiple values are specified, 'OR' is used as the operator.\nFor example, if multiple ZIP/POSTAL_CODE values are specified, all sites in those areas\nwill be part of the VPP. 'All systems' VPP that is created by default during program\ncreation cannot "
+        },
+        {
+          "info": {
+            "name": "Delete VPP by vpp id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vpp.enphaseenergy.com/api/v1/vpps/:vpp_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "vpp_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the VPP"
+              }
+            ]
+          },
+          "docs": "Delete an existing VPP in a program based on the inputted VPP_ID.\n'All systems' VPP that is created by default during program creation cannot be deleted.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve all VPPs of a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/vpps",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique ID of the program"
+              },
+              {
+                "name": "page_no",
+                "value": "",
+                "type": "query",
+                "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all the VPPs of a program based on the inputted program_id.\nThe API provides information on VPP created and update time along with the systems count,\ntotal energy in kWh and total power in kW. 'All systems' VPP that is created by default\nduring program creation is always retrieved.\n"
+        },
+        {
+          "info": {
+            "name": "Create a new VPP in a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vpp.enphaseenergy.com/api/v1/vpps",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new VPP in a program by grouping sites based on system-defined parameters such as\nSTATE, CITY, SITE_IDS, and ZIP/POSTAL_CODE (only one of ZIP or postal code).\nFor each parameter, if multiple values are specified, 'OR' is used as the operator.\nFor example, if multiple ZIP/POSTAL_CODE values are specified, all sites in those areas\nwill be part of the VPP. VPP name can contain only space, underscore (_), hyphen (-), asterisk (*) as\n special characters along with any alphanumeric characters"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "System and Device Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Stop the live stream for an enrolled site",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/stop_live_stream",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              }
+            ]
+          },
+          "docs": "Stop the live stream for an enrolled site"
+        },
+        {
+          "info": {
+            "name": "Start the live stream for an enrolled site",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/start_live_stream",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              }
+            ]
+          },
+          "docs": "Start the live stream for an enrolled site"
+        },
+        {
+          "info": {
+            "name": "Fetch site settings for an enrolled site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/settings",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              }
+            ]
+          },
+          "docs": "Fetch site settings for an enrolled site"
+        },
+        {
+          "info": {
+            "name": "Update site settings for an enrolled site",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/settings",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update site settings for an enrolled site"
+        },
+        {
+          "info": {
+            "name": "Register Site for live stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/register_live_stream",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "query",
+                "description": "Envoy Serial Number if registering for particular envoy"
+              }
+            ]
+          },
+          "docs": "Register Site for live stream"
+        },
+        {
+          "info": {
+            "name": "Generate access token for IQ gateway local api. This token will be valid for 12 hours and can be generated any number of times once the site is enrolled.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/devices/gateway/:serial_no/local_api_token",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "serial_no",
+                "value": "",
+                "type": "path",
+                "description": "Serial Number of the Envoy"
+              }
+            ]
+          },
+          "docs": "Generate access token for IQ gateway local api. This token will be valid for 12 hours and can be generated any number of times once the site is enrolled."
+        },
+        {
+          "info": {
+            "name": "API to reset the communication between the charger and partner’s CSMS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/devices/evse/:serial_no/ocpp_reset",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "serial_no",
+                "value": "",
+                "type": "path",
+                "description": "Serial Number of the EV Charger"
+              }
+            ]
+          },
+          "docs": "API to reset the communication between the charger and partner’s CSMS"
+        },
+        {
+          "info": {
+            "name": "API to initiate the establishment of communication between the charger and partner’s CSMS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/devices/evse/:serial_no/ocpp_configuration",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "serial_no",
+                "value": "",
+                "type": "path",
+                "description": "Serial Number of the EV Charger"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "API to initiate the establishment of communication between the charger and partner’s CSMS"
+        },
+        {
+          "info": {
+            "name": "Get Live Stream Registration status for a site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/register_live_stream_status",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              }
+            ]
+          },
+          "docs": "Get Live Stream Registration status for a site"
+        },
+        {
+          "info": {
+            "name": "API to fetch the current enrollment configuration of a charger that has been onboarded",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/devices/evse/:serial_no/ocpp_configuration/status",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "serial_no",
+                "value": "",
+                "type": "path",
+                "description": "Serial Number of the EV Charger"
+              }
+            ]
+          },
+          "docs": "API to fetch the current enrollment configuration of a charger that has been onboarded"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve details of a specific event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/events/:event_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the event"
+              }
+            ]
+          },
+          "docs": "Returns event details based on the inputted event_id. The API will return event status, command delivery status along with all the parameters specified as inputs during event creation"
+        },
+        {
+          "info": {
+            "name": "Update an existing Event in a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vpp.enphaseenergy.com/api/v1/events/:event_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the Event"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing event in a program based on the inputted event_id. For an event, only rate_watt and target_soc are allowed to be updated and updation of an event is allowed only upto 1 minute before event start time."
+        },
+        {
+          "info": {
+            "name": "Cancel or End Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vpp.enphaseenergy.com/api/v1/events/:event_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the event"
+              }
+            ]
+          },
+          "docs": "The API can be used to cancel a scheduled event or end an ongoing event in a program. An event that is either completed or already cancelled cannot be cancelled or ended."
+        },
+        {
+          "info": {
+            "name": "Optout-Optin site from the event",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vpp.enphaseenergy.com/api/v1/events/optout/:event_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the Event"
+              }
+            ]
+          },
+          "docs": "Optout/Optin site from the event. Site can be opted out only for the scheduled events.\nOptout/Optin is allowed only up to 1 minute before the event start time.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve all events in a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v2/events",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique ID of the program"
+              },
+              {
+                "name": "page_no",
+                "value": "",
+                "type": "query",
+                "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for fetching the events list in yyyy-MM-dd format. If start_date is not specified, will be defaulted to today's date"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for fetching the events list in yyyy-MM-dd format. If end_date is not specified, will be defaulted to start_date + 7 days. Date range is restricted to a maximum of 30 days"
+              },
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query",
+                "description": "Site Id to fetch corresponding events"
+              },
+              {
+                "name": "event_status",
+                "value": "",
+                "type": "query",
+                "description": "Event Status to fetch corresponding events. Event statuses can be one of them: scheduled, in_progress, completed, stopped, failed, deleted, optedout"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all events in a program and total count of events based on the inputted program_id"
+        },
+        {
+          "info": {
+            "name": "Create a new Event in a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vpp.enphaseenergy.com/api/v2/events",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new event for a site with function as either PV or BATTERY or HP or EVSE.\nThe current version only supports the ability to create an event for single site.\nIf function is PV, PV curtailment can be done on the site.\nIf the function is BATTERY, the battery can be charged or discharged or set to Idle.\nIf the function is HP, SG ready mode 1, 2, 3 or 4 can be configured for the heat pump.\nIf the function is EVSE, charge mode can be configured for the EVSE.\nSuperseded flag can be used for sit"
+        },
+        {
+          "info": {
+            "name": "Retrieve all events in a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/events",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique ID of the program"
+              },
+              {
+                "name": "page_no",
+                "value": "",
+                "type": "query",
+                "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for fetching the events list in yyyy-MM-dd format. If start_date is not specified, will be defaulted to today's date"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for fetching the events list in yyyy-MM-dd format. If end_date is not specified, will be defaulted to start_date + 7 days. Date range is restricted to a maximum of 30 days"
+              },
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query",
+                "description": "Site Id to fetch corresponding events"
+              },
+              {
+                "name": "event_status",
+                "value": "",
+                "type": "query",
+                "description": "Event Status to fetch corresponding events. Event statuses can be one of them: scheduled, in_progress, completed, stopped, failed, deleted, optedout"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all events in a program and total count of events based on the inputted program_id"
+        },
+        {
+          "info": {
+            "name": "Create a new Event in a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vpp.enphaseenergy.com/api/v1/events",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new event in a program. Event start time must be at least 1 minute from the current time. Event Start time can be a maximum of 7 days from the current time.\n\nEvent Duration (Event End Time - Event Start Time) must be a minimum of 5 minutes and a maximum of 5 hours.\n\nEvents can be created for a single site or a list of sites or a list of VPPs and hence either Site ID or Site IDs or VPP IDs must be passed. Batteries will function as per the mode specified in the request till either the ta"
+        },
+        {
+          "info": {
+            "name": "Retrieve details of a specific event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v2/events/:event_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the event"
+              }
+            ]
+          },
+          "docs": "Returns event details based on the inputted event_id. The API will return event status, command delivery status along with all the parameters specified as inputs during event creation"
+        },
+        {
+          "info": {
+            "name": "Cancel or End Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://vpp.enphaseenergy.com/api/v2/events/:event_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the event"
+              }
+            ]
+          },
+          "docs": "The API can be used to cancel a scheduled event or end an ongoing event in a program. An event that is either completed or already cancelled cannot be cancelled or ended."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve an application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/applications/:site_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "site_id"
+              }
+            ]
+          },
+          "docs": "Returns application based on the inputted site_id. Provides details of the application along with the application status. The forms sent while creation of the application will not be returned."
+        },
+        {
+          "info": {
+            "name": "Update a rejected application",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vpp.enphaseenergy.com/api/v1/applications/:site_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Site Id"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "application_form",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "signed_enrollment_form",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "signed_tandc_form",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "signed_form1",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "signed_form2",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Updates a rejected application based on the inputted site_id. Application will be rejected if the site's state is different from the program state or if the site is enrolled in another program or if there is incorrect information in the application form. The API can be used to re apply by sending updated application forms.  Application body in string is mandatory. It needs to be in format {\"site_id\":site_id_value as integer, \"program_id\":\"program_id_value as string\", \"ean\":\"electric account numb"
+        },
+        {
+          "info": {
+            "name": "Withdraw an application that is not yet approved",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://vpp.enphaseenergy.com/api/v1/applications/:site_id/withdraw",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Site Id"
+              },
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique ID of the program"
+              }
+            ]
+          },
+          "docs": "Withdraw an application from a program based on the inputted site_id.\n\n Applications that are already approved cannot be withdrawn.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve all applications of a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/applications",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique ID of the program"
+              },
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique ID of the Site"
+              },
+              {
+                "name": "page_no",
+                "value": "",
+                "type": "query",
+                "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all the applications of a program based on the inputted program_id. By default, 10 applications are returned in a page."
+        },
+        {
+          "info": {
+            "name": "Create new application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vpp.enphaseenergy.com/api/v1/applications",
+            "headers": [
+              {
+                "name": "ho-access-token",
+                "value": ""
+              },
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "application_form",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "application_type",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "signed_enrollment_form",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "signed_tandc_form",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "signed_form1",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "signed_form2",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Create a new application to enroll or unenroll a site into a program. The site must belong to the same state as the program's state and must not be enrolled in any other program.\nThe API will also support users to send up to 4 application forms in PDF format with a file size limit of 1MB. Applications when created will be in submitted state and after approval, the state gets updated to approved.\nApplications that are rejected will get updated to rejected state.\n\nApplication body in string is man"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate OAuth 2.0 access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vpp.enphaseenergy.com/auth/oauth2/token",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "grant_type",
+                "value": "",
+                "type": "query",
+                "description": "client_credentials"
+              }
+            ]
+          },
+          "docs": "Pass clientId:clientSecret as Base64 encoded value in Authorization header, grant type as client_credentials, Content-Type as application/x-www-form-urlencoded and Accept as application/json . Access token expire 3600 seconds after they are created and must be regenerated through the same process"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Forecast",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "API to fetch energy forecasts and respective accuracy percentages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://vpp.enphaseenergy.com/api/v1/forecast",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The API provides energy forecast for PV production, Consumption, Grid Energy, Battery Energy, and Battery SOC. Along with the forecast, the API also provides the estimate accuracy %. The forecast is available for individual VPPs or list of sites.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "System Details And Telemetry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves telemetry data of the EVSE charger at regular intervals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/:serial_no/evse_telemetry",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "serial_no",
+                "value": "",
+                "type": "path",
+                "description": "Serial Number of the EV Charger"
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "Start time for fetching the telemetry data in Epoch time format. Defaults to midnight\n"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for fetching the telemetry data in yyyy-mm-dd format\n If no start_date is specified, defaults to midnight today, in the timezone of the system.\n"
+              },
+              {
+                "name": "interval_duration",
+                "value": "",
+                "type": "query",
+                "description": "Size of the interval. Can be 5mins, or 15mins. Site must be configured to 5 min telemetry for this to be supported. Defaults to 15mins\n"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "The granularity of the telemetry data. Possible values are 'week', 'day', '15mins', '5mins'. Default is 'day'\n"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End Date in YYYY-MM-DD format. If granularity is not provided, then defaults to current date\n"
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query",
+                "description": "End time for fetching the telemetry data in Epoch time format.\nOne can also use end_date in place of end_at for passing the end date as String date format YYYY-MM-DD.\nOnly one of granularity and end_at/end_date should be passed.\nIf granularity is not provided, then defaults to current time.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves telemetry data of the EVSE charger at regular intervals.\nIf no start_at is specified, defaults to midnight today, in the timezone of the system. If the start_at specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_at.\nThe end_at is calculated as the minimum of the time of the request and (start time + granularity).\nThe meaning of granularity is as follow:\nIf granularity is 15mins, maximum 1 intervals will a"
+        },
+        {
+          "info": {
+            "name": "Retrieves daily time-series telemetry data of the EVSE charger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/:serial_no/evse_lifetime",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "serial_no",
+                "value": "",
+                "type": "path",
+                "description": "Serial Number of the EV Charger"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for fetching the daily time-series data. Pass as String date format yyyy-mm-dd. Defaults to the system’s operational date\n"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for fetching the daily time-series data. Pass as String date format yyyy-mm-dd. Defaults to today.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves daily time-series telemetry data of the EVSE charger\nThe number of data points returned in the response corresponds to days spanned between the start_date and end_date parameter mentioned in the request.\nRequested start_date of the time series data defaults to the system’s operational date. If the start_date is earlier than the system’s operational_date, then the response data begins with the system operational_date as start_date.\nPass as String date format YYYY-MM-DD.If end_date is no"
+        },
+        {
+          "info": {
+            "name": "Get telemetry for all production micros for a site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/telemetry/production_micro",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "Start time for fetching the telemetry data in Epoch time format. Alternatively one can use start_date in place of start_at for passing the start date as String in YYYY-MM-DD format. By default start_at will appear in response. If start_date parameter is passed in the url, then start_date field will appear in response."
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "The granularity of the telemetry data. Possible values are 'week', 'day', '15mins'. Default is 'day'\nAvailable values : 15mins, day, week\n"
+              },
+              {
+                "name": "interval_duration",
+                "value": "",
+                "type": "query",
+                "description": "Size of the interval. Possible values are '5mins', '15mins'. Defaults to '5mins'\n"
+              }
+            ]
+          },
+          "docs": "Retrieves telemetry for all the production micros of a system.\nIf no start_at is specified, defaults to midnight today, in the timezone of the system. If the start_at specified is earlier than the system's first reported date, then midnight of the system's first reported date is considered as start_at.\nThe end_at is calculated as the minimum of the time of the request and (start time + granularity).\nThe meaning of granularity is as follow:\nIf granularity is 15mins, maximum 3 intervals will appea"
+        },
+        {
+          "info": {
+            "name": "To retrieve the last known reading of each production meter on the system as of the requested time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/telemetry/production_meter_readings",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query",
+                "description": "End of reporting period in Unix epoch time. If no end is specified, defaults to the time of the request.\nIf the end is later than the last reported interval the response data ends with the last reported interval\n"
+              }
+            ]
+          },
+          "docs": "Returns the last known reading of each production meter on the system as of the requested time,\nregardless of whether the meter is currently in service or retired. Read_at is the time at which the reading was taken,\nand is always less than or equal to the requested end_at. Commonly, the reading will be within 30 minutes of the requested end_at.\nHowever, larger deltas can occur and do not necessarily mean there is a problem with the meter or the system.\nSystems that are configured to report infre"
+        },
+        {
+          "info": {
+            "name": "Get telemetry for all production meters for a site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/telemetry/production_meter",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "Start time for fetching the telemetry data in Epoch time format. Alternatively one can use start_date in place of start_at for passing the start date as String date format YYYY-MM-DD. By default start_at will appear in response. If start_date parameter is passed in the url, then start_date field will appear in response."
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "interval_duration",
+                "value": "",
+                "type": "query",
+                "description": "Possible values are 5mins & 15mins. 5 mins interval_duration is supported only for the sites that are configured for 5 mins telemetry"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "The granularity of the telemetry data. Possible values are 'week', 'day', '15mins'. Default is 'day'\nAvailable values : 15mins, day, week\n"
+              }
+            ]
+          },
+          "docs": "Retrieves telemetry for all the production meters of a system.\nIf no start_at is specified, defaults to midnight today, in the timezone of the system. If the start_at specified is earlier than the system's first reported date, then midnight of the system's first reported date is considered as start_at.\nThe end_at is calculated as the minimum of the time of the request and (start time + granularity).\nThe meaning of granularity is as follow:\nIf granularity is 15mins, maximum 1 intervals will appea"
+        },
+        {
+          "info": {
+            "name": "Get the import telemetry data per interval for a given site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/telemetry/import",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique id of the site or site_id"
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "Start time in epoch format"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date in yyyy-mm-dd format"
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query",
+                "description": "End time in epoch format"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date in yyyy-mm-dd format"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Granularity - week, day, 15mins"
+              },
+              {
+                "name": "interval_duration",
+                "value": "",
+                "type": "query",
+                "description": "interval duration - 15mins, 5mins"
+              }
+            ]
+          },
+          "docs": "Retrieves energy imported from grid in regular intervals.\n If no start_at is specified, defaults to midnight today, in the timezone of the system.\n If the start_at specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_at.\n The end_at is calculated as the minimum of the time of the request and (start time + granularity). The meaning of granularity is as follow: If granularity is 15mins, maximum 1 intervals will appear "
+        },
+        {
+          "info": {
+            "name": "Get the export telemetry data per interval for a given site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/telemetry/export",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique id of the site or site_id"
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "Start time in epoch format"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date in yyyy-mm-dd format"
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query",
+                "description": "End time in epoch format"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date in yyyy-mm-dd format"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Granularity - week, day, 15mins"
+              },
+              {
+                "name": "interval_duration",
+                "value": "",
+                "type": "query",
+                "description": "interval duration - 15mins, 5mins"
+              }
+            ]
+          },
+          "docs": "Retrieves energy exported to grid in regular intervals.\n If no start_at is specified, defaults to midnight today, in the timezone of the system. If the start_at specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_at.\n The end_at is calculated as the minimum of the time of the request and (start time + granularity). The meaning of granularity is as follow: If granularity is 15mins, maximum 1 intervals will appear in "
+        },
+        {
+          "info": {
+            "name": "To retrieve the last known reading of each consumption meter on the system as of the requested time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/telemetry/consumption_meter_readings",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query",
+                "description": "End of reporting period in Unix epoch time. If no end is specified, defaults to the time of the request.\nIf the end is later than the last reported interval the response data ends with the last reported interval\n"
+              }
+            ]
+          },
+          "docs": "Returns the last known reading of each consumption meter on the system as of the requested time,\nregardless of whether the meter is currently in service or retired. Read_at is the time at which the reading was taken,\nand is always less than or equal to the requested end_at. Commonly, the reading will be within 30 minutes of the requested end_at.\nHowever, larger deltas can occur and do not necessarily mean there is a problem with the meter or the system.\nSystems that are configured to report infr"
+        },
+        {
+          "info": {
+            "name": "Get telemetry for all consumption meters for a site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/telemetry/consumption_meter",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "Requested start time for telemetry data in Epoch time format. Alternatively one can use start_date in place of start_at for passing the start date as String in YYYY-MM-DD format. If no start_at is specified, defaults to midnight today, in the timezone of the system. If the start_at specified is earlier than the system's first reported date, then the system first reported date is considered as start_at. By default start_at will appear in response. If start_date parameter is passed in the url, then start_date field will appear in response."
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "interval_duration",
+                "value": "",
+                "type": "query",
+                "description": "Possible values are 5mins & 15mins. 5 mins interval_duration is supported only for the sites that are configured for 5 mins telemetry"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "The granularity of the telemetry data. Possible values are 'week', 'day', '15mins'. Default is 'day'\nAvailable values : 15mins, day, week\n"
+              }
+            ]
+          },
+          "docs": "Retrieves telemetry for all the consumption meters of a system. If the start_at specified is earlier than the system's first reported date, then midnight of the system's first reported date is considered as start_at. The end_at is calculated as the minimum of the time of the request and (start time + granularity).\nThe meaning of granularity is as follow: If granularity is 15mins, maximum 1 interval will appear in response.\nIf granularity is day, maximum 96 intervals will appear in response where"
+        },
+        {
+          "info": {
+            "name": "Get telemetry for all batteries for a site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/telemetry/battery",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "Start time for fetching the telemetry data in Epoch time format. Alternatively one can use start_date in place of start_at for passing the start date as String date format YYYY-MM-DD. By default start_at will appear in response. If start_date parameter is passed in the url, then start_date field will appear in response."
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "interval_duration",
+                "value": "",
+                "type": "query",
+                "description": "Possible values are 5mins & 15mins. 5 mins interval_duration is supported only for the sites that are configured for 5 mins telemetry"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "The granularity of the telemetry data. Possible values are 'week', 'day', '15mins'. Default is 'day'\nAvailable values : 15mins, day, week\n"
+              }
+            ]
+          },
+          "docs": "Retrieves telemetry for all the batteries of a system.\nIf no start_at is specified, defaults to midnight today, in the timezone of the system. If the start_at specified is earlier than the system's first reported date, then midnight of the system's first reported date is considered as start_at.\nThe end_at is calculated as the minimum of the time of the request and (start time + granularity).\nThe meaning of granularity is as follow:\nIf granularity is 15mins, maximum 1 interval will appear in resp"
+        },
+        {
+          "info": {
+            "name": "Get a site summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/summary",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves site summary for a given system. Only site summary of active enrollments will be returned in the response."
+        },
+        {
+          "info": {
+            "name": "Get the current storm guard settings of a site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/storm_guard_settings",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the current storm guard settings of a system\n\n"
+        },
+        {
+          "info": {
+            "name": "To retrieve the last known reading of each storage meter on the system as of the requested time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/storage_meter_readings",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query",
+                "description": "End of reporting period in Unix epoch time. If no end is specified, defaults to the time of the request.\nIf the end is later than the last reported interval the response data ends with the last reported interval\n"
+              }
+            ]
+          },
+          "docs": "Returns the last known reading of each storage meter on the system as of the requested time,\nregardless of whether the meter is currently in service or retired. Read_at is the time at which the reading was taken,\nand is always less than or equal to the requested end_at. Commonly, the reading will be within 30 minutes of the\nrequested end_at. However, larger deltas can occur and do not necessarily mean there is a problem with the meter or the system.\nSystems that are configured to report infreque"
+        },
+        {
+          "info": {
+            "name": "To retrieve the list of open events for a site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/site_open_events",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              }
+            ]
+          },
+          "docs": "This endpoint is used to retrieve all the open events of a site.\n"
+        },
+        {
+          "info": {
+            "name": "To retrieve the list of events for a site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/site_events",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Requested start time of the events data in Epoch time format."
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "Requested end time of the events data in Epoch time format. Defaults to minimum of (start time + 1 day, current time)\n"
+              }
+            ]
+          },
+          "docs": "This endpoint is used to retrieve the events for a site. start_time is mandatory and cannot be older than 6 months from the current time.\nMaximum 1 week of data can be retrieved in a single call.An Event is triggered when a site/device meets a pre-defined set of conditions.\nEach of these pre-defined set of conditions is called an “Event type”. There are more than 1k+ event types in Enlighten.\nThese conditions are defined at both site and device level, therefore events can be triggered at both si"
+        },
+        {
+          "info": {
+            "name": "To retrieve the list of alarms for a site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/site_alarms",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Requested start time of the events data in Epoch time format."
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "Requested end time of the events data in Epoch time format. Defaults to minimum of (start time + 1 day, current time)\n"
+              },
+              {
+                "name": "cleared",
+                "value": "",
+                "type": "query",
+                "description": "Filters alarms based on their status. Set to true to return cleared alarms. Defaults to false to return active alarms."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to retrieve the alarms for a site. start_time is mandatory and cannot be older than 6 months from the current time.\nMaximum 1 week of data can be retrieved in a single call.An Alarm is always associated with an Event.\nAlarm and events can have one to one or one to many mapping. For ex - If a site has one battery unit and the SOC of the battery falls below a pre-defined limit,\nthen an event will be created for that battery. If the battery SOC remains below this pre-defined S"
+        },
+        {
+          "info": {
+            "name": "production_lifetime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/production_lifetime",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the site"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date of the time series data. Defaults to the system's operational date.\n If the start_date is earlier than the system's operational_date, then the response data begins with the system operational_date as start_date.\n Pass as String date format YYYY-MM-DD.\n"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date of the time series data. Defaults to yesterday.\n Pass as String date format YYYY-MM-DD\n"
+              },
+              {
+                "name": "production",
+                "value": "",
+                "type": "query",
+                "description": "When \"all\", returns the merged time series plus the time series as reported by the micro inverters and the meter on the system.\n Other values are ignored.\n"
+              }
+            ]
+          },
+          "docs": "Returns a daily time series of energy produced by the system over its lifetime. All measurements are in Watt hours.\n\nThe time series includes one entry for each day from the start_date to the end_date with no gaps in the time series.\nIf the response includes trailing zeroes, such as [909, 4970, 0, 0, 0], then no energy has been reported for the last days in the series.\n\nIf the system has a meter, the time series includes data as measured by the micro inverters until the first full day after the "
+        },
+        {
+          "info": {
+            "name": "API to show the export limit, import limit, and PCS limit of a site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/pel_pcs_settings",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves PEL PCS  & Main fuse Rating values for the site.\nShows data only if site is enrolled. PEL/PCS & Main Fuse Rating values are only available if they are enabled on the site. PEL is in watts and PCS & Main fuse rating are in amperes.\n"
+        },
+        {
+          "info": {
+            "name": "Returns a system's last reported PV Power, Consumption Power and Battery Power in Watts. Returns the operational mode for Battery, HP, and EVSE.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/latest_telemetry",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a system's last reported PV Power, Consumption Power and Battery Power in Watts. Returns the operational mode for Battery, HP, and EVSE.\n\nHP Modes:\n\nMode_1 - Blocked Operation<br>\nMode_2 - Normal Operation<br>\nMode_3 - Power Consumption Recommended<br>\nMode_4 - Power Consumption Enforced\n\nEVSE Modes:\n\nPLUGGED_OUT - EVSE is not plugged in<br>\nIDLE - EVSE is plugged in but, EV is not charging<br>\nCHARGING - EVSE is plugged in and EV is charging<br>\nFAULTED - The EVSE connector is faulted\n\n"
+        },
+        {
+          "info": {
+            "name": "import_lifetime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/import_lifetime",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the site"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date of the time series data. Defaults to the system's operational date.\n If the start_date is earlier than the system's operational_date, then the response data begins with the system operational_date as start_date.\n Pass as String date format YYYY-MM-DD.\n"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date of the time series data. Defaults to yesterday.\n Pass as String date format YYYY-MM-DD\n"
+              }
+            ]
+          },
+          "docs": "Returns a daily time series of energy imported to the grid by the system over its lifetime. All measurements are in Watt hours.\n The time series includes one entry for each day from the start_date to the end_date with no gaps in the time series.\n If the response contains trailing zeroes, such as [909, 4970, 0, 0, 0], then no energy has been imported for the last days in the series.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieves energy consumed by HP in regular intervals.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/hp_telemetry",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "Start time for fetching the telemetry data in Epoch time format. Defaults to midnight\n"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for fetching the telemetry data in yyyy-mm-dd format\n If no start_date is specified, defaults to midnight today, in the timezone of the system.\n"
+              },
+              {
+                "name": "interval_duration",
+                "value": "",
+                "type": "query",
+                "description": "Size of the interval. Can be 5mins, or 15mins. Site must be configured to 5 min telemetry for this to be supported. Defaults to 15mins\n"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "The granularity of the telemetry data. Possible values are 'week', 'day', '15mins', '5mins'. Default is 'day'\n"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End Date in YYYY-MM-DD format. If granularity is not provided, then defaults to current date\n"
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query",
+                "description": "End time for fetching the telemetry data in Epoch time format.\nOne can also use end_date in place of end_at for passing the end date as String date format YYYY-MM-DD.\nOnly one of granularity and end_at/end_date should be passed.\nIf granularity is not provided, then defaults to current time.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves energy consumed by HP in regular intervals.\nIf no start_at is specified, defaults to midnight today, in the timezone of the system. If the start_at specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_at.\nThe end_at is calculated as the minimum of the time of the request and (start time + granularity).The meaning of granularity is as follow:\nIf granularity is 15mins, maximum 1 intervals will appear in respo"
+        },
+        {
+          "info": {
+            "name": "Retrieves daily time-series telemetry data of the HP",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/hp_lifetime",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique Id of the site"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for fetching the daily time-series data. Pass as String date format yyyy-mm-dd. Defaults to the system’s operational date.\n"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for fetching the daily time-series data. Pass as String date format yyyy-mm-dd. Defaults to today.\n"
+              }
+            ]
+          },
+          "docs": "Retrieves daily time-series telemetry data of the HP\nThe number of data points returned in the response corresponds to days spanned between the start_date and end_date\nparameter mentioned in the request.Requested start_date of the time series data defaults to the system’s operational date.\nIf the start_date is earlier than the system’s operational_date, then the response data begins with the system operational_date as start_date.\nPass as String date format YYYY-MM-DD.If end_date is not specified"
+        },
+        {
+          "info": {
+            "name": "Get the current grid status settings of a site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/grid_status_settings",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the current grid status settings of a system\n\n"
+        },
+        {
+          "info": {
+            "name": "export_lifetime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/export_lifetime",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the site"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date of the time series data. Defaults to the system's operational date.\n If the start_date is earlier than the system's operational_date, then the response data begins with the system operational_date as start_date.\n Pass as String date format YYYY-MM-DD.\n"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date of the time series data. Defaults to yesterday.\n Pass as String date format YYYY-MM-DD\n"
+              }
+            ]
+          },
+          "docs": "Returns a daily time series of energy exported to the grid by the system over its lifetime. All measurements are in Watt-hours.\n The time series includes one entry for each day from the start_date to the end_date with no gaps in the time series.\n If the response contains trailing zeroes, such as [909, 4970, 0, 0, 0], then no energy has been exported for the last days in the series.\n"
+        },
+        {
+          "info": {
+            "name": "Get all devices for a system",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/devices",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves devices for a given system. Only devices that are active will be returned in the response."
+        },
+        {
+          "info": {
+            "name": "Retrieves telemetry for single micro/pcu.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/devices/micros/:serial_no/telemetry",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the site"
+              },
+              {
+                "name": "serial_no",
+                "value": "",
+                "type": "path",
+                "description": "The device serial number"
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "Start time for fetching the telemetry data in Epoch time format.\n If no start_at is specified, defaults to midnight today, in the timezone of the system.\n If the start_at specified is earlier than the system's first reported date, then midnight of the system's first reported date is considered as start_at.\n"
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query",
+                "description": "The end_at is calculated as the minimum of the time of the request and (start time + granularity)\n"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for fetching the telemetry data in yyyy-mm-dd format\n If no start_date is specified, defaults to midnight today, in the timezone of the system.\n If the start_date specified is earlier than the system's first reported date, then midnight of the system's first reported date is considered as start_date\n"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end_at is calculated as the minimum of the time of the request and (start time + granularity)\n"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "The granularity of the telemetry data.\n Possible values are 'week', 'day', '15mins', '5mins'. Default is 'day'\n"
+              }
+            ]
+          },
+          "docs": "Retrieves telemetry for single micro/pcu.\nIf no start_at is specified, defaults to midnight today, in the timezone of the system. If the start_at specified is earlier than the system's first reported date, then midnight of the system's first reported date is considered as start_at.\nThe end_at is calculated as the minimum of the time of the request and (start time + granularity).\n\nThe meaning of granularity is as follow:\nIf granularity is 15 mins, maximum 3 intervals will appear in response. If g"
+        },
+        {
+          "info": {
+            "name": "Device level encharge telemetry data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/devices/encharges/:serial_no/telemetry",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the site"
+              },
+              {
+                "name": "serial_no",
+                "value": "",
+                "type": "path",
+                "description": "The device serial number"
+              },
+              {
+                "name": "start_at",
+                "value": "",
+                "type": "query",
+                "description": "Start time for fetching the telemetry data in Epoch time format. If no start_at is specified, defaults to midnight today, in the timezone of the system.\n If the start_at specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_at.\n"
+              },
+              {
+                "name": "end_at",
+                "value": "",
+                "type": "query",
+                "description": "The end_at is calculated as the minimum of the time of the request and (start time + granularity)\n"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for fetching the telemetry data in yyyy-mm-dd format\nIf no start_date is specified, defaults to midnight today, in the timezone of the system.\n If the start_date specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_date\n"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end_date is calculated as the minimum of the time of the request and (start date + granularity)\n"
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "The granularity of the telemetry data. Possible values are 'week', 'day', '15mins', '5mins'. Default is 'day'\n"
+              },
+              {
+                "name": "interval_duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration of each interval. Possible values are '5mins' and '15mins'. Default is '15mins'\n"
+              }
+            ]
+          },
+          "docs": "Retrieves telemetry for single encharge.\nIf no start_at is specified, defaults to midnight today, in the timezone of the system. If the start_at specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_at.\nThe end_at is calculated as the minimum of the time of the request and (start time + granularity).\nThe meaning of granularity is as follow:\nIf granularity is 15mins, maximum 3 intervals will appear in response. If gran"
+        },
+        {
+          "info": {
+            "name": "consumption_lifetime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/consumption_lifetime",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the site"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date of the time series data. Defaults to the system's operational date.\n If the start_date is earlier than the system's operational_date, then the response data begins with the system operational_date as start_date.\n Pass as String date format YYYY-MM-DD.\n"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date of the time series data. Defaults to yesterday.\n Pass as String date format YYYY-MM-DD.\n"
+              }
+            ]
+          },
+          "docs": "Returns a daily time series of energy consumption as measured by the consumption meter installed on the specified system. All measurements are in Watt hours.\nThe time series includes one entry for each day from the start_date to the end_date.\n There are no gaps in the time series. If the response includes trailing zeroes, such as [909, 4970, 0, 0, 0], then no data has been reported for the last three days.\n"
+        },
+        {
+          "info": {
+            "name": "Returns the current battery settings of a system\n\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/battery_settings",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the current battery settings of a site"
+        },
+        {
+          "info": {
+            "name": "battery_lifetime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/:site_id/battery_lifetime",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID of the site"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date of the time series data. Defaults to the system's operational date.\n If the start_date is earlier than the system's operational_date, then the response data begins with the system operational_date as start_date.\n Pass as String date format YYYY-MM-DD.\n"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date of the time series data.\n Defaults to yesterday. Pass as String date format YYYY-MM-DD\n"
+              }
+            ]
+          },
+          "docs": "Returns a daily time series of energy charged into the batteries and energy discharged from the batteries for a system over its lifetime.\n All measurements are in Watt hours. The time series includes one entry for each day from the start_date to the end_date with no gaps in the time series.\n If the response includes trailing zeroes, such as [909, 4970, 0, 0, 0], then no energy has been charged/discharged for the last days in the series.\n\n"
+        },
+        {
+          "info": {
+            "name": "Get all systems enrolled into the program with details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/search/:program_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page to be returned. Default=1, Min=1. For example, if page is set to 2, 2nd page is returned"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Returns list of systems sorted by <sort_by> field. To get ASC order sorted list, use sort_by = . To get DESC order sorted list, use sort_by = (-).\nThe currently supported sort key is \"id\". By default the list is sorted by decreasing system ID.\nAvailable values : id, -id\n"
+              },
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a list of systems for which the user can make API requests. By default, systems are returned in batches of 10. The maximum size is 100."
+        },
+        {
+          "info": {
+            "name": "To retrieve the list of event_type_id along with event_description and recommended_action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/systems/event_types",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "event_type_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique numeric ID of the event type."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to retrieve the list of all available event_types. The endpoint will return list of event_type_id along with the\nevent_description and recommended_action. If an event_type_id is passed, this endpoint will return the detail of specific event_type\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Programs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all programs under an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/programs",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "page_no",
+                "value": "",
+                "type": "query",
+                "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all programs under an account and total count of programs"
+        },
+        {
+          "info": {
+            "name": "Retrieve individual program details by program_id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://vpp.enphaseenergy.com/api/v1/programs/:program_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": "your-api-key-here"
+              },
+              {
+                "name": "Authorization",
+                "value": "Bearer your-access-token"
+              }
+            ],
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a program"
+              }
+            ]
+          },
+          "docs": "Returns program details based on the inputted program_id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

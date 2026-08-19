@@ -919,3 +919,9 @@ tools:
   source_operation: openapi/enphase-vpp-api-openapi.json#getProgramByKey
   name_derived: false
   mutating: false
+deployment:
+  mode: none
+  verified: derived
+  tools: 148
+  checked: '2026-08-12'
+  source: catalog MCP census

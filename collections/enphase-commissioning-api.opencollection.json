@@ -1,0 +1,777 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Commissioning API",
+    "version": "v4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Activations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "API endpoint to get battery charge/discharge setting.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/activations/:activation_id/battery_mode",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the activation(system). System-generated."
+              }
+            ]
+          },
+          "docs": "This endpoint can be used to get the CFG and DTG settings of the site."
+        },
+        {
+          "info": {
+            "name": "API endpoint to update battery charge/discharge setting.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v4/activations/:activation_id/battery_mode",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the activation(system). System-generated."
+              }
+            ]
+          },
+          "docs": "This endpoint can be used to setup/update the CFG and DTG settings of the site."
+        },
+        {
+          "info": {
+            "name": "List of Activations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/partner/activations",
+            "params": [
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "If the first request does not return a full list, use the 'next' attribute in the response body to request the next page. By default, activations are returned in batches of 100. The maximum page size is 1000. If the returned list below the limit, then response does not include the 'next' field."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "There is a limit to the number of activations which can be returned at one time"
+              },
+              {
+                "name": "stage",
+                "value": "",
+                "type": "query",
+                "description": "Filter activations by stage. Passing in_progress alone will consider as you have passed all the 1,2,3,4 stages. Passing multiple stage values using comma to filter. E.g. stage=1,2,3. Paasing in_progress with any other combination will give you empty systems. This parameter searches for an exact match of the input value."
+              },
+              {
+                "name": "reference",
+                "value": "",
+                "type": "query",
+                "description": "Filter activations by company reference. This parameter searches for an exact match of the input value and is not case-sensitive."
+              },
+              {
+                "name": "installer_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter activations by installer id. This parameter searches for an exact match of the input value."
+              },
+              {
+                "name": "system_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter activations by system name. This parameter searches for an exact match of the input value and is not case-sensitive."
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query",
+                "description": "Filter activations by city. This parameter searches for an exact match of the input value and is not case-sensitive."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter activations by state. This parameter searches for an exact match of the input value and is not case-sensitive."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Filter activations by country. This parameter searches for an exact match of the input value and is not case-sensitive."
+              },
+              {
+                "name": "postal_code",
+                "value": "",
+                "type": "query",
+                "description": "Filter activations by zipcode. This parameter searches for an exact match of the input value."
+              },
+              {
+                "name": "street1",
+                "value": "",
+                "type": "query",
+                "description": "Filter activations by street1. This parameter searches for an exact match of the input value and is not case-sensitive."
+              },
+              {
+                "name": "street2",
+                "value": "",
+                "type": "query",
+                "description": "Filter activations by street2. This parameter searches for an exact match of the input value and is not case-sensitive."
+              },
+              {
+                "name": "host_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter activations by host_id. This parameter searches for an exact match of the input value. In addition to Integers, the filter will support null values too"
+              },
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter activations by owner_id. This parameter searches for an exact match of the input value. In addition to Integers, the filter will support null values too"
+              }
+            ]
+          },
+          "docs": "Returns a list of activations for which the user can make API requests. There is a limit to the number of activations which can be returned at one time. If the first request does not return a full list, use the 'next' attribute in the response body to request the next page. By default, activations are returned in batches of 100. The maximum page size is 1000. Provide only valid filters. During filter the activations empty and invalid filter fields are ignored. In case the installer ID doesn’t ex"
+        },
+        {
+          "info": {
+            "name": "Create new activation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v4/partner/activations"
+          },
+          "docs": "Create new activation. Address is mandatory if users company belongs to US."
+        },
+        {
+          "info": {
+            "name": "Retrieves an Activation by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/partner/activations/:activation_id",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the activation(system). System-generated."
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Retrieve more information about the activation. The expand query parameter is a comma-separated list of associations to expand. It may include the following:"
+              }
+            ]
+          },
+          "docs": "By default, the body of the response looks like the example below. However, you can choose to retrieve more information about the activation using response expansion, for example: Instead of returning only the owner's name within the system hash, the response includes detailed information about the owner by using expand=owner. You can also expand the owner's company by using expand=owner.company. The response now includes information about the owner and the company he belongs to, if any. By usin"
+        },
+        {
+          "info": {
+            "name": "Update an activation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v4/partner/activations/:activation_id",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the activation(system). System-generated."
+              }
+            ]
+          },
+          "docs": "Update an activation. Address is mandatory if users company belongs to US."
+        },
+        {
+          "info": {
+            "name": "Delete an activation by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v4/partner/activations/:activation_id",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the activation(system)."
+              }
+            ]
+          },
+          "docs": "To delete an activation, the activation stage must be less than 3 and there are no active devices associated with it"
+        },
+        {
+          "info": {
+            "name": "Grant Access",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the activation(system)."
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the user which you want to grant access."
+              }
+            ]
+          },
+          "docs": "Gives a user permission to view this system. response status 200 indicates the access was granted. The user must be the owner or the host of an activation the API user can manage (or) Users created by API user (or) Users who belong to your company or its branches. In all other cases you will get 401 response."
+        },
+        {
+          "info": {
+            "name": "Revoke Access",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the activation(system)."
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the user which you want to revoke the access."
+              }
+            ]
+          },
+          "docs": "Revokes a user's permission to view this system. response status 200 indicates the access was revoked. The user must be the owner or the host of an activation the API user can manage (or) Users created by API user (or) Users who belong to your company or its branches. In all other cases you will get 401 response."
+        },
+        {
+          "info": {
+            "name": "Get production mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/activations/:activation_id/ops/production_mode",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the activation(system). System-generated."
+              }
+            ]
+          },
+          "docs": "Get production mode for a particular system. For that system stage must be greater than 2, Otherwise you will get 422."
+        },
+        {
+          "info": {
+            "name": "Set production mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v4/activations/:activation_id/ops/production_mode",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the activation(system). System-generated."
+              }
+            ]
+          },
+          "docs": "Enable or Disable production mode for a particular system. For that system stage must be greater than 2, Otherwise you will get 422."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the requested user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the activation(system). System-generated."
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the user. System-generated."
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information not include in the response."
+              }
+            ]
+          },
+          "docs": "You must have access to the requested activation and user; otherwise a 401 is returned. The user is requested in the scope of an activation, then it must be the owner or the host of an activation the API user can manage (or) Users created by API user (or) Users who belong to your company or its branches."
+        },
+        {
+          "info": {
+            "name": "Update user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the activation(system). System-generated."
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The Enlighten ID of the user. System-generated."
+              }
+            ]
+          },
+          "docs": "You must have access to the requested activation and user; otherwise a 401 is returned. The user is requested in the scope of an activation, then it must be the owner or the host of an activation the API user can manage (or) Users created by API user (or) Users who belong to your company or its branches. When 'company_id' is passed in the body param or the user company_id is already defined, we will not consider the 'enlighten_view' field value and the user will become an enlighten manager. You "
+        },
+        {
+          "info": {
+            "name": "Search user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/users/search",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "The email address of the user."
+              }
+            ]
+          },
+          "docs": "Returns the user id for the given email id only if the user exists."
+        },
+        {
+          "info": {
+            "name": "Returns the requested user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/partner/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response."
+              }
+            ]
+          },
+          "docs": "You must have permission to view the user. You can view yourself, users you created, and users who belong to your company or its branches. In all other cases, a 401 is returned. Company details are provided in the response only if 'expand' parameter is passed in the URL with value as company. Otherwise, company information will not be provided in the response."
+        },
+        {
+          "info": {
+            "name": "Return the current logged in user detail",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/partner/users/self",
+            "params": [
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response."
+              }
+            ]
+          },
+          "docs": "Return the current logged in user detail. Company details are provided in the response only if 'expand' parameter is passed in the URL with value as company. Otherwise, company information will not be provided in the response."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Companies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all users with in a company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/companies/:company_id/users",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Company ID"
+              }
+            ]
+          },
+          "docs": "Returns the users in the given company."
+        },
+        {
+          "info": {
+            "name": "Create company user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v4/companies/:company_id/users",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Company ID"
+              }
+            ]
+          },
+          "docs": "Create a company user. When the user is created in the context of a company, then the user is belongs to that company. Otherwise, the user does not belong to a company.\n Email, First Name, and Last Name are mandatory fields in the user. Any unneeded fields passed in the request parameter will be skipped and not stored.\n Pass body param in 'application/x-www-form-urlencoded' format, in this endpoint, key will be 'user' and value will be a JSON dictionary of user fields."
+        },
+        {
+          "info": {
+            "name": "Update company user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v4/companies/:company_id/users/:user_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "Company ID"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "User ID"
+              }
+            ]
+          },
+          "docs": "Updates a user. You may change a user's company if you have access to the user, the old company, and the new company. The user is requested in the scope of a company, then three conditions apply: 1) You must have access to the requested company; otherwise a 401 is returned. 2) The user must belong to the requested company; otherwise a 401 is returned. 3) Requested user must be created by API user (or) it must belong to your company or its branches."
+        },
+        {
+          "info": {
+            "name": "User's company and its branches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/companies/self/branches"
+          },
+          "docs": "Returns information about the API user's company and its branches, if any"
+        },
+        {
+          "info": {
+            "name": "User's company and its authorized subcontractors.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/companies/self/authorized_subcontractors"
+          },
+          "docs": "Returns all the authorized subcontractors of a given company, if any"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Home Owner",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Home owner",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v4/users"
+          },
+          "docs": "Create a home owner user. Email, First Name, and Last Name are mandatory fields in the user. Any unneeded fields passed in the request parameter will be skipped and not stored.\nPass body param in 'application/x-www-form-urlencoded' format, in this endpoint, key will be 'user' and value will be a JSON dictionary of user fields. Using this API to create both homeowner as well as a company user. If you want to create company user, then pass company_id inside the user object."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Estimate",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the estimate for this system.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "Activation ID"
+              }
+            ]
+          },
+          "docs": "Provides access to production estimates for a system. An estimate includes the annual degradation factor for the system as well as estimated production, in kWh, for each month. By default degrade_factor value is 0.5 and month_estimates value is an empty array."
+        },
+        {
+          "info": {
+            "name": "Update the estimate for this system.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "Activation ID"
+              }
+            ]
+          },
+          "docs": "Updates the estimate for this system."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Grid Profiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists the available profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/partner/grid_profiles"
+          },
+          "docs": "Lists the available profiles."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Meters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the requested meter detail.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/systems/:system_id/meters/:serial_number",
+            "params": [
+              {
+                "name": "system_id",
+                "value": "",
+                "type": "path",
+                "description": "System ID"
+              },
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "path",
+                "description": "Meter serial number"
+              }
+            ]
+          },
+          "docs": "Returns the requested meter by serial number. You must have access to the requested system and meter; otherwise a 401 is returned."
+        },
+        {
+          "info": {
+            "name": "Enable or Disable the meters.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v4/activations/:activation_id/meters/:serial_number/meter_control",
+            "params": [
+              {
+                "name": "activation_id",
+                "value": "",
+                "type": "path",
+                "description": "Activation ID"
+              },
+              {
+                "name": "serial_number",
+                "value": "",
+                "type": "path",
+                "description": "Meter serial number"
+              }
+            ]
+          },
+          "docs": "Enable or Disable the meters. You must have access to the requested system and meter; otherwise a 401 is returned."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "PvManufacturers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns PV module manufacturers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/pv_manufacturers"
+          },
+          "docs": "Returns information about the PV module manufacturers known in Enlighten."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "PvModels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns PV module manufacturers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/pv_manufacturers/:pv_manufacturer_id/pv_models",
+            "params": [
+              {
+                "name": "pv_manufacturer_id",
+                "value": "",
+                "type": "path",
+                "description": "Pv manufacturer ID"
+              }
+            ]
+          },
+          "docs": "Returns information about the PV modules known in Enlighten."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tariff",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get tariff for a system",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/systems/config/:system_id/tariff",
+            "params": [
+              {
+                "name": "system_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique numeric id of the system"
+              }
+            ]
+          },
+          "docs": "Get tariff for a system"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Arrays",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch particular system Array details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v4/partner/systems/:system_id/arrays",
+            "params": [
+              {
+                "name": "system_id",
+                "value": "",
+                "type": "path",
+                "description": "System ID"
+              }
+            ]
+          },
+          "docs": "Fetch particular system Array details"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
