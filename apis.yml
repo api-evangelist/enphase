@@ -43,36 +43,16 @@ created: '2026-07-27'
 modified: '2026-07-27'
 specificationVersion: '0.23'
 apis:
-- aid: enphase:enphase-monitoring-api
-  name: Enphase Monitoring API
-  description: >-
-    The Monitoring API is the consumer-data surface of the Enphase platform and the only
-    self-serve one. Documented across 48 paths and eight tags — System Details, Site Level
-    Production Monitoring, Site Level Consumption Monitoring, Device Level Monitoring, EV
-    Charger Monitoring, EV Charger Control, System Configurations and Streaming APIs — it
-    lets a registered application retrieve an individual system owner's solar production,
-    household consumption, IQ Battery telemetry and microinverter-level data after that owner
-    approves the application through an OAuth 2.0 authorization-code grant. Access controls
-    are scoped per plan: the free Watt plan (10 hits/minute, 1,000 hits/month) covers system
-    details, site-level production, site-level consumption and EV charger monitoring, while
-    device-level production monitoring requires the paid Kilowatt or Megawatt plans.
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: enphase:enphase-activations-api
+  name: Enphase Energy Activations API
+  description: The Activations API from Enphase Energy — 5 operation(s) for activations.
   humanURL: https://developer-v4.enphase.com/docs/monitoring_api
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
-  - Energy
-  - Solar
-  - Monitoring
-  - Consumption
-  - Production
-  - Battery Storage
-  - EV Charging
-  - Telemetry
+  - Activations
   properties:
   - type: OpenAPI
-    url: openapi/enphase-monitoring-api-openapi.json
-  - type: Overlay
-    url: overlays/enphase-monitoring-overlay.yaml
+    url: openapi/enphase-activations-api-openapi.yml
   - type: APIReference
     url: https://developer-v4.enphase.com/docs/monitoring_api
   - type: AsyncAPI
@@ -85,72 +65,903 @@ apis:
     url: https://developer-v4.enphase.com/developer-plans
   - type: SignUp
     url: https://developer-v4.enphase.com/signup
-- aid: enphase:enphase-commissioning-api
-  name: Enphase Commissioning API
-  description: >-
-    The Commissioning API is the installer-facing administrative surface, documented across
-    21 paths and eleven tags — Activations, Arrays, Companies, Users, Home Owner, Meters,
-    Grid Profiles, Tariff, Estimate, PvManufacturers and PvModels. It creates and updates
-    site activations, manages installer companies and users, sets grid profiles, and updates
-    the utility tariff and rate-plan data attached to a site, which is the closest this
-    company comes to touching utility retail pricing. It is not self-serve: the Partner plan
-    is restricted to registered Enphase installers with at least ten installations, requires
-    a credit card on file, and authenticates through an OAuth 2.0 password grant against
-    Enphase cloud credentials rather than a homeowner consent redirect.
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer-v4.enphase.com/docs/commissioning_api
-  baseURL: https://api.enphaseenergy.com/api/v4
-  tags:
-  - Energy
-  - Solar
-  - Commissioning
-  - Installer
-  - Activations
-  - Tariffs
-  - Grid Profiles
-  properties:
-  - type: OpenAPI
-    url: openapi/enphase-commissioning-api-openapi.json
-  - type: Overlay
-    url: overlays/enphase-commissioning-overlay.yaml
   - type: APIReference
     url: https://developer-v4.enphase.com/docs/commissioning_api
   - type: Documentation
     url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-applications-api
+  name: Enphase Energy Applications API
+  description: Applications API
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Applications
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-applications-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
   - type: Documentation
     url: https://developer-v4.enphase.com/docs/quickstart.html
   - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
     url: https://developer-v4.enphase.com/installer-plans
-- aid: enphase:enphase-vpp-api
-  name: Enphase VPP API
-  description: >-
-    The Virtual Power Plant API is the grid-services surface, sold only to utilities,
-    aggregators, DERMS providers and third-party owners registered as Enphase Grid Services
-    partners — the pricing page carries no numbers, only "Contact us" for a demo. Documented
-    as an OpenAPI 3.0.1 contract across 55 paths and eight tags — Manage VPPs, Programs,
-    Events, Enrolment via Applications, Forecast, System Details And Telemetry, System and
-    Device Configuration, and Auth — it creates and operates VPP programs, enrols homes,
-    dispatches demand-response events, forecasts fleet capacity, and steers PV, battery,
-    EVSE, heat pump and HVAC assets. It is the only Enphase API that implements a recognised
-    interoperability standard: OCPP 1.6 endpoints configure and reset EV charger
-    communication against a partner's own Charging Station Management System.
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer-v4.enphase.com/docs/vpp_api
-  baseURL: https://vpp.enphaseenergy.com
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-arrays-api
+  name: Enphase Energy Arrays API
+  description: The Arrays API from Enphase Energy — 1 operation(s) for arrays.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
   tags:
-  - Energy
-  - Virtual Power Plant
-  - DER
-  - Demand Response
-  - Grid Services
-  - EV Charging
-  - OCPP
-  - Forecasting
+  - Arrays
   properties:
   - type: OpenAPI
-    url: openapi/enphase-vpp-api-openapi.json
-  - type: Overlay
-    url: overlays/enphase-vpp-overlay.yaml
+    url: openapi/enphase-arrays-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-auth-api
+  name: Enphase Energy Auth API
+  description: Auth Controller
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-auth-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-companies-api
+  name: Enphase Energy Companies API
+  description: The Companies API from Enphase Energy — 4 operation(s) for companies.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Companies
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-companies-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-device-level-monitoring-api
+  name: Enphase Energy Device Level Monitoring API
+  description: >-
+    The Device Level Monitoring API from Enphase Energy — 7 operation(s) for device level monitoring.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Device Level Monitoring
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-device-level-monitoring-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-estimate-api
+  name: Enphase Energy Estimate API
+  description: The Estimate API from Enphase Energy — 1 operation(s) for estimate.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Estimate
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-estimate-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-ev-charger-control-api
+  name: Enphase Energy EV Charger Control API
+  description: The EV Charger Control API from Enphase Energy — 2 operation(s) for ev charger control.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - EV Charger Control
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-ev-charger-control-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-ev-charger-monitoring-api
+  name: Enphase Energy EV Charger Monitoring API
+  description: >-
+    The EV Charger Monitoring API from Enphase Energy — 6 operation(s) for ev charger monitoring.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - EV Charger Monitoring
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-ev-charger-monitoring-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-events-api
+  name: Enphase Energy Events API
+  description: Events API
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-events-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-forecast-api
+  name: Enphase Energy Forecast API
+  description: Forecast API (Contact us if you are interested in using this endpoint)
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Forecast
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-forecast-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-grid-profiles-api
+  name: Enphase Energy Grid Profiles API
+  description: The Grid Profiles API from Enphase Energy — 1 operation(s) for grid profiles.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Grid Profiles
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-grid-profiles-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-home-owner-api
+  name: Enphase Energy Home Owner API
+  description: The Home Owner API from Enphase Energy — 1 operation(s) for home owner.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Home Owner
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-home-owner-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-manage-vpps-api
+  name: Enphase Energy Manage VPPs API
+  description: Manage VPPs API
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Manage VPPs
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-manage-vpps-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-meters-api
+  name: Enphase Energy Meters API
+  description: The Meters API from Enphase Energy — 2 operation(s) for meters.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Meters
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-meters-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-programs-api
+  name: Enphase Energy Programs API
+  description: Programs API
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Programs
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-programs-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-pvmanufacturers-api
+  name: Enphase Energy Pv Manufacturers API
+  description: The PvManufacturers API from Enphase Energy — 1 operation(s) for pvmanufacturers.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - PvManufacturers
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-pvmanufacturers-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-pvmodels-api
+  name: Enphase Energy Pv Models API
+  description: The PvModels API from Enphase Energy — 1 operation(s) for pvmodels.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - PvModels
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-pvmodels-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-site-level-consumption-monitoring-api
+  name: Enphase Energy Site Level Consumption Monitoring API
+  description: >-
+    The Site Level Consumption Monitoring API from Enphase Energy — 11 operation(s) for site level consumption
+    monitoring.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Site Level Consumption Monitoring
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-site-level-consumption-monitoring-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-site-level-production-monitoring-api
+  name: Enphase Energy Site Level Production Monitoring API
+  description: >-
+    The Site Level Production Monitoring API from Enphase Energy — 5 operation(s) for site level production
+    monitoring.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Site Level Production Monitoring
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-site-level-production-monitoring-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-streaming-apis-api
+  name: Enphase Energy Streaming APIs API
+  description: The Streaming APIs API from Enphase Energy — 1 operation(s) for streaming apis.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Streaming APIs
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-streaming-apis-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-system-and-device-configuration-api
+  name: Enphase Energy System and Device Configuration API
+  description: System and Device Configuration API
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - System and Device Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-system-and-device-configuration-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-system-configurations-api
+  name: Enphase Energy System Configurations API
+  description: >-
+    The System Configurations API from Enphase Energy — 4 operation(s) for system configurations.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - System Configurations
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-system-configurations-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-system-details-and-telemetry-api
+  name: Enphase Energy System Details And Telemetry API
+  description: System Details And Telemetry API
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - System Details And Telemetry
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-system-details-and-telemetry-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-system-details-api
+  name: Enphase Energy System Details API
+  description: The System Details API from Enphase Energy — 12 operation(s) for system details.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - System Details
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-system-details-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-tariff-api
+  name: Enphase Energy Tariff API
+  description: The Tariff API from Enphase Energy — 1 operation(s) for tariff.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Tariff
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-tariff-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/vpp_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/vpp-plans
+- aid: enphase:enphase-users-api
+  name: Enphase Energy Users API
+  description: The Users API from Enphase Energy — 4 operation(s) for users.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
+  baseURL: https://api.enphaseenergy.com/api/v4
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/enphase-users-api-openapi.yml
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: AsyncAPI
+    url: asyncapi/enphase-live-status-asyncapi.yml
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/monitoring_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/quickstart.html
+  - type: Plans
+    url: https://developer-v4.enphase.com/developer-plans
+  - type: SignUp
+    url: https://developer-v4.enphase.com/signup
+  - type: APIReference
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Documentation
+    url: https://developer-v4.enphase.com/docs/commissioning_api
+  - type: Plans
+    url: https://developer-v4.enphase.com/installer-plans
   - type: APIReference
     url: https://developer-v4.enphase.com/docs/vpp_api
   - type: Documentation
@@ -158,6 +969,12 @@ apis:
   - type: Plans
     url: https://developer-v4.enphase.com/vpp-plans
 common:
+- type: Overlay
+  url: overlays/enphase-monitoring-overlay.yaml
+- type: Overlay
+  url: overlays/enphase-commissioning-overlay.yaml
+- type: Overlay
+  url: overlays/enphase-vpp-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/enphase-agentic-access.yml
 - type: DomainSecurity
