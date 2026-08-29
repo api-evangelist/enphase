@@ -1,0 +1,89 @@
+slug: enphase
+provider: Enphase Energy
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Power & Water Utilities
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: Manage VPPs
+  spec_file: enphase-manage-vpps-api-openapi.yml
+  capability_id: BC-3840.20
+  capability_id_l1: BC-3840
+  capability_name: Virtual Power Plant Operations
+  confidence: 0.85
+  evidence: POST /api/v1/vpps createVPP 'Create a new VPP in a program'; schemas VPPCreateRequest, VPPsListResponse
+  reason: Operations create, read, update and delete Virtual Power Plants within a grid-services program
+    — the aggregation entity used to dispatch distributed resources as one operating unit, i.e. VPP operations
+    on the DER side.
+- tag: EV Charger Control
+  spec_file: enphase-ev-charger-control-api-openapi.yml
+  capability_id: BC-3840.40
+  capability_id_l1: BC-3840
+  capability_name: EV Grid Integration Management
+  confidence: 0.78
+  evidence: '"Start charging. Illustrative only - access via VPP api for partners" / "Stop charging" on
+    /systems/{system_id}/ev_charger/{serial_no}'
+  reason: Remote start/stop of EV charging exposed through the VPP partner API is managed charging of
+    electric vehicles as a grid resource, matching EV grid integration management.
+- tag: EV Charger Monitoring
+  spec_file: enphase-ev-charger-monitoring-api-openapi.yml
+  capability_id: BC-3840.40
+  capability_id_l1: BC-3840
+  capability_name: EV Grid Integration Management
+  confidence: 0.75
+  evidence: '"Fetch active chargers for a system", "Charger session history", "Get Schedule", "Daily energy
+    api" with ChargeSessionDetail and EVIntervalEnergyResponse schemas'
+  reason: Session, schedule and interval-energy data for EV chargers is the monitoring side of EV charging
+    interaction with the home/grid, so EV grid integration management is the closest fit; slight uncertainty
+    because it is read-only telemetry that could also be seen as generic device monitoring.
+- tag: Forecast
+  spec_file: enphase-forecast-api-openapi.yml
+  capability_id: BC-3840.60
+  capability_id_l1: BC-3840
+  capability_name: DER Forecasting
+  confidence: 0.75
+  evidence: '"API to fetch energy forecasts and respective accuracy percentages" with ForecastTimeSeries
+    / ForecastRequest schemas in the VPP API'
+  reason: Short-term energy forecasting for distributed sites participating in a VPP programme maps to
+    DER forecasting; sub-capability is well matched though the single operation gives limited detail.
+- tag: Events
+  spec_file: enphase-events-api-openapi.yml
+  capability_id: BC-3840.30
+  capability_id_l1: BC-3840
+  capability_name: Demand Response Operations
+  confidence: 0.72
+  evidence: '"Create a new Event in a program", "Cancel or End Event", "Optout-Optin site from the event"
+    in the VPP API'
+  reason: Programme events dispatched to enrolled sites, with per-site opt-in/opt-out, are demand-response
+    event dispatch over aggregated distributed resources. Could alternatively be framed as VPP operations,
+    so confidence is held below 0.8.
+- tag: Programs
+  spec_file: enphase-programs-api-openapi.yml
+  capability_id: BC-3840
+  capability_id_l1: BC-3840
+  capability_name: Distributed Energy Resource Management
+  confidence: 0.7
+  evidence: GET /api/v1/programs 'Retrieve all programs under an account'; schemas Season, GsApiProgram,
+    ProgramsListResponse
+  reason: Programs are the grid-services programme containers under which VPPs are created in this same
+    VPP API, so the surface belongs to distributed energy resource coordination. No single sub-capability
+    is named (programme could be demand response or VPP), so only the L1 is asserted.
+- tag: System Details And Telemetry
+  spec_file: enphase-system-details-and-telemetry-api-openapi.yml
+  capability_id: BC-3840
+  capability_id_l1: BC-3840
+  capability_name: Distributed Energy Resource Management
+  confidence: 0.7
+  evidence: GET /api/v1/systems/{site_id}/{serial_no}/evse_telemetry 'Retrieves telemetry data of the
+    EVSE charger at regular intervals'; GET /api/v1/systems/{site_id}/telemetry/battery getBatteryTelemetry
+  reason: Within the VPP/grid-services API, this exposes site and device telemetry for PV, battery and
+    EV charger plus storm guard settings — the operational data layer for coordinating distributed resources.
+    Mixed EVSE/storage/PV scope so no single sub-capability is claimed.

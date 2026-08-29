@@ -980,6 +980,9 @@ apis:
   - type: Plans
     url: https://developer-v4.enphase.com/vpp-plans
 common:
+- type: CapabilityMap
+  url: capabilities/enphase-capability-edges.yml
+  name: Enphase Energy Business Capability Map
 - type: Overlay
   url: overlays/enphase-monitoring-overlay.yaml
 - type: Overlay
