@@ -94,6 +94,8 @@ apis:
   humanURL: https://developer-v4.enphase.com/docs/monitoring_api
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
@@ -162,6 +164,8 @@ apis:
   humanURL: https://developer-v4.enphase.com/docs/monitoring_api
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -368,6 +372,8 @@ apis:
   humanURL: https://developer-v4.enphase.com/docs/monitoring_api
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -951,6 +957,8 @@ apis:
   humanURL: https://developer-v4.enphase.com/docs/monitoring_api
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
