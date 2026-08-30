@@ -1,0 +1,3417 @@
+openapi: 3.2.0
+info:
+  title: Commissioning Activations API
+  version: v4
+servers:
+- url: https://api.enphaseenergy.com
+tags:
+- name: Activations
+paths:
+  /api/v4/activations/{activation_id}/battery_mode:
+    get:
+      summary: API endpoint to get battery charge/discharge setting.
+      description: This endpoint can be used to get the CFG and DTG settings of the site.
+      parameters:
+      - name: activation_id
+        in: path
+        description: The Enlighten ID of the activation(system). System-generated.
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Activations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CFG_allowed:
+                    type: boolean
+                  DTG_allowed:
+                    type: boolean
+              example:
+                CFG_allowed: true
+                DTG_allowed: false
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - System not found
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - This is a PV only site. Battery mode can only be fetched for sites with Enphase battery systems
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+    put:
+      summary: API endpoint to update battery charge/discharge setting.
+      description: This endpoint can be used to setup/update the CFG and DTG settings of the site.
+      parameters:
+      - name: activation_id
+        in: path
+        description: The Enlighten ID of the activation(system). System-generated.
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Activations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: Battery mode updated successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - System not found
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - This is a PV only site. Battery mode can only be updated for sites with Enphase battery systems
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                CFG_allowed:
+                  type: boolean
+                  description: true or false
+                DTG_allowed:
+                  type: boolean
+                  description: true or false
+              required:
+              - CFG_allowed
+              - DTG_allowed
+  /api/v4/partner/activations:
+    get:
+      summary: List of Activations
+      description: Returns a list of activations for which the user can make API requests. There is a limit to the number of activations which can be returned at one time. If the first request does not return a full list, use the 'next' attribute in the response body to request the next page. By default, activations are returned in batches of 100. The maximum page size is 1000. Provide only valid filters. During filter the activations empty and invalid filter fields are ignored. In case the installer ID doesn’t exist, API will return an empty array.
+      parameters:
+      - name: next
+        in: query
+        description: If the first request does not return a full list, use the 'next' attribute in the response body to request the next page. By default, activations are returned in batches of 100. The maximum page size is 1000. If the returned list below the limit, then response does not include the 'next' field.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: There is a limit to the number of activations which can be returned at one time
+        schema:
+          type: integer
+      - name: stage
+        in: query
+        description: Filter activations by stage. Passing in_progress alone will consider as you have passed all the 1,2,3,4 stages. Passing multiple stage values using comma to filter. E.g. stage=1,2,3. Paasing in_progress with any other combination will give you empty systems. This parameter searches for an exact match of the input value.
+        schema:
+          type: string
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - in_progress
+      - name: reference
+        in: query
+        description: Filter activations by company reference. This parameter searches for an exact match of the input value and is not case-sensitive.
+        schema:
+          type: string
+      - name: installer_id
+        in: query
+        description: Filter activations by installer id. This parameter searches for an exact match of the input value.
+        schema:
+          type: integer
+      - name: system_name
+        in: query
+        description: Filter activations by system name. This parameter searches for an exact match of the input value and is not case-sensitive.
+        schema:
+          type: string
+      - name: city
+        in: query
+        description: Filter activations by city. This parameter searches for an exact match of the input value and is not case-sensitive.
+        schema:
+          type: string
+      - name: state
+        in: query
+        description: Filter activations by state. This parameter searches for an exact match of the input value and is not case-sensitive.
+        schema:
+          type: string
+      - name: country
+        in: query
+        description: Filter activations by country. This parameter searches for an exact match of the input value and is not case-sensitive.
+        schema:
+          type: string
+      - name: postal_code
+        in: query
+        description: Filter activations by zipcode. This parameter searches for an exact match of the input value.
+        schema:
+          type: string
+      - name: street1
+        in: query
+        description: Filter activations by street1. This parameter searches for an exact match of the input value and is not case-sensitive.
+        schema:
+          type: string
+      - name: street2
+        in: query
+        description: Filter activations by street2. This parameter searches for an exact match of the input value and is not case-sensitive.
+        schema:
+          type: string
+      - name: host_id
+        in: query
+        description: Filter activations by host_id. This parameter searches for an exact match of the input value. In addition to Integers, the filter will support null values too
+        schema:
+          type: integer
+      - name: owner_id
+        in: query
+        description: Filter activations by owner_id. This parameter searches for an exact match of the input value. In addition to Integers, the filter will support null values too
+        schema:
+          type: integer
+      tags:
+      - Activations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  systems:
+                    type: array
+                    description: Zero or more activations
+                    items:
+                      type: object
+                      properties:
+                        system_id:
+                          type: integer
+                          description: The Enlighten ID of this system. System-generated
+                        system_name:
+                          type: string
+                          description: The name of the system.
+                        system_type:
+                          type: string
+                          description: The type of the system. One of 'residential', 'commercial', or 'other'. Default 'residential'. Cannot be null.
+                        status:
+                          type: string
+                          description: System's status.
+                        timezone:
+                          type: string
+                          description: System's timezone.
+                        stage:
+                          type: integer
+                          description: What stage of the activation process this activation is in. System-generated.
+                        internet_connection:
+                          type: string
+                          description: How the system's Envoys connect to the Internet. Possible values are none, cellular, broadband, dialup. Use 'dialup' if the Internet connection is satellite or dial-up
+                        lease:
+                          type: boolean
+                          description: Whether the system is leased. Possible values true, false. Default false
+                        operational:
+                          type: boolean
+                          description: Whether this system is permitted to operate. Possible values true, false. Default true
+                        owner:
+                          type: string
+                          description: Name of the system owner. Owner must be an Enlighten user. If the user of the API is a self-installer, the owner must be himself
+                        owner_id:
+                          type: integer
+                          description: The Enlighten ID of this system owner. System-generated
+                        host:
+                          type: string
+                          description: Name of the system host. Please see “Specifying an Owner and Lease Arrangement”, above, for more information.
+                        host_id:
+                          type: integer
+                          description: The Enlighten ID of this system host. System-generated
+                        installer_name:
+                          type: string
+                          description: Name of the installer.
+                        installer_id:
+                          type: integer
+                          description: The Enlighten ID of the installer of this system
+                        maintainer_name:
+                          type: string
+                          description: Name of the maintainer.
+                        maintainer_id:
+                          type: integer
+                          description: The Enlighten ID of the maintainer of this system
+                        authorized_subcontractors:
+                          type: array
+                          description: List of sub-contractors of this system.
+                          items:
+                            type: object
+                            properties:
+                              authorized_subcontractor_id:
+                                type: integer
+                                description: The Enlighten ID of the sub-contractor of this system. System-generated.
+                              authorized_subcontractor_name:
+                                type: string
+                                description: Name of the sub-contractor of this system.
+                              status:
+                                type: string
+                                description: Current status of the subcontractor for the site. This field will be shown only for pending and rejected sub-contractors.
+                        grid_connection_type:
+                          type: object
+                          description: 'Possible values for parameter: 1 – Net Billing Tariff (NEM 3.0), 2 – Net Metering, 3 – Net Feed-in tariff, 4 – Gross Feed-in tariff'
+                          properties:
+                            type:
+                              type: integer
+                            value:
+                              type: string
+                        battery_grid_mode:
+                          type: string
+                          description: Battery grid mode can be of two types - Export Only, Import Only
+                        third_party_storage_device_installed:
+                          type: boolean
+                          description: If third party storage device is installed on the site.
+                        third_party_storage_device_manufacturer:
+                          type: string
+                          description: Manufacturer name of the third party storage device.
+                        interconnection_application_date:
+                          type: integer
+                          description: Date in epoch format
+                        permission_to_operate:
+                          type: boolean
+                          description: boolean (true / false)
+                        uri:
+                          type: string
+                          description: URI for this activation
+                        updated_at:
+                          type: integer
+                          description: Activation last updated timestamp
+                        reference:
+                          type: string
+                          description: The identifier of this system as provided by the calling user's company. This attribute is not present if the calling user's company does not have a reference for this system.
+                        other_references:
+                          type: array
+                          description: The identifiers assigned to this activation by other companies which have access to it. This attribute is not present if there are no other references for this system.
+                          items:
+                            type: string
+                            description: Name of the reference
+                        address:
+                          type: object
+                          description: The location of the system. Use the ISO 3166-1 2-letter code for the country. Latitude and longitude are calculated by Enlighten, not provided by the client
+                          properties:
+                            street1:
+                              type: string
+                              description: Street line 1
+                            city:
+                              type: string
+                              description: City
+                            state:
+                              type: string
+                              description: State
+                            postal_code:
+                              type: string
+                              description: Postal code
+                            country:
+                              type: string
+                              description: Country
+                            latitude:
+                              type: integer
+                              description: Latitude
+                            longitude:
+                              type: integer
+                              description: Longitude
+                            street2:
+                              type: string
+                              description: Street line 2. This field is Optional
+                  next:
+                    type: string
+                    description: If the first request does not return a full list, use the 'next' attribute in the response body to request the next page. By default, activations are returned in batches of 10. The maximum page size is 1000
+              example:
+                systems:
+                - system_id: 12345
+                  system_name: System name
+                  system_type: residential
+                  status: Normal
+                  timezone: US/Pacific
+                  stage: 5
+                  internet_connection: dialup
+                  lease: false
+                  operational: true
+                  owner: Test User
+                  owner_id: 123
+                  host: 321
+                  host_id: Host name
+                  installer_name: Enphase & Energy
+                  installer_id: 1
+                  maintainer_name: Enphase & Energy
+                  maintainer_id: 5
+                  authorized_subcontractors:
+                  - authorized_subcontractor_id: 67
+                    authorized_subcontractor_name: Enphase India
+                  - authorized_subcontractor_id: 68
+                    authorized_subcontractor_name: Enphase India
+                    status: Pending for system owner approval
+                  grid_connection_type:
+                    type: 1
+                    value: Net Billing Tariff (NEM 3.0)
+                  battery_grid_mode: Export Only
+                  third_party_storage_device_installed: true
+                  third_party_storage_device_manufacturer: Franklin
+                  interconnection_application_date: 1727156880
+                  permission_to_operate: true
+                  uri: /api/v4/partner/activations/12345.json
+                  updated_at: 1628153151
+                  reference: ENPH123
+                  other_references:
+                  - OTHER1234
+                  address:
+                    street1: Bangalore Lane
+                    city: San Diego
+                    state: CA
+                    postal_code: '92126'
+                    country: US
+                    latitude: 32.912785
+                    longitude: -117.153778
+                    street2: 2nd Street
+                next: 4e6a6b344f5445774d446b350a
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - Invalid stage option 11
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+    post:
+      summary: Create new activation.
+      description: Create new activation. Address is mandatory if users company belongs to US.
+      tags:
+      - Activations
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  system_id:
+                    type: integer
+                    description: The Enlighten ID of this system. System-generated
+                  system_name:
+                    type: string
+                    description: The name of the system.
+                  system_type:
+                    type: string
+                    description: The type of the system. One of 'residential', 'commercial', or 'other'. Default 'residential'. Cannot be null.
+                  status:
+                    type: string
+                    description: System's status.
+                  stage:
+                    type: integer
+                    description: What stage of the activation process this activation is in. System-generated.
+                  internet_connection:
+                    type: string
+                    description: How the system's Envoys connect to the Internet. Possible values are none, cellular, broadband, dialup. Use 'dialup' if the Internet connection is satellite or dial-up
+                  lease:
+                    type: boolean
+                    description: Whether the system is leased. Possible values true, false. Default false
+                  operational:
+                    type: boolean
+                    description: Whether this system is permitted to operate. Possible values true, false. Default true
+                  owner:
+                    type: object
+                    description: Name of the system owner. Owner must be an Enlighten user. If the user of the API is a self-installer, the owner must be himself. If the query parameter 'expand=owner' passed in the request owner detail will appear in the response
+                    properties:
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      email:
+                        type: string
+                      phone:
+                        type: string
+                      active:
+                        type: boolean
+                        description: Whether the user is allowed to log in to Enlighten. Values true, false. Default true.
+                      user_id:
+                        type: integer
+                      user_roles:
+                        type: array
+                        items:
+                          type: string
+                          description: Role
+                        description: What type of user this is in Enlighten. Possible values are ['self_installer']. For self installer user user_roles will be ['self_installer']. For other users user_roles will be empty.
+                      enlighten_emails:
+                        type: boolean
+                      enlighten_view:
+                        type: string
+                      uri:
+                        type: string
+                      updated_at:
+                        type: integer
+                  owner_id:
+                    type: integer
+                    description: The Enlighten ID of this system owner. System-generated. This field is optional.
+                  host:
+                    type: object
+                    description: Name of the system host. Please see “Specifying an Owner and Lease Arrangement”, above, for more information. If the query parameter 'expand=host' passed in the request host detail will appear in the response
+                    properties:
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      email:
+                        type: string
+                      phone:
+                        type: string
+                      active:
+                        type: boolean
+                        description: Whether the user is allowed to log in to Enlighten. Values true, false. Default true.
+                      user_id:
+                        type: integer
+                      user_roles:
+                        type: array
+                        items:
+                          type: string
+                          description: Role
+                        description: What type of user this is in Enlighten. Possible values are ['self_installer']. For self installer user user_roles will be ['self_installer']. For other users user_roles will be empty.
+                      enlighten_emails:
+                        type: boolean
+                      enlighten_view:
+                        type: string
+                      uri:
+                        type: string
+                      updated_at:
+                        type: integer
+                  host_id:
+                    type: integer
+                    description: The Enlighten ID of this system host. System-generated. This field is optional.
+                  installer_name:
+                    type: string
+                    description: Name of the installer.
+                  installer_id:
+                    type: integer
+                    description: The Enlighten ID of the installer of this system. Defaults to current user's company ID
+                  maintainer_name:
+                    type: string
+                    description: Name of the maintainer.
+                  maintainer_id:
+                    type: integer
+                    description: The Enlighten ID of the maintainer of this system. Defaults to current user's company ID
+                  authorized_subcontractors:
+                    type: array
+                    description: List of sub-contractors of this system.
+                    items:
+                      type: object
+                      properties:
+                        authorized_subcontractor_id:
+                          type: integer
+                          description: The Enlighten ID of the sub-contractor of this system. System-generated.
+                        authorized_subcontractor_name:
+                          type: string
+                          description: Name of the sub-contractor of this system.
+                        status:
+                          type: string
+                          description: Current status of the subcontractor for the site. This field will be shown only for pending and rejected sub-contractors.
+                  grid_connection_type:
+                    type: object
+                    description: 'Possible values for parameter: 1 – Net Billing Tariff (NEM 3.0), 2 – Net Metering, 3 – Net Feed-in tariff, 4 – Gross Feed-in tariff'
+                    properties:
+                      type:
+                        type: integer
+                      value:
+                        type: string
+                  battery_grid_mode:
+                    type: string
+                    description: Battery grid mode can be of two types - Export Only, Import Only
+                  third_party_storage_device_installed:
+                    type: boolean
+                    description: If third party storage device is installed on the site.
+                  third_party_storage_device_manufacturer:
+                    type: string
+                    description: Manufacturer name of the third party storage device.
+                  interconnection_application_date:
+                    type: integer
+                    description: Date in epoch format
+                  permission_to_operate:
+                    type: boolean
+                    description: boolean (true / false)
+                  uri:
+                    type: string
+                    description: URI for this activation
+                  updated_at:
+                    type: integer
+                    description: Activation last updated timestamp
+                  reference:
+                    type: string
+                    description: The identifier of this system as provided by the calling user's company. This attribute is not present if the calling user's company does not have a reference for this system.
+                  other_references:
+                    type: array
+                    description: The identifiers assigned to this activation by other companies which have access to it. This attribute is not present if there are no other references for this system.
+                    items:
+                      type: string
+                      description: Name of the reference
+                  allow_public_access:
+                    type: boolean
+                    description: When true, the system will be eligible to appear in the public systems lists of Enphase and the system's installer. Default true
+                  interconnect_date:
+                    type: integer
+                    description: When the system was approved to connect to the grid
+                  installer_support_email:
+                    type: string
+                    description: Installer support email
+                  source:
+                    type: string
+                    description: The source of production measurements taken on the system. Possible values 'meter', 'microinverters'. When 'meter', production values come from a revenue-grade meter on the system. When 'microinverters', production values come from the microinverters on the system
+                  array_type:
+                    type: string
+                    description: The type of array installed. Possible values are fixed_open_rack, fixed_roof_mount, single_axis_tracking, single_axis_backtracking, dual_axis_tracking. All other values will be ignored. To unset array_type, pass null
+                  attachment_type:
+                    type: string
+                    description: How the microinverters are attached to the panels. Possible values are acm (AC Module), rack_mount (rack- or rail-mounted), zep (Zep Solar compatible), bipv (Building Integrated PV), frame_mount (Enphase Frame Mount), railless_mount (Other Railless Mount)
+                  ensemble_envoy:
+                    type: string
+                    description: Specifies serial number of ensemble envoy in multi envoy system
+                  production_mode:
+                    type: string
+                    description: Possible value is 'on' and 'off'
+                  grid_profile:
+                    type: string
+                    description: The grid profile to set on this system's microinverters. See GridProfiles API for how to retrieve a list of known profiles.
+                  requested_profile:
+                    type: string
+                    description: ''
+                  requested_report_freq:
+                    type: string
+                    description: ''
+                  voltage:
+                    type: string
+                    description: The supported voltage/phase associated with a commercial system inside North America. If system type is not commercial, or if the installer exists & installer's country is not inside North America, or if the system's country is not inside North America, then the voltage value would be null
+                  envoy_serial_numbers:
+                    type: array
+                    description: A list of Envoys installed on this system
+                    items:
+                      type: string
+                      description: Envoy serial number
+                  expected_envoy_count:
+                    type: integer
+                    description: Total envoys the system is supposed to have
+                  expected_pcu_count:
+                    type: integer
+                    description: Total PCUs the system is supposed to have
+                  expected_nsr_count:
+                    type: integer
+                    description: Total nsrs the system is supposed to have
+                  expected_meter_count:
+                    type: integer
+                    description: Total meters the system is supposed to have
+                  expected_encharge_count:
+                    type: integer
+                    description: Total encharges the system is supposed to have
+                  expected_enpower_count:
+                    type: integer
+                    description: Total enpowers the system is supposed to have
+                  pv_manufacturer:
+                    type: integer
+                    description: Enlighten ID of the PV manufacturer associated with the PV model installed on the system. See PvManufacturers for how to retrieve PV manufacturer IDs
+                  pv_manufacturer_name:
+                    type: string
+                    description: Name of the Custom PV Module Manufacturer associated with the system.
+                  pv_model:
+                    type: integer
+                    description: Enlighten ID of the PV model installed on the system. See PvManufacturers and PvModels for how to retrieve PV model IDs
+                  pv_model_name:
+                    type: string
+                    description: Name of the Custom PV Module Model associated with the system.
+                  pv_module_power_rating:
+                    type: number
+                    format: float
+                    minimum: 0
+                    description: Power Rating (in W) of the PV module installed on the system.
+                  pv_module_type:
+                    type: integer
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                    description: Type ID of the PV module installed on the system. 1 -> 'Mono-facial', 2 -> 'Bi-facial', 3 -> 'Split cell', 4 -> 'Other'
+                  encharge:
+                    type: array
+                    description: Encharge detail
+                    items:
+                      type: object
+                      properties:
+                        envoy_serial_number:
+                          type: string
+                          description: Envoy serial number
+                        encharge_serial_numbers:
+                          type: array
+                          description: Encharge serial numbers
+                          items:
+                            type: string
+                            description: Encharge serial number
+                  enpower:
+                    type: array
+                    description: Enpower detail
+                    items:
+                      type: object
+                      properties:
+                        envoy_serial_number:
+                          type: string
+                          description: Envoy serial number
+                        enpower_serial_numbers:
+                          type: array
+                          description: Enpower serial numbers
+                          items:
+                            type: string
+                            description: Enpower serial number
+                  address:
+                    type: object
+                    description: The location of the system. Use the ISO 3166-1 2-letter code for the country. Latitude and longitude are calculated by Enlighten, not provided by the client
+                    properties:
+                      street1:
+                        type: string
+                        description: Street line 1
+                      city:
+                        type: string
+                        description: City
+                      state:
+                        type: string
+                        description: State
+                      postal_code:
+                        type: string
+                        description: Postal code
+                      country:
+                        type: string
+                        description: Country
+                      latitude:
+                        type: integer
+                        description: Latitude
+                      longitude:
+                        type: integer
+                        description: Longitude
+                      street2:
+                        type: string
+                        description: Street line 2. This field is Optional
+              example:
+                system_id: 12345
+                system_name: Enphase system
+                system_type: residential
+                status: Microinverters Not Reporting
+                stage: 5
+                internet_connection: dialup
+                lease: false
+                operational: true
+                owner:
+                  first_name: Test
+                  last_name: Owner
+                  email: testowner@domain.com
+                  phone: '9876543210'
+                  active: true
+                  user_id: 246
+                  user_roles: []
+                  enlighten_emails: false
+                  enlighten_view: manager
+                  uri: /api/v4/activations/12345/users/246.json
+                  updated_at: 1444834807
+                owner_id: 246
+                host:
+                  first_name: Test
+                  last_name: User
+                  email: testhost@domain.com
+                  phone: '9876543210'
+                  active: true
+                  user_id: 248
+                  user_roles: []
+                  enlighten_emails: false
+                  enlighten_view: manager
+                  uri: /api/v4/activations/12345/users/248.json
+                  updated_at: 1444834807
+                host_id: 248
+                installer_name: Enphase & Energy
+                installer_id: 5
+                maintainer_name: Enphase & Energy
+                maintainer_id: 5
+                authorized_subcontractors:
+                - authorized_subcontractor_id: 67
+                  authorized_subcontractor_name: Enphase India
+                grid_connection_type:
+                  type: 1
+                  value: Net Billing Tariff (NEM 3.0)
+                battery_grid_mode: Export Only
+                third_party_storage_device_installed: true
+                third_party_storage_device_manufacturer: Franklin
+                interconnection_application_date: 1727156880
+                permission_to_operate: true
+                uri: /api/v4/partner/activations/12345.json
+                updated_at: 1628156578
+                allow_public_access: true
+                interconnect_date: 1725284451
+                installer_support_email: ''
+                source: microinverters
+                array_type: ''
+                attachment_type: ''
+                ensemble_envoy: ''
+                production_mode: 'on'
+                grid_profile: ''
+                requested_profile: ''
+                requested_report_freq: ''
+                voltage: ''
+                envoy_serial_numbers:
+                - '202040004942'
+                expected_envoy_count: 1
+                expected_pcu_count: 4
+                expected_acb_count: 0
+                expected_nsr_count: 0
+                expected_meter_count: 0
+                expected_encharge_count: 4
+                expected_enpower_count: 1
+                pv_manufacturer: ''
+                pv_manufacturer_name: ''
+                pv_model: ''
+                pv_model_name: ''
+                pv_module_power_rating: ''
+                pv_module_type: ''
+                encharge:
+                - envoy_serial_number: '202040004942'
+                  encharge_serial_numbers:
+                  - '122038023664'
+                  - '122038023672'
+                  - '122050050473'
+                  - '122050050474'
+                enpower:
+                - envoy_serial_number: '202040004942'
+                  enpower_serial_numbers:
+                  - '122051103228'
+                address:
+                  street1: Bangalore Lane
+                  city: San Diego
+                  state: CA
+                  postal_code: '92126'
+                  country: US
+                  latitude: 32.912785
+                  longitude: -117.153778
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorCode: 11
+                errorMessages:
+                - The system type must be residential, commercial, or other.
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                system_name:
+                  type: string
+                  description: The name of the system. Limit 255 characters.
+                system_type:
+                  type: string
+                  description: The type of the system. Possible values are 'residential', 'commercial', 'other'. Default 'residential'.
+                internet_connection:
+                  type: string
+                  description: How the system's Envoys connect to the Internet. Possible values are none, cellular, broadband, dialup. Use 'dialup' if the Internet connection is satellite or dial-up
+                lease:
+                  type: boolean
+                  description: Whether the system is leased. Possible values true, false. Default false
+                operational:
+                  type: boolean
+                  description: Whether this system is permitted to operate. Possible values true, false. Default true
+                owner_id:
+                  type: integer
+                  description: Enlighten ID of the system owner. Owner must be an Enlighten user. Optional. If the user of the API is a self-installer, the owner must be himself. If the user of the API is an installer then use the Search user API to get the owner user id. If the owner not exist in the enlighten then use Create home owner API to create it newly.
+                host_id:
+                  type: integer
+                  description: Enlighten ID of the system host. System host must be an Enlighten user. Optional. If the user of the API is an installer then use the Search user API to get the host user id. If the host not exist in the enlighten then use Create home owner API to create it newly.
+                authorized_subcontractor_id:
+                  type: integer
+                  description: Enlighten ID of the sub-contractor you want to add to the system. Optional.
+                installer_id:
+                  type: integer
+                  description: The Enlighten ID of the installer of this system. Defaults to current user's company ID
+                maintainer_id:
+                  type: integer
+                  description: The Enlighten ID of the maintainer of this system. Defaults to current user's company ID
+                allow_public_access:
+                  type: boolean
+                  description: When true, the system will be eligible to appear in the public systems lists of Enphase and the system's installer. Default true
+                interconnect_date:
+                  type: integer
+                  description: When the system was approved to connect to the grid. Epoch in seconds format
+                source:
+                  type: string
+                  description: The source of production measurements taken on the system. Possible values 'meter', 'microinverters'. When 'meter', production values come from a revenue-grade meter on the system. When 'microinverters', production values come from the microinverters on the system.
+                array_type:
+                  type: string
+                  enum:
+                  - fixed_open_rack
+                  - fixed_roof_mount
+                  - single_axis_tracking
+                  - single_axis_backtracking
+                  - dual_axis_tracking
+                  description: The type of array installed. Possible values are fixed_open_rack, fixed_roof_mount, single_axis_tracking, single_axis_backtracking, dual_axis_tracking. All other values will be ignored. To unset array_type, pass null
+                attachment_type:
+                  type: string
+                  enum:
+                  - rack_mount
+                  - zep
+                  - acm
+                  - bipv
+                  - frame_mount
+                  - railless_mount
+                  description: How the microinverters are attached to the panels. Possible values are acm (AC Module), rack_mount (rack- or rail-mounted), zep (Zep Solar compatible), bipv (Building Integrated PV), frame_mount (Enphase Frame Mount), railless_mount (Other Railless Mount)
+                ensemble_envoy:
+                  type: string
+                  description: Specifies serial number of ensemble envoy in multi envoy system
+                grid_profile:
+                  type: string
+                  description: The grid profile to set on this system's microinverters. See GridProfiles API for how to retrieve a list of known profiles.
+                requested_profile:
+                  type: string
+                  description: ''
+                requested_report_freq:
+                  type: string
+                  description: ''
+                voltage:
+                  type: string
+                  description: The supported voltage/phase associated with a commercial system inside North America. If system type is not commercial, or if the installer exists & installer's country is not inside North America, or if the system's country is not inside North America, then the voltage value would be null
+                envoy_serial_numbers:
+                  type: array
+                  items:
+                    type: string
+                  description: A list of Envoys installed on this system
+                pv_manufacturer:
+                  type: integer
+                  description: Enlighten ID of the PV manufacturer associated with the PV model installed on the system. See PvManufacturers for how to retrieve PV manufacturer IDs
+                pv_manufacturer_name:
+                  type: string
+                  description: Name of the Custom PV Module Manufacturer associated with the system.
+                pv_model:
+                  type: integer
+                  description: Enlighten ID of the PV model installed on the system. See PvManufacturers and PvModels for how to retrieve PV model IDs
+                pv_model_name:
+                  type: string
+                  description: Name of the Custom PV Module Model associated with the system.
+                pv_module_power_rating:
+                  type: number
+                  format: float
+                  minimum: 0
+                  description: Power Rating (in W) of the PV module installed on the system.
+                pv_module_type:
+                  type: integer
+                  enum:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+                  description: Type ID of the PV module installed on the system. 1 -> 'Mono-facial', 2 -> 'Bi-facial', 3 -> 'Split cell', 4 -> 'Other'
+                expected_envoy_count:
+                  type: integer
+                  description: Total envoys the system is supposed to have
+                expected_pcu_count:
+                  type: integer
+                  description: Total PCUs the system is supposed to have
+                expected_acb_count:
+                  type: integer
+                  description: Total acbs the system is supposed to have
+                expected_nsr_count:
+                  type: integer
+                  description: Total nsrs the system is supposed to have
+                expected_meter_count:
+                  type: integer
+                  description: Total meters the system is supposed to have
+                expected_encharge_count:
+                  type: integer
+                  description: Total encharges the system is supposed to have
+                expected_enpower_count:
+                  type: integer
+                  description: Total enpowers the system is supposed to have
+                reference:
+                  type: string
+                  description: The identifier of this system as provided by the calling user's company. This attribute is not present if the calling user's company does not have a reference for this system. This value should be alphanumberic
+                encharge:
+                  type: array
+                  description: Encharge detail
+                  items:
+                    type: object
+                    properties:
+                      envoy_serial_number:
+                        type: string
+                        description: Envoy serial number
+                      encharge_serial_numbers:
+                        type: array
+                        description: Encharge serial numbers
+                        items:
+                          type: string
+                enpower:
+                  type: array
+                  description: Enpower detail
+                  items:
+                    type: object
+                    properties:
+                      envoy_serial_number:
+                        type: string
+                        description: Envoy serial number
+                      enpower_serial_numbers:
+                        type: array
+                        description: Enpower serial numbers
+                        items:
+                          type: string
+                address:
+                  type: object
+                  description: The location of the system. Use a valid two-letter code for state. Use the ISO 3166-1 2-letter code for the country. Latitude and longitude are calculated by Enlighten, not provided by the client. Address is mandatory if users company belongs to US.
+                  properties:
+                    street1:
+                      type: string
+                    street2:
+                      type: string
+                    city:
+                      type: string
+                    state:
+                      type: string
+                    country:
+                      type: string
+                    postal_code:
+                      type: string
+                  required:
+                  - street1
+                  - city
+                  - state
+                  - country
+                  - postal_code
+                grid_connection_type:
+                  type: integer
+                  description: 'This field is mandatory for sites in California, United States. Possible values for parameter: 1 – Net Billing Tariff (NEM 3.0), 2 – Net Metering, 3 – Net Feed-in tariff, 4 – Gross Feed-in tariff'
+                battery_grid_mode:
+                  type: integer
+                  description: This field is mandatory for sites with battery in California, United States when grid_connection_type is 1. Battery grid mode must be either 1 (for Import Only) or 2 ( for Export Only).
+                third_party_storage_device_installed:
+                  type: boolean
+                  description: This field is mandatory for sites in California, United States. Whether third party storage device is installed on the site.
+                third_party_storage_device_manufacturer:
+                  type: string
+                  description: This field is mandatory for sites in California, United States when the third_party_storage_device_installed field is passed as true. Manufacturer name of the third party storage device.
+                interconnection_application_date:
+                  type: integer
+                  description: Date in epoch format
+                permission_to_operate:
+                  type: boolean
+                  description: boolean (true / false)
+              required:
+              - system_name
+  /api/v4/partner/activations/{activation_id}:
+    get:
+      summary: Retrieves an Activation by id
+      description: 'By default, the body of the response looks like the example below. However, you can choose to retrieve more information about the activation using response expansion, for example: Instead of returning only the owner''s name within the system hash, the response includes detailed information about the owner by using expand=owner. You can also expand the owner''s company by using expand=owner.company. The response now includes information about the owner and the company he belongs to, if any. By using expand=host will include details about the system host. You can also expand the host''s company by using expand=host.company. The response now includes information about the host and the company he belongs to'
+      parameters:
+      - name: activation_id
+        in: path
+        description: The Enlighten ID of the activation(system). System-generated.
+        required: true
+        schema:
+          type: integer
+      - name: expand
+        in: query
+        description: 'Retrieve more information about the activation. The expand query parameter is a comma-separated list of associations to expand. It may include the following:'
+        schema:
+          type: string
+          enum:
+          - owner
+          - owner.company
+          - host
+          - host.company
+      tags:
+      - Activations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  system_id:
+                    type: integer
+                    description: The Enlighten ID of this system. System-generated
+                  system_name:
+                    type: string
+                    description: The name of the system.
+                  system_type:
+                    type: string
+                    description: The type of the system. One of 'residential', 'commercial', or 'other'. Default 'residential'. Cannot be null.
+                  status:
+                    type: string
+                    description: System's status.
+                  timezone:
+                    type: string
+                    description: System's timezone.
+                  stage:
+                    type: integer
+                    description: What stage of the activation process this activation is in. System-generated.
+                  internet_connection:
+                    type: string
+                    description: How the system's Envoys connect to the Internet. Possible values are none, cellular, broadband, dialup. Use 'dialup' if the Internet connection is satellite or dial-up
+                  lease:
+                    type: boolean
+                    description: Whether the system is leased. Possible values true, false. Default false
+                  operational:
+                    type: boolean
+                    description: Whether this system is permitted to operate. Possible values true, false. Default true
+                  owner:
+                    type: object
+                    description: Name of the system owner. Owner must be an Enlighten user. If the user of the API is a self-installer, the owner must be himself. If the query parameter 'expand=owner' passed in the request owner detail will appear in the response
+                    properties:
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      email:
+                        type: string
+                      phone:
+                        type: string
+                      active:
+                        type: boolean
+                        description: Whether the user is allowed to log in to Enlighten. Values true, false. Default true.
+                      user_id:
+                        type: integer
+                      user_roles:
+                        type: array
+                        items:
+                          type: string
+                          description: Role
+                        description: What type of user this is in Enlighten. Possible values are ['self_installer']. For self installer user user_roles will be ['self_installer']. For other users user_roles will be empty.
+                      enlighten_emails:
+                        type: boolean
+                      enlighten_view:
+                        type: string
+                      uri:
+                        type: string
+                      updated_at:
+                        type: integer
+                      company:
+                        type: object
+                        description: A hash of information about the owner's company. Use the query parameter 'expand=owner.company' to get owner company detail
+                        properties:
+                          company_id:
+                            type: integer
+                          company_name:
+                            type: string
+                          location:
+                            type: string
+                          roles:
+                            type: array
+                            items:
+                              type: string
+                              description: Role
+                            description: What type of company this is in Enphase. Possible values are ['installer']. For installer company roles will be ['installer']. For other role roles will be empty.
+                          uri:
+                            type: string
+                  owner_id:
+                    type: integer
+                    description: The Enlighten ID of this system owner. System-generated. This field is optional.
+                  host:
+                    type: object
+                    description: Name of the system host. Please see “Specifying an Owner and Lease Arrangement”, above, for more information. If the query parameter 'expand=host' passed in the request host detail will appear in the response
+                    properties:
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      email:
+                        type: string
+                      phone:
+                        type: string
+                      active:
+                        type: boolean
+                        description: Whether the user is allowed to log in to Enlighten. Values true, false. Default true.
+                      user_id:
+                        type: integer
+                      user_roles:
+                        type: array
+                        items:
+                          type: string
+                          description: Role
+                        description: What type of user this is in Enlighten. Possible values are ['self_installer']. For self installer user user_roles will be ['self_installer']. For other users user_roles will be empty.
+                      enlighten_emails:
+                        type: boolean
+                      enlighten_view:
+                        type: string
+                      updated_at:
+                        type: integer
+                      company:
+                        type: object
+                        description: A hash of information about the system host's company. Use the query parameter 'expand=host.company' to get system host company detail
+                        properties:
+                          company_id:
+                            type: integer
+                          company_name:
+                            type: string
+                          location:
+                            type: string
+                          roles:
+                            type: array
+                            items:
+                              type: string
+                              description: Role
+                            description: What type of company this is in Enphase. Possible values are ['installer']. For installer company roles will be ['installer']. For other role roles will be empty.
+                          uri:
+                            type: string
+                      uri:
+                        type: string
+                  host_id:
+                    type: integer
+                    description: The Enlighten ID of this system host. System-generated. This field is optional.
+                  authorized_subcontractors:
+                    type: array
+                    description: List of sub-contractors of this system.
+                    items:
+                      type: object
+                      properties:
+                        authorized_subcontractor_id:
+                          type: integer
+                          description: The Enlighten ID of the sub-contractor of this system. System-generated.
+                        authorized_subcontractor_name:
+                          type: string
+                          description: Name of the sub-contractor of this system.
+                        status:
+                          type: string
+                          description: Current status of the subcontractor for the site. This field will be shown only for pending and rejected sub-contractors.
+                  grid_connection_type:
+                    type: object
+                    description: 'Possible values for parameter: 1 – Net Billing Tariff (NEM 3.0), 2 – Net Metering, 3 – Net Feed-in tariff, 4 – Gross Feed-in tariff'
+                    properties:
+                      type:
+                        type: integer
+                      value:
+                        type: string
+                  battery_grid_mode:
+                    type: string
+                    description: Battery grid mode can be of two types - Export Only, Import Only
+                  third_party_storage_device_installed:
+                    type: boolean
+                    description: If third party storage device is installed on the site.
+                  third_party_storage_device_manufacturer:
+                    type: string
+                    description: Manufacturer name of the third party storage device.
+                  interconnection_application_date:
+                    type: integer
+                    description: Date in epoch format
+                  permission_to_operate:
+                    type: boolean
+                    description: boolean (true / false)
+                  installer_name:
+                    type: string
+                    description: Name of the installer.
+                  installer_id:
+                    type: integer
+                    description: The Enlighten ID of the installer of this system
+                  maintainer_name:
+                    type: string
+                    description: Name of the maintainer.
+                  maintainer_id:
+                    type: integer
+                    description: The Enlighten ID of the maintainer of this system
+                  uri:
+                    type: string
+                    description: URI for this activation
+                  updated_at:
+                    type: integer
+                    description: Activation last updated timestamp
+                  reference:
+                    type: string
+                    description: The identifier of this system as provided by the calling user's company. This attribute is not present if the calling user's company does not have a reference for this system.
+                  other_references:
+                    type: array
+                    description: The identifiers assigned to this activation by other companies which have access to it. This attribute is not present if there are no other references for this system.
+                    items:
+                      type: string
+                      description: Name of the reference
+                  allow_public_access:
+                    type: boolean
+                    description: When true, the system will be eligible to appear in the public systems lists of Enphase and the system's installer. Default true
+                  interconnect_date:
+                    type: integer
+                    description: When the system was approved to connect to the grid
+                  installer_support_email:
+                    type: string
+                    description: Installer support email
+                  source:
+                    type: string
+                    description: The source of production measurements taken on the system. Possible values 'meter', 'microinverters'. When 'meter', production values come from a revenue-grade meter on the system. When 'microinverters', production values come from the microinverters on the system
+                  array_type:
+                    type: string
+                    description: The type of array installed. Possible values are fixed_open_rack, fixed_roof_mount, single_axis_tracking, single_axis_backtracking, dual_axis_tracking. All other values will be ignored. To unset array_type, pass null
+                  attachment_type:
+                    type: string
+                    description: How the microinverters are attached to the panels. Possible values are acm (AC Module), rack_mount (rack- or rail-mounted), zep (Zep Solar compatible), bipv (Building Integrated PV), frame_mount (Enphase Frame Mount), railless_mount (Other Railless Mount)
+                  ensemble_envoy:
+                    type: string
+                    description: Specifies serial number of ensemble envoy in multi envoy system
+                  production_mode:
+                    type: string
+                    description: Possible value is 'on' and 'off'
+                  grid_profile:
+                    type: string
+                    description: The grid profile to set on this system's microinverters. See GridProfiles API for how to retrieve a list of known profiles.
+                  requested_profile:
+                    type: string
+                    description: ''
+                  requested_report_freq:
+                    type: string
+                    description: ''
+                  voltage:
+                    type: string
+                    description: The supported voltage/phase associated with a commercial system inside North America. If system type is not commercial, or if the installer exists & installer's country is not inside North America, or if the system's country is not inside North America, then the voltage value would be null
+                  envoy_serial_numbers:
+                    type: array
+                    description: A list of Envoys installed on this system
+                    items:
+                      type: string
+                      description: Envoy serial number
+                  expected_envoy_count:
+                    type: integer
+                    description: Total envoys the system is supposed to have
+                  expected_pcu_count:
+                    type: integer
+                    description: Total PCUs the system is supposed to have
+                  expected_nsr_count:
+                    type: integer
+                    description: Total nsrs the system is supposed to have
+                  expected_meter_count:
+                    type: integer
+                    description: Total meters the system is supposed to have
+                  expected_encharge_count:
+                    type: integer
+                    description: Total encharges the system is supposed to have
+                  expected_enpower_count:
+                    type: integer
+                    description: Total enpowers the system is supposed to have
+                  pv_manufacturer:
+                    type: integer
+                    description: Enlighten ID of the PV manufacturer associated with the PV model installed on the system. See PvManufacturers for how to retrieve PV manufacturer IDs
+                  pv_manufacturer_name:
+                    type: string
+                    description: Name of the Custom PV Module Manufacturer associated with the system.
+                  pv_model:
+                    type: integer
+                    description: Enlighten ID of the PV model installed on the system. See PvManufacturers and PvModels for how to retrieve PV model IDs
+                  pv_model_name:
+                    type: string
+                    description: Name of the Custom PV Module Model associated with the system.
+                  pv_module_power_rating:
+                    type: number
+                    format: float
+                    minimum: 0
+                    description: Power Rating (in W) of the PV module installed on the system.
+                  pv_module_type:
+                    type: integer
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                    description: Type ID of the PV module installed on the system. 1 -> 'Mono-facial', 2 -> 'Bi-facial', 3 -> 'Split cell', 4 -> 'Other'
+                  encharge:
+                    type: array
+                    description: Encharge detail
+                    items:
+                      type: object
+                      properties:
+                        envoy_serial_number:
+                          type: string
+                          description: Envoy serial number
+                        encharge_serial_numbers:
+                          type: array
+                          description: Encharge serial numbers
+                          items:
+                            type: string
+                            description: Encharge serial number
+                  enpower:
+                    type: array
+                    description: Enpower detail
+                    items:
+                      type: object
+                      properties:
+                        envoy_serial_number:
+                          type: string
+                          description: Envoy serial number
+                        enpower_serial_numbers:
+                          type: array
+                          description: Enpower serial numbers
+                          items:
+                            type: string
+                            description: Enpower serial number
+                  address:
+                    type: object
+                    description: The location of the system. Use the ISO 3166-1 2-letter code for the country. Latitude and longitude are calculated by Enlighten, not provided by the client
+                    properties:
+                      street1:
+                        type: string
+                        description: Street line 1
+                      city:
+                        type: string
+                        description: City
+                      state:
+                        type: string
+                        description: State
+                      postal_code:
+                        type: string
+                        description: Postal code
+                      country:
+                        type: string
+                        description: Country
+                      latitude:
+                        type: integer
+                        description: Latitude
+                      longitude:
+                        type: integer
+                        description: Longitude
+                      street2:
+                        type: string
+                        description: Street line 2. This field is Optional
+              example:
+                system_id: 12345
+                system_name: Enphase system
+                system_type: residential
+                status: Microinverters Not Reporting
+                timezone: US/Pacific
+                stage: 5
+                internet_connection: dialup
+                lease: false
+                operational: true
+                owner:
+                  first_name: Test
+                  last_name: Owner
+                  email: testowner@domain.com
+                  phone: '9876543210'
+                  active: true
+                  user_id: 246
+                  user_roles: []
+                  enlighten_emails: false
+                  enlighten_view: manager
+                  uri: /api/v4/activations/12345/users/246.json
+                  updated_at: 1444834807
+                  company:
+                    company_id: 67
+                    company_name: Test Installer
+                    location: Petaluma, CA - US
+                    roles:
+                    - installer
+                    uri: /api/v4/companies/67.json
+                owner_id: 246
+                host:
+                  first_name: Test
+                  last_name: User
+                  email: testhost@domain.com
+                  phone: '9876543210'
+                  active: true
+                  user_id: 248
+                  user_roles: []
+                  enlighten_emails: false
+                  enlighten_view: manager
+                  uri: /api/v4/activations/12345/users/248.json
+                  updated_at: 1444834807
+                  company:
+                    company_id: 67
+                    company_name: Test Installer
+                    location: Petaluma, CA - US
+                    roles:
+                    - installer
+                    uri: /api/v4/companies/67.json
+                host_id: 248
+                installer_name: Enphase & Energy
+                installer_id: 5
+                maintainer_name: Enphase & Energy
+                maintainer_id: 5
+                authorized_subcontractors:
+                - authorized_subcontractor_id: 67
+                  authorized_subcontractor_name: Enphase India
+                grid_connection_type:
+                  type: 1
+                  value: Net Billing Tariff (NEM 3.0)
+                battery_grid_mode: Export Only
+                third_party_storage_device_installed: true
+                third_party_storage_device_manufacturer: Franklin
+                interconnection_application_date: 1727156880
+                permission_to_operate: true
+                uri: /api/v4/partner/activations/12345.json
+                updated_at: 1628156578
+                allow_public_access: true
+                interconnect_date: 1725284451
+                installer_support_email: ''
+                source: microinverters
+                array_type: ''
+                attachment_type: ''
+                ensemble_envoy: ''
+                production_mode: 'on'
+                grid_profile: ''
+                requested_profile: ''
+                requested_report_freq: ''
+                voltage: ''
+                envoy_serial_numbers:
+                - '202040004942'
+                expected_envoy_count: 1
+                expected_pcu_count: 4
+                expected_acb_count: 0
+                expected_nsr_count: 0
+                expected_meter_count: 0
+                expected_encharge_count: 4
+                expected_enpower_count: 1
+                pv_manufacturer: ''
+                pv_manufacturer_name: ''
+                pv_model: ''
+                pv_model_name: ''
+                pv_module_power_rating: ''
+                pv_module_type: ''
+                encharge:
+                - envoy_serial_number: '202040004942'
+                  encharge_serial_numbers:
+                  - '122038023664'
+                  - '122038023672'
+                  - '122050050473'
+                  - '122050050474'
+                enpower:
+                - envoy_serial_number: '202040004942'
+                  enpower_serial_numbers:
+                  - '122051103228'
+                address:
+                  street1: Bangalore Lane
+                  city: San Diego
+                  state: CA
+                  postal_code: '92126'
+                  country: US
+                  latitude: 32.912785
+                  longitude: -117.153778
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - Couldn't find Site with an out of range value for 'id'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+    put:
+      summary: Update an activation.
+      description: Update an activation. Address is mandatory if users company belongs to US.
+      parameters:
+      - name: activation_id
+        in: path
+        description: The Enlighten ID of the activation(system). System-generated.
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Activations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  system_id:
+                    type: integer
+                    description: The Enlighten ID of this system. System-generated
+                  system_name:
+                    type: string
+                    description: The name of the system.
+                  system_type:
+                    type: string
+                    description: The type of the system. One of 'residential', 'commercial', or 'other'. Default 'residential'. Cannot be null.
+                  status:
+                    type: string
+                    description: System's status.
+                  stage:
+                    type: integer
+                    description: What stage of the activation process this activation is in. System-generated.
+                  internet_connection:
+                    type: string
+                    description: How the system's Envoys connect to the Internet. Possible values are none, cellular, broadband, dialup. Use 'dialup' if the Internet connection is satellite or dial-up
+                  lease:
+                    type: boolean
+                    description: Whether the system is leased. Possible values true, false. Default false
+                  operational:
+                    type: boolean
+                    description: Whether this system is permitted to operate. Possible values true, false. Default true
+                  owner:
+                    type: object
+                    description: Name of the system owner. Owner must be an Enlighten user. If the user of the API is a self-installer, the owner must be himself. If the query parameter 'expand=owner' passed in the request owner detail will appear in the response
+                    properties:
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      email:
+                        type: string
+                      phone:
+                        type: string
+                      active:
+                        type: boolean
+                        description: Whether the user is allowed to log in to Enlighten. Values true, false. Default true.
+                      user_id:
+                        type: integer
+                      user_roles:
+                        type: array
+                        items:
+                          type: string
+                          description: Role
+                        description: What type of user this is in Enlighten. Possible values are ['self_installer']. For self installer user user_roles will be ['self_installer']. For other users user_roles will be empty.
+                      enlighten_emails:
+                        type: boolean
+                      enlighten_view:
+                        type: string
+                      uri:
+                        type: string
+                      updated_at:
+                        type: integer
+                  owner_id:
+                    type: integer
+                    description: The Enlighten ID of this system owner. System-generated. This field is optional.
+                  host:
+                    type: object
+                    description: Name of the system host. Please see “Specifying an Owner and Lease Arrangement”, above, for more information. If the query parameter 'expand=host' passed in the request host detail will appear in the response
+                    properties:
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      email:
+                        type: string
+                      phone:
+                        type: string
+                      active:
+                        type: boolean
+                        description: Whether the user is allowed to log in to Enlighten. Values true, false. Default true.
+                      user_id:
+                        type: integer
+                      user_roles:
+                        type: array
+                        items:
+                          type: string
+                          description: Role
+                        description: What type of user this is in Enlighten. Possible values are ['self_installer']. For self installer user user_roles will be ['self_installer']. For other users user_roles will be empty.
+                      enlighten_emails:
+                        type: boolean
+                      enlighten_view:
+                        type: string
+                      uri:
+                        type: string
+                      updated_at:
+                        type: integer
+                  host_id:
+                    type: integer
+                    description: The Enlighten ID of this system host. System-generated. This field is optional.
+                  installer_name:
+                    type: string
+                    description: Name of the installer.
+                  installer_id:
+                    type: integer
+                    description: The Enlighten ID of the installer of this system. Defaults to current user's company ID
+                  maintainer_name:
+                    type: string
+                    description: Name of the maintainer.
+                  maintainer_id:
+                    type: integer
+                    description: The Enlighten ID of the maintainer of this system. Defaults to current user's company ID
+                  authorized_subcontractors:
+                    type: array
+                    description: List of sub-contractors of this system.
+                    items:
+                      type: object
+                      properties:
+                        authorized_subcontractor_id:
+                          type: integer
+                          description: The Enlighten ID of the sub-contractor of this system. System-generated.
+                        authorized_subcontractor_name:
+                          type: string
+                          description: Name of the sub-contractor of this system.
+                        status:
+                          type: string
+                          description: Current status of the subcontractor for the site. This field will be shown only for pending and rejected sub-contractors.
+                  grid_connection_type:
+                    type: object
+                    description: 'Possible values for parameter: 1 – Net Billing Tariff (NEM 3.0), 2 – Net Metering, 3 – Net Feed-in tariff, 4 – Gross Feed-in tariff'
+                    properties:
+                      type:
+                        type: integer
+                      value:
+                        type: string
+                  battery_grid_mode:
+                    type: string
+                    description: Battery grid mode can be of two types - Export Only, Import Only
+                  third_party_storage_device_installed:
+                    type: boolean
+                    description: If third party storage device is installed on the site.
+                  third_party_storage_device_manufacturer:
+                    type: string
+                    description: Manufacturer name of the third party storage device.
+                  interconnection_application_date:
+                    type: integer
+                    description: Date in epoch format
+                  permission_to_operate:
+                    type: boolean
+                    description: boolean (true / false)
+                  uri:
+                    type: string
+                    description: URI for this activation
+                  updated_at:
+                    type: integer
+                    description: Activation last updated timestamp
+                  reference:
+                    type: string
+                    description: The identifier of this system as provided by the calling user's company. This attribute is not present if the calling user's company does not have a reference for this system.
+                  other_references:
+                    type: array
+                    description: The identifiers assigned to this activation by other companies which have access to it. This attribute is not present if there are no other references for this system.
+                    items:
+                      type: string
+                      description: Name of the reference
+                  allow_public_access:
+                    type: boolean
+                    description: When true, the system will be eligible to appear in the public systems lists of Enphase and the system's installer. Default true
+                  interconnect_date:
+                    type: integer
+                    description: When the system was approved to connect to the grid
+                  installer_support_email:
+                    type: string
+                    description: Installer support email
+                  source:
+                    type: string
+                    description: The source of production measurements taken on the system. Possible values 'meter', 'microinverters'. When 'meter', production values come from a revenue-grade meter on the system. When 'microinverters', production values come from the microinverters on the system
+                  array_type:
+                    type: string
+                    description: The type of array installed. Possible values are fixed_open_rack, fixed_roof_mount, single_axis_tracking, single_axis_backtracking, dual_axis_tracking. All other values will be ignored. To unset array_type, pass null
+                  attachment_type:
+                    type: string
+                    description: How the microinverters are attached to the panels. Possible values are acm (AC Module), rack_mount (rack- or rail-mounted), zep (Zep Solar compatible), bipv (Building Integrated PV), frame_mount (Enphase Frame Mount), railless_mount (Other Railless Mount)
+                  ensemble_envoy:
+                    type: string
+                    description: Specifies serial number of ensemble envoy in multi envoy system
+                  production_mode:
+                    type: string
+                    description: Possible value is 'on' and 'off'
+                  grid_profile:
+                    type: string
+                    description: The grid profile to set on this system's microinverters. See GridProfiles API for how to retrieve a list of known profiles.
+                  requested_profile:
+                    type: string
+                    description: ''
+                  requested_report_freq:
+                    type: string
+                    description: ''
+                  voltage:
+                    type: string
+                    description: The supported voltage/phase associated with a commercial system inside North America. If system type is not commercial, or if the installer exists & installer's country is not inside North America, or if the system's country is not inside North America, then the voltage value would be null
+                  envoy_serial_numbers:
+                    type: array
+                    description: A list of Envoys installed on this system
+                    items:
+                      type: string
+                      description: Envoy serial number
+                  expected_envoy_count:
+                    type: integer
+                    description: Total envoys the system is supposed to have
+                  expected_pcu_count:
+                    type: integer
+                    description: Total PCUs the system is supposed to have
+                  expected_nsr_count:
+                    type: integer
+                    description: Total nsrs the system is supposed to have
+                  expected_meter_count:
+                    type: integer
+                    description: Total meters the system is supposed to have
+                  expected_encharge_count:
+                    type: integer
+                    description: Total encharges the system is supposed to have
+                  expected_enpower_count:
+                    type: integer
+                    description: Total enpowers the system is supposed to have
+                  pv_manufacturer:
+                    type: integer
+                    description: Enlighten ID of the PV manufacturer associated with the PV model installed on the system. See PvManufacturers for how to retrieve PV manufacturer IDs
+                  pv_manufacturer_name:
+                    type: string
+                    description: Name of the Custom PV Module Manufacturer associated with the system.
+                  pv_model:
+                    type: integer
+                    description: Enlighten ID of the PV model installed on the system. See PvManufacturers and PvModels for how to retrieve PV model IDs
+                  pv_model_name:
+                    type: string
+                    description: Name of the Custom PV Module Model associated with the system.
+                  pv_module_power_rating:
+                    type: number
+                    format: float
+                    minimum: 0
+                    description: Power Rating (in W) of the PV module installed on the system.
+                  pv_module_type:
+                    type: integer
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                    description: Type ID of the PV module installed on the system. 1 -> 'Mono-facial', 2 -> 'Bi-facial', 3 -> 'Split cell', 4 -> 'Other'
+                  encharge:
+                    type: array
+                    description: Encharge detail
+                    items:
+                      type: object
+                      properties:
+                        envoy_serial_number:
+                          type: string
+                          description: Envoy serial number
+                        encharge_serial_numbers:
+                          type: array
+                          description: Encharge serial numbers
+                          items:
+                            type: string
+                            description: Encharge serial number
+                  enpower:
+                    type: array
+                    description: Enpower detail
+                    items:
+                      type: object
+                      properties:
+                        envoy_serial_number:
+                          type: string
+                          description: Envoy serial number
+                        enpower_serial_numbers:
+                          type: array
+                          description: Enpower serial numbers
+                          items:
+                            type: string
+                            description: Enpower serial number
+                  address:
+                    type: object
+                    description: The location of the system. Use the ISO 3166-1 2-letter code for the country. Latitude and longitude are calculated by Enlighten, not provided by the client
+                    properties:
+                      street1:
+                        type: string
+                        description: Street line 1
+                      city:
+                        type: string
+                        description: City
+                      state:
+                        type: string
+                        description: State
+                      postal_code:
+                        type: string
+                        description: Postal code
+                      country:
+                        type: string
+                        description: Country
+                      latitude:
+                        type: integer
+                        description: Latitude
+                      longitude:
+                        type: integer
+                        description: Longitude
+                      street2:
+                        type: string
+                        description: Street line 2. This field is Optional
+              example:
+                system_id: 12345
+                system_name: Enphase system
+                system_type: residential
+                status: Microinverters Not Reporting
+                stage: 5
+                internet_connection: dialup
+                lease: false
+                operational: true
+                owner:
+                  first_name: Test
+                  last_name: Owner
+                  email: testowner@domain.com
+                  phone: '9876543210'
+                  active: true
+                  user_id: 246
+                  user_roles: []
+                  enlighten_emails: false
+                  enlighten_view: manager
+                  uri: /api/v4/activations/12345/users/246.json
+                  updated_at: 1444834807
+                owner_id: 246
+                host:
+                  first_name: Test
+                  last_name: User
+                  email: testhost@domain.com
+                  phone: '9876543210'
+                  active: true
+                  user_id: 248
+                  user_roles: []
+                  enlighten_emails: false
+                  enlighten_view: manager
+                  uri: /api/v4/activations/12345/users/248.json
+                  updated_at: 1444834807
+                host_id: 248
+                installer_name: Enphase & Energy
+                installer_id: 5
+                maintainer_name: Enphase & Energy
+                maintainer_id: 5
+                authorized_subcontractors:
+                - authorized_subcontractor_id: 67
+                  authorized_subcontractor_name: Enphase India
+                grid_connection_type:
+                  type: 1
+                  value: Net Billing Tariff (NEM 3.0)
+                battery_grid_mode: Export Only
+                third_party_storage_device_installed: true
+                third_party_storage_device_manufacturer: Franklin
+                interconnection_application_date: 1727156880
+                permission_to_operate: true
+                uri: /api/v4/partner/activations/12345.json
+                updated_at: 1628156578
+                allow_public_access: true
+                interconnect_date: 1725284451
+                installer_support_email: ''
+                source: microinverters
+                array_type: ''
+                attachment_type: ''
+                ensemble_envoy: ''
+                production_mode: 'on'
+                grid_profile: ''
+                requested_profile: ''
+                requested_report_freq: ''
+                voltage: ''
+                envoy_serial_numbers:
+                - '202040004942'
+                expected_envoy_count: 1
+                expected_pcu_count: 4
+                expected_nsr_count: 0
+                expected_meter_count: 0
+                expected_encharge_count: 4
+                expected_enpower_count: 1
+                pv_manufacturer: ''
+                pv_manufacturer_name: ''
+                pv_model: ''
+                pv_model_name: ''
+                pv_module_power_rating: ''
+                pv_module_type: ''
+                encharge:
+                - envoy_serial_number: '202040004942'
+                  encharge_serial_numbers:
+                  - '122038023664'
+                  - '122038023672'
+                  - '122050050473'
+                  - '122050050474'
+                enpower:
+                - envoy_serial_number: '202040004942'
+                  enpower_serial_numbers:
+                  - '122051103228'
+                address:
+                  street1: Bangalore Lane
+                  city: San Diego
+                  state: CA
+                  postal_code: '92126'
+                  country: US
+                  latitude: 32.912785
+                  longitude: -117.153778
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorCode: 11
+                errorMessages:
+                - The system type must be residential, commercial, or other.
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                system_name:
+                  type: string
+                  description: The name of the system. Limit 255 characters.
+                system_type:
+                  type: string
+                  description: The type of the system. Possible values are 'residential', 'commercial', 'other'. Default 'residential'.
+                internet_connection:
+                  type: string
+                  description: How the system's Envoys connect to the Internet. Possible values are none, cellular, broadband, dialup. Use 'dialup' if the Internet connection is satellite or dial-up
+                lease:
+                  type: boolean
+                  description: Whether the system is leased. Possible values true, false. Default false
+                operational:
+                  type: boolean
+                  description: Whether this system is permitted to operate. Possible values true, false. Default true
+                owner_id:
+                  type: integer
+                  description: Enlighten ID of the system owner. Owner must be an Enlighten user. Optional. If the user of the API is a self-installer, the owner must be himself. If the user of the API is an installer then use the Search user API to get the owner user id. If the owner not exist in the enlighten then use Create home owner API to create it newly.
+                host_id:
+                  type: integer
+                  description: Enlighten ID of the system host. System host must be an Enlighten user. Optional. If the user of the API is an installer then use the Search user API to get the host user id. If the host not exist in the enlighten then use Create home owner API to create it newly.
+                installer_id:
+                  type: integer
+                  description: The Enlighten ID of the installer of this system. Defaults to current user's company ID
+                maintainer_id:
+                  type: integer
+                  description: The Enlighten ID of the maintainer of this system. Defaults to current user's company ID
+                authorized_subcontractor_id:
+                  type: integer
+                  description: Enlighten ID of the sub-contractor you want to add to the system. Optional. If you are the home owner, you cannot add subcontractors for the site.
+                allow_public_access:
+                  type: boolean
+                  description: When true, the system will be eligible to appear in the public systems lists of Enphase and the system's installer. Default true
+                interconnect_date:
+                  type: integer
+                  description: When the system was approved to connect to the grid. Epoch in seconds format
+                source:
+                  type: string
+                  description: The source of production measurements taken on the system. Possible values 'meter', 'microinverters'. When 'meter', production values come from a revenue-grade meter on the system. When 'microinverters', production values come from the microinverters on the system.
+                array_type:
+                  type: string
+                  enum:
+                  - fixed_open_rack
+                  - fixed_roof_mount
+                  - single_axis_tracking
+                  - single_axis_backtracking
+                  - dual_axis_tracking
+                  description: The type of array installed. Possible values are fixed_open_rack, fixed_roof_mount, single_axis_tracking, single_axis_backtracking, dual_axis_tracking. All other values will be ignored. To unset array_type, pass null
+                attachment_type:
+                  type: string
+                  enum:
+                  - rack_mount
+                  - zep
+                  - acm
+                  - bipv
+                  - frame_mount
+                  - railless_mount
+                  description: How the microinverters are attached to the panels. Possible values are acm (AC Module), rack_mount (rack- or rail-mounted), zep (Zep Solar compatible), bipv (Building Integrated PV), frame_mount (Enphase Frame Mount), railless_mount (Other Railless Mount)
+                ensemble_envoy:
+                  type: string
+                  description: Specifies serial number of ensemble envoy in multi envoy system
+                grid_profile:
+                  type: string
+                  description: The grid profile to set on this system's microinverters. See GridProfiles API for how to retrieve a list of known profiles.
+                requested_profile:
+                  type: string
+                  description: ''
+                requested_report_freq:
+                  type: string
+                  description: ''
+                voltage:
+                  type: string
+                  description: The supported voltage/phase associated with a commercial system inside North America. If system type is not commercial, or if the installer exists & installer's country is not inside North America, or if the system's country is not inside North America, then the voltage value would be null
+                envoy_serial_numbers:
+                  type: array
+                  items:
+                    type: string
+                  description: A list of Envoys installed on this system
+                pv_manufacturer:
+                  type: integer
+                  description: Enlighten ID of the PV manufacturer associated with the PV model installed on the system. See PvManufacturers for how to retrieve PV manufacturer IDs
+                pv_manufacturer_name:
+                  type: string
+                  description: Name of the Custom PV Module Manufacturer associated with the system.
+                pv_model:
+                  type: integer
+                  description: Enlighten ID of the PV model installed on the system. See PvManufacturers and PvModels for how to retrieve PV model IDs
+                pv_model_name:
+                  type: string
+                  description: Name of the Custom PV Module Model associated with the system.
+                pv_module_power_rating:
+                  type: number
+                  format: float
+                  minimum: 0
+                  description: Power Rating (in W) of the PV module installed on the system.
+                pv_module_type:
+                  type: integer
+                  enum:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+                  description: Type ID of the PV module installed on the system. 1 -> 'Mono-facial', 2 -> 'Bi-facial', 3 -> 'Split cell', 4 -> 'Other'
+                expected_envoy_count:
+                  type: integer
+                  description: Total envoys the system is supposed to have
+                expected_pcu_count:
+                  type: integer
+                  description: Total PCUs the system is supposed to have
+                expected_acb_count:
+                  type: integer
+                  description: Total acbs the system is supposed to have
+                expected_nsr_count:
+                  type: integer
+                  description: Total nsrs the system is supposed to have
+                expected_meter_count:
+                  type: integer
+                  description: Total meters the system is supposed to have
+                expected_encharge_count:
+                  type: integer
+                  description: Total encharges the system is supposed to have
+                expected_enpower_count:
+                  type: integer
+                  description: Total enpowers the system is supposed to have
+                reference:
+                  type: string
+                  description: The identifier of this system as provided by the calling user's company. This attribute is not present if the calling user's company does not have a reference for this system. This value should be alphanumberic
+                encharge:
+                  type: array
+                  description: Encharge detail
+                  items:
+                    type: object
+                    properties:
+                      envoy_serial_number:
+                        type: string
+                        description: Envoy serial number
+                      encharge_serial_numbers:
+                        type: array
+                        description: Encharge serial numbers
+                        items:
+                          type: string
+                enpower:
+                  type: array
+                  description: Enpower detail
+                  items:
+                    type: object
+                    properties:
+                      envoy_serial_number:
+                        type: string
+                        description: Envoy serial number
+                      enpower_serial_numbers:
+                        type: array
+                        description: Enpower serial numbers
+                        items:
+                          type: string
+                address:
+                  type: object
+                  description: The location of the system. Use the ISO 3166-1 2-letter code for the country. Latitude and longitude are calculated by Enlighten, not provided by the client. Address is mandatory if users company belongs to US.
+                  properties:
+                    street1:
+                      type: string
+                    street2:
+                      type: string
+                    city:
+                      type: string
+                    state:
+                      type: string
+                    country:
+                      type: string
+                    postal_code:
+                      type: string
+                  required:
+                  - street1
+                  - city
+                  - state
+                  - country
+                  - postal_code
+                grid_connection_type:
+                  type: integer
+                  description: 'This field is mandatory for sites in California, United States. Possible values for parameter: 1 – Net Billing Tariff (NEM 3.0), 2 – Net Metering, 3 – Net Feed-in tariff, 4 – Gross Feed-in tariff'
+                battery_grid_mode:
+                  type: integer
+                  description: This field is mandatory for sites with battery in California, United States when grid_connection_type is 1. Battery grid mode must be either 1 (for Import Only) or 2 ( for Export Only).
+                third_party_storage_device_installed:
+                  type: boolean
+                  description: This field is mandatory for sites in California, United States. Whether third party storage device is installed on the site.
+                third_party_storage_device_manufacturer:
+                  type: string
+                  description: This field is mandatory for sites in California, United States when the third_party_storage_device_installed field is passed as true. Manufacturer name of the third party storage device.
+                interconnection_application_date:
+                  type: integer
+                  description: Date in epoch format
+                permission_to_operate:
+                  type: boolean
+                  description: boolean (true / false)
+    delete:
+      summary: Delete an activation by id
+      description: To delete an activation, the activation stage must be less than 3 and there are no active devices associated with it
+      parameters:
+      - name: activation_id
+        in: path
+        description: The Enlighten ID of the activation(system).
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Activations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: Activation deleted successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - Couldn't find Site with an out of range value for 'id'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorCode: 5
+                errorMessages:
+                - Devices are present on this system. Please retry after removing devices
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+  /api/v4/activations/{activation_id}/users/{user_id}:
+    post:
+      summary: Grant Access
+      description: Gives a user permission to view this system. response status 200 indicates the access was granted. The user must be the owner or the host of an activation the API user can manage (or) Users created by API user (or) Users who belong to your company or its branches. In all other cases you will get 401 response.
+      parameters:
+      - name: activation_id
+        in: path
+        description: The Enlighten ID of the activation(system).
+        required: true
+        schema:
+          type: integer
+      - name: user_id
+        in: path
+        description: The Enlighten ID of the user which you want to grant access.
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Activations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: User access granted successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - System not found
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - Some error messages
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+    delete:
+      summary: Revoke Access
+      description: Revokes a user's permission to view this system. response status 200 indicates the access was revoked. The user must be the owner or the host of an activation the API user can manage (or) Users created by API user (or) Users who belong to your company or its branches. In all other cases you will get 401 response.
+      parameters:
+      - name: activation_id
+        in: path
+        description: The Enlighten ID of the activation(system).
+        required: true
+        schema:
+          type: integer
+      - name: user_id
+        in: path
+        description: The Enlighten ID of the user which you want to revoke the access.
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Activations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: User access revoked successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - System not found
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - Some error messages
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+  /api/v4/activations/{activation_id}/ops/production_mode:
+    post:
+      summary: Set production mode
+      description: Enable or Disable production mode for a particular system. For that system stage must be greater than 2, Otherwise you will get 422.
+      parameters:
+      - name: activation_id
+        in: path
+        description: The Enlighten ID of the activation(system). System-generated.
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Activations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: Production mode Task sent to envoy Successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - System not found
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - No active Envoys present in the site
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                mode:
+                  type: string
+                  enum:
+                  - 'on'
+                  - 'off'
+                  description: ''
+              required:
+              - mode
+    get:
+      summary: Get production mode
+      description: Get production mode for a particular system. For that system stage must be greater than 2, Otherwise you will get 422.
+      parameters:
+      - name: activation_id
+        in: path
+        description: The Enlighten ID of the activation(system). System-generated.
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Activations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mode:
+                    type: string
+                    description: ''
+                  total_micros:
+                    type: integer
+                    description: Total number of microinverters in the system
+                  energy_producing_micros:
+                    type: integer
+                    description: Total number of microinverters producing energy in the system
+              example:
+                mode: 'on'
+                total_micros: 21
+                energy_producing_micros: 18
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - System not found
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - System not yet communicated
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented

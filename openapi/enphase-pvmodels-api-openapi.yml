@@ -1,0 +1,162 @@
+openapi: 3.2.0
+info:
+  title: Commissioning Pv Models API
+  version: v4
+servers:
+- url: https://api.enphaseenergy.com
+tags:
+- name: PvModels
+paths:
+  /api/v4/pv_manufacturers/{pv_manufacturer_id}/pv_models:
+    get:
+      summary: Returns PV module manufacturers
+      description: Returns information about the PV modules known in Enlighten.
+      parameters:
+      - name: pv_manufacturer_id
+        in: path
+        description: Pv manufacturer ID
+        required: true
+        schema:
+          type: integer
+      tags:
+      - PvModels
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pv_manufacturers:
+                    type: object
+                    description: Information about the manufacturer whose PV module models are in the response.
+                    properties:
+                      pv_manufacturer_id:
+                        type: integer
+                        description: Pv manufacturer ID
+                      name:
+                        type: string
+                        description: Name of the Pv manufacturer
+                  pv_models:
+                    type: array
+                    description: A list of PV models for this manufacturer. Each element in the list is an array including the model's primary key and name. The list may be empty.
+                    items:
+                      type: array
+                      items:
+                        type: object
+              example:
+                pv_manufacturer:
+                  pv_manufacturer_id: 109
+                  name: Alps Technology Inc
+                pv_models:
+                - - 1047
+                  - ATI 1650-155
+                - - 1048
+                  - ATI 1650-165
+                - - 1049
+                  - ATI 1650-175
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - Manufacturer not found
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented

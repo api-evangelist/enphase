@@ -1,0 +1,887 @@
+openapi: 3.2.0
+info:
+  title: Reference Applications API
+  description: Integrate the VPP API into your application
+  version: 1.1.0
+servers:
+- url: https://vpp.enphaseenergy.com
+tags:
+- name: Applications
+  description: Applications API
+paths:
+  /api/v1/applications/{site_id}:
+    get:
+      tags:
+      - Applications
+      summary: Retrieve an application
+      description: Returns application based on the inputted site_id. Provides details of the application along with the application status. The forms sent while creation of the application will not be returned.
+      operationId: getApplicationBySiteId
+      parameters:
+      - name: site_id
+        in: path
+        description: site_id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: Application details retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GsApiApplication'
+              examples:
+                Sample Response:
+                  description: Sample Response
+                  value:
+                    site_id: 698933755
+                    program_id: test
+                    application_id: 10130
+                    application_status: Application_Submitted
+                    created_at: '2022-03-24T06:47:37.000+00:00'
+                    application_type: unenrollment
+                    site_info:
+                      city: Newport
+                      state: RI
+                      ean: '12345'
+                      zip: 2840
+                      first_name: TestUser
+                      last_name: S
+                      country: USA
+                      postal_code: '2840'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"No applications found\",\n  \"additionalInfo\": \"There is no application found for the site_id : 12345\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+    put:
+      tags:
+      - Applications
+      summary: Update a rejected application
+      description: Updates a rejected application based on the inputted site_id. Application will be rejected if the site's state is different from the program state or if the site is enrolled in another program or if there is incorrect information in the application form. The API can be used to re apply by sending updated application forms.  Application body in string is mandatory. It needs to be in format {"site_id":site_id_value as integer, "program_id":"program_id_value as string", "ean":"electric account number as string optional"}
+      operationId: updateApplication
+      parameters:
+      - name: site_id
+        in: path
+        description: Site Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                application_form:
+                  type: string
+                  description: Application Body as a String. Format {"site_id":12345, "program_id":"test", "ean":"112233"}
+                signed_enrollment_form:
+                  type: string
+                  description: Signed Enrollment Form URL
+                  format: binary
+                signed_tandc_form:
+                  type: string
+                  description: Signed TandC Form URL
+                  format: binary
+                signed_form1:
+                  type: string
+                  description: Signed Form1
+                  format: binary
+                signed_form2:
+                  type: string
+                  description: Signed Form2
+                  format: binary
+      responses:
+        '200':
+          description: Application updated successfully
+          content:
+            '*/*':
+              schema:
+                type: string
+              examples:
+                Success:
+                  description: Success
+                  value: 'Application ID : 12345 for site with site_id = 658967 updated successfully!'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Multipart File Upload Error\",\n  \"additionalInfo\": \"the request was rejected because no multipart boundary was found\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Bad request, File format is not supported\",\n  \"additionalInfo\": \"File Format Not Allowed\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Bad request, Not enough details in Application body\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"request is invalid with user mail XXXX and application: XXXX\",\n  \"additionalInfo\": \"Request is malformed.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"User with user_email xxxxx not found or user not part of account with XXXX\",\n  \"additionalInfo\": \"Error while creating new application\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Input application object or forms format check failed.\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Max Upload Size Exceeded\",\n  \"additionalInfo\": \"Maximum upload size exceeded; nested exception is java.lang.IllegalStateException: org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException: The field xxxxx exceeds its maximum permitted size of nnnnnn bytes.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-8:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-9:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-10:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-11:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Only rejected applications can be updated\",\n  \"additionalInfo\": \"Update not feasible as application is in status : XYZ\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Program does not have a workflow attached , application creation not possible for xxxxx\",\n  \"additionalInfo\": \"Error while creating new application\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No Persmission to access application with ID: XXX by accountId: XXXX\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No Persmission to udpate application with ID: XXXX  and status: XXXX\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-6:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-8:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-9:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Application not found with site_id xxxxx in your account\",\n  \"additionalInfo\": \"Application not found with site_id xxxxx in your account\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"No site found for xxxxx\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"No Application available with Id : XXXX\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Application update not possible, no such element found\",\n  \"additionalInfo\": \"User info error : couldn’t find user obj for usermail: XXXX and accountID: XXXX\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/applications/{site_id}/withdraw:
+    put:
+      tags:
+      - Applications
+      summary: Withdraw an application that is not yet approved
+      description: "Withdraw an application from a program based on the inputted site_id.\n\n Applications that are already approved cannot be withdrawn.\n"
+      operationId: withdrawApplication
+      parameters:
+      - name: site_id
+        in: path
+        description: Site Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: program_id
+        in: query
+        description: Unique ID of the program
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: Application withdrawn successfully
+          content:
+            '*/*':
+              schema:
+                type: string
+              examples:
+                Success:
+                  description: Success
+                  value: 'Application ID : 12345 for site with site_id = 658967 withdrawn successfully!'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Application Withdraw not possible for siteId xxxxx\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Application Update not possible for siteId xxxxx\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"No Application available for site with Id: xxxxxin program : xxxxx\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/applications:
+    get:
+      tags:
+      - Applications
+      summary: Retrieve all applications of a program
+      description: Returns a paginated list of all the applications of a program based on the inputted program_id. By default, 10 applications are returned in a page.
+      operationId: getApplications
+      parameters:
+      - name: program_id
+        in: query
+        description: Unique ID of the program
+        required: true
+        schema:
+          type: string
+      - name: site_id
+        in: query
+        description: Unique ID of the Site
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: page_no
+        in: query
+        description: Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: page_size
+        in: query
+        description: Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: Successfully retrieved Application details
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GsApiListApplicationResponse'
+              examples:
+                Sample Response:
+                  description: Sample Response
+                  value:
+                    page_no: 1
+                    page_size: 10
+                    count: 2
+                    total_count: 2
+                    applications:
+                    - site_id: 123456
+                      program_id: test
+                      application_id: 10130
+                      application_status: Application_Submitted
+                      application_type: enrollment
+                      created_at: '2022-03-24T06:47:37.000+00:00'
+                      site_info:
+                        city: Newport
+                        state: RI
+                        zip: 0
+                        ean: '12345'
+                        first_name: TestUser
+                        last_name: S
+                        country: USA
+                        postal_code: T3L 2G9
+                    - site_id: 9876987
+                      program_id: test
+                      application_id: 10157
+                      application_status: Application_Submitted
+                      application_type: unenrollment
+                      created_at: '2022-04-06T04:46:56.000+00:00'
+                      site_info:
+                        city: Williston
+                        state: VT
+                        zip: 5495
+                        ean: '112233'
+                        first_name: Test123
+                        last_name: xyz
+                        country: USA
+                        postal_code: '5495'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Pagination Variables are incorrect. Page number should starts from 1 and page size should be between 1 and 100\",\n  \"additionalInfo\": \"Pagination Variables are incorrect. Page number should starts from 1 and page size should be between 1 and 100\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+    post:
+      tags:
+      - Applications
+      summary: Create new application
+      description: 'Create a new application to enroll or unenroll a site into a program. The site must belong to the same state as the program''s state and must not be enrolled in any other program.
+
+        The API will also support users to send up to 4 application forms in PDF format with a file size limit of 1MB. Applications when created will be in submitted state and after approval, the state gets updated to approved.
+
+        Applications that are rejected will get updated to rejected state.
+
+
+        Application body in string is mandatory. It needs to be in format {"site_id":site_id_value as integer, "program_id":"program_id_value as string", "ean":"electric account number as string optional"}.
+
+
+        application_type can be enrollment or unenrollment. It needs to be in format {"application_type":"unenrollment"}. If not provided then it is considered as enrollment
+
+        '
+      operationId: createApplication
+      parameters:
+      - name: ho-access-token
+        in: header
+        description: Access token generated through oAuth for program enrollment
+        required: false
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                application_form:
+                  type: string
+                  description: Application Body as a String. Format {"site_id":12345, "program_id":"test", "ean":"112233"}
+                application_type:
+                  type: string
+                  description: Application Type as a String. Format {"application_type":"enrollment"}
+                signed_enrollment_form:
+                  type: string
+                  description: Signed Enrollment Form URL
+                  format: binary
+                signed_tandc_form:
+                  type: string
+                  description: Signed TandC Form URL
+                  format: binary
+                signed_form1:
+                  type: string
+                  description: Signed Form1
+                  format: binary
+                signed_form2:
+                  type: string
+                  description: Signed Form2
+                  format: binary
+      responses:
+        '200':
+          description: Various possible success responses
+          content:
+            '*/*':
+              schema:
+                type: string
+              examples:
+                ApprovalSuccess:
+                  description: ApprovalSuccess
+                  value: Application for site_id = 658967 approved successfully !
+                ApplicationCreated:
+                  description: ApplicationCreated
+                  value: 'Application ID : 12345 for site with site_id = 658967 created successfully!'
+                SiteUnenrolled:
+                  description: SiteUnenrolled
+                  value: 'Site with Site ID : 12345 unenrolled successfully!'
+                UnenrollmentSubmitted:
+                  description: UnenrollmentSubmitted
+                  value: 'Unenrollment application id: 20212 for Site with Site ID : 12345 submitted successfully. The unenrollment requests will be processed in 3 business days, please contact gridservicessupport@enphaseenergy.com in case of any issues.'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Multipart File Upload Error\",\n  \"additionalInfo\": \"the request was rejected because no multipart boundary was found\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Application Form is not provided\",\n  \"additionalInfo\": \"Application Form is mandatory. Please provide required details\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Bad request, File format is not supported\",\n  \"additionalInfo\": \"File Format Not Allowed\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Bad request, Not enough details in Application body\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Application could not be processed, Please retry again\",\n  \"additionalInfo\": \"Program feature flags not set. Program: XXXX\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Application could not be processed, Please retry again\",\n  \"additionalInfo\": \"Site object not found with site_id: XXXX\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Application could not be processed, Please retry again\",\n  \"additionalInfo\": \"Home owner or address details is not available for given site, contact Enphase Customer Care\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"request is invalid with user mail XXXX and application: XXXX\",\n  \"additionalInfo\": \"Request is malformed.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-8:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"User with user_email xxxxx not found or user not part of account with XXXX\",\n  \"additionalInfo\": \"Error while creating new application\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-9:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Input application object or forms format check failed.\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-10:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Max Upload Size Exceeded\",\n  \"additionalInfo\": \"Maximum upload size exceeded; nested exception is java.lang.IllegalStateException: org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException: The field xxxxx exceeds its maximum permitted size of nnnnnn bytes.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-11:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Please provide valid application type\",\n  \"additionalInfo\": \"Valid application_type are enrollment or unenrollment. provided application type is abcd\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-12:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Site is not enrolled in this program.\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-13:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Site is already enrolled in program xxxx\",\n  \"additionalInfo\": \"Site xxxx is already enrolled with enrollmentId xxxx in program xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-14:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Program and site state should match. Program state is xxxx and site state is xxxx\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-15:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Program and site country should match. Program country is xxxx and site country is xxxx\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-16:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-17:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-18:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-19:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-20:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Provided Home Owner access token expired\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Provided Home Owner access token is null, empty or whitespace\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Provided Home Owner access token is invalid\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Provided Home Owner access token is not supported\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Home Owner access token signature validation failed\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Program does not have a workflow attached , application creation not possible for xxxxx\",\n  \"additionalInfo\": \"Error while creating new application\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Portal in application object is different from GSP\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"There already exists an application with this Site ID\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Not a valid ProgramApplicationWorkflow\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\",\n  \"additionalInfo\": \"Enrollment File is empty\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\",\n  \"additionalInfo\": \"Enrollment Form could not be uploaded to S3 bucket\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\",\n  \"additionalInfo\": \"Tandc File is empty\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-8:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\",\n  \"additionalInfo\": \"Tandc Form could not be uploaded to S3 bucket\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-9:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\",\n  \"additionalInfo\": \"Signed Form1 File is empty\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-10:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\",\n  \"additionalInfo\": \"Signed Form1 could not be uploaded to S3 bucket\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-11:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\",\n  \"additionalInfo\": \"Signed Form2 File is empty\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-12:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\",\n  \"additionalInfo\": \"Signed Form2 could not be uploaded to S3 bucket\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-13:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No Persmission to access application with ID: XXX by accountId: XXXX\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-14:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No Persmission to udpate application with ID: XXXX  and status: XXXX\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-15:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Not authorized to enroll this site\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-16:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Home Owner Access Token missing\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-17:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Provided Home Owner Access Token does not match with Program ID\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-18:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Provided Home Owner Access Token does not match with Site ID\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-19:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Pre Approved Auth String is missing\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-20:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"There already exists an unenrollment application with the site ID 12345. Please withdraw the unenrollment application to submit a new application\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-21:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-22:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-23:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-24:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-25:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"No site found for xxxx\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Error While sending mail to salesforce with account: XXXX and program : XXXX\",\n  \"additionalInfo\": \"No account found with account id : XXXX\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"No Application available with Id : XXXX\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Application update not possible, no such element found\",\n  \"additionalInfo\": \"User info error : couldn’t find user obj for usermail: XXXX and accountID: XXXX\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '409':
+          description: Conflict
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"409\",\n  \"displayMessage\": \"Application ID: xxxx for site_id = xxxx processed successfully but Enrollment creation rejected. Reason - xxxx\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Server side error\",\n  \"additionalInfo\": \"Please contact customer support for further assistance\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+components:
+  schemas:
+    GsApiApplication:
+      required:
+      - program_id
+      - site_id
+      - site_info
+      type: object
+      properties:
+        site_id:
+          type: integer
+          format: int32
+        program_id:
+          type: string
+        application_id:
+          type: integer
+          description: application_id - String | Starts from 10,000 | uniquely identifies an application in logical manner
+          format: int64
+        application_status:
+          type: string
+          description: ApplicationStatus Enum - Enrollment Manager | Grid Services
+          enum:
+          - Application_Drafted
+          - Application_Submitted
+          - Application_Rejected
+          - Application_Approved
+          - Site_Submitted
+          - Site_Rejected
+          - Site_Approved
+          - Application_Withdrawn
+        created_at:
+          type: string
+          description: created_at - String | Timestamp of when application was created
+          format: date-time
+        approved_at:
+          type: string
+          description: approved_at - String | Timestamp of when application was approved
+          format: date-time
+        rejected_at:
+          type: string
+          description: rejected_at - String | Timestamp of when application was rejected
+          format: date-time
+        withdrawn_at:
+          type: string
+          description: withdrawn_at - String | Timestamp of when application was withdrawn
+          format: date-time
+        site_info:
+          $ref: '#/components/schemas/GsApiApplicationFormFields'
+        application_type:
+          type: string
+          description: application_type - ApplicationType | enrollment or unenrollment
+    GsApiListApplicationResponse:
+      type: object
+      properties:
+        page_no:
+          type: integer
+          format: int32
+        page_size:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        total_count:
+          type: integer
+          format: int32
+        applications:
+          type: array
+          items:
+            $ref: '#/components/schemas/GsApiApplication'
+    GsApiApplicationFormFields:
+      required:
+      - city
+      - country
+      - first_name
+      - postal_code
+      - state
+      - zip
+      type: object
+      properties:
+        city:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+        zip:
+          type: integer
+          format: int32
+        ean:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        siteState:
+          type: string
+          writeOnly: true
+        postal_code:
+          type: string
+      description: form_fields - GsApiApplicationFormFields | Fields that were filled in application form

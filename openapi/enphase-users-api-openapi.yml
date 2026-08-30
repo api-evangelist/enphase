@@ -1,0 +1,1034 @@
+openapi: 3.2.0
+info:
+  title: Commissioning Users API
+  version: v4
+servers:
+- url: https://api.enphaseenergy.com
+tags:
+- name: Users
+paths:
+  /api/v4/activations/{activation_id}/users/{user_id}:
+    get:
+      summary: Returns the requested user
+      description: You must have access to the requested activation and user; otherwise a 401 is returned. The user is requested in the scope of an activation, then it must be the owner or the host of an activation the API user can manage (or) Users created by API user (or) Users who belong to your company or its branches.
+      parameters:
+      - name: activation_id
+        in: path
+        description: The Enlighten ID of the activation(system). System-generated.
+        required: true
+        schema:
+          type: integer
+      - name: user_id
+        in: path
+        description: The Enlighten ID of the user. System-generated.
+        required: true
+        schema:
+          type: integer
+      - name: expand
+        in: query
+        description: Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information not include in the response.
+        schema:
+          type: string
+          enum:
+          - company
+      tags:
+      - Users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  active:
+                    type: boolean
+                    description: Whether the user is allowed to log in to Enlighten
+                  user_roles:
+                    type: array
+                    items:
+                      type: string
+                      description: Role
+                    description: What type of user this is in Enlighten. Possible values are ['self_installer']. For self installer user user_roles will be ['self_installer']. For other users user_roles will be empty.
+                  email:
+                    type: string
+                    description: The email address of the user
+                  enlighten_emails:
+                    type: boolean
+                    description: Whether the user receives automated emails from Enlighten
+                  enlighten_view:
+                    type: string
+                    description: Which view of Enlighten the user has
+                  first_name:
+                    type: string
+                    description: The user's first name
+                  last_name:
+                    type: string
+                    description: The user's last name
+                  phone:
+                    type: string
+                    description: The telephone number of the user
+                  uri:
+                    type: string
+                    description: URI to the show() method for the user. System-generated
+                  user_id:
+                    type: integer
+                    description: The Enlighten ID of the user. System-generated
+                  updated_at:
+                    type: integer
+                    description: Last updated date and time in Epoch format
+                  company:
+                    type: object
+                    properties:
+                      company_id:
+                        type: integer
+                        description: The Enlighten-generated ID of the company to which the user belongs
+                      company_name:
+                        type: string
+                        description: Name of the company to which the user belongs
+                      location:
+                        type: string
+                        description: Company location
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                          description: Role
+                        description: What type of company this is in Enphase. Possible values are ['installer']. For installer company roles will be ['installer']. For other role roles will be empty.
+                      uri:
+                        type: string
+                        description: URI to the show() method for the company. System-generated
+              example:
+                active: true
+                user_roles: []
+                email: username@domain.com
+                enlighten_emails: false
+                enlighten_view: my
+                first_name: Joe
+                last_name: User
+                phone: 1-800-123-1234
+                uri: /api/v4/users/123456.json
+                user_id: 123456
+                updated_at: 1508128974
+                company:
+                  company_id: 5
+                  company_name: Enphase Energy
+                  location: Petaluma, CA - US
+                  roles:
+                  - installer
+                  uri: /api/v4/companies/5.json
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - User not found.
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - Invalid expand option
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+    put:
+      summary: Update user
+      description: You must have access to the requested activation and user; otherwise a 401 is returned. The user is requested in the scope of an activation, then it must be the owner or the host of an activation the API user can manage (or) Users created by API user (or) Users who belong to your company or its branches. When 'company_id' is passed in the body param or the user company_id is already defined, we will not consider the 'enlighten_view' field value and the user will become an enlighten manager. You may change a user's company if you have access to the user, the old company, and the new company.
+      parameters:
+      - name: activation_id
+        in: path
+        description: The Enlighten ID of the activation(system). System-generated.
+        required: true
+        schema:
+          type: integer
+      - name: user_id
+        in: path
+        description: The Enlighten ID of the user. System-generated.
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  active:
+                    type: boolean
+                    description: Whether the user is allowed to log in to Enlighten.
+                  user_roles:
+                    type: array
+                    items:
+                      type: string
+                      description: Role
+                    description: What type of user this is in Enlighten. Possible values are ['self_installer']. For self installer user user_roles will be ['self_installer']. For other users user_roles will be empty.
+                  email:
+                    type: string
+                    description: The email address of the user
+                  enlighten_emails:
+                    type: boolean
+                    description: Whether the user receives automated emails from Enlighten
+                  enlighten_view:
+                    type: string
+                    description: Which view of Enlighten the user has
+                  first_name:
+                    type: string
+                    description: The user's first name
+                  last_name:
+                    type: string
+                    description: The user's last name
+                  phone:
+                    type: string
+                    description: The telephone number of the user.
+                  uri:
+                    type: string
+                    description: URI to the show() method for the user. System-generated.
+                  user_id:
+                    type: integer
+                    description: The Enlighten ID of the user. System-generated.
+                  updated_at:
+                    type: integer
+                    description: Last updated date and time in Epoch format.
+              example:
+                active: true
+                user_roles: []
+                email: username@domain.com
+                enlighten_emails: false
+                enlighten_view: my
+                first_name: Joe
+                last_name: User
+                phone: 1-800-123-1234
+                uri: /api/v4/users/123456.json
+                user_id: 123456
+                updated_at: 1565775103
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - User not found.
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - User param are missing at body location
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                company_id:
+                  type: integer
+                  description: 'The Enlighten-generated ID of the company to which the user belongs, if any. DEPRECATED: Use the ''company'' attribute instead, and the query parameter ''expand=company'' to get detailed company information.'
+                email:
+                  type: string
+                  description: The email address of the user. Must be unique within Enlighten. Required.
+                enlighten_emails:
+                  type: boolean
+                  description: Whether the user receives automated emails from Enlighten. Default false.
+                enlighten_view:
+                  type: string
+                  description: Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'.
+                first_name:
+                  type: string
+                  description: The user's first name. Required.
+                last_name:
+                  type: string
+                  description: The user's last name. Required.
+                phone:
+                  type: string
+                  description: The telephone number of the user. Optional. Max length 255.
+  /api/v4/users/search:
+    get:
+      summary: Search user
+      description: Returns the user id for the given email id only if the user exists.
+      parameters:
+      - name: email
+        in: query
+        description: The email address of the user.
+        schema:
+          type: string
+      tags:
+      - Users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: integer
+                    description: The Enlighten ID of the user
+                  company_id:
+                    type: integer
+                    description: The Enlighten ID of the company that the user belongs to. If the user does not belong to a company, this field will not be present in the response.
+              example:
+                user_id: 123
+                company_id: 1
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - User not found.
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - Email should not be blank
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+  /api/v4/partner/users/{user_id}:
+    get:
+      summary: Returns the requested user
+      description: You must have permission to view the user. You can view yourself, users you created, and users who belong to your company or its branches. In all other cases, a 401 is returned. Company details are provided in the response only if 'expand' parameter is passed in the URL with value as company. Otherwise, company information will not be provided in the response.
+      parameters:
+      - name: user_id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+      - name: expand
+        in: query
+        description: Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.
+        schema:
+          type: string
+          enum:
+          - company
+      tags:
+      - Users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  active:
+                    type: boolean
+                    description: Whether the user is allowed to log in to Enlighten
+                  user_roles:
+                    type: array
+                    items:
+                      type: string
+                      description: Role
+                    description: What type of user this is in Enlighten. Possible values are ['self_installer']. For self installer user user_roles will be ['self_installer']. For other users user_roles will be empty.
+                  email:
+                    type: string
+                    description: The email address of the user
+                  enlighten_emails:
+                    type: boolean
+                    description: Whether the user receives automated emails from Enlighten
+                  enlighten_view:
+                    type: string
+                    description: Which view of Enlighten the user has
+                  first_name:
+                    type: string
+                    description: The user's first name
+                  last_name:
+                    type: string
+                    description: The user's last name
+                  phone:
+                    type: string
+                    description: The telephone number of the user
+                  uri:
+                    type: string
+                    description: URI to the show() method for the user. System-generated
+                  user_id:
+                    type: integer
+                    description: The Enlighten ID of the user. System-generated
+                  updated_at:
+                    type: integer
+                    description: Last updated date and time in Epoch format
+                  company:
+                    type: object
+                    properties:
+                      company_id:
+                        type: integer
+                        description: The Enlighten-generated ID of the company to which the user belongs
+                      company_name:
+                        type: string
+                        description: Name of the company to which the user belongs
+                      location:
+                        type: string
+                        description: Company location
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                        description: What type of company this is in Enphase. Possible values are ['installer']. For installer company roles will be ['installer']. For other role roles will be empty.
+                      uri:
+                        type: string
+                        description: URI to the show() method for the company. System-generated
+              example:
+                active: true
+                user_roles: []
+                email: username@domain.com
+                enlighten_emails: false
+                enlighten_view: my
+                first_name: Joe
+                last_name: User
+                phone: 1-800-123-1234
+                uri: /api/v4/users/123456.json
+                user_id: 123456
+                updated_at: 1508128974
+                company:
+                  company_id: 5
+                  company_name: Enphase Energy
+                  location: Petaluma, CA - US
+                  roles:
+                  - installer
+                  uri: /api/v4/companies/5.json
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - User not found.
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - Invalid expand option
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+  /api/v4/partner/users/self:
+    get:
+      summary: Return the current logged in user detail
+      description: Return the current logged in user detail. Company details are provided in the response only if 'expand' parameter is passed in the URL with value as company. Otherwise, company information will not be provided in the response.
+      parameters:
+      - name: expand
+        in: query
+        description: Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.
+        schema:
+          type: string
+          enum:
+          - company
+      tags:
+      - Users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  active:
+                    type: boolean
+                    description: Whether the user is allowed to log in to Enlighten
+                  user_roles:
+                    type: array
+                    items:
+                      type: string
+                      description: Role
+                    description: What type of user this is in Enlighten. Possible values are ['self_installer']. For self installer user user_roles will be ['self_installer']. For other users user_roles will be empty.
+                  email:
+                    type: string
+                    description: The email address of the user
+                  enlighten_emails:
+                    type: boolean
+                    description: Whether the user receives automated emails from Enlighten
+                  enlighten_view:
+                    type: string
+                    description: Which view of Enlighten the user has
+                  first_name:
+                    type: string
+                    description: The user's first name
+                  last_name:
+                    type: string
+                    description: The user's last name
+                  phone:
+                    type: string
+                    description: The telephone number of the user
+                  uri:
+                    type: string
+                    description: URI to the show() method for the user. System-generated
+                  user_id:
+                    type: integer
+                    description: The Enlighten ID of the user. System-generated
+                  updated_at:
+                    type: integer
+                    description: Last updated date and time in Epoch format
+                  company:
+                    type: object
+                    properties:
+                      company_id:
+                        type: integer
+                        description: The Enlighten-generated ID of the company to which the user belongs
+                      company_name:
+                        type: string
+                        description: Name of the company to which the user belongs
+                      location:
+                        type: string
+                        description: Company location
+                      roles:
+                        type: array
+                        items:
+                          type: string
+                          description: Role
+                        description: What type of company this is in Enphase. Possible values are ['installer']. For installer company roles will be ['installer']. For other role roles will be empty.
+                      uri:
+                        type: string
+                        description: URI to the show() method for the company. System-generated
+              example:
+                active: true
+                user_roles: []
+                email: username@domain.com
+                enlighten_emails: false
+                enlighten_view: my
+                first_name: Joe
+                last_name: User
+                phone: 1-800-123-1234
+                uri: /api/v4/users/123456.json
+                user_id: 123456
+                updated_at: 1508128974
+                company:
+                  company_id: 5
+                  company_name: Enphase Energy
+                  location: Petaluma, CA - US
+                  roles:
+                  - installer
+                  uri: /api/v4/companies/5.json
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - User not found.
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - Invalid expand option
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented

@@ -1,0 +1,289 @@
+openapi: 3.2.0
+info:
+  title: Commissioning Arrays API
+  version: v4
+servers:
+- url: https://api.enphaseenergy.com
+tags:
+- name: Arrays
+paths:
+  /api/v4/partner/systems/{system_id}/arrays:
+    get:
+      summary: Fetch particular system Array details
+      description: Fetch particular system Array details
+      parameters:
+      - name: system_id
+        in: path
+        description: System ID
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Arrays
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  system_id:
+                    type: integer
+                    description: The system id
+                  created_at:
+                    type: integer
+                    description: System created Epoch time
+                  updated_at:
+                    type: integer
+                    description: System updated Epoch time
+                  angle:
+                    type: integer
+                    description: Angle of the system
+                  arrays:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: id of the array
+                        label:
+                          type: string
+                          description: Name of the array
+                        angle:
+                          type: integer
+                          description: Angle of the array
+                        tilt:
+                          type: string
+                          description: Tilt of the array
+                        reporting_envoys:
+                          type: array
+                          items:
+                            type: string
+                          description: List of envoys serial numbers
+                        provisioned_envoy:
+                          type: string
+                          description: Provisioned envoy
+                        updated_at:
+                          type: integer
+                          description: Last updated Epoch time
+                        left:
+                          type: integer
+                          description: Left axis position of array
+                        top:
+                          type: integer
+                          description: Top axis position of array
+                        modules:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                description: Id of the module
+                              left:
+                                type: integer
+                                description: Left axis position of module
+                              top:
+                                type: integer
+                                description: Top axis position of module
+                              angle:
+                                type: integer
+                                description: Angle of the module
+                              serial_num:
+                                type: string
+                                description: Inverter serial number mapped with this module
+                  inventory:
+                    type: array
+                    items:
+                      type: string
+                    description: List of active inverter serial numbers
+                  inventory_details:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          description: Device type
+                        count:
+                          type: integer
+                          description: Device count
+                        serialNum:
+                          type: string
+                          description: Device Serial Number
+                  layers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        file:
+                          type: string
+                          description: Background image url
+                        scale:
+                          type: integer
+                          description: Zoom level
+                        angle:
+                          type: integer
+                          description: Angle of the layer
+                        opaciy:
+                          type: integer
+                          description: Opacity of the layer
+                        width:
+                          type: integer
+                          description: Width of the layer
+                        height:
+                          type: integer
+                          description: Height of the layer
+                        left:
+                          type: integer
+                          description: Left of the layer
+                        top:
+                          type: integer
+                          description: Top of the layer
+              example:
+                system_id: 698927061
+                created_at: 1564385055
+                updated_at: 1567596211
+                angle: null
+                arrays:
+                - id: 207359
+                  label: First
+                  angle: 0
+                  tilt: '30.0'
+                  reporting_envoys:
+                  - '121625050638'
+                  provisioned_envoy: null
+                  updated_at: 1500983465
+                  left: 29
+                  top: -3
+                  modules:
+                  - id: 4743704
+                    left: 300
+                    top: 202
+                    angle: 0
+                    serial_num: '121501065212'
+                inventory:
+                - '121418008963'
+                - '121338007327'
+                inventory_details:
+                - type: Wireless Range Extender
+                  count: 1
+                  serialNum: '212323223351'
+                - type: M215
+                  count: 1
+                  serialNum: '222323223363'
+                layers:
+                - file: ''
+                  scale: 34
+                  angle: 45
+                  opaciy: 56
+                  width: 80
+                  height: 50
+                  left: 40
+                  top: 50
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - System not found
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented

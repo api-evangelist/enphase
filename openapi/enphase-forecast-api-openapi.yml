@@ -1,0 +1,286 @@
+openapi: 3.2.0
+info:
+  title: Reference Forecast API
+  description: Integrate the VPP API into your application
+  version: 1.1.0
+servers:
+- url: https://vpp.enphaseenergy.com
+tags:
+- name: Forecast
+  description: Forecast API (Contact us if you are interested in using this endpoint)
+paths:
+  /api/v1/forecast:
+    post:
+      tags:
+      - Forecast
+      summary: API to fetch energy forecasts and respective accuracy percentages
+      description: 'The API provides energy forecast for PV production, Consumption, Grid Energy, Battery Energy, and Battery SOC. Along with the forecast, the API also provides the estimate accuracy %. The forecast is available for individual VPPs or list of sites.
+
+        '
+      operationId: getForecast
+      parameters:
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForecastRequest'
+            examples:
+              example-0:
+                value: "    {\n        \"site_ids\" : [6993,67011,1234,7213],\n        \"granularity\" : \"15mins\",\n        \"duration\" : \"4H\"\n    }\n"
+              example-1:
+                value: "    {\n        \"vpp_id\" : \"Test_VPP_AZ\",\n        \"granularity\" : \"15mins\",\n        \"duration\" : \"13H\"\n    }\n"
+        required: true
+      responses:
+        '200':
+          description: Successfully retrieved battery lifetime values
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ForecastResponse'
+              examples:
+                ForecastResponseExample:
+                  summary: Example of forecast data for site_list/vpp
+                  description: ForecastResponseExample
+                  value: "{\n         \"vpp_id\": null,\n         \"valid_sites_list\": [\n             6993\n         ],\n         \"granularity\": \"15mins\",\n         \"duration\": \"3.25H\",\n         \"forecastData\": {\n             \"battery_capacity_wh\": 1100,\n             \"intervals\": [\n                 {\n                     \"timestamp\": \"2025-12-03T18:15:00+00:00\",\n                     \"cons_forecast_uncontrolled_wh\": 0.0,\n                     \"evse_forecast_wh\": 0.0,\n                     \"water_heater_forecast_wh\": 0.0,\n                     \"heat_pump_forecast_wh\": 0.0,\n                     \"pv_forecast_wh\": 237.15,\n                     \"battery_soc_percent_forecast\": 0.0,\n                     \"available_battery_energy_wh\": 0.0,\n                     \"available_battery_power_w\": 0.0,\n                     \"battery_charging_forecast_wh\": 237.15,\n                     \"battery_discharging_forecast_wh\": 0.0,\n                     \"grid_import_forecast_wh\": 0.0,\n                     \"grid_export_forecast_wh\": 0.0,\n                     \"cons_forecast_uncontrolled_accuracy_percent\": 0.0,\n                     \"evse_forecast_accuracy_percent\": 100.0,\n                     \"water_heater_forecast_accuracy_percent\": 100.0,\n                     \"heat_pump_forecast_accuracy_percent\": 46.2,\n                     \"pv_forecast_accuracy_percent\": 86.56,\n                     \"battery_soc_percent_forecast_accuracy_percent\": 100,\n                     \"battery_charging_forecast_accuracy_percent\": 91.98,\n                     \"grid_import_forecast_accuracy_percent\": 91.98\n                 },\n                 {\n                     \"timestamp\": \"2025-12-03T18:30:00+00:00\",\n                     \"cons_forecast_uncontrolled_wh\": 0.0,\n                     \"evse_forecast_wh\": 0.0,\n                     \"water_heater_forecast_wh\": 0.0,\n                     \"heat_pump_forecast_wh\": 0.0,\n                     \"pv_forecast_wh\": 225.74,\n                     \"battery_soc_percent_forecast\": 0.0,\n                     \"available_battery_energy_wh\": 0.0,\n                     \"available_battery_power_w\": 0.0,\n                     \"battery_charging_forecast_wh\": 225.74,\n                     \"battery_discharging_forecast_wh\": 0.0,\n                     \"grid_import_forecast_wh\": 0.0,\n                     \"grid_export_forecast_wh\": 0.0,\n                     \"cons_forecast_uncontrolled_accuracy_percent\": 0.0,\n                     \"evse_forecast_accuracy_percent\": 100.0,\n                     \"water_heater_forecast_accuracy_percent\": 100.0,\n                     \"heat_pump_forecast_accuracy_percent\": 46.2,\n                     \"pv_forecast_accuracy_percent\": 86.56,\n                     \"battery_soc_percent_forecast_accuracy_percent\": 51.12,\n                     \"battery_charging_forecast_accuracy_percent\": 91.98,\n                     \"grid_import_forecast_accuracy_percent\": 91.98\n                 },\n                 {\n                     \"timestamp\": \"2025-12-03T18:45:00+00:00\",\n                     \"cons_forecast_uncontrolled_wh\": 0.0,\n                     \"evse_forecast_wh\": 0.0,\n                     \"water_heater_forecast_wh\": 0.0,\n                     \"heat_pump_forecast_wh\": 1720.21,\n                     \"pv_forecast_wh\": 214.34,\n                     \"battery_soc_percent_forecast\": 0.01,\n                     \"available_battery_energy_wh\": 0.0,\n                     \"available_battery_power_w\": 0.0,\n                     \"battery_charging_forecast_wh\": 214.34,\n                     \"battery_discharging_forecast_wh\": 0.0,\n                     \"grid_import_forecast_wh\": 0.0,\n                     \"grid_export_forecast_wh\": 0.0,\n                     \"cons_forecast_uncontrolled_accuracy_percent\": 0.0,\n                     \"evse_forecast_accuracy_percent\": 100.0,\n                     \"water_heater_forecast_accuracy_percent\": 100.0,\n                     \"heat_pump_forecast_accuracy_percent\": 78,\n                     \"pv_forecast_accuracy_percent\": 86.6,\n                     \"battery_soc_percent_forecast_accuracy_percent\": 51.12,\n                     \"battery_charging_forecast_accuracy_percent\": 98.0,\n                     \"grid_import_forecast_accuracy_percent\": 91.98\n                 }...\n             ]\n         },\n         \"forecast_unavailable_sites_list\": [\n             6989\n         ],\n         \"invalid_sites_list\": [\n             1234\n         ]\n     }\n"
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Only one of the site_ids and vpp_id must be passed\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Either a list of site_ids or vpp_id is required\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Granularity is invalid. Granularity should be one of 15mins\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Duration is invalid. Duration should be in between 3H to 24H\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-8:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"VPP is not eligible for forecast.\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Account Id does not match with VPP Creator\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"VPP not found with id 692807cd\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"No forecast data found for provided site IDs\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Sites provided in site_ids list are either empty (or) does not belong to your account (or) are not enrolled in a forecast enabled program\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+components:
+  schemas:
+    ForecastResponse:
+      type: object
+      properties:
+        vpp_id:
+          type: string
+          description: VPP Id passed in the request
+        valid_sites_list:
+          type: array
+          description: sites enrolled in a program related to the user account and with forecast data
+          items:
+            type: integer
+            description: sites enrolled in a program related to the user account and with forecast data
+            format: int32
+        granularity:
+          type: string
+          description: Granularity passed in the request
+        duration:
+          type: string
+          description: Duration passed in the request
+        forecastData:
+          $ref: '#/components/schemas/ForecastData'
+        forecast_unavailable_sites_list:
+          type: array
+          description: sites enrolled in a program related to the user account and with no available forecast data
+          items:
+            type: integer
+            description: sites enrolled in a program related to the user account and with no available forecast data
+            format: int32
+        invalid_sites_list:
+          type: array
+          description: sites not enrolled in any program related to the user account
+          items:
+            type: integer
+            description: sites not enrolled in any program related to the user account
+            format: int32
+    ForecastData:
+      type: object
+      properties:
+        battery_capacity_wh:
+          type: number
+          description: Total usable battery capacity in watt-hours (Wh). Indicates the maximum energy storage of the on-site battery.
+          format: double
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForecastTimeSeries'
+      description: aggregated forecast data for the sites
+    ForecastTimeSeries:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: The start_at timestamp representing the forecast time interval.
+        cons_forecast_uncontrolled_wh:
+          type: number
+          description: Forecasted uncontrolled energy consumption during this interval, in watt-hours.
+          format: double
+        evse_forecast_wh:
+          type: number
+          description: Forecasted controlled evse energy consumption in watt-hours.
+          format: double
+        water_heater_forecast_wh:
+          type: number
+          description: Forecasted controlled water_heater energy consumption in watt-hours.
+          format: double
+        heat_pump_forecast_wh:
+          type: number
+          description: Forecasted controlled heat_pump energy consumption in watt-hours.
+          format: double
+        pv_forecast_wh:
+          type: number
+          description: Forecasted solar PV production for the interval, in watt-hours.
+          format: double
+        battery_soc_percent_forecast:
+          type: number
+          description: Forecasted battery state of charge (SOC), as a percentage of total capacity. (0% = empty, 100% = full).
+          format: double
+        available_battery_energy_wh:
+          type: number
+          description: Forecasted energy available in the batteries in Wh
+          format: double
+        available_battery_power_w:
+          type: number
+          description: Maximum power available to be fetched from batteries in W
+          format: double
+        battery_charging_forecast_wh:
+          type: number
+          description: Forecasted battery charge energy change in Wh for the interval.
+          format: double
+        battery_discharging_forecast_wh:
+          type: number
+          description: Forecasted battery discharge energy change in Wh for the interval.
+          format: double
+        grid_import_forecast_wh:
+          type: number
+          description: Forecasted net energy import from the grid for the interval.
+          format: double
+        grid_export_forecast_wh:
+          type: number
+          description: Forecasted net energy export from the grid for the interval.
+          format: double
+        cons_forecast_uncontrolled_accuracy_percent:
+          type: number
+          description: Estimated accuracy or confidence level of the uncontrolled consumption forecast.
+          format: double
+        evse_forecast_accuracy_percent:
+          type: number
+          description: Estimated accuracy or confidence level of the evse consumption forecast.
+          format: double
+        water_heater_forecast_accuracy_percent:
+          type: number
+          description: Estimated accuracy or confidence level of the water_heater consumption forecast.
+          format: double
+        heat_pump_forecast_accuracy_percent:
+          type: number
+          description: Estimated accuracy or confidence level of the heat_pump consumption forecast.
+          format: double
+        pv_forecast_accuracy_percent:
+          type: number
+          description: Estimated accuracy or confidence level of the PV generation forecast.
+          format: double
+        battery_soc_percent_forecast_accuracy_percent:
+          type: number
+          description: Estimated accuracy or confidence level of the battery SOC percent forecast.
+          format: double
+        battery_charging_forecast_accuracy_percent:
+          type: number
+          description: Estimated accuracy or confidence level of the Battery charge & discharge forecast.
+          format: double
+        grid_import_forecast_accuracy_percent:
+          type: number
+          description: Estimated accuracy or confidence level of the Grid import & export forecast.
+          format: double
+    ForecastRequest:
+      type: object
+      properties:
+        site_ids:
+          uniqueItems: true
+          type: array
+          description: List of all the Site IDs; Only one of the siteList and vpp_id must be passed
+          items:
+            type: integer
+            description: List of all the Site IDs; Only one of the siteList and vpp_id must be passed
+            format: int32
+        vpp_id:
+          type: string
+          description: vpp_id; Only one of the siteList and vpp_id must be passed
+        granularity:
+          type: string
+          description: Required interval size of the forecast data in minutes. Possible values are ‘15mins’.
+          default: 15mins
+        duration:
+          type: string
+          description: Required duration of forecast in hours. Possible values are 3H to 24H. Duration should be multiple of granularity.
+          default: 3H

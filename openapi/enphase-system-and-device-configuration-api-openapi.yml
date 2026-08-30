@@ -1,0 +1,1095 @@
+openapi: 3.2.0
+info:
+  title: Reference System and Device Configuration API
+  description: Integrate the VPP API into your application
+  version: 1.1.0
+servers:
+- url: https://vpp.enphaseenergy.com
+tags:
+- name: System and Device Configuration
+  description: System and Device Configuration API
+paths:
+  /api/v1/systems/{site_id}/stop_live_stream:
+    put:
+      tags:
+      - System and Device Configuration
+      summary: Stop the live stream for an enrolled site
+      operationId: stopStream
+      parameters:
+      - name: site_id
+        in: path
+        description: Unique Id of the site
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: Stopped stream for the site
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StopStreamResponse'
+              example:
+              - serial_number: '122116009243'
+                status: DEREGISTRATION_INITIATION_SUCCESSFUL
+              - serial_number: '122116009245'
+                status: DEREGISTRATION_INITIATION_SUCCESSFUL
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"additionalInfo\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Site eSW version does not support live telemetry data\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/systems/{site_id}/start_live_stream:
+    put:
+      tags:
+      - System and Device Configuration
+      summary: Start the live stream for an enrolled site
+      operationId: startStream
+      parameters:
+      - name: site_id
+        in: path
+        description: Unique Id of the site
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: Started stream for the site
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StartStreamResponse'
+              example:
+              - serial_number: '122116009243'
+                status: REGISTRATION_INITIATION_SUCCESSFUL
+              - serial_number: '122116009245'
+                status: REGISTRATION_INITIATION_SUCCESSFUL
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"additionalInfo\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Live telemetry data is not enabled for this program\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Site eSW version does not support live telemetry data\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/systems/{site_id}/settings:
+    get:
+      tags:
+      - System and Device Configuration
+      summary: Fetch site settings for an enrolled site
+      operationId: getSiteSettings
+      parameters:
+      - name: site_id
+        in: path
+        description: Unique Id of the site
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: Fetched site settings for an enrolled site
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SiteSettingsResponseDTO'
+              example:
+                vpp_event_reserve_soc: 20
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"additionalInfo\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+    put:
+      tags:
+      - System and Device Configuration
+      summary: Update site settings for an enrolled site
+      operationId: updateSiteSettings
+      parameters:
+      - name: site_id
+        in: path
+        description: Unique Id of the site
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservedSOCUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: Update site settings for an enrolled site
+          content:
+            '*/*':
+              example: 'Enrolled site''s settings updated successfully
+
+                '
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Bad Request\",\n  \"additionalInfo\": \"reserved_soc: must be less than or equal to 100\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Bad Request\",\n  \"additionalInfo\": \"reserved_soc: must be greater than or equal to 0\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Bad Request\",\n  \"additionalInfo\": \"Site is enrolled in a program in which settings update is not allowed.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"additionalInfo\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/systems/{site_id}/register_live_stream:
+    post:
+      tags:
+      - System and Device Configuration
+      summary: Register Site for live stream
+      operationId: registerSiteForLiveStream
+      parameters:
+      - name: site_id
+        in: path
+        description: Unique Id of the site
+        required: true
+        schema:
+          type: string
+      - name: serial_number
+        in: query
+        description: Envoy Serial Number if registering for particular envoy
+        required: false
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: List of Status of Registration for each Envoy of Site
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RegisterLiveStreamStatusResponse'
+              example:
+              - serial_number: '122116009243'
+                status: IN_PROGRESS
+              - serial_number: '122116009245'
+                status: COMPLETED
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"additionalInfo\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Not Found\",\n  \"additionalInfo\": \"Envoy not found with serial number: \"12345\"\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/systems/{site_id}/devices/gateway/{serial_no}/local_api_token:
+    post:
+      tags:
+      - System and Device Configuration
+      summary: Generate access token for IQ gateway local api. This token will be valid for 12 hours and can be generated any number of times once the site is enrolled.
+      operationId: generateLocalApiToken
+      parameters:
+      - name: site_id
+        in: path
+        description: Unique Id of the site
+        required: true
+        schema:
+          type: string
+      - name: serial_no
+        in: path
+        description: Serial Number of the Envoy
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: Generated access token for IQ gateway.
+          content:
+            '*/*':
+              example:
+                access_token: eyJraWQiOiJjNzFmYjdmMy04OTVkLTRlYTktYjQ2MC00MmM4M2Y5ZmE0YTMiLCJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJhdWQiOiIxMjIxMTYwMDkyNDMiLCJpc3MiOiJFbnRyZXoiLCJlbnBoYXNlVXNlciI6ImVucGhhc2UiLCJleHAiOjE3NTA4MTAxNzYsImlhdCI6MTc1MDc2Njk3NiwianRpIjoiZTQyNzAyOGItNDVkZi00YmYwLWI3OGMtY2VkZDM4NjRjZDFjIiwidXNlcm5hbWUiOiJnc19lbmxpZ2h0ZW5AZW5waGFzZWVuZXJneS5jb20ifQ.mOXDHDHK7OaKrW0uckNeca91hMsgUZgApRfKVNYyQfQ0W1Bqy8-suGCjpGG-k4OWfEhGTKJnoN_K0XpbSL9jQg
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-1:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/systems/{site_id}/devices/evse/{serial_no}/ocpp_reset:
+    post:
+      tags:
+      - System and Device Configuration
+      summary: API to reset the communication between the charger and partner’s CSMS
+      operationId: resetEvse
+      parameters:
+      - name: site_id
+        in: path
+        description: Unique Id of the site
+        required: true
+        schema:
+          type: string
+      - name: serial_no
+        in: path
+        description: Serial Number of the EV Charger
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: ocpp reset request accepted
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OCPPResetResponse'
+              example: "{\n\t\"message\": \"ocpp reset request accepted\",\n}\n"
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"additionalInfo\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/systems/{site_id}/devices/evse/{serial_no}/ocpp_configuration:
+    post:
+      tags:
+      - System and Device Configuration
+      summary: API to initiate the establishment of communication between the charger and partner’s CSMS
+      operationId: registerEvse
+      parameters:
+      - name: site_id
+        in: path
+        description: Unique Id of the site
+        required: true
+        schema:
+          type: string
+      - name: serial_no
+        in: path
+        description: Serial Number of the EV Charger
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OCPPConfigurationRequest'
+            examples:
+              example-0:
+                value: "\t{\n\t     \"connectionUrl\" : \"ws://ocpp.chargehq.net/ocpp16/30239503\",\n\t     \"securityProfile\" : \"1\",\n\t     \"authKey\" : \"213qdsa64564\"\n\t}\n"
+        required: true
+      responses:
+        '200':
+          description: ocpp configuration request accepted
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OCPPConfigurationResponse'
+              example:
+                status: ocpp configuration request accepted
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Program is not set for EVSE Control type as OCPP\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"additionalInfo\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/systems/{site_id}/register_live_stream_status:
+    get:
+      tags:
+      - System and Device Configuration
+      summary: Get Live Stream Registration status for a site
+      operationId: getLiveStreamRegistrationStatus
+      parameters:
+      - name: site_id
+        in: path
+        description: Unique Id of the site
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: List of Status of Registration for each Envoy of Site
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RegisterLiveStreamStatusResponse'
+              example:
+              - serial_number: '122116009243'
+                status: IN_PROGRESS
+              - serial_number: '122116009245'
+                status: FAILED
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"additionalInfo\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/systems/{site_id}/devices/evse/{serial_no}/ocpp_configuration/status:
+    get:
+      tags:
+      - System and Device Configuration
+      summary: API to fetch the current enrollment configuration of a charger that has been onboarded
+      operationId: getEVSEConfigurationStatus
+      parameters:
+      - name: site_id
+        in: path
+        description: Unique Id of the site
+        required: true
+        schema:
+          type: string
+      - name: serial_no
+        in: path
+        description: Serial Number of the EV Charger
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: Retrieved EVSE charger configuration
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OCPPConfigurationStatusResponse'
+              example:
+                connectionStatus: CONNECTED
+                connectionUrl: ws://ocpp.chargehq.net/ocpp16/12345
+                securityProfile: '0'
+                authKey: aaaaa
+                configurationStatus: ACTIVE
+                configurationStatusFailureReason: ''
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"additionalInfo\": \"Site is not enrolled in any program which belongs to your account.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+components:
+  schemas:
+    RegisterLiveStreamStatusResponse:
+      type: object
+      properties:
+        serial_number:
+          type: string
+          description: Envoy serial number
+        status:
+          type: string
+          description: Registration status
+          enum:
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED
+    OCPPConfigurationStatusResponse:
+      type: object
+      properties:
+        configurationStatus:
+          type: string
+          description: "Charger status for the enrollment. Allowed values:<br>\n\tACTIVATION_IN_PROGRESS - Registration has been initiated and its in progress<br>\n\tDEACTIVATION_IN_PROGRESS - Revocation has been initiated and its in progress<br>\n\tACTIVATION_FAILED - Registration was initaited but it failed<br>\n\tDEACTIVATION_FAILED - Revocation was initiated but it failed<br>\n\tACTIVE - Registration successful<br>\n\tDEACTIVATED - Revocation successful"
+        connectionUrl:
+          type: string
+          description: Partner's CSMS Url that is supplied by partner at the time of registration
+        securityProfile:
+          type: string
+          description: 'Partner''s CSMS''s security profile that is supplued by partner at the time of registration '
+        authKey:
+          type: string
+          description: Partner's CSMS one time token to be used for authorising charger's communication with the CSMS that is supplied at the time of registration
+        connectionStatus:
+          type: string
+          description: "Indicates whether the charger has made successful connection with partner CSMS. Allowed values:<br>\n\tNOT_CONNECTED - Indicates that connection has not happened even once<br>\n\tCONNECTED - Indicates that connection is successful<br>\n\tDISCONNECTED - Indicates that connection was successful but currently its not connected"
+        configurationStatusFailureReason:
+          type: string
+          description: Reason for ACTIVATION_FAILED or DEACTIVATION_FAILED
+    OCPPConfigurationRequest:
+      required:
+      - connectionUrl
+      type: object
+      properties:
+        connectionUrl:
+          type: string
+          description: 'Partner’s CSMS url to which the charger will establish communication '
+        securityProfile:
+          type: string
+          description: Partner’s CSMS security profile
+        authKey:
+          type: string
+          description: Partner's CSMS one time token to be used for authorizing charger's communication with the CSMS that is supplied at the time of registration
+    ReservedSOCUpdateRequest:
+      required:
+      - vpp_event_reserve_soc
+      type: object
+      properties:
+        vpp_event_reserve_soc:
+          maximum: 100
+          minimum: 0
+          type: integer
+          description: VPP Event's reserved SOC %. Value should be between 0 and 100 (Integers only)
+          format: int32
+    SiteSettingsResponseDTO:
+      type: object
+      properties:
+        vpp_event_reserve_soc:
+          type: integer
+          format: int32
+    StartStreamResponse:
+      type: object
+      properties:
+        serial_number:
+          type: string
+          description: Envoy serial number
+        status:
+          type: string
+          description: Command status
+    OCPPResetResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    StopStreamResponse:
+      type: object
+      properties:
+        serial_number:
+          type: string
+          description: Envoy Serial Number
+        status:
+          type: string
+          description: Command Status
+    OCPPConfigurationResponse:
+      type: object
+      properties:
+        status:
+          type: string

@@ -1,0 +1,175 @@
+openapi: 3.2.0
+info:
+  title: Commissioning Grid Profiles API
+  version: v4
+servers:
+- url: https://api.enphaseenergy.com
+tags:
+- name: Grid Profiles
+paths:
+  /api/v4/partner/grid_profiles:
+    get:
+      summary: Lists the available profiles
+      description: Lists the available profiles.
+      tags:
+      - Grid Profiles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  grid_profiles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Grid profile ID. System-generated
+                        profile_id:
+                          type: string
+                          description: ''
+                        created:
+                          type: string
+                          description: Profile created date and time
+                        updated:
+                          type: string
+                          description: Profile last updated date and time
+                        name:
+                          type: string
+                          description: Profile name
+                        description:
+                          type: string
+                          description: Profile description
+                        version:
+                          type: string
+                          description: Profile version
+                        envoy_type:
+                          type: string
+                          description: Envoy type
+                        countries:
+                          type: array
+                          items:
+                            type: string
+                          description: Name of the Countries
+                        states:
+                          type: array
+                          items:
+                            type: string
+                          description: States code
+                        state_names:
+                          type: array
+                          items:
+                            type: string
+                          description: Name of the states
+                        ensemble_1_compatible:
+                          type: boolean
+                          description: ''
+              example:
+                grid_profiles:
+                - id: 9d9e749bf64f462fb8b2aac1
+                  profile_id: agf:5f2299d9f22aad4ae0e15bfd
+                  created: '2017-05-23T17:46:46Z'
+                  updated: '2017-05-23T17:46:46Z'
+                  name: Profile Name
+                  description: Profile Description
+                  version: 1.0.1
+                  envoy_type: north_america
+                  countries:
+                  - US
+                  states:
+                  - HI
+                  state_names:
+                  - Hawaii
+                  ensemble_1_compatible: false
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - Partner company missing
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented

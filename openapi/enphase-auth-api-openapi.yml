@@ -1,0 +1,128 @@
+openapi: 3.2.0
+info:
+  title: Reference Auth API
+  description: Integrate the VPP API into your application
+  version: 1.1.0
+servers:
+- url: https://vpp.enphaseenergy.com
+tags:
+- name: Auth
+  description: Auth Controller
+paths:
+  /auth/oauth2/token:
+    post:
+      tags:
+      - Auth
+      summary: Generate OAuth 2.0 access token
+      description: Pass clientId:clientSecret as Base64 encoded value in Authorization header, grant type as client_credentials, Content-Type as application/x-www-form-urlencoded and Accept as application/json . Access token expire 3600 seconds after they are created and must be regenerated through the same process
+      operationId: getToken
+      parameters:
+      - name: Authorization
+        in: header
+        description: clientId:clientSecret Base64 encoded value
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: application/x-www-form-urlencoded
+        required: true
+        schema:
+          type: string
+          default: application/x-www-form-urlencoded
+      - name: Accept
+        in: header
+        description: application/json
+        required: true
+        schema:
+          type: string
+          default: application/json
+      - name: grant_type
+        in: query
+        description: client_credentials
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Access Token generated successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+              examples:
+                Sample Access Token:
+                  description: Sample Access Token
+                  value:
+                    access_token: eyJraWQiOiJDOVVLejVySmlZZWlYc1MxWHk4b2MxUUxTZ1c3KzN0bm1PdUFSdlRmSVp3PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI3aGVsZmVsY3Nh
+                    expires_in: 3600
+                    token_type: Bearer
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid parameter or headers\",\n  \"additionalInfo\": \"Query parameter grant_type must be client_credentials. Request header Content-Type must be application/x-www-form-urlencoded. Request header Accept must be application/json. Request header Authorization must be Base64 encoded value of clientId:clientSecret. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"grant_type is not provided or invalid\",\n  \"additionalInfo\": \"grant_type is not provided or invalid. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-1:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+components:
+  schemas:
+    AccessTokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          type: integer
+          format: int64
+        token_type:
+          type: string

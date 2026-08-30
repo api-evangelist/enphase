@@ -1,0 +1,347 @@
+openapi: 3.2.0
+info:
+  title: Commissioning Estimate API
+  version: v4
+servers:
+- url: https://api.enphaseenergy.com
+tags:
+- name: Estimate
+paths:
+  /api/v4/activations/{activation_id}/estimate:
+    get:
+      summary: Returns the estimate for this system.
+      description: Provides access to production estimates for a system. An estimate includes the annual degradation factor for the system as well as estimated production, in kWh, for each month. By default degrade_factor value is 0.5 and month_estimates value is an empty array.
+      parameters:
+      - name: activation_id
+        in: path
+        description: Activation ID
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Estimate
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  system_id:
+                    type: integer
+                    description: The system this estimate is for.
+                  degrade_factor:
+                    type: string
+                    description: The annual production degradation factor for the system, from year 0 of the system's life. Must be 0.0% or higher. Default 0.5%.
+                  month_estimates:
+                    type: array
+                    items:
+                      type: string
+                    description: The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates. Default empty array
+              example:
+                system_id: 67
+                degrade_factor: '0.4'
+                month_estimates:
+                - '3112.0'
+                - '3248.0'
+                - '3805.0'
+                - '4437.0'
+                - '4266.0'
+                - '3998.0'
+                - '4034.0'
+                - '3840.0'
+                - '3647.0'
+                - '3551.0'
+                - '2926.0'
+                - '2872.0'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - System not found
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+    put:
+      summary: Update the estimate for this system.
+      description: Updates the estimate for this system.
+      parameters:
+      - name: activation_id
+        in: path
+        description: Activation ID
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Estimate
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  system_id:
+                    type: integer
+                    description: The system this estimate is for
+                  degrade_factor:
+                    type: string
+                    description: The annual production degradation factor for the system
+                  month_estimates:
+                    type: array
+                    items:
+                      type: string
+                    description: The estimated monthly production of the system, in kWh
+              example:
+                system_id: 67
+                degrade_factor: '0.4'
+                month_estimates:
+                - '3112.0'
+                - '3248.0'
+                - '3805.0'
+                - '4437.0'
+                - '4266.0'
+                - '3998.0'
+                - '4034.0'
+                - '3840.0'
+                - '3647.0'
+                - '3551.0'
+                - '2926.0'
+                - '2872.0'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - System not found
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    description: Optional field
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorCode: 11
+                errorMessages:
+                - Estimate parameter missing in body
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                degrade_factor:
+                  type: string
+                  description: The annual production degradation factor for the system, from year 0 of the system's life. Must be 0.0% or higher.
+                month_estimates:
+                  type: array
+                  items:
+                    type: string
+                  description: The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.
+              required:
+              - degrade_factor
+              - month_estimates

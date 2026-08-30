@@ -1,0 +1,207 @@
+openapi: 3.2.0
+info:
+  title: Commissioning Home Owner API
+  version: v4
+servers:
+- url: https://api.enphaseenergy.com
+tags:
+- name: Home Owner
+paths:
+  /api/v4/users:
+    post:
+      summary: Create Home owner
+      description: 'Create a home owner user. Email, First Name, and Last Name are mandatory fields in the user. Any unneeded fields passed in the request parameter will be skipped and not stored.
+
+        Pass body param in ''application/x-www-form-urlencoded'' format, in this endpoint, key will be ''user'' and value will be a JSON dictionary of user fields. Using this API to create both homeowner as well as a company user. If you want to create company user, then pass company_id inside the user object.'
+      tags:
+      - Home Owner
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  active:
+                    type: boolean
+                    description: Whether the user is allowed to log in to Enlighten.
+                  user_roles:
+                    type: array
+                    items:
+                      type: string
+                      description: Role
+                    description: What type of user this is in Enlighten. Possible values are ['self_installer']. For self installer user user_roles will be ['self_installer']. For other users user_roles will be empty.
+                  email:
+                    type: string
+                    description: The email address of the user
+                  enlighten_emails:
+                    type: boolean
+                    description: Whether the user receives automated emails from Enlighten
+                  enlighten_view:
+                    type: string
+                    description: Which view of Enlighten the user has
+                  first_name:
+                    type: string
+                    description: The user's first name
+                  last_name:
+                    type: string
+                    description: The user's last name
+                  phone:
+                    type: string
+                    description: The telephone number of the user.
+                  uri:
+                    type: string
+                    description: URI to the show() method for the user. System-generated.
+                  user_id:
+                    type: integer
+                    description: The Enlighten ID of the user. System-generated.
+                  updated_at:
+                    type: integer
+                    description: Last updated date and time in Epoch format.
+              example:
+                active: true
+                user_roles: []
+                email: sample@gmail.com
+                enlighten_emails: true
+                enlighten_view: my
+                first_name: Test
+                last_name: User
+                phone: '1234567890'
+                uri: /api/v4/users/2020.json
+                user_id: 2020
+                updated_at: 1565928605
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - User param are missing at body location
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: The email address of the user. Must be unique within Enlighten. Required
+                enlighten_emails:
+                  type: boolean
+                  description: Whether the user receives automated emails from Enlighten. Default false.
+                enlighten_view:
+                  type: string
+                  description: Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'. Company id is required when enlighten_view is 'manager'
+                first_name:
+                  type: string
+                  description: The user's first name. Required
+                last_name:
+                  type: string
+                  description: The user's last name. Required
+                phone:
+                  type: string
+                  description: The telephone number of the user. Optional. Max length 255.
+                company_id:
+                  type: integer
+                  description: The Enlighten-generated ID of the company to which the user belongs, if any.
+              required:
+              - email
+              - first_name
+              - last_name

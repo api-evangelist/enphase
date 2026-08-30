@@ -1,0 +1,354 @@
+openapi: 3.2.0
+info:
+  title: Commissioning Meters API
+  version: v4
+servers:
+- url: https://api.enphaseenergy.com
+tags:
+- name: Meters
+paths:
+  /api/v4/systems/{system_id}/meters/{serial_number}:
+    get:
+      summary: Returns the requested meter detail.
+      description: Returns the requested meter by serial number. You must have access to the requested system and meter; otherwise a 401 is returned.
+      parameters:
+      - name: system_id
+        in: path
+        description: System ID
+        required: true
+        schema:
+          type: integer
+      - name: serial_number
+        in: path
+        description: Meter serial number
+        required: true
+        schema:
+          type: string
+      tags:
+      - Meters
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  serial_number:
+                    type: string
+                    description: Meter serial number
+                  manufacturer:
+                    type: string
+                    description: Name of the manufacturer
+                  model:
+                    type: string
+                    description: Model
+                  type:
+                    type: string
+                    description: Meter type
+                  operational_date:
+                    type: string
+                    description: Operational date
+                  first_report_date:
+                    type: string
+                    description: First report date
+                  last_report_date:
+                    type: string
+                    description: Last report date
+                  phase:
+                    type: string
+                    description: Phase
+                  envoy_serial_number:
+                    type: string
+                    description: Envoy serial number
+                  status:
+                    type: string
+                    description: Meter status
+                  state:
+                    type: string
+                    description: Meter state
+              example:
+                serial_number: '123456789012'
+                manufacturer: Enphase Energy
+                model: Envoy S
+                type: production
+                operational_date: '2017-06-13'
+                first_report_date: '2020-06-11T22:15:00-08:00'
+                last_report_date: '2020-06-14T22:15:00-08:00'
+                phase: L1(A)
+                envoy_serial_number: '121832000404'
+                status: normal
+                state: enabled
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - Meter not found
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+  /api/v4/activations/{activation_id}/meters/{serial_number}/meter_control:
+    post:
+      summary: Enable or Disable the meters.
+      description: Enable or Disable the meters. You must have access to the requested system and meter; otherwise a 401 is returned.
+      parameters:
+      - name: activation_id
+        in: path
+        description: Activation ID
+        required: true
+        schema:
+          type: integer
+      - name: serial_number
+        in: path
+        description: Meter serial number
+        required: true
+        schema:
+          type: string
+      tags:
+      - Meters
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '200'
+                message:
+                - Enable task sent to meter. Please wait until meter is enabled
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - Meter not found
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '422':
+          description: Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                  errorMessages:
+                    type: array
+                    items:
+                      type: string
+              example:
+                errorMessages:
+                - Invalid status, expected status is 'enabled' or 'disabled'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - enabled
+                  - disabled
+                  description: ''

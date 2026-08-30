@@ -1,0 +1,409 @@
+openapi: 3.2.0
+info:
+  title: Commissioning Tariff API
+  version: v4
+servers:
+- url: https://api.enphaseenergy.com
+tags:
+- name: Tariff
+paths:
+  /api/v4/systems/config/{system_id}/tariff:
+    get:
+      summary: Get tariff for a system
+      description: Get tariff for a system
+      parameters:
+      - name: system_id
+        in: path
+        description: The unique numeric id of the system
+        required: true
+        schema:
+          type: integer
+      tags:
+      - Tariff
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tariff:
+                    type: object
+                    properties:
+                      currency_type:
+                        type: object
+                        description: Currency type
+                        properties:
+                          code:
+                            type: string
+                            description: Tariff currency code. e.g='USD'
+                      single_rate:
+                        type: object
+                        description: Single rate. It will have following fields.
+                        properties:
+                          rate:
+                            type: string
+                            description: The usage rate. e.g=0.0
+                          sell:
+                            type: string
+                            description: FiT rate. e.g=0.0
+                      seasons:
+                        type: array
+                        description: ToU seasons. It will have following fields.
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: Tou year id. e.g='all_year_long'
+                            start:
+                              type: string
+                              description: Start of Season. e.g='1/1'
+                            days:
+                              type: array
+                              description: ToU seasons. It will have following fields
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    description: ToU days id. e.g='all_days'
+                                  days:
+                                    type: string
+                                    description: Comma separated days. e.g='Sun,Mon,Tue,Wed,Thu,Fri,Sat'
+                                  must_charge_start:
+                                    type: integer
+                                    description: Must charge start field. e.g=0
+                                  must_charge_duration:
+                                    type: integer
+                                    description: Must charge duration field. e.g=0
+                                  periods:
+                                    type: array
+                                    description: Periods. It will have following fields
+                                    items:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: string
+                                          description: Period id. e.g='period_1'
+                                        start:
+                                          type: string
+                                          description: Period start. e.g=0
+                                        rate:
+                                          type: string
+                                          description: Period rate. e.g=0.0
+                                        error:
+                                          type: object
+                                          description: Dynamic fields will appear.
+                            enable_charge_from_grid:
+                              type: boolean
+                            enable_discharge_to_grid:
+                              type: boolean
+                      seasons_sell:
+                        type: array
+                        description: ToU seasons sell. It will have following fields.
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: Tou year id. e.g='all_year_long'
+                            start:
+                              type: string
+                              description: Start of Season. e.g='1/1'
+                            days:
+                              type: array
+                              description: ToU seasons. It will have following fields
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    description: ToU days id. e.g='all_days'
+                                  days:
+                                    type: string
+                                    description: Comma separated days. e.g='Sun,Mon,Tue,Wed,Thu,Fri,Sat'
+                                  must_charge_start:
+                                    type: integer
+                                    description: Must charge start field. e.g=0
+                                  must_charge_duration:
+                                    type: integer
+                                    description: Must charge duration field. e.g=0
+                                  periods:
+                                    type: array
+                                    description: Periods. It will have following fields
+                                    items:
+                                      type: object
+                                      properties:
+                                        id:
+                                          type: string
+                                          description: Period id. e.g='period_1'
+                                        start:
+                                          type: string
+                                          description: Period start. e.g=0
+                                        rate:
+                                          type: string
+                                          description: Period rate. e.g=0.0
+                                        error:
+                                          type: object
+                                          description: Dynamic fields will appear.
+                  task:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        description: Status of latest tariff update task
+                      created_at:
+                        type: string
+                        description: Created time of latest tariff update task
+              example:
+                tariff:
+                  storage_settings:
+                    mode: backup
+                    reserved_soc: 100
+                  currency:
+                    code: AUD
+                  single_rate:
+                    rate: '1'
+                    sell: '1'
+                  seasons:
+                  - id: all_year_long
+                    start: 1/1
+                    days:
+                    - id: weekdays
+                      days: Mon,Tue,Wed,Thu,Fri
+                      must_charge_start: 0
+                      must_charge_duration: 59
+                      periods:
+                      - id: period_1
+                        start: 0
+                        rate: '10'
+                        error: {}
+                      - id: period_2
+                        start: 240
+                        rate: '12'
+                        error: {}
+                      - id: period_3
+                        start: 480
+                        rate: '10'
+                        error: {}
+                      - id: period_4
+                        start: 720
+                        rate: '12'
+                        error: {}
+                      - id: period_5
+                        start: 960
+                        rate: '10'
+                        error: {}
+                      - id: period_6
+                        start: 1200
+                        rate: '12'
+                        error: {}
+                      enable_charge_from_grid: true
+                      enable_discharge_to_grid: true
+                    - id: weekend
+                      days: Sun,Sat
+                      must_charge_start: 0
+                      must_charge_duration: 0
+                      periods:
+                      - id: period_1
+                        start: 0
+                        rate: '1'
+                      enable_charge_from_grid: false
+                      enable_discharge_to_grid: false
+                  - id: summer
+                    start: 3/1
+                    days:
+                    - id: weekdays
+                      days: Mon,Tue,Wed,Thu,Fri
+                      must_charge_start: 0
+                      must_charge_duration: 0
+                      periods:
+                      - id: period_1
+                        start: 0
+                        rate: '1'
+                    - id: weekend
+                      days: Sun,Sat
+                      must_charge_start: 0
+                      must_charge_duration: 0
+                      periods:
+                      - id: period_1
+                        start: 0
+                        rate: '1'
+                  - id: fall
+                    start: 6/1
+                    days:
+                    - id: weekdays
+                      days: Mon,Tue,Wed,Thu,Fri
+                      must_charge_start: 0
+                      must_charge_duration: 0
+                      periods:
+                      - id: period_1
+                        start: 0
+                        rate: '1'
+                    - id: weekend
+                      days: Sun,Sat
+                      must_charge_start: 0
+                      must_charge_duration: 0
+                      periods:
+                      - id: period_1
+                        start: 0
+                        rate: '1'
+                  - id: winter
+                    start: 9/1
+                    days:
+                    - id: weekdays
+                      days: Mon,Tue,Wed,Thu,Fri
+                      must_charge_start: 0
+                      must_charge_duration: 0
+                      periods:
+                      - id: period_1
+                        start: 0
+                        rate: '1'
+                    - id: weekend
+                      days: Sun,Sat
+                      must_charge_start: 0
+                      must_charge_duration: 0
+                      periods:
+                      - id: period_1
+                        start: 0
+                        rate: '1'
+                  - id: spring
+                    start: 10/1
+                    days:
+                    - id: weekdays
+                      days: Mon,Tue,Wed,Thu,Fri
+                      must_charge_start: 0
+                      must_charge_duration: 0
+                      periods:
+                      - id: period_1
+                        start: 0
+                        rate: '1'
+                    - id: weekend
+                      days: Sun,Sat
+                      must_charge_start: 0
+                      must_charge_duration: 0
+                      periods:
+                      - id: period_1
+                        start: 0
+                        rate: '1'
+                  seasons_sell:
+                  - id: all_year_long
+                    start: 1/1
+                    days:
+                    - id: all_days
+                      days: Sun,Mon,Tue,Wed,Thu,Fri,Sat
+                      must_charge_start: 0
+                      must_charge_duration: 0
+                      periods:
+                      - id: period_1
+                        start: 0
+                        rate: '1'
+                task:
+                  status: pending
+                  created_at: '2021-06-24T13:29:16Z'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '401'
+                message:
+                - Not authorized to access requested resource.
+                - API Key missing in url/headers!
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '404'
+                message:
+                - System not found
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '405'
+                message:
+                - Method not allowed
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                    description: Response code
+                  message:
+                    type: array
+                    items:
+                      type: string
+                      description: Error Messages
+                  period:
+                    type: string
+                    description: Quota exceeded for minute/month
+                  period_start:
+                    type: integer
+                    description: Starting period timestamp
+                  period_end:
+                    type: integer
+                    description: Ending period timestamp
+                  limit:
+                    type: integer
+                    description: Limit count for the period
+              example:
+                reason: '429'
+                message:
+                - Usage limit exceeded for plan Partner (custom)
+                period: minute
+                period_start: 1623825660
+                period_end: 1623825720
+                limit: 5
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+                  message:
+                    type: array
+                    items:
+                      type: string
+              example:
+                reason: '501'
+                message:
+                - Not Implemented

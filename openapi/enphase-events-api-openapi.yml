@@ -1,0 +1,1838 @@
+openapi: 3.2.0
+info:
+  title: Reference Events API
+  description: Integrate the VPP API into your application
+  version: 1.1.0
+servers:
+- url: https://vpp.enphaseenergy.com
+tags:
+- name: Events
+  description: Events API
+paths:
+  /api/v1/events/{event_id}:
+    get:
+      tags:
+      - Events
+      summary: Retrieve details of a specific event
+      description: Returns event details based on the inputted event_id. The API will return event status, command delivery status along with all the parameters specified as inputs during event creation
+      operationId: getEventDetails
+      parameters:
+      - name: event_id
+        in: path
+        description: Unique Id of the event
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: Event details retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GsApiVppEventResponse'
+              examples:
+                EventDetailExample:
+                  summary: Sample event detail response
+                  description: EventDetailExample
+                  value:
+                    event_id: f75b0ada-ee9b-4cdb-b0f1-b915267d203c
+                    name: Event 202203241315
+                    program_id: test
+                    events:
+                    - site_id: '698934045'
+                      event_status: completed
+                      start_time: '2022-03-24T13:15:00.000+00:00'
+                      end_time: '2022-03-24T13:30:00.000+00:00'
+                      created_at: '2022-03-24T11:15:00.000+00:00'
+                      completed_at: '2022-03-24T13:30:00.000+00:00'
+                      function: BATTERY
+                      mode: Discharge_To_Load_Grid
+                      target_soc: 10
+                      rate_watt: 1200
+                      command_delivery_status: Delivered
+                      superseded: false
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You cannot access this event\",\n  \"additionalInfo\": \"This event is not belongs to programs which are mapped to your account\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"No events found\",\n  \"additionalInfo\": \"No events found for event_id:f75b0ada-ee9b-4cdb-b0f1-b915267d203c\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+    put:
+      tags:
+      - Events
+      summary: Update an existing Event in a program
+      description: Update an existing event in a program based on the inputted event_id. For an event, only rate_watt and target_soc are allowed to be updated and updation of an event is allowed only upto 1 minute before event start time.
+      operationId: updateEvent
+      parameters:
+      - name: event_id
+        in: path
+        description: Unique ID of the Event
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventUpdateRequest'
+            examples:
+              example-0:
+                value: "{\n    \"target_soc\":10,\n    \"rate_watt\": 3000\n}\n"
+        required: true
+      responses:
+        '200':
+          description: Event updated successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+              examples:
+                SuccessfulUpdate:
+                  summary: Sample response for updated event
+                  description: SuccessfulUpdate
+                  value:
+                    message: Event updated successfully
+                    event_id: f75b0ada-ee9b-4cdb-b0f1-b915267d203c
+                    name: Event 202204061130
+                    no_of_sites: 1
+                    program_id: test
+                    total_watts: 1200
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"rate_watt out of range\",\n  \"additionalInfo\": \"rate_watt cannot be less than 0 when its value is provided\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Event cannot be updated right now because site info is not available for some site\",\n  \"additionalInfo\": \"Event cannot be updated right now because site info is not available for some site. Gateways list is null or blank site_id 12345\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Target SOC : xx is less than minimum target SOC for abcd. Minimum target SOC = yy\",\n  \"additionalInfo\": \"Target SOC : xx is less than minimum target SOC for abcd. Minimum target SOC = yy\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Target SOC : xx is more than maximum target SOC for abcd. Maximum target SOC = zz\",\n  \"additionalInfo\": \"Target SOC : xx is more than maximum target SOC for abcd. Maximum target SOC = zz\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Default target_soc is xx for this program with no option to override\",\n  \"additionalInfo\": \"Default target_soc is xx for this program with no option to override\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"rate_watt needs to be at least 20% of total available power for the selected VPPs/Site group. Total available power = xxxx W\",\n  \"additionalInfo\": \"rate_watt needs to be at least 20% of total available power for the selected VPPs/Site group. Total available power = xxxx W\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"rate_watt should be less than total available VPPs/Site group's cumulative Power. Total available power = xxxx W\",\n  \"additionalInfo\": \"rate_watt should be less than total available VPPs/Site group's cumulative Power. Total available power = xxxx W\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Default rate_watt is xxxx W with no option to override\",\n  \"additionalInfo\": \"Default rate_watt is xxxx W with no option to override\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-8:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-9:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-10:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-11:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-12:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You cannot access this event\",\n  \"additionalInfo\": \"This event is not belongs to programs which are mapped to your account\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"No events found\",\n  \"additionalInfo\": \"No events found for event_id:f75b0ada-ee9b-4cdb-b0f1-b915267d203c\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Only scheduled events can be updated\",\n  \"additionalInfo\": \"Only scheduled events can be updated. This event status is xyz\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+    delete:
+      tags:
+      - Events
+      summary: Cancel or End Event
+      description: The API can be used to cancel a scheduled event or end an ongoing event in a program. An event that is either completed or already cancelled cannot be cancelled or ended.
+      operationId: cancelEvent
+      parameters:
+      - name: event_id
+        in: path
+        description: Unique ID of the event
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: Event cancelled successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+              examples:
+                successExample:
+                  summary: Sample response
+                  description: successExample
+                  value:
+                    message: Event cancelled successfully
+                    event_id: f75b0ada-ee9b-4cdb-b0f1-b915267d203c
+                    name: Event 202204061130
+                    no_of_sites: 1
+                    program_id: test
+                    total_watts: 1200
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Only scheduled or in_progress events can be deleted\",\n  \"additionalInfo\": \"Only scheduled or in_progress events can be deleted. This event status is xyz\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Cancellation request is already submitted/in_progress/completed for this event\",\n  \"additionalInfo\": \"Cancellation request is already submitted/in_progress/completed for this event. Cancellation request status is xyz\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You cannot access this event\",\n  \"additionalInfo\": \"This event is not belongs to programs which are mapped to your account\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Upcoming event cancellation is not allowed for this program\",\n  \"additionalInfo\": \"Upcoming event cancellation is not allowed for this program. Please check program feature flags\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Ongoing event ending is not allowed for this program\",\n  \"additionalInfo\": \"Ongoing event ending is not allowed for this program. Please check program feature flags\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"No events found\",\n  \"additionalInfo\": \"No events found for event_id:f75b0ada-ee9b-4cdb-b0f1-b915267d203c\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/events/optout/{event_id}:
+    put:
+      tags:
+      - Events
+      summary: Optout-Optin site from the event
+      description: 'Optout/Optin site from the event. Site can be opted out only for the scheduled events.
+
+        Optout/Optin is allowed only up to 1 minute before the event start time.
+
+        '
+      operationId: optOutOptInEvent
+      parameters:
+      - name: event_id
+        in: path
+        description: Unique ID of the Event
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      requestBody:
+        description: Optout-Optin event details
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/EventOptoutOptinRequest'
+            examples:
+              example-0:
+                value: "{\n    \"site_id\": 12345,\n    \"optout\":true\n}\n"
+        required: true
+      responses:
+        '200':
+          description: Site Opted Out successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventOptoutOptinResponse'
+              examples:
+                OptoutSuccessExample:
+                  description: OptoutSuccessExample
+                  value:
+                    message: Site Opted Out successfully
+                    event_id: f75b0ada-ee9b-4cdb-b0f1-b915267d203c
+                    site_id: 12345
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"site_id cannot be null\",\n  \"additionalInfo\": \"site_id cannot be null. please provide site_id which needs to be opt out/opt in from the event\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"optout cannot be null\",\n  \"additionalInfo\": \"optout cannot be null. please provide true for optout site from the event and false for optin site to the event\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You cannot access this event\",\n  \"additionalInfo\": \"This event is not belongs to programs which are mapped to your account\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"No events found\",\n  \"additionalInfo\": \"No events found for event_id:f75b0ada-ee9b-4cdb-b0f1-b915267d203c\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"No event found for this site_id\",\n  \"additionalInfo\": \"No events found for event_id:f75b0ada-ee9b-4cdb-b0f1-b915267d203c and site_id:12345\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Only scheduled events can be opted out or opted in\",\n  \"additionalInfo\": \"Only scheduled events can be opted out or opted in. This event status is xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"This site is already opted out\",\n  \"additionalInfo\": \"This site is already opted out\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"This site is already opted in\",\n  \"additionalInfo\": \"This site is already opted in\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Event cannot be opted out/opted in because its start time is within x minutes from current time\",\n  \"additionalInfo\": \"Event cannot be opted out/opted in because its start time is within x minutes from current time\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v2/events:
+    get:
+      tags:
+      - Events
+      summary: Retrieve all events in a program
+      description: Returns a paginated list of all events in a program and total count of events based on the inputted program_id
+      operationId: getEvents
+      parameters:
+      - name: program_id
+        in: query
+        description: Unique ID of the program
+        required: true
+        schema:
+          type: string
+      - name: page_no
+        in: query
+        description: Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: page_size
+        in: query
+        description: Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: start_date
+        in: query
+        description: Start date for fetching the events list in yyyy-MM-dd format. If start_date is not specified, will be defaulted to today's date
+        required: false
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date for fetching the events list in yyyy-MM-dd format. If end_date is not specified, will be defaulted to start_date + 7 days. Date range is restricted to a maximum of 30 days
+        required: false
+        schema:
+          type: string
+      - name: site_id
+        in: query
+        description: Site Id to fetch corresponding events
+        required: false
+        schema:
+          type: string
+      - name: event_status
+        in: query
+        description: 'Event Status to fetch corresponding events. Event statuses can be one of them: scheduled, in_progress, completed, stopped, failed, deleted, optedout'
+        required: false
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: All the events are retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventsListResponse'
+              examples:
+                EventsListExample:
+                  summary: Sample events list
+                  description: EventsListExample
+                  value:
+                    program_id: test
+                    total_count: 3
+                    eventList:
+                    - event_id: f75b0ada-ee9b-4cdb-b0f1-b915267d203c
+                      name: Event 202403241315
+                      program_id: test
+                      events:
+                      - site_id: '698934045'
+                        event_status: scheduled
+                        start_time: '2024-03-24T13:15:00.000+00:00'
+                        end_time: '2024-03-24T13:30:00.000+00:00'
+                        created_at: '2024-03-24T11:15:00.000+00:00'
+                        functions:
+                        - BATTERY
+                        duration: 15
+                        mode: Discharge_To_Load_Grid
+                        target_soc: 10
+                        rate_watt: 1200
+                        command_delivery_status: Scheduled
+                        measuring_reference: ASSET
+                    - event_id: f75b0ada-ee9b-4cdb-b0f1-b915267d203d
+                      name: Event 202403241315
+                      program_id: test
+                      events:
+                      - site_id: '698934046'
+                        event_status: scheduled
+                        start_time: '2024-03-24T13:15:00.000+00:00'
+                        end_time: '2024-03-24T13:30:00.000+00:00'
+                        created_at: '2024-03-24T11:15:00.000+00:00'
+                        functions:
+                        - BATTERY
+                        duration: 15
+                        mode: Discharge_To_Load_Grid
+                        target_soc: 10
+                        rate_watt: 1200
+                        command_delivery_status: Scheduled
+                        measuring_reference: ASSET
+                    - event_id: f75b0ada-ee9b-4cdb-b0f1-b915267d203d
+                      name: Event 202403241315
+                      program_id: test
+                      events:
+                      - site_id: '698934046'
+                        evse_serial_no: '7345120'
+                        event_status: scheduled
+                        start_time: '2024-03-24T13:15:00.000+00:00'
+                        end_time: '2024-03-24T13:30:00.000+00:00'
+                        created_at: '2024-03-24T11:15:00.000+00:00'
+                        functions:
+                        - EVSE
+                        duration: 15
+                        mode: Charge
+                        rate_watt: 1200
+                        command_delivery_status: Scheduled
+                        measuring_reference: ASSET
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Pagination variables are incorrect\",\n  \"additionalInfo\": \"Pagination variables are incorrect. Page number should starts from 1 and page size should be between 1 and 100\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid start_date format\",\n  \"additionalInfo\": \"start_date format is invalid. start_date must be in yyyy-MM-dd format\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid end_date format\",\n  \"additionalInfo\": \"end_date format is invalid. end_date must be in yyyy-MM-dd format\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid date range\",\n  \"additionalInfo\": \"Date range is invalid. end_date must be after start_date\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid date range\",\n  \"additionalInfo\": \"Date range is invalid. end_date cannot be more than 30 days from start_date\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid siteId\",\n  \"additionalInfo\": \"Site Id must be an integer\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid event status\",\n  \"additionalInfo\": \"Event statuses can be scheduled, in_progress, completed, stopped, failed, deleted, optedout\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-8:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-9:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-10:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-11:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+    post:
+      tags:
+      - Events
+      summary: Create a new Event in a program
+      description: 'Create a new event for a site with function as either PV or BATTERY or HP or EVSE.
+
+        The current version only supports the ability to create an event for single site.
+
+        If function is PV, PV curtailment can be done on the site.
+
+        If the function is BATTERY, the battery can be charged or discharged or set to Idle.
+
+        If the function is HP, SG ready mode 1, 2, 3 or 4 can be configured for the heat pump.
+
+        If the function is EVSE, charge mode can be configured for the EVSE.
+
+        Superseded flag can be used for site level events to override existing site level events. If superseded is false and there is an overlap with existing event, the new event will not be considered.
+
+        '
+      operationId: createEvent
+      parameters:
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventCreateRequestV2'
+            examples:
+              example-0:
+                value: "{\n    \"program_id\":\"test\",\n    \"site_ids\": [12345],\n    \"measuring_reference\":\"ASSET\",\n    \"functions\": [\"PV\"],\n    \"rate_watt\": 1000,\n    \"start_time\" : \"2022-04-08 06:00\",\n    \"end_time\" : \"2022-04-08 08:00\"\n}\n"
+              example-1:
+                value: "{\n    \"program_id\": \"test\",\n    \"site_ids\": [12345],\n    \"measuring_reference\":\"ASSET\",\n    \"functions\": [\"PV\"],\n    \"rate_watt\": 1000,\n    \"duration\": 30\n}\n"
+              example-2:
+                value: "{\n    \"program_id\": \"test\",\n    \"site_ids\": [12345],\n    \"measuring_reference\":\"ASSET\",\n    \"functions\": [\"EVSE\"],\n    \"mode\": \"Charge\",\n    \"evse_serial_no\": \"23412313\",\n    \"rate_watt\": -1000,\n    \"duration\": 30\n}\n"
+              example-3:
+                value: "{\n    \"program_id\": \"test\",\n    \"site_ids\": [12345],\n    \"measuring_reference\":\"ASSET\",\n    \"functions\": [\"HP\"],\n    \"mode\": \"MODE_2\",\n    \"duration\": 30\n}\n"
+              example-4:
+                value: "{\n    \"program_id\": \"test\",\n    \"site_ids\": [12345],\n    \"measuring_reference\":\"ASSET\",\n    \"functions\": [\"BATTERY\"],\n    \"mode\": \"Discharge_To_Load_Grid\",\n    \"target_soc\": 10,\n    \"rate_watt\": 3000,\n    \"start_time\": \"2022-04-08 06:00\",\n    \"duration\": 30\n}\n"
+              example-5:
+                value: "{\n    \"program_id\": \"test\",\n    \"site_ids\": [12345],\n    \"measuring_reference\":\"ASSET\",\n    \"functions\": [\"BATTERY\"],\n    \"target_soc\": 100,\n    \"rate_watt\": -3000,\n    \"duration\": 30\n}\n"
+              example-6:
+                value: "{\n    \"program_id\": \"test\",\n    \"site_ids\": [12345],\n    \"measuring_reference\":\"ASSET\",\n    \"functions\": [\"BATTERY\"],\n    \"target_soc\": 100,\n    \"rate_watt\": -3000,\n    \"duration\": 30,\n    \"superseded\": true\n}\n"
+        required: true
+      responses:
+        '200':
+          description: Event created successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+              examples:
+                EventCreationResponse:
+                  summary: Successful event creation response
+                  description: EventCreationResponse
+                  value:
+                    message: Event created successfully
+                    event_id: f75b0ada-ee9b-4cdb-b0f1-b915267d203c
+                    name: Event 202204061130
+                    no_of_sites: 1
+                    program_id: test
+                    total_watts: 1200
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"program_id cannot be null\",\n  \"additionalInfo\": \"program_id cannot be null. please provide program_id of the event\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"start_time format should be yyyy-MM-dd HH:mm\",\n  \"additionalInfo\": \"start_time format should be yyyy-MM-dd HH:mm\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"end_time format should be yyyy-MM-dd HH:mm\",\n  \"additionalInfo\": \"end_time format should be yyyy-MM-dd HH:mm\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"End time must be greater than start time\",\n  \"additionalInfo\": \"End time must be greater than start time\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Start time cannot be in the past\",\n  \"additionalInfo\": \"Start time cannot be in the past. Event start time 2022-04-26 09:30 current time Wed Apr 27 12:18:05 GMT 2022\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"start time needs to be minimum after xx seconds from current time\",\n  \"additionalInfo\": \"start time needs to be minimum after xx seconds from current time\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Event duration out of range\",\n  \"additionalInfo\": \"Event duration should not exceed x Hours y Mins\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Event duration out of range\",\n  \"additionalInfo\": \"Event duration should not be less than x Mins\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-8:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Event start time can be maximum x days from current time\",\n  \"additionalInfo\": \"Event start time can be maximum x days from current time\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-9:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"either end_time or duration must be passed. Both cannot be passed\",\n  \"additionalInfo\": \"either end_time or duration must be passed. Both cannot be passed\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-10:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"either site_ids or vpp_ids must be passed. Both cannot be passed\",\n  \"additionalInfo\": \"either site_ids or vpp_ids must be passed. Both cannot be passed\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-11:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"functions cannot be null\",\n  \"additionalInfo\": \"functions cannot be null\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-12:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"measuring_reference cannot be null\",\n  \"additionalInfo\": \"measuring_reference cannot be null\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-13:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"multiple functions are not supported currently. Provide only one function\",\n  \"additionalInfo\": \"multiple functions are not supported currently. Provide only one function\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-14:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"program does not support this function\",\n  \"additionalInfo\": \"program does not support this function\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-15:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"multiple site ids are not supported currently\",\n  \"additionalInfo\": \"multiple site ids are not supported currently\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-16:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"vpp ids not supported currently. Provide only site ids\",\n  \"additionalInfo\": \"vpp ids not supported currently. Provide only site ids\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-17:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Mode is applicable only if functions is BATTERY or EVSE or HP\",\n  \"additionalInfo\": \"Mode is applicable only if functions is BATTERY or EVSE or HP\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-18:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"rate_watt must be positive for discharge events and negative for charge events\",\n  \"additionalInfo\": \"rate_watt must be positive for discharge events and negative for charge events\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-19:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid request. For charge events, rate_watt should be negative value (non-zero)\",\n  \"additionalInfo\": \"Invalid request. For charge events, rate_watt should be negative value (non-zero)\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-20:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Rate watt should be null when function is HP\",\n  \"additionalInfo\": \"Rate watt should be null when function is HP\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-21:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Rate watt should be null when measuring reference is Site\",\n  \"additionalInfo\": \"Rate watt should be null when measuring reference is Site\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-22:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Rate watt should be null when mode is Dont_Charge\",\n  \"additionalInfo\": \"Rate watt should be null when mode is Dont_Charge\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-23:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Export limit should be null when measuring reference is Asset\",\n  \"additionalInfo\": \"Export limit should be null when measuring reference is Asset\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-24:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid mode for BATTERY function\",\n  \"additionalInfo\": \"Invalid mode for BATTERY function\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-25:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid mode for EVSE function\",\n  \"additionalInfo\": \"Invalid mode for EVSE function\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-26:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid mode for HP function\",\n  \"additionalInfo\": \"Invalid mode for HP function\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-27:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"mode is required for EVSE function\",\n  \"additionalInfo\": \"mode is required for EVSE function\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-28:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"mode is required for HP function\",\n  \"additionalInfo\": \"mode is required for HP function\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-29:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"evse_serial_no is required for EVSE function\",\n  \"additionalInfo\": \"evse_serial_no is required for EVSE function\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-30:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"evse_serial_no should be null when function is not EVSE\",\n  \"additionalInfo\": \"evse_serial_no should be null when function is not EVSE\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-31:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Either mode or rate_watt is required for BATTERY function\",\n  \"additionalInfo\": \"Either mode or rate_watt is required for BATTERY function\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-32:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"target_soc is required for BATTERY charge or discharge event\",\n  \"additionalInfo\": \"target_soc is required for BATTERY charge or discharge event\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-33:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"target_soc should be between 10 and 100 for BATTERY charge or discharge event\",\n  \"additionalInfo\": \"target_soc should be between 10 and 100 for BATTERY charge or discharge event\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-34:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"target_soc is not applicable for PV or EVSE or HP function\",\n  \"additionalInfo\": \"target_soc is not applicable for PV or EVSE or HP function\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-35:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"No enrollments found for the given program for some sites out of: [123]\",\n  \"additionalInfo\": \"No enrollments found for the given program for some sites out of: [123]\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-36:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"The site does not support the requested function\",\n  \"additionalInfo\": \"The site does not support the requested function\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-37:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Site does not have a production meter. PV curtailment to a specific value is not supported. Only PV shutdown is supported\",\n  \"additionalInfo\": \"Site does not have a production meter. PV curtailment to a specific value is not supported. Only PV shutdown is supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-38:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Site does not have a production meter or consumption meter. Export limiting is not supported\",\n  \"additionalInfo\": \"Site does not have a production meter or consumption meter. Export limiting is not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-39:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-40:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-41:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-42:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-43:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-1:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/events:
+    get:
+      tags:
+      - Events
+      summary: Retrieve all events in a program
+      description: Returns a paginated list of all events in a program and total count of events based on the inputted program_id
+      operationId: getEvents_1
+      parameters:
+      - name: program_id
+        in: query
+        description: Unique ID of the program
+        required: true
+        schema:
+          type: string
+      - name: page_no
+        in: query
+        description: Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: page_size
+        in: query
+        description: Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: start_date
+        in: query
+        description: Start date for fetching the events list in yyyy-MM-dd format. If start_date is not specified, will be defaulted to today's date
+        required: false
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date for fetching the events list in yyyy-MM-dd format. If end_date is not specified, will be defaulted to start_date + 7 days. Date range is restricted to a maximum of 30 days
+        required: false
+        schema:
+          type: string
+      - name: site_id
+        in: query
+        description: Site Id to fetch corresponding events
+        required: false
+        schema:
+          type: string
+      - name: event_status
+        in: query
+        description: 'Event Status to fetch corresponding events. Event statuses can be one of them: scheduled, in_progress, completed, stopped, failed, deleted, optedout'
+        required: false
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: All the events are retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventsListResponse'
+              examples:
+                Example Response:
+                  summary: Sample event list
+                  description: Example Response
+                  value:
+                    program_id: test
+                    total_count: 2
+                    eventList:
+                    - event_id: f75b0ada-ee9b-4cdb-b0f1-b915267d203c
+                      name: Event 202203241315
+                      program_id: test
+                      events:
+                      - site_id: '698934045'
+                        event_status: completed
+                        start_time: '2022-03-24T13:15:00.000+00:00'
+                        end_time: '2022-03-24T13:30:00.000+00:00'
+                        created_at: '2022-03-24T11:15:00.000+00:00'
+                        completed_at: '2022-03-24T13:30:00.000+00:00'
+                        function: BATTERY
+                        mode: Discharge_To_Load_Grid
+                        target_soc: 10
+                        rate_watt: 1200
+                        command_delivery_status: Delivered
+                        superseded: false
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Pagination variables are incorrect\",\n  \"additionalInfo\": \"Pagination variables are incorrect. Page number should starts from 1 and page size should be between 1 and 100\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid start_date format\",\n  \"additionalInfo\": \"start_date format is invalid. start_date must be in yyyy-MM-dd format\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid end_date format\",\n  \"additionalInfo\": \"end_date format is invalid. end_date must be in yyyy-MM-dd format\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid date range\",\n  \"additionalInfo\": \"Date range is invalid. end_date must be after start_date\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid date range\",\n  \"additionalInfo\": \"Date range is invalid. end_date cannot be more than 30 days from start_date\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid siteId\",\n  \"additionalInfo\": \"Site Id must be an integer\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Invalid event status\",\n  \"additionalInfo\": \"Event statuses can be scheduled, in_progress, completed, stopped, failed, deleted, optedout\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-8:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-9:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-10:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-11:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+    post:
+      tags:
+      - Events
+      summary: Create a new Event in a program
+      description: 'Create a new event in a program. Event start time must be at least 1 minute from the current time. Event Start time can be a maximum of 7 days from the current time.
+
+
+        Event Duration (Event End Time - Event Start Time) must be a minimum of 5 minutes and a maximum of 5 hours.
+
+
+        Events can be created for a single site or a list of sites or a list of VPPs and hence either Site ID or Site IDs or VPP IDs must be passed. Batteries will function as per the mode specified in the request till either the target SOC is reached or event duration has passed. Depending on the mode specified, the battery will charge or discharge based on various parameters such as rate_watt, PV generation, Load, and rated power of the battery. If the mode is IDLE, battery will neither discharge or charge. For events created for a VPP or list of sites, rate_watt will be distributed across sites.
+
+
+        Superseded flag can be used for site level events to override existing site level events. If superseded is false and there is an overlap with existing event, the new event will not be considered.
+
+
+        Recommendation: When events are created for a list of sites or VPPs, ensure that the number of sites are less than 500. As the number of sites increase, the latency of the API increases and might result in failure of event creation. If the number of sites are more than 500, recommendation is to split the VPP into smaller VPPs with each VPP size less than 500 sites.
+
+        '
+      operationId: createEvent_1
+      parameters:
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      requestBody:
+        description: JSON request to create an event
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventCreateRequest'
+            examples:
+              example-0:
+                value: "{\n    \"program_id\":\"test\",\n    \"site_id\": 12345,\n    \"function\":\"BATTERY\",\n    \"mode\":\"Discharge_To_Load_Grid\",\n    \"target_soc\":10,\n    \"rate_watt\": 3000,\n    \"start_time\" : \"2022-04-08 06:00\",\n    \"end_time\" : \"2022-04-08 08:00\",\n    \"superseded\": false\n}\n"
+              example-1:
+                value: "{\n    \"program_id\": \"test\",\n    \"site_ids\": [12345,96789,45320],\n    \"function\": \"BATTERY\",\n    \"mode\": \"Discharge_To_Load_Grid\",\n    \"target_soc\": 10,\n    \"rate_watt\": 3000,\n    \"start_time\": \"2022-04-08 06:00\",\n    \"end_time\": \"2022-04-08 08:00\",\n    \"superseded\": false\n}\n"
+              example-2:
+                value: "{\n    \"program_id\": \"test\",\n    \"vpp_ids\": [\"testvpp1\",\"testvpp2\"],\n    \"function\": \"BATTERY\",\n    \"mode\": \"Discharge_To_Load_Grid\",\n    \"target_soc\": 10,\n    \"rate_watt\": 3000,\n    \"start_time\": \"2022-04-08 06:00\",\n    \"end_time\": \"2022-04-08 08:00\",\n    \"superseded\": false\n}\n"
+        required: true
+      responses:
+        '200':
+          description: Event created successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+              examples:
+                SuccessfulEventCreation:
+                  summary: Sample response after creating an event
+                  description: SuccessfulEventCreation
+                  value:
+                    message: Event created successfully
+                    event_id: f75b0ada-ee9b-4cdb-b0f1-b915267d203c
+                    name: Event 202204061130
+                    no_of_sites: 1
+                    program_id: test
+                    total_watts: 1200
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"program_id cannot be null\",\n  \"additionalInfo\": \"program_id cannot be null. please provide program_id of the event\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"start_time format should be yyyy-MM-dd HH:mm\",\n  \"additionalInfo\": \"start_time format should be yyyy-MM-dd HH:mm\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"end_time format should be yyyy-MM-dd HH:mm\",\n  \"additionalInfo\": \"end_time format should be yyyy-MM-dd HH:mm\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"End time must be greater than start time\",\n  \"additionalInfo\": \"End time must be greater than start time\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Start time must be future time\",\n  \"additionalInfo\": \"Start time must be future time. Event start time 2022-04-26 09:30 current time Wed Apr 27 12:18:05 GMT 2022\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"start time needs to be minimum after xx seconds from current time\",\n  \"additionalInfo\": \"start time needs to be minimum after xx seconds from current time\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Event duration out of range\",\n  \"additionalInfo\": \"Event duration should not exceed x Hours y Mins\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Event duration out of range\",\n  \"additionalInfo\": \"Event duration should not be less than x Mins\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-8:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Event start time can be maximum x days from current time\",\n  \"additionalInfo\": \"Event start time can be maximum x days from current time\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-9:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"One of vpp_ids, site_id or site_ids needs to be provided\",\n  \"additionalInfo\": \"One of vpp_ids, site_id or site_ids needs to be provided\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-10:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"One of vpp_ids, site_id or site_ids needs to be provided. More than one cannot be provided\",\n  \"additionalInfo\": \"One of vpp_ids, site_id or site_ids needs to be provided. More than one cannot be provided\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-11:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"rate_watt out of range\",\n  \"additionalInfo\": \"rate_watt cannot be less than 0 when its value is provided\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-12:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"No enrollments found for the given program for site: 12345\",\n  \"additionalInfo\": \"No enrollments found for the given program for site: 12345\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-13:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"No enrollments found for the given program for some sites out of: [123, 456]\",\n  \"additionalInfo\": \"No enrollments found for the given program for some sites out of: [123, 456]\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-14:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Event not created\",\n  \"additionalInfo\": \"No sites matching to any given VPP Query for vpp level event. Or site id is not provided for site level event. Event not created for program_id test1\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-15:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Already event is scheduled/ongoing. If needed, cancel existing and create new event. Event time is conflicting with an existing event time.\",\n  \"additionalInfo\": \"VppEvent could not be processed\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-16:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Event cannot be created right now because site info is not available for some site\",\n  \"additionalInfo\": \"Event cannot be created right now because site info is not available for some site. Gateways list is null or blank site_id 12345\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-17:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"abcd mode is not supported for this program\",\n  \"additionalInfo\": \"abcd mode is not supported for this program\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-18:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Target SOC : xx is less than minimum target SOC for abcd. Minimum target SOC = yy\",\n  \"additionalInfo\": \"Target SOC : xx is less than minimum target SOC for abcd. Minimum target SOC = yy\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-19:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Target SOC : xx is more than maximum target SOC for abcd. Maximum target SOC = zz\",\n  \"additionalInfo\": \"Target SOC : xx is more than maximum target SOC for abcd. Maximum target SOC = zz\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-20:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Default target_soc is xx for this program with no option to override\",\n  \"additionalInfo\": \"Default target_soc is xx for this program with no option to override\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-21:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"rate_watt needs to be at least 20% of total available power for the selected VPPs/Site group. Total available power = xxxx W\",\n  \"additionalInfo\": \"rate_watt needs to be at least 20% of total available power for the selected VPPs/Site group. Total available power = xxxx W\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-22:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"rate_watt should be less than total available VPPs/Site group's cumulative Power. Total available power = xxxx W\",\n  \"additionalInfo\": \"rate_watt should be less than total available VPPs/Site group's cumulative Power. Total available power = xxxx W\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-23:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Default rate_watt is xxxx W with no option to override\",\n  \"additionalInfo\": \"Default rate_watt is xxxx W with no option to override\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-24:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"only BATTERY function is supported in v1 api\",\n  \"additionalInfo\": \"only BATTERY function is supported in v1 api\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-25:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-26:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-27:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-28:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-29:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v2/events/{event_id}:
+    get:
+      tags:
+      - Events
+      summary: Retrieve details of a specific event
+      description: Returns event details based on the inputted event_id. The API will return event status, command delivery status along with all the parameters specified as inputs during event creation
+      operationId: getEventDetails_1
+      parameters:
+      - name: event_id
+        in: path
+        description: Unique Id of the event
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: Event details retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GsApiVppEventResponse'
+              examples:
+                BatteryEvent:
+                  summary: Battery function event detail
+                  description: BatteryEvent
+                  value:
+                    event_id: f75b0ada-ee9b-4cdb-b0f1-b915267d203c
+                    name: Event 202403241315
+                    program_id: test
+                    events:
+                    - site_id: '698934045'
+                      event_status: completed
+                      start_time: '2024-03-24T13:15:00.000+00:00'
+                      end_time: '2024-03-24T13:30:00.000+00:00'
+                      created_at: '2024-03-24T11:15:00.000+00:00'
+                      functions:
+                      - BATTERY
+                      duration: 15
+                      mode: Discharge_To_Load_Grid
+                      target_soc: 10
+                      rate_watt: 1200
+                      command_delivery_status: Scheduled
+                      measuring_reference: ASSET
+                EVSEEvent:
+                  summary: EVSE function event detail
+                  description: EVSEEvent
+                  value:
+                    event_id: f75b0ada-ee9b-4cdb-b0f1-b915267d203c
+                    name: Event 202403241315
+                    program_id: test
+                    events:
+                    - site_id: '698934045'
+                      evse_serial_no: '7345120'
+                      event_status: completed
+                      start_time: '2024-03-24T13:15:00.000+00:00'
+                      end_time: '2024-03-24T13:30:00.000+00:00'
+                      created_at: '2024-03-24T11:15:00.000+00:00'
+                      functions:
+                      - EVSE
+                      duration: 15
+                      mode: Charge
+                      rate_watt: 1200
+                      command_delivery_status: Scheduled
+                      measuring_reference: ASSET
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You cannot access this event\",\n  \"additionalInfo\": \"This event is not belongs to programs which are mapped to your account\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"No events found\",\n  \"additionalInfo\": \"No events found for event_id:f75b0ada-ee9b-4cdb-b0f1-b915267d203c\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+    delete:
+      tags:
+      - Events
+      summary: Cancel or End Event
+      description: The API can be used to cancel a scheduled event or end an ongoing event in a program. An event that is either completed or already cancelled cannot be cancelled or ended.
+      operationId: cancelEvent_1
+      parameters:
+      - name: event_id
+        in: path
+        description: Unique ID of the event
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: Event cancelled successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+              examples:
+                EventCancellationResponse:
+                  summary: Successful event cancellation response
+                  description: EventCancellationResponse
+                  value:
+                    message: Event cancelled successfully
+                    event_id: f75b0ada-ee9b-4cdb-b0f1-b915267d203c
+                    name: Event 202204061130
+                    no_of_sites: 1
+                    program_id: test
+                    total_watts: 1200
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-1:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+components:
+  schemas:
+    GsApiEventResponse:
+      type: object
+      properties:
+        site_id:
+          type: string
+          description: Unique ID of the site
+        evse_serial_no:
+          type: string
+          description: Serial Number of the individual EVSE
+        event_status:
+          type: string
+          description: "current status of the event\n\t\n-scheduled : Event created and is yet to start\n\t\n-in_progress : Event created and has started\n\t\n-completed : Event started and end time has passed\n\t\n-stopped : Event stopped by creator after it has started\n\t\n-failed : Command not acknowledged by the gateway. VPP API cloud sends a command and waits for the status from gateway. If it expires, a retry is done; Retries are done up to 5 minutes from the event start time. If the command still does not succeed after 5 minutes, then it will be marked as failed\n\t\n-deleted : Event cancelled by creator before start time or Event cancelled by the system due to a completely overlapping event\n\t\n-optedout : HO opted out of the event\n"
+        failure_code:
+          type: string
+          description: Event failure code
+        failure_reason:
+          type: string
+          description: Reason for the event failure
+        start_time:
+          type: string
+          description: Date and time at which the event starts
+          format: date-time
+        end_time:
+          type: string
+          description: Date and time at which the event ends
+          format: date-time
+        created_at:
+          type: string
+          description: Date and time at which the event is created
+          format: date-time
+        completed_at:
+          type: string
+          description: Date and time at which the event is completed
+          format: date-time
+        cancelled_at:
+          type: string
+          description: Date and time on which the event is cancelled
+          format: date-time
+        cancellation_request:
+          type: string
+        function:
+          type: string
+          description: supported function for v1 api
+        functions:
+          type: array
+          description: List of supported functions
+          items:
+            type: string
+            description: List of supported functions
+            enum:
+            - BATTERY
+            - PV
+            - EVSE
+            - HP
+        duration:
+          type: integer
+          description: Event duration in minutes
+          format: int32
+        mode:
+          type: string
+          description: "\tMode for the event; Mandatory if functions is  HP/EVSE, optional in case of BATTERY and not applicable in case of PV\n\n\tIf function is BATTERY,\n\t\t1. If mode is not passed, it is set to 'Discharge to Load and Grid' if rate_watt is positive\n\t\t2. If mode is not passed, it is set to 'Charge from PV and Grid' if rate_watt is negative\n\t\t3. If mode is not passed, it is set to 'Idle' if rate_watt is 0\n\t\t4. If mode is passed, rate_watt must be positive for discharge events, negative for charge events, 0 for Idle event\n\n\tIf function is BATTERY, supported modes are:\n\t\tIdle\n\t\tCharge_From_PV\n\t\tCharge_From_NetPV\n\t\tCharge_From_PV_Grid\n\t\tDischarge_To_Load\n\t\tDischarge_To_NetLoad\n\t\tDischarg_To_Load_Grid\n\n\tIf function is HP, supported modes are as per SG ready modes:\n\t\tMODE_1\n\t\tMODE_2\n\t\tMODE_3\n\t\tMODE_4\n\n\tIf function is EVSE, supported mode are:\n\t\tCharge\n\t\tDont_Charge\n"
+        target_soc:
+          type: integer
+          description: "\tApplicable if functions is BATTERY\n\t\t% SOC at which event should end.\n\t\tIt is the upper limit for charge modes.\n\t\tIt is the lower limit for discharge modes.\n\t\tIt is not applicable for Idle mode\n"
+          format: int32
+        rate_watt:
+          type: integer
+          description: "Charge or discharge rate if functions is BATTERY. Not applicable for Idle mode\n\t\nSpecifies the curtailment level if functions is PV.\n\t\nNot applicable if functions is HP.\n\t\nNot applicable if functions is EVSE and mode is Dont_Charge.\n"
+          format: int32
+        superseded:
+          type: boolean
+          description: Overrides an existing event if true in case of timing overlap
+        command_delivery_status:
+          type: string
+          description: "delivery status of the command sent to Envoy.\n\t\n-Scheduled : Command is not sent yet or sent to envoy or sent to envoy but not completed yet by envoy\n\t\n-Delivered : Command is completed by envoy\n\t\n-Failed : Command is sent to envoy but expired at envoy\n\t\n-Cancelled : Command is not sent to envoy (for example, service is down or event is deleted etc\n"
+          enum:
+          - Scheduled
+          - Delivered
+          - Failed
+          - Cancelled
+        measuring_reference:
+          type: string
+          description: Measuring Reference
+          enum:
+          - ASSET
+          - SITE
+        export_limit:
+          type: integer
+          description: Export limit for PV
+          format: int32
+    EventOptoutOptinRequest:
+      required:
+      - optout
+      - site_id
+      type: object
+      properties:
+        site_id:
+          type: integer
+          description: Site id which needs to be opted out/in from the event
+          format: int32
+        optout:
+          type: boolean
+          description: optout flag for the request. true for optout and false for optin
+    EventCreateRequestV2:
+      required:
+      - functions
+      - measuring_reference
+      - program_id
+      type: object
+      properties:
+        program_id:
+          type: string
+          description: 'Unique ID of the program
+
+            '
+        vpp_ids:
+          uniqueItems: true
+          type: array
+          description: 'List of VPP IDs; Only one of the site_ids and vpp_ids must be passed
+
+            '
+          items:
+            type: string
+            description: 'List of VPP IDs; Only one of the site_ids and vpp_ids must be passed
+
+              '
+        measuring_reference:
+          type: string
+          description: 'measuring reference of the event; Supported values are {ASSET, SITE}
+
+            measuring reference SITE is required in case of export limiting.
+
+            For individual Asset/Function level control, measuring reference is ASSET
+
+            '
+          enum:
+          - ASSET
+          - SITE
+        functions:
+          type: array
+          description: 'List of supported functions; Supported values are {BATTERY, PV, HP, EVSE}
+
+            For individual Asset/Function level control, measuring reference is ASSET
+
+            '
+          items:
+            type: string
+            description: 'List of supported functions; Supported values are {BATTERY, PV, HP, EVSE}
+
+              For individual Asset/Function level control, measuring reference is ASSET
+
+              '
+            enum:
+            - BATTERY
+            - PV
+            - EVSE
+            - HP
+        rate_watt:
+          type: integer
+          description: "If functions is PV, specifies the PV curtailment level; If rate_watt is negative or 0, PV curtailment will be set to 0; If rate_watt is positive, PV curtailment will be set to min (PV capacity, rate_watt)\n\t\nIf functions is BATTERY, specifies the battery power; Positive for discharge events, Negative for charge events, and 0 for Idle event; If rate_watt is greater than rated power, it will be set to rated power\n\t\nIf function is HP, this is not applicable\n\t\nIf function is EVSE, specifies the charge rate for EV; Negative or zero for Charge mode, limits charging to set rate_watt; not required for Dont_Charge mode;If rate_watt value is greater than EV's rated power, then charging is limited to rated power;\n"
+          format: int32
+        mode:
+          type: string
+          description: "\tMode for the event; Mandatory if functions is  HP/EVSE, optional in case of Battery and not applicable in case of PV\n\n\tIf function is BATTERY,\n\t\t1. If mode is not passed, it is set to 'Discharge to Load and Grid' if rate_watt is positive\n\t\t2. If mode is not passed, it is set to 'Charge from PV and Grid' if rate_watt is negative\n\t\t3. If mode is not passed, it is set to 'Idle' if rate_watt is 0\n\t\t4. If mode is passed, rate_watt must be positive for discharge events, negative for charge events, 0 for Idle event\n\n\tIf function is BATTERY, supported modes are:\n\t\tIdle\n\t\tCharge_From_PV\n\t\tCharge_From_NetPV\n\t\tCharge_From_PV_Grid\n\t\tDischarge_To_Load\n\t\tDischarge_To_NetLoad\n\t\tDischarge_To_Load_Grid\n\n\tIf function is HP, supported modes are as per SG ready modes:\n\t\tMODE_1\n\t\tMODE_2\n\t\tMODE_3\n\t\tMODE_4\n\n\tIf function is EVSE, supported mode are:\n\t\tCharge\n\t\tDont_Charge\n"
+          enum:
+          - Charge_From_PV
+          - Charge_From_NetPV
+          - Charge_From_PV_Grid
+          - Discharge_To_Load
+          - Discharge_To_NetLoad
+          - Discharge_To_Load_Grid
+          - Idle
+          - Charge
+          - Dont_Charge
+          - MODE_1
+          - MODE_2
+          - MODE_3
+          - MODE_4
+        target_soc:
+          type: integer
+          description: "\tApplicable if functions is BATTERY\n\t% SOC at which event should end.\n\tIt is the upper limit for charge modes.\n\tIt is the lower limit for discharge modes.\n\tIt is not applicable for Idle mode\n"
+          format: int32
+        start_time:
+          type: string
+          description: "\tStart time of the event;\n\tIf it not sent, it is set to the current time rounded to the next minute\n\tStart time must be within 7 days\n"
+        end_time:
+          type: string
+          description: "\tEnd time of the event;\n\tOptional but one of end_time or duration must be passed\n\tMaximum supported event duration is 300 mins and minimum supported event duration is 5 mins\n"
+        duration:
+          type: integer
+          description: "\tOptional but one of end_time or duration must be passed; Value in minutes\n\tMaximum supported event duration is 300 mins and minimum supported event duration is 1 mins\n"
+          format: int32
+        superseded:
+          type: boolean
+          description: 'Overrides an existing event if true in case of timing overlap
+
+            '
+        evse_serial_no:
+          type: string
+          description: "\tSerial Number of the individual EVSE\n"
+        site_ids:
+          uniqueItems: true
+          type: array
+          description: 'List of all the Site IDs in the event; Only one of the site_ids and vpp_ids must be passed
+
+            '
+          items:
+            type: integer
+            description: 'List of all the Site IDs in the event; Only one of the site_ids and vpp_ids must be passed
+
+              '
+            format: int32
+        export_limit:
+          minimum: 0
+          type: integer
+          description: 'When measuring reference is SITE, this field specifies the site export limit; it should be zero or positive only
+
+            '
+          format: int32
+      description: New event details
+    EventsListResponse:
+      type: object
+      properties:
+        program_id:
+          type: string
+        total_count:
+          type: integer
+          format: int32
+        eventList:
+          type: array
+          items:
+            $ref: '#/components/schemas/GsApiVppEventResponse'
+    EventOptoutOptinResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        event_id:
+          type: string
+        site_id:
+          type: integer
+          format: int32
+    EventUpdateRequest:
+      type: object
+      properties:
+        target_soc:
+          type: integer
+          description: '% SOC at which event should end. Upper limit for charge modes and lower limit for discharge modes. Not applicable for Idle mode'
+          format: int32
+        rate_watt:
+          type: integer
+          description: Charge or discharge rate; Not Applicable only in case of Idle mode
+          format: int32
+      description: 'Update event details '
+    EventCreateRequest:
+      required:
+      - end_time
+      - function
+      - mode
+      - program_id
+      - start_time
+      - superseded
+      type: object
+      properties:
+        program_id:
+          type: string
+          description: unique id of the program
+        site_id:
+          type: integer
+          description: Site id for the event. One of site_id, vpp_ids or site_ids is required
+          format: int32
+        vpp_ids:
+          uniqueItems: true
+          type: array
+          description: Vpp ids for the event. One of site_id, vpp_ids or site_ids is required
+          items:
+            type: string
+            description: Vpp ids for the event. One of site_id, vpp_ids or site_ids is required
+        function:
+          type: string
+          description: List of supported functions
+          enum:
+          - BATTERY
+        mode:
+          type: string
+          description: Battery mode for the event
+          enum:
+          - Charge_From_PV
+          - Charge_From_NetPV
+          - Charge_From_PV_Grid
+          - Discharge_To_Load
+          - Discharge_To_NetLoad
+          - Discharge_To_Load_Grid
+          - Idle
+        target_soc:
+          type: integer
+          description: '% SOC at which event should end. Upper limit for charge modes and lower limit for discharge modes. Not applicable for Idle mode'
+          format: int32
+        rate_watt:
+          type: integer
+          description: Charge or discharge rate; Not Applicable only in case of Idle mode
+          format: int32
+        start_time:
+          type: string
+          description: Date and time at which the event starts. The format is yyyy-MM-dd HH:mm and time zone is iso time in UTC
+        end_time:
+          type: string
+          description: Date and time at which the event ends. The format is yyyy-MM-dd HH:mm and time zone is iso time in UTC
+        superseded:
+          type: boolean
+          description: Overrides an existing event if true in case of timing overlap
+        site_ids:
+          uniqueItems: true
+          type: array
+          description: List of site ids for the event. One of site_id, vpp_ids or site_ids is required
+          items:
+            type: integer
+            description: List of site ids for the event. One of site_id, vpp_ids or site_ids is required
+            format: int32
+      description: New event details
+    EventResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        event_id:
+          type: string
+        name:
+          type: string
+        no_of_sites:
+          type: integer
+          format: int32
+        program_id:
+          type: string
+        total_watts:
+          type: integer
+          format: int32
+    GsApiVppEventResponse:
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: unique id of the event
+        name:
+          type: string
+          description: name of the event
+        program_id:
+          type: string
+          description: unique id of the program
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/GsApiEventResponse'

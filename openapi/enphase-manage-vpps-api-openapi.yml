@@ -1,0 +1,700 @@
+openapi: 3.2.0
+info:
+  title: Reference Manage VPPs API
+  description: Integrate the VPP API into your application
+  version: 1.1.0
+servers:
+- url: https://vpp.enphaseenergy.com
+tags:
+- name: Manage VPPs
+  description: Manage VPPs API
+paths:
+  /api/v1/vpps/{vpp_id}:
+    get:
+      tags:
+      - Manage VPPs
+      summary: Retrieve details of a VPP
+      description: 'Returns details of a VPP based on the inputted vpp_id.
+
+        The API provides information on VPP created and update time along with the systems count,
+
+        systems list, total energy in kWh and total power in kW.
+
+        If no VPP is associated with the id, a 404 will be returned.
+
+        '
+      operationId: getVPPByKey
+      parameters:
+      - name: fetchLatestValues
+        in: query
+        description: Set to true to fetch the latest values for available_power and available_energy.Defaults to false.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: vpp_id
+        in: path
+        description: Unique ID of the VPP
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: VPP retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GsApiVPP'
+              example:
+                name: All Systems*
+                query:
+                  tags:
+                    POSTAL_CODE:
+                    - T3L 2G9
+                    STATE:
+                    - RI
+                  operator: AND
+                vpp_id: All Systems*_Demo_Test_Program_Demo_Utility_MA
+                created_at: '2022-02-17T12:59:32.161+00:00'
+                updated_at: '2022-04-19T17:00:00.768+00:00'
+                total_energy_kwh: 0
+                total_power_kw: 0
+                available_energy_kwh: 0
+                available_power_kw: 0
+                site_ids: []
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"VPP not found with key XYZ\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Account Id does not match with VPP Creator\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+    put:
+      tags:
+      - Manage VPPs
+      summary: Update an existing VPP in a program
+      description: 'Update an existing VPP in a program based on the inputted VPP_ID.
+
+        The update can be done by grouping sites based on system-defined parameters
+
+        such as STATE, CITY, SITE_IDS, and ZIP/POSTAL_CODE (only one of ZIP or postal code).
+
+        For each parameter, if multiple values are specified, ''OR'' is used as the operator.
+
+        For example, if multiple ZIP/POSTAL_CODE values are specified, all sites in those areas
+
+        will be part of the VPP. ''All systems'' VPP that is created by default during program
+
+        creation cannot be updated.
+
+        '
+      operationId: updateVPP
+      parameters:
+      - name: vpp_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VPPUpdateRequest'
+            examples:
+              example-0:
+                value: "{\n    \"query\": {\n    \"tags\": {\n    \"STATE\": [\n    \"RI\"\n    ],\n    \"POSTAL_CODE\" : [\"T3L 2G9\"]\n    },\n    \"operator\": \"AND\"\n    }\n}\n"
+              example-1:
+                value: "{\n    \"query\": {\n    \"tags\": {\n    \"STATE\": [\n    \"RI\"\n    ],\n    \"ZIP\" : [\"T3L 2G9\"]\n    },\n    \"operator\": \"AND\"\n    }\n}\n"
+              example-2:
+                value: "{\n\t\"query\": {\n\t\t\"tags\": {\n\t\t\t\"SITE_IDS\": [\n\t\t\t\t\"13487\",\n\t\t\t\t\"54688\",\n\t\t\t\t\"954859\"\n\t\t\t]\n\t\t},\n\t\t\"operator\": \"OR\"\n\t}\n}\n"
+        required: true
+      responses:
+        '200':
+          description: VPP updated successfully
+          content:
+            '*/*':
+              schema:
+                type: string
+              example: 'VPP: {test} updated successfully!'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Query cannot be empty\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"VPP state: XYZ is outside the progam state: XY\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Tags in Query aren't valid. Valid tags are [STATE, CITY, ZIP, POSTAL_CODE, SITE_IDS]\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"VPP not found with key XYZ\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Account Id does not match with VPP Creator\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Permission Denied to update the VPP\",\n  \"additionalInfo\": \"You are not allowed to update All Systems* VPP. Please contact your service provider.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+    delete:
+      tags:
+      - Manage VPPs
+      summary: Delete VPP by vpp id
+      description: 'Delete an existing VPP in a program based on the inputted VPP_ID.
+
+        ''All systems'' VPP that is created by default during program creation cannot be deleted.
+
+        '
+      operationId: deleteVPPByKey
+      parameters:
+      - name: vpp_id
+        in: path
+        description: Unique ID of the VPP
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: VPP deleted successfully
+          content:
+            '*/*':
+              schema:
+                type: string
+              example: VPP with id ABC test vpp ABC_Test_Program_ABC deleted successfully
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Permission Denied to delete the VPP\",\n  \"additionalInfo\": \"You are not allowed to delete All Systems* VPP. Please contact your service provider.\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"VPP not found with key XYZ\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Account Id does not match with VPP Creator\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/vpps:
+    get:
+      tags:
+      - Manage VPPs
+      summary: Retrieve all VPPs of a program
+      description: 'Returns a paginated list of all the VPPs of a program based on the inputted program_id.
+
+        The API provides information on VPP created and update time along with the systems count,
+
+        total energy in kWh and total power in kW. ''All systems'' VPP that is created by default
+
+        during program creation is always retrieved.
+
+        '
+      operationId: getAllVPPByKey
+      parameters:
+      - name: program_id
+        in: query
+        description: Unique ID of the program
+        required: true
+        schema:
+          type: string
+      - name: page_no
+        in: query
+        description: Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: page_size
+        in: query
+        description: Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: All VPPs in the program retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VPPsListResponse'
+              example:
+                total: 1
+                vpps:
+                - name: All Systems*
+                  query:
+                    tags:
+                      POSTAL_CODE:
+                      - T3L 2G9
+                      STATE:
+                      - RI
+                    operator: AND
+                  vpp_id: All Systems*_Demo_Test_Program_Demo_Utility_MA
+                  created_at: '2022-02-17T12:59:32.161+00:00'
+                  updated_at: '2022-04-19T17:00:00.768+00:00'
+                  total_systems: 0
+                  total_energy_kwh: 0
+                  total_power_kw: 0
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Pagination Variables are incorrect. Page number starts from 1 and page size must be less than 101\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+    post:
+      tags:
+      - Manage VPPs
+      summary: Create a new VPP in a program
+      description: "Create a new VPP in a program by grouping sites based on system-defined parameters such as\nSTATE, CITY, SITE_IDS, and ZIP/POSTAL_CODE (only one of ZIP or postal code).\nFor each parameter, if multiple values are specified, 'OR' is used as the operator.\nFor example, if multiple ZIP/POSTAL_CODE values are specified, all sites in those areas\nwill be part of the VPP. VPP name can contain only space, underscore (_), hyphen (-), asterisk (*) as\n special characters along with any alphanumeric characters.\n"
+      operationId: createVPP
+      parameters:
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VPPCreateRequest'
+            examples:
+              example-0:
+                value: "{\n    \"program_id\":\"test\",\n    \"name\": \"Test VPP22\",\n    \"query\": {\n    \"tags\": {\n    \"STATE\": [\n    \"RI\"\n    ],\n    \"POSTAL_CODE\" : [\"T3L 2G9\"]\n    },\n    \"operator\": \"AND\"\n    }\n}\n"
+              example-1:
+                value: "{\n    \"program_id\":\"test\",\n    \"name\": \"Test VPP22\",\n    \"query\": {\n    \"tags\": {\n    \"STATE\": [\n    \"RI\"\n    ],\n    \"ZIP\": [\"T3L 2G9\"]\n    },\n    \"operator\": \"AND\"\n    }\n}\n"
+              example-2:
+                value: "{\n\t\"program_id\": \"test\",\n\t\"name\": \"Test VPP22\",\n\t\"query\": {\n\t\t\"tags\": {\n\t\t\t\"SITE_IDS\": [\n\t\t\t\t\"13487\",\n\t\t\t\t\"54688\",\n\t\t\t\t\"954859\"\n\t\t\t]\n\t\t},\n\t\t\"operator\": \"OR\"\n\t}\n}\n"
+        required: true
+      responses:
+        '200':
+          description: VPP created successfully
+          content:
+            '*/*':
+              schema:
+                type: string
+              example: 'VPP: {test} created successfully in Program with program_id = {test}!'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Name,Query or Program_id were not appropriate\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Tags in Query aren't valid. Valid tags are [STATE, CITY, ZIP, POSTAL_CODE, SITE_IDS]\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"VPP state is outside the progam state: XY\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Zip code was not in accepted format. It must be a 5 character length string with only numeric values.\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"VPP name can contain only space, underscore (_), hyphen (-), asterisk (*) as special characters\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-6:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-7:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-8:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-9:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+components:
+  schemas:
+    SitesQuery:
+      required:
+      - operator
+      - tags
+      type: object
+      properties:
+        tags:
+          type: object
+          additionalProperties:
+            type: array
+            description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
+            items:
+              type: string
+              description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
+          description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
+        operator:
+          type: string
+          description: LogicalOperator Enum - Enrollment Manager | Grid Services
+          enum:
+          - AND
+          - OR
+      description: Sites Query Model - VPP Manager | Grid Services
+    GsApiVPP:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of the VPP
+        query:
+          $ref: '#/components/schemas/SitesQuery'
+        vpp_id:
+          type: string
+          description: unique id of the VPP
+        created_at:
+          type: string
+          description: date and time at which the VPP is created
+          format: date-time
+        updated_at:
+          type: string
+          description: date and time at which the VPP is updated
+          format: date-time
+        program_id:
+          type: string
+          description: unique ID of the program
+        total_systems:
+          type: integer
+          description: total count of the systems in the VPP
+          format: int32
+        total_energy_kwh:
+          type: number
+          description: total energy of the VPP aggregated across the systems in it
+          format: double
+        total_power_kw:
+          type: number
+          description: total power of the VPP aggregated across the systems in it
+          format: double
+        available_energy_kwh:
+          type: number
+          description: available energy of the VPP aggregated across the systems in it
+          format: double
+        available_power_kw:
+          type: number
+          description: available power of the VPP aggregated across the systems in it
+          format: double
+        site_ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+    VPPCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of the VPP
+        query:
+          $ref: '#/components/schemas/SitesQuery'
+        program_id:
+          type: string
+          description: unique ID of the program
+    VPPUpdateRequest:
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/SitesQuery'
+    VPPsListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        vpps:
+          type: array
+          items:
+            $ref: '#/components/schemas/GsApiVPP'

@@ -1,0 +1,420 @@
+openapi: 3.2.0
+info:
+  title: Reference Programs API
+  description: Integrate the VPP API into your application
+  version: 1.1.0
+servers:
+- url: https://vpp.enphaseenergy.com
+tags:
+- name: Programs
+  description: Programs API
+paths:
+  /api/v1/programs:
+    get:
+      tags:
+      - Programs
+      summary: Retrieve all programs under an account
+      description: Returns a paginated list of all programs under an account and total count of programs
+      operationId: getAllPrograms
+      parameters:
+      - name: page_no
+        in: query
+        description: Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned
+        required: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int32
+          default: 1
+      - name: page_size
+        in: query
+        description: Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: integer
+          format: int32
+          default: 10
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: All the programs are retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProgramsListResponse'
+              example:
+                total_count: 1
+                programs:
+                - name: test program
+                  description: This is a test program
+                  program_status: approved
+                  program_id: test
+                  state: VT
+                  utility_name: test
+                  incentive_structure:
+                    UPFRONT_DISCOUNT: '10'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Pagination Variables are incorrect. Page number should starts from 1 and page size should be between 1 and 100\",\n  \"additionalInfo\": \"Pagination Variables are incorrect. Page number should starts from 1 and page size should be between 1 and 100\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Retrieval of programs causing error, check correctness of data\",\n  \"additionalInfo\": null,\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+  /api/v1/programs/{program_id}:
+    get:
+      tags:
+      - Programs
+      summary: Retrieve individual program details by program_id
+      description: Returns program details based on the inputted program_id
+      operationId: getProgramByKey
+      parameters:
+      - name: program_id
+        in: path
+        description: Unique identifier for a program
+        required: true
+        schema:
+          type: string
+      - name: x-api-key
+        in: header
+        description: Unique API Key of your account
+        required: true
+        schema:
+          type: string
+        example: your-api-key-here
+      - name: Authorization
+        in: header
+        description: access_token generated from auth API must be passed as Authorization header
+        required: true
+        schema:
+          type: string
+        example: Bearer your-access-token
+      responses:
+        '200':
+          description: All the programs are retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GsApiProgram'
+              example:
+                event_cancellation_allowed_for_upcoming_events: false
+                event_ending_allowed_for_ongoing_event: false
+                name: test program
+                description: This is a test program
+                program_end_date: '2025-05-21'
+                min_envoyversion: D7.3.120
+                program_status: approved
+                program_id: test
+                program_types:
+                - DISPATCH
+                state: VT
+                utility_name: test
+                incentive_structure:
+                  UPFRONT_DISCOUNT: '10'
+                seasons:
+                - frequency: 60
+                  name: summer
+                  duration: Jan to Jun
+                  start_month: JAN
+                  end_month: JUN
+                  performance_incentives_per_kw: 225
+                asset_type:
+                - PV
+                - BATTERY
+                min_allowed_soc: 10
+                creation_date_time: 02/17/2022 12:39:01 PM
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Type Mismatch\",\n  \"additionalInfo\": \"Cannot cast the parameter to required type xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Missing Parameter\",\n  \"additionalInfo\": \"Required xxx parameter abc is not present\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-2:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Constraint Violation\",\n  \"additionalInfo\": \"xxxx\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Content-Type invalid\",\n  \"additionalInfo\": \"Content type xxx not supported\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"400\",\n  \"displayMessage\": \"Request headers or parameters are not appropriate\",\n  \"additionalInfo\": \"Request headers or parameters are not appropriate. Please check request headers and parameters\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"Authorization is not provided or invalid\",\n  \"additionalInfo\": \"Authorization is not provided or invalid. Please check your Authorization\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"401\",\n  \"displayMessage\": \"You are not authorized for this access\",\n  \"additionalInfo\": \"You are not authorized for this access. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"message\": \"Forbidden\"\n}"
+                case-2:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not provided or invalid\",\n  \"additionalInfo\": \"x-api-key is not provided or invalid. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-3:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"No account found for specified Authorization\",\n  \"additionalInfo\": \"No account found for specified Authorization. Please check your access_token\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-4:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"x-api-key is not valid for this account\",\n  \"additionalInfo\": \"x-api-key is not valid for this account. Please check your x-api-key\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-5:
+                  value: "{\n  \"code\": \"403\",\n  \"displayMessage\": \"You do not have access to this resource\",\n  \"additionalInfo\": \"You do not have access to this resource. Please check your access\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Please provide valid Program ID\",\n  \"additionalInfo\": \"Please provide valid Program ID\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+                case-1:
+                  value: "{\n  \"code\": \"404\",\n  \"displayMessage\": \"Requested resource Not Found\",\n  \"additionalInfo\": \"Requested resource Not Found. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              examples:
+                case-0:
+                  value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
+components:
+  schemas:
+    Season:
+      required:
+      - duration
+      - name
+      type: object
+      properties:
+        frequency:
+          type: integer
+          format: int32
+        name:
+          type: string
+        duration:
+          type: string
+        start_month:
+          type: string
+          description: Month Enum - Enrollment Manager | Grid Services
+          enum:
+          - JAN
+          - FEB
+          - MAR
+          - APR
+          - MAY
+          - JUN
+          - JUL
+          - AUG
+          - SEP
+          - OCT
+          - NOV
+          - DEC
+        end_month:
+          type: string
+          description: Month Enum - Enrollment Manager | Grid Services
+          enum:
+          - JAN
+          - FEB
+          - MAR
+          - APR
+          - MAY
+          - JUN
+          - JUL
+          - AUG
+          - SEP
+          - OCT
+          - NOV
+          - DEC
+        performance_incentives_per_kw:
+          type: number
+          format: double
+      description: list of seasons
+    GsApiProgram:
+      type: object
+      properties:
+        description:
+          type: string
+          description: description of the program
+        program_end_date:
+          type: string
+          description: end date of the program
+        event_cancellation_allowed_for_upcoming_events:
+          type: boolean
+          description: Program config that specifies if upcoming events can be cancelled
+        event_ending_allowed_for_ongoing_event:
+          type: boolean
+          description: Program config that specifies if ongoing events can be stopped
+        min_envoyversion:
+          type: string
+          description: minimum supported version
+        name:
+          type: string
+          description: name of the program
+        program_status:
+          type: string
+          description: ProgramApplicationStatus Enum - Program Manager | Grid Services
+          enum:
+          - pending
+          - rejected
+          - approved
+        program_id:
+          type: string
+          description: unique id of the program
+        program_types:
+          type: array
+          description: type of program
+          items:
+            type: string
+            description: ProgramApplicationStatus Enum - Program Manager | Grid Services
+            enum:
+            - DATA_ONLY
+            - DATA_AND_DISPATCH
+            - DISPATCH
+            - SELF_CONSUMPTION
+        seasons:
+          type: array
+          description: list of seasons
+          items:
+            $ref: '#/components/schemas/Season'
+        state:
+          type: string
+          description: state code of the program
+        utility_name:
+          type: string
+          description: name of utility administering the program
+        incentive_structure:
+          type: object
+          additionalProperties:
+            type: string
+            description: incentive structure of the program
+          description: incentive structure of the program
+        creation_date_time:
+          type: string
+          description: date and time at which the program is created
+        asset_type:
+          type: array
+          description: 'Supported asset types under the program; Possible values are "PV", "BATTERY"
+
+            '
+          items:
+            type: string
+            description: 'Supported asset types under the program; Possible values are "PV", "BATTERY"
+
+              '
+            enum:
+            - BATTERY
+            - PV
+            - EVSE
+            - HP
+        min_allowed_soc:
+          type: integer
+          description: min allowed soc for event creation
+          format: int32
+          default: 10
+    ProgramsListResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          format: int32
+        programs:
+          type: array
+          items:
+            $ref: '#/components/schemas/GsApiListProgram'
+    GsApiListProgram:
+      type: object
+      properties:
+        description:
+          type: string
+          description: description of the program
+        name:
+          type: string
+          description: name of the program
+        program_status:
+          type: string
+          description: ProgramApplicationStatus Enum - Program Manager | Grid Services
+          enum:
+          - pending
+          - rejected
+          - approved
+        program_id:
+          type: string
+          description: unique id of the program
+        state:
+          type: string
+          description: state code of the program
+        utility_name:
+          type: string
+          description: name of utility administering the program
+        incentive_structure:
+          type: object
+          additionalProperties:
+            type: string
+            description: incentive structure of the program
+          description: incentive structure of the program
