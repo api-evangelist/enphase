@@ -226,7 +226,8 @@ apis:
     url: https://developer-v4.enphase.com/vpp-plans
 - aid: enphase:enphase-device-level-monitoring-api
   name: Enphase Energy Device Level Monitoring API
-  description: The Device Level Monitoring API from Enphase Energy — 7 operation(s) for device level monitoring.
+  description: >-
+    The Device Level Monitoring API from Enphase Energy — 7 operation(s) for device level monitoring.
   humanURL: https://developer-v4.enphase.com/docs/monitoring_api
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
@@ -328,7 +329,8 @@ apis:
     url: https://developer-v4.enphase.com/vpp-plans
 - aid: enphase:enphase-ev-charger-monitoring-api
   name: Enphase Energy EV Charger Monitoring API
-  description: The EV Charger Monitoring API from Enphase Energy — 6 operation(s) for ev charger monitoring.
+  description: >-
+    The EV Charger Monitoring API from Enphase Energy — 6 operation(s) for ev charger monitoring.
   humanURL: https://developer-v4.enphase.com/docs/monitoring_api
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
@@ -670,7 +672,9 @@ apis:
     url: https://developer-v4.enphase.com/vpp-plans
 - aid: enphase:enphase-site-level-consumption-monitoring-api
   name: Enphase Energy Site Level Consumption Monitoring API
-  description: The Site Level Consumption Monitoring API from Enphase Energy — 11 operation(s) for site level consumption monitoring.
+  description: >-
+    The Site Level Consumption Monitoring API from Enphase Energy — 11 operation(s) for site level consumption
+    monitoring.
   humanURL: https://developer-v4.enphase.com/docs/monitoring_api
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
@@ -704,7 +708,9 @@ apis:
     url: https://developer-v4.enphase.com/vpp-plans
 - aid: enphase:enphase-site-level-production-monitoring-api
   name: Enphase Energy Site Level Production Monitoring API
-  description: The Site Level Production Monitoring API from Enphase Energy — 5 operation(s) for site level production monitoring.
+  description: >-
+    The Site Level Production Monitoring API from Enphase Energy — 5 operation(s) for site level production
+    monitoring.
   humanURL: https://developer-v4.enphase.com/docs/monitoring_api
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
@@ -806,7 +812,8 @@ apis:
     url: https://developer-v4.enphase.com/vpp-plans
 - aid: enphase:enphase-system-configurations-api
   name: Enphase Energy System Configurations API
-  description: The System Configurations API from Enphase Energy — 4 operation(s) for system configurations.
+  description: >-
+    The System Configurations API from Enphase Energy — 4 operation(s) for system configurations.
   humanURL: https://developer-v4.enphase.com/docs/monitoring_api
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
@@ -978,9 +985,12 @@ apis:
     url: https://developer-v4.enphase.com/vpp-plans
 - aid: enphase:enphase-enlighten-commissioning-api
   name: Enphase Enlighten Commissioning API
-  description: 'The Commissioning API is the installer-facing companion to the Monitoring API. Available to Partner-plan customers (qualifying installers with 10+ installations), it allows activation creation and updates, company and user management, tariff and rate plan updates, and other administrative controls used to streamline Enlighten activation workflows from field tools. OAuth 2.0 authorization with the same authorize/token endpoints as the Monitoring API.
-
-    '
+  description: >
+    The Commissioning API is the installer-facing companion to the Monitoring API. Available to Partner-plan
+    customers (qualifying installers with 10+ installations), it allows activation creation and updates,
+    company and user management, tariff and rate plan updates, and other administrative controls used
+    to streamline Enlighten activation workflows from field tools. OAuth 2.0 authorization with the same
+    authorize/token endpoints as the Monitoring API.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://developer-v4.enphase.com/
   baseURL: https://api.enphaseenergy.com/api/v4
@@ -996,9 +1006,11 @@ apis:
     url: https://developer-v4.enphase.com/docs/quickstart.html
 - aid: enphase:enphase-enlighten-vpp-api
   name: Enphase VPP API
-  description: 'The Virtual Power Plant (VPP) API allows energy aggregators and utilities to create and manage VPPs that monitor, forecast, and control large fleets of distributed energy resources (DERs) including PV systems, batteries, EV chargers, heat pumps, and HVAC units. The API enables demand response programs and grid services across Enphase-connected homes and businesses.
-
-    '
+  description: >
+    The Virtual Power Plant (VPP) API allows energy aggregators and utilities to create and manage VPPs
+    that monitor, forecast, and control large fleets of distributed energy resources (DERs) including
+    PV systems, batteries, EV chargers, heat pumps, and HVAC units. The API enables demand response programs
+    and grid services across Enphase-connected homes and businesses.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://developer-v4.enphase.com/
   baseURL: https://api.enphaseenergy.com/api/v4
@@ -1011,28 +1023,30 @@ apis:
   properties:
   - type: Documentation
     url: https://developer-v4.enphase.com/docs/quickstart.html
-- aid: enphase:enphase-energy-device-level-production-monitoring-api
+- aid: enphase:enphase-device-level-production-monitoring-api
   name: Enphase Energy Device Level Production Monitoring API
-  description: The Device Level Production Monitoring API from Enphase Energy — 3 operation(s) for device level production monitoring.
-  humanURL: https://developer-v4.enphase.com/
+  description: >-
+    The Device Level Production Monitoring API from Enphase Energy — 1 operation(s) for device level production
+    monitoring.
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
   - Device Level Production Monitoring
   properties:
   - type: OpenAPI
-    url: openapi/enphase-energy-device-level-production-monitoring-api-openapi.yml
+    url: openapi/enphase-device-level-production-monitoring-api-openapi.yml
   - type: Documentation
     url: https://developer-v4.enphase.com/docs/quickstart.html
-- aid: enphase:enphase-energy-systems-api
+- aid: enphase:enphase-systems-api
   name: Enphase Energy Systems API
   description: The Systems API from Enphase Energy — 13 operation(s) for systems.
-  humanURL: https://developer-v4.enphase.com/
+  humanURL: https://developer-v4.enphase.com/docs/monitoring_api
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
   - Systems
   properties:
   - type: OpenAPI
-    url: openapi/enphase-energy-systems-api-openapi.yml
+    url: openapi/enphase-systems-api-openapi.yml
   - type: Documentation
     url: https://developer-v4.enphase.com/docs/quickstart.html
 common:
