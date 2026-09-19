@@ -919,6 +919,8 @@ apis:
   humanURL: https://developer-v4.enphase.com/docs/monitoring_api
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
+  - Tariffs
+  tags_raw:
   - Tariff
   properties:
   - type: OpenAPI
@@ -995,6 +997,13 @@ apis:
   humanURL: https://developer-v4.enphase.com/
   baseURL: https://api.enphaseenergy.com/api/v4
   tags:
+  - Solar
+  - Energy
+  - Commissioning
+  - Installer
+  - Activation
+  - Partners
+  tags_raw:
   - Solar
   - Energy
   - Commissioning
