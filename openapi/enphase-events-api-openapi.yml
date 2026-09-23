@@ -368,9 +368,7 @@ paths:
       summary: Optout-Optin site from the event
       description: 'Optout/Optin site from the event. Site can be opted out only for the scheduled events.
 
-        Optout/Optin is allowed only up to 1 minute before the event start time.
-
-        '
+        Optout/Optin is allowed only up to 1 minute before the event start time.'
       operationId: optOutOptInEvent
       parameters:
       - name: event_id
@@ -712,9 +710,7 @@ paths:
 
         If the function is EVSE, charge mode can be configured for the EVSE.
 
-        Superseded flag can be used for site level events to override existing site level events. If superseded is false and there is an overlap with existing event, the new event will not be considered.
-
-        '
+        Superseded flag can be used for site level events to override existing site level events. If superseded is false and there is an overlap with existing event, the new event will not be considered.'
       operationId: createEvent
       parameters:
       - name: x-api-key
@@ -1090,9 +1086,7 @@ paths:
         Superseded flag can be used for site level events to override existing site level events. If superseded is false and there is an overlap with existing event, the new event will not be considered.
 
 
-        Recommendation: When events are created for a list of sites or VPPs, ensure that the number of sites are less than 500. As the number of sites increase, the latency of the API increases and might result in failure of event creation. If the number of sites are more than 500, recommendation is to split the VPP into smaller VPPs with each VPP size less than 500 sites.
-
-        '
+        Recommendation: When events are created for a list of sites or VPPs, ensure that the number of sites are less than 500. As the number of sites increase, the latency of the API increases and might result in failure of event creation. If the number of sites are more than 500, recommendation is to split the VPP into smaller VPPs with each VPP size less than 500 sites.'
       operationId: createEvent_1
       parameters:
       - name: x-api-key
@@ -1483,96 +1477,40 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
-    GsApiEventResponse:
+    EventOptoutOptinResponse:
       type: object
       properties:
+        message:
+          type: string
+        event_id:
+          type: string
         site_id:
-          type: string
-          description: Unique ID of the site
-        evse_serial_no:
-          type: string
-          description: Serial Number of the individual EVSE
-        event_status:
-          type: string
-          description: "current status of the event\n\t\n-scheduled : Event created and is yet to start\n\t\n-in_progress : Event created and has started\n\t\n-completed : Event started and end time has passed\n\t\n-stopped : Event stopped by creator after it has started\n\t\n-failed : Command not acknowledged by the gateway. VPP API cloud sends a command and waits for the status from gateway. If it expires, a retry is done; Retries are done up to 5 minutes from the event start time. If the command still does not succeed after 5 minutes, then it will be marked as failed\n\t\n-deleted : Event cancelled by creator before start time or Event cancelled by the system due to a completely overlapping event\n\t\n-optedout : HO opted out of the event\n"
-        failure_code:
-          type: string
-          description: Event failure code
-        failure_reason:
-          type: string
-          description: Reason for the event failure
-        start_time:
-          type: string
-          description: Date and time at which the event starts
-          format: date-time
-        end_time:
-          type: string
-          description: Date and time at which the event ends
-          format: date-time
-        created_at:
-          type: string
-          description: Date and time at which the event is created
-          format: date-time
-        completed_at:
-          type: string
-          description: Date and time at which the event is completed
-          format: date-time
-        cancelled_at:
-          type: string
-          description: Date and time on which the event is cancelled
-          format: date-time
-        cancellation_request:
-          type: string
-        function:
-          type: string
-          description: supported function for v1 api
-        functions:
-          type: array
-          description: List of supported functions
-          items:
-            type: string
-            description: List of supported functions
-            enum:
-            - BATTERY
-            - PV
-            - EVSE
-            - HP
-        duration:
           type: integer
-          description: Event duration in minutes
           format: int32
-        mode:
+    EventsListResponse:
+      type: object
+      properties:
+        program_id:
           type: string
-          description: "\tMode for the event; Mandatory if functions is  HP/EVSE, optional in case of BATTERY and not applicable in case of PV\n\n\tIf function is BATTERY,\n\t\t1. If mode is not passed, it is set to 'Discharge to Load and Grid' if rate_watt is positive\n\t\t2. If mode is not passed, it is set to 'Charge from PV and Grid' if rate_watt is negative\n\t\t3. If mode is not passed, it is set to 'Idle' if rate_watt is 0\n\t\t4. If mode is passed, rate_watt must be positive for discharge events, negative for charge events, 0 for Idle event\n\n\tIf function is BATTERY, supported modes are:\n\t\tIdle\n\t\tCharge_From_PV\n\t\tCharge_From_NetPV\n\t\tCharge_From_PV_Grid\n\t\tDischarge_To_Load\n\t\tDischarge_To_NetLoad\n\t\tDischarg_To_Load_Grid\n\n\tIf function is HP, supported modes are as per SG ready modes:\n\t\tMODE_1\n\t\tMODE_2\n\t\tMODE_3\n\t\tMODE_4\n\n\tIf function is EVSE, supported mode are:\n\t\tCharge\n\t\tDont_Charge\n"
+        total_count:
+          type: integer
+          format: int32
+        eventList:
+          type: array
+          items:
+            $ref: '#/components/schemas/GsApiVppEventResponse'
+    EventUpdateRequest:
+      type: object
+      properties:
         target_soc:
           type: integer
-          description: "\tApplicable if functions is BATTERY\n\t\t% SOC at which event should end.\n\t\tIt is the upper limit for charge modes.\n\t\tIt is the lower limit for discharge modes.\n\t\tIt is not applicable for Idle mode\n"
+          description: '% SOC at which event should end. Upper limit for charge modes and lower limit for discharge modes. Not applicable for Idle mode'
           format: int32
         rate_watt:
           type: integer
-          description: "Charge or discharge rate if functions is BATTERY. Not applicable for Idle mode\n\t\nSpecifies the curtailment level if functions is PV.\n\t\nNot applicable if functions is HP.\n\t\nNot applicable if functions is EVSE and mode is Dont_Charge.\n"
+          description: Charge or discharge rate; Not Applicable only in case of Idle mode
           format: int32
-        superseded:
-          type: boolean
-          description: Overrides an existing event if true in case of timing overlap
-        command_delivery_status:
-          type: string
-          description: "delivery status of the command sent to Envoy.\n\t\n-Scheduled : Command is not sent yet or sent to envoy or sent to envoy but not completed yet by envoy\n\t\n-Delivered : Command is completed by envoy\n\t\n-Failed : Command is sent to envoy but expired at envoy\n\t\n-Cancelled : Command is not sent to envoy (for example, service is down or event is deleted etc\n"
-          enum:
-          - Scheduled
-          - Delivered
-          - Failed
-          - Cancelled
-        measuring_reference:
-          type: string
-          description: Measuring Reference
-          enum:
-          - ASSET
-          - SITE
-        export_limit:
-          type: integer
-          description: Export limit for PV
-          format: int32
+      description: 'Update event details '
     EventOptoutOptinRequest:
       required:
       - optout
@@ -1703,40 +1641,113 @@ components:
             '
           format: int32
       description: New event details
-    EventsListResponse:
+    GsApiEventResponse:
       type: object
       properties:
-        program_id:
+        site_id:
           type: string
-        total_count:
-          type: integer
-          format: int32
-        eventList:
+          description: Unique ID of the site
+        evse_serial_no:
+          type: string
+          description: Serial Number of the individual EVSE
+        event_status:
+          type: string
+          description: "current status of the event\n\t\n-scheduled : Event created and is yet to start\n\t\n-in_progress : Event created and has started\n\t\n-completed : Event started and end time has passed\n\t\n-stopped : Event stopped by creator after it has started\n\t\n-failed : Command not acknowledged by the gateway. VPP API cloud sends a command and waits for the status from gateway. If it expires, a retry is done; Retries are done up to 5 minutes from the event start time. If the command still does not succeed after 5 minutes, then it will be marked as failed\n\t\n-deleted : Event cancelled by creator before start time or Event cancelled by the system due to a completely overlapping event\n\t\n-optedout : HO opted out of the event\n"
+        failure_code:
+          type: string
+          description: Event failure code
+        failure_reason:
+          type: string
+          description: Reason for the event failure
+        start_time:
+          type: string
+          description: Date and time at which the event starts
+          format: date-time
+        end_time:
+          type: string
+          description: Date and time at which the event ends
+          format: date-time
+        created_at:
+          type: string
+          description: Date and time at which the event is created
+          format: date-time
+        completed_at:
+          type: string
+          description: Date and time at which the event is completed
+          format: date-time
+        cancelled_at:
+          type: string
+          description: Date and time on which the event is cancelled
+          format: date-time
+        cancellation_request:
+          type: string
+        function:
+          type: string
+          description: supported function for v1 api
+        functions:
           type: array
+          description: List of supported functions
           items:
-            $ref: '#/components/schemas/GsApiVppEventResponse'
-    EventOptoutOptinResponse:
+            type: string
+            description: List of supported functions
+            enum:
+            - BATTERY
+            - PV
+            - EVSE
+            - HP
+        duration:
+          type: integer
+          description: Event duration in minutes
+          format: int32
+        mode:
+          type: string
+          description: "\tMode for the event; Mandatory if functions is  HP/EVSE, optional in case of BATTERY and not applicable in case of PV\n\n\tIf function is BATTERY,\n\t\t1. If mode is not passed, it is set to 'Discharge to Load and Grid' if rate_watt is positive\n\t\t2. If mode is not passed, it is set to 'Charge from PV and Grid' if rate_watt is negative\n\t\t3. If mode is not passed, it is set to 'Idle' if rate_watt is 0\n\t\t4. If mode is passed, rate_watt must be positive for discharge events, negative for charge events, 0 for Idle event\n\n\tIf function is BATTERY, supported modes are:\n\t\tIdle\n\t\tCharge_From_PV\n\t\tCharge_From_NetPV\n\t\tCharge_From_PV_Grid\n\t\tDischarge_To_Load\n\t\tDischarge_To_NetLoad\n\t\tDischarg_To_Load_Grid\n\n\tIf function is HP, supported modes are as per SG ready modes:\n\t\tMODE_1\n\t\tMODE_2\n\t\tMODE_3\n\t\tMODE_4\n\n\tIf function is EVSE, supported mode are:\n\t\tCharge\n\t\tDont_Charge\n"
+        target_soc:
+          type: integer
+          description: "\tApplicable if functions is BATTERY\n\t\t% SOC at which event should end.\n\t\tIt is the upper limit for charge modes.\n\t\tIt is the lower limit for discharge modes.\n\t\tIt is not applicable for Idle mode\n"
+          format: int32
+        rate_watt:
+          type: integer
+          description: "Charge or discharge rate if functions is BATTERY. Not applicable for Idle mode\n\t\nSpecifies the curtailment level if functions is PV.\n\t\nNot applicable if functions is HP.\n\t\nNot applicable if functions is EVSE and mode is Dont_Charge.\n"
+          format: int32
+        superseded:
+          type: boolean
+          description: Overrides an existing event if true in case of timing overlap
+        command_delivery_status:
+          type: string
+          description: "delivery status of the command sent to Envoy.\n\t\n-Scheduled : Command is not sent yet or sent to envoy or sent to envoy but not completed yet by envoy\n\t\n-Delivered : Command is completed by envoy\n\t\n-Failed : Command is sent to envoy but expired at envoy\n\t\n-Cancelled : Command is not sent to envoy (for example, service is down or event is deleted etc\n"
+          enum:
+          - Scheduled
+          - Delivered
+          - Failed
+          - Cancelled
+        measuring_reference:
+          type: string
+          description: Measuring Reference
+          enum:
+          - ASSET
+          - SITE
+        export_limit:
+          type: integer
+          description: Export limit for PV
+          format: int32
+    EventResponse:
       type: object
       properties:
         message:
           type: string
         event_id:
           type: string
-        site_id:
+        name:
+          type: string
+        no_of_sites:
           type: integer
           format: int32
-    EventUpdateRequest:
-      type: object
-      properties:
-        target_soc:
+        program_id:
+          type: string
+        total_watts:
           type: integer
-          description: '% SOC at which event should end. Upper limit for charge modes and lower limit for discharge modes. Not applicable for Idle mode'
           format: int32
-        rate_watt:
-          type: integer
-          description: Charge or discharge rate; Not Applicable only in case of Idle mode
-          format: int32
-      description: 'Update event details '
     EventCreateRequest:
       required:
       - end_time
@@ -1803,23 +1814,6 @@ components:
             description: List of site ids for the event. One of site_id, vpp_ids or site_ids is required
             format: int32
       description: New event details
-    EventResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        event_id:
-          type: string
-        name:
-          type: string
-        no_of_sites:
-          type: integer
-          format: int32
-        program_id:
-          type: string
-        total_watts:
-          type: integer
-          format: int32
     GsApiVppEventResponse:
       type: object
       properties:

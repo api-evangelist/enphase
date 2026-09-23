@@ -14,9 +14,7 @@ paths:
       tags:
       - Forecast
       summary: API to fetch energy forecasts and respective accuracy percentages
-      description: 'The API provides energy forecast for PV production, Consumption, Grid Energy, Battery Energy, and Battery SOC. Along with the forecast, the API also provides the estimate accuracy %. The forecast is available for individual VPPs or list of sites.
-
-        '
+      description: The API provides energy forecast for PV production, Consumption, Grid Energy, Battery Energy, and Battery SOC. Along with the forecast, the API also provides the estimate accuracy %. The forecast is available for individual VPPs or list of sites.
       operationId: getForecast
       parameters:
       - name: x-api-key
@@ -129,53 +127,6 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
-    ForecastResponse:
-      type: object
-      properties:
-        vpp_id:
-          type: string
-          description: VPP Id passed in the request
-        valid_sites_list:
-          type: array
-          description: sites enrolled in a program related to the user account and with forecast data
-          items:
-            type: integer
-            description: sites enrolled in a program related to the user account and with forecast data
-            format: int32
-        granularity:
-          type: string
-          description: Granularity passed in the request
-        duration:
-          type: string
-          description: Duration passed in the request
-        forecastData:
-          $ref: '#/components/schemas/ForecastData'
-        forecast_unavailable_sites_list:
-          type: array
-          description: sites enrolled in a program related to the user account and with no available forecast data
-          items:
-            type: integer
-            description: sites enrolled in a program related to the user account and with no available forecast data
-            format: int32
-        invalid_sites_list:
-          type: array
-          description: sites not enrolled in any program related to the user account
-          items:
-            type: integer
-            description: sites not enrolled in any program related to the user account
-            format: int32
-    ForecastData:
-      type: object
-      properties:
-        battery_capacity_wh:
-          type: number
-          description: Total usable battery capacity in watt-hours (Wh). Indicates the maximum energy storage of the on-site battery.
-          format: double
-        intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/ForecastTimeSeries'
-      description: aggregated forecast data for the sites
     ForecastTimeSeries:
       type: object
       properties:
@@ -262,6 +213,18 @@ components:
           type: number
           description: Estimated accuracy or confidence level of the Grid import & export forecast.
           format: double
+    ForecastData:
+      type: object
+      properties:
+        battery_capacity_wh:
+          type: number
+          description: Total usable battery capacity in watt-hours (Wh). Indicates the maximum energy storage of the on-site battery.
+          format: double
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForecastTimeSeries'
+      description: aggregated forecast data for the sites
     ForecastRequest:
       type: object
       properties:
@@ -284,3 +247,38 @@ components:
           type: string
           description: Required duration of forecast in hours. Possible values are 3H to 24H. Duration should be multiple of granularity.
           default: 3H
+    ForecastResponse:
+      type: object
+      properties:
+        vpp_id:
+          type: string
+          description: VPP Id passed in the request
+        valid_sites_list:
+          type: array
+          description: sites enrolled in a program related to the user account and with forecast data
+          items:
+            type: integer
+            description: sites enrolled in a program related to the user account and with forecast data
+            format: int32
+        granularity:
+          type: string
+          description: Granularity passed in the request
+        duration:
+          type: string
+          description: Duration passed in the request
+        forecastData:
+          $ref: '#/components/schemas/ForecastData'
+        forecast_unavailable_sites_list:
+          type: array
+          description: sites enrolled in a program related to the user account and with no available forecast data
+          items:
+            type: integer
+            description: sites enrolled in a program related to the user account and with no available forecast data
+            format: int32
+        invalid_sites_list:
+          type: array
+          description: sites not enrolled in any program related to the user account
+          items:
+            type: integer
+            description: sites not enrolled in any program related to the user account
+            format: int32

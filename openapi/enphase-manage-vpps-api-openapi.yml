@@ -20,9 +20,7 @@ paths:
 
         systems list, total energy in kWh and total power in kW.
 
-        If no VPP is associated with the id, a 404 will be returned.
-
-        '
+        If no VPP is associated with the id, a 404 will be returned.'
       operationId: getVPPByKey
       parameters:
       - name: fetchLatestValues
@@ -149,9 +147,7 @@ paths:
 
         will be part of the VPP. ''All systems'' VPP that is created by default during program
 
-        creation cannot be updated.
-
-        '
+        creation cannot be updated.'
       operationId: updateVPP
       parameters:
       - name: vpp_id
@@ -265,9 +261,7 @@ paths:
       summary: Delete VPP by vpp id
       description: 'Delete an existing VPP in a program based on the inputted VPP_ID.
 
-        ''All systems'' VPP that is created by default during program creation cannot be deleted.
-
-        '
+        ''All systems'' VPP that is created by default during program creation cannot be deleted.'
       operationId: deleteVPPByKey
       parameters:
       - name: vpp_id
@@ -368,9 +362,7 @@ paths:
 
         total energy in kWh and total power in kW. ''All systems'' VPP that is created by default
 
-        during program creation is always retrieved.
-
-        '
+        during program creation is always retrieved.'
       operationId: getAllVPPByKey
       parameters:
       - name: program_id
@@ -496,7 +488,17 @@ paths:
       tags:
       - Manage VPPs
       summary: Create a new VPP in a program
-      description: "Create a new VPP in a program by grouping sites based on system-defined parameters such as\nSTATE, CITY, SITE_IDS, and ZIP/POSTAL_CODE (only one of ZIP or postal code).\nFor each parameter, if multiple values are specified, 'OR' is used as the operator.\nFor example, if multiple ZIP/POSTAL_CODE values are specified, all sites in those areas\nwill be part of the VPP. VPP name can contain only space, underscore (_), hyphen (-), asterisk (*) as\n special characters along with any alphanumeric characters.\n"
+      description: 'Create a new VPP in a program by grouping sites based on system-defined parameters such as
+
+        STATE, CITY, SITE_IDS, and ZIP/POSTAL_CODE (only one of ZIP or postal code).
+
+        For each parameter, if multiple values are specified, ''OR'' is used as the operator.
+
+        For example, if multiple ZIP/POSTAL_CODE values are specified, all sites in those areas
+
+        will be part of the VPP. VPP name can contain only space, underscore (_), hyphen (-), asterisk (*) as
+
+        special characters along with any alphanumeric characters.'
       operationId: createVPP
       parameters:
       - name: x-api-key
@@ -603,28 +605,6 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
-    SitesQuery:
-      required:
-      - operator
-      - tags
-      type: object
-      properties:
-        tags:
-          type: object
-          additionalProperties:
-            type: array
-            description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
-            items:
-              type: string
-              description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
-          description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
-        operator:
-          type: string
-          description: LogicalOperator Enum - Enrollment Manager | Grid Services
-          enum:
-          - AND
-          - OR
-      description: Sites Query Model - VPP Manager | Grid Services
     GsApiVPP:
       type: object
       properties:
@@ -672,6 +652,28 @@ components:
           items:
             type: integer
             format: int32
+    SitesQuery:
+      required:
+      - operator
+      - tags
+      type: object
+      properties:
+        tags:
+          type: object
+          additionalProperties:
+            type: array
+            description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
+            items:
+              type: string
+              description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
+          description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
+        operator:
+          type: string
+          description: LogicalOperator Enum - Enrollment Manager | Grid Services
+          enum:
+          - AND
+          - OR
+      description: Sites Query Model - VPP Manager | Grid Services
     VPPCreateRequest:
       type: object
       properties:

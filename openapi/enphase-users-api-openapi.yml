@@ -221,6 +221,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4ActivationsByActivationIdUsersByUserId
+      x-operation-id-source: derived
     put:
       summary: Update user
       description: You must have access to the requested activation and user; otherwise a 401 is returned. The user is requested in the scope of an activation, then it must be the owner or the host of an activation the API user can manage (or) Users created by API user (or) Users who belong to your company or its branches. When 'company_id' is passed in the body param or the user company_id is already defined, we will not consider the 'enlighten_view' field value and the user will become an enlighten manager. You may change a user's company if you have access to the user, the old company, and the new company.
@@ -442,6 +444,8 @@ paths:
                 phone:
                   type: string
                   description: The telephone number of the user. Optional. Max length 255.
+      operationId: putApiV4ActivationsByActivationIdUsersByUserId
+      x-operation-id-source: derived
   /api/v4/users/search:
     get:
       summary: Search user
@@ -591,6 +595,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4UsersSearch
+      x-operation-id-source: derived
   /api/v4/partner/users/{user_id}:
     get:
       summary: Returns the requested user
@@ -814,6 +820,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4PartnerUsersByUserId
+      x-operation-id-source: derived
   /api/v4/partner/users/self:
     get:
       summary: Return the current logged in user detail
@@ -1032,3 +1040,5 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4PartnerUsersSelf
+      x-operation-id-source: derived

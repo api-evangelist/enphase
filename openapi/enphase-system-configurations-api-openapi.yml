@@ -10,7 +10,6 @@ paths:
   /api/v4/systems/config/{system_id}/battery_settings:
     get:
       summary: Returns the current battery settings of a system
-      description: Returns the current battery settings of a system
       parameters:
       - name: system_id
         in: path
@@ -202,6 +201,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsConfigBySystemIdBatterySettings
+      x-operation-id-source: derived
     put:
       summary: Updates the current battery settings of a system
       description: Updates the current battery settings of a system.
@@ -411,10 +412,11 @@ paths:
                 energy_independence:
                   type: string
                   description: 'Energy independence after peak hours "enabled"/"disabled" . Enabled: Battery will discharge to save money during peak hours when electricity rates are high. Once that is done, energy independence is prioritized. This will increase the energy self-sufficiency until the reserve soc is hit. Battery will charge from solar in the morning to get ready for the next period Disabled: Battery will discharge only during peak hours when electricity rates are high. During other times, battery will be idle or will charge from solar in the morning to get ready for the next period'
+      operationId: putApiV4SystemsConfigBySystemIdBatterySettings
+      x-operation-id-source: derived
   /api/v4/systems/config/{system_id}/storm_guard:
     get:
       summary: Returns the current storm guard settings of a system
-      description: Returns the current storm guard settings of a system
       parameters:
       - name: system_id
         in: path
@@ -594,6 +596,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsConfigBySystemIdStormGuard
+      x-operation-id-source: derived
     put:
       summary: Updates the current storm guard settings of a system
       description: Updates the current storm guard status of a system.
@@ -787,10 +791,11 @@ paths:
                   description: Overrides your battery profile to full backup mode when a severe weather condition alert is issued in the locality, can be enabled/disabled
               required:
               - storm_guard_status
+      operationId: putApiV4SystemsConfigBySystemIdStormGuard
+      x-operation-id-source: derived
   /api/v4/systems/config/{system_id}/grid_status:
     get:
       summary: Returns the current grid status of a system
-      description: Returns the current grid status of a system
       parameters:
       - name: system_id
         in: path
@@ -954,10 +959,11 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsConfigBySystemIdGridStatus
+      x-operation-id-source: derived
   /api/v4/systems/config/{system_id}/load_control:
     get:
       summary: Returns the current load control settings of a system
-      description: Returns the current load control settings of a system
       parameters:
       - name: system_id
         in: path
@@ -1160,6 +1166,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsConfigBySystemIdLoadControl
+      x-operation-id-source: derived
     put:
       summary: Updates the current load control settings of a system
       description: Updates the current load control settings of a system.
@@ -1411,3 +1419,5 @@ paths:
                   description: Applicable for scheduled mode. Time in seconds. Load will powered on between essential_start_time and essential_end_time
               required:
               - name
+      operationId: putApiV4SystemsConfigBySystemIdLoadControl
+      x-operation-id-source: derived

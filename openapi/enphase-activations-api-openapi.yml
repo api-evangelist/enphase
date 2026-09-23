@@ -9,7 +9,7 @@ tags:
 paths:
   /api/v4/activations/{activation_id}/battery_mode:
     get:
-      summary: API endpoint to get battery charge/discharge setting.
+      summary: API endpoint to get battery charge/discharge setting
       description: This endpoint can be used to get the CFG and DTG settings of the site.
       parameters:
       - name: activation_id
@@ -137,8 +137,10 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4ActivationsByActivationIdBatteryMode
+      x-operation-id-source: derived
     put:
-      summary: API endpoint to update battery charge/discharge setting.
+      summary: API endpoint to update battery charge/discharge setting
       description: This endpoint can be used to setup/update the CFG and DTG settings of the site.
       parameters:
       - name: activation_id
@@ -278,6 +280,8 @@ paths:
               required:
               - CFG_allowed
               - DTG_allowed
+      operationId: putApiV4ActivationsByActivationIdBatteryMode
+      x-operation-id-source: derived
   /api/v4/partner/activations:
     get:
       summary: List of Activations
@@ -662,8 +666,10 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4PartnerActivations
+      x-operation-id-source: derived
     post:
-      summary: Create new activation.
+      summary: Create new activation
       description: Create new activation. Address is mandatory if users company belongs to US.
       tags:
       - Activations
@@ -1380,6 +1386,8 @@ paths:
                   description: boolean (true / false)
               required:
               - system_name
+      operationId: postApiV4PartnerActivations
+      x-operation-id-source: derived
   /api/v4/partner/activations/{activation_id}:
     get:
       summary: Retrieves an Activation by id
@@ -1967,8 +1975,10 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4PartnerActivationsByActivationId
+      x-operation-id-source: derived
     put:
-      summary: Update an activation.
+      summary: Update an activation
       description: Update an activation. Address is mandatory if users company belongs to US.
       parameters:
       - name: activation_id
@@ -2689,6 +2699,8 @@ paths:
                 permission_to_operate:
                   type: boolean
                   description: boolean (true / false)
+      operationId: putApiV4PartnerActivationsByActivationId
+      x-operation-id-source: derived
     delete:
       summary: Delete an activation by id
       description: To delete an activation, the activation stage must be less than 3 and there are no active devices associated with it
@@ -2834,6 +2846,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: deleteApiV4PartnerActivationsByActivationId
+      x-operation-id-source: derived
   /api/v4/activations/{activation_id}/users/{user_id}:
     post:
       summary: Grant Access
@@ -2985,6 +2999,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: postApiV4ActivationsByActivationIdUsersByUserId
+      x-operation-id-source: derived
     delete:
       summary: Revoke Access
       description: Revokes a user's permission to view this system. response status 200 indicates the access was revoked. The user must be the owner or the host of an activation the API user can manage (or) Users created by API user (or) Users who belong to your company or its branches. In all other cases you will get 401 response.
@@ -3135,6 +3151,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: deleteApiV4ActivationsByActivationIdUsersByUserId
+      x-operation-id-source: derived
   /api/v4/activations/{activation_id}/ops/production_mode:
     post:
       summary: Set production mode
@@ -3278,6 +3296,8 @@ paths:
                   description: ''
               required:
               - mode
+      operationId: postApiV4ActivationsByActivationIdOpsProductionMode
+      x-operation-id-source: derived
     get:
       summary: Get production mode
       description: Get production mode for a particular system. For that system stage must be greater than 2, Otherwise you will get 422.
@@ -3415,3 +3435,5 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4ActivationsByActivationIdOpsProductionMode
+      x-operation-id-source: derived

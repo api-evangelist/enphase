@@ -10,7 +10,6 @@ paths:
   /api/v4/systems/config/{system_id}/tariff:
     get:
       summary: Get tariff for a system
-      description: Get tariff for a system
       parameters:
       - name: system_id
         in: path
@@ -407,3 +406,5 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsConfigBySystemIdTariff
+      x-operation-id-source: derived

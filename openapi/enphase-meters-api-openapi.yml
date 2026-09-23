@@ -9,7 +9,7 @@ tags:
 paths:
   /api/v4/systems/{system_id}/meters/{serial_number}:
     get:
-      summary: Returns the requested meter detail.
+      summary: Returns the requested meter detail
       description: Returns the requested meter by serial number. You must have access to the requested system and meter; otherwise a 401 is returned.
       parameters:
       - name: system_id
@@ -183,9 +183,11 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsBySystemIdMetersBySerialNumber
+      x-operation-id-source: derived
   /api/v4/activations/{activation_id}/meters/{serial_number}/meter_control:
     post:
-      summary: Enable or Disable the meters.
+      summary: Enable or Disable the meters
       description: Enable or Disable the meters. You must have access to the requested system and meter; otherwise a 401 is returned.
       parameters:
       - name: activation_id
@@ -352,3 +354,5 @@ paths:
                   - enabled
                   - disabled
                   description: ''
+      operationId: postApiV4ActivationsByActivationIdMetersBySerialNumberMeterControl
+      x-operation-id-source: derived

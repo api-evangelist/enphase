@@ -169,26 +169,6 @@ paths:
                 details: Internal Server Error
 components:
   schemas:
-    StartChargingRequestBody:
-      type: object
-      properties:
-        connectorId:
-          type: string
-          description: connector id. It Should be a positive integer.
-          example: '1'
-        chargingLevel:
-          maximum: 100
-          minimum: 0
-          type: string
-          description: Charging current level. It Should be an integer in [0-100].
-          example: '40'
-    DefaultCommandResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Success message
-          example: Request sent successfully
     ErrorResponseArray:
       required:
       - message
@@ -217,3 +197,23 @@ components:
           type: string
         details:
           type: string
+    DefaultCommandResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Success message
+          example: Request sent successfully
+    StartChargingRequestBody:
+      type: object
+      properties:
+        connectorId:
+          type: string
+          description: connector id. It Should be a positive integer.
+          example: '1'
+        chargingLevel:
+          maximum: 100
+          minimum: 0
+          type: string
+          description: Charging current level. It Should be an integer in [0-100].
+          example: '40'

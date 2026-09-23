@@ -10,7 +10,6 @@ paths:
   /api/v4/partner/systems/{system_id}/arrays:
     get:
       summary: Fetch particular system Array details
-      description: Fetch particular system Array details
       parameters:
       - name: system_id
         in: path
@@ -287,3 +286,5 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4PartnerSystemsBySystemIdArrays
+      x-operation-id-source: derived

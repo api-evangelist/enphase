@@ -205,3 +205,5 @@ paths:
               - email
               - first_name
               - last_name
+      operationId: postApiV4Users
+      x-operation-id-source: derived

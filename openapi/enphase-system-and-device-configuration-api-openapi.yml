@@ -507,7 +507,7 @@ paths:
     post:
       tags:
       - System and Device Configuration
-      summary: Generate access token for IQ gateway local api. This token will be valid for 12 hours and can be generated any number of times once the site is enrolled.
+      summary: Generate access token for IQ gateway local api.
       operationId: generateLocalApiToken
       parameters:
       - name: site_id
@@ -696,7 +696,7 @@ paths:
     post:
       tags:
       - System and Device Configuration
-      summary: API to initiate the establishment of communication between the charger and partner’s CSMS
+      summary: API to initiate the establishment of communication between the charger and…
       operationId: registerEvse
       parameters:
       - name: site_id
@@ -900,7 +900,7 @@ paths:
     get:
       tags:
       - System and Device Configuration
-      summary: API to fetch the current enrollment configuration of a charger that has been onboarded
+      summary: API to fetch the current enrollment configuration of a charger that has been…
       operationId: getEVSEConfigurationStatus
       parameters:
       - name: site_id
@@ -1013,6 +1013,17 @@ components:
           - IN_PROGRESS
           - COMPLETED
           - FAILED
+    OCPPConfigurationResponse:
+      type: object
+      properties:
+        status:
+          type: string
+    SiteSettingsResponseDTO:
+      type: object
+      properties:
+        vpp_event_reserve_soc:
+          type: integer
+          format: int32
     OCPPConfigurationStatusResponse:
       type: object
       properties:
@@ -1034,6 +1045,31 @@ components:
         configurationStatusFailureReason:
           type: string
           description: Reason for ACTIVATION_FAILED or DEACTIVATION_FAILED
+    StartStreamResponse:
+      type: object
+      properties:
+        serial_number:
+          type: string
+          description: Envoy serial number
+        status:
+          type: string
+          description: Command status
+    ReservedSOCUpdateRequest:
+      required:
+      - vpp_event_reserve_soc
+      type: object
+      properties:
+        vpp_event_reserve_soc:
+          maximum: 100
+          minimum: 0
+          type: integer
+          description: VPP Event's reserved SOC %. Value should be between 0 and 100 (Integers only)
+          format: int32
+    OCPPResetResponse:
+      type: object
+      properties:
+        message:
+          type: string
     OCPPConfigurationRequest:
       required:
       - connectionUrl
@@ -1048,37 +1084,6 @@ components:
         authKey:
           type: string
           description: Partner's CSMS one time token to be used for authorizing charger's communication with the CSMS that is supplied at the time of registration
-    ReservedSOCUpdateRequest:
-      required:
-      - vpp_event_reserve_soc
-      type: object
-      properties:
-        vpp_event_reserve_soc:
-          maximum: 100
-          minimum: 0
-          type: integer
-          description: VPP Event's reserved SOC %. Value should be between 0 and 100 (Integers only)
-          format: int32
-    SiteSettingsResponseDTO:
-      type: object
-      properties:
-        vpp_event_reserve_soc:
-          type: integer
-          format: int32
-    StartStreamResponse:
-      type: object
-      properties:
-        serial_number:
-          type: string
-          description: Envoy serial number
-        status:
-          type: string
-          description: Command status
-    OCPPResetResponse:
-      type: object
-      properties:
-        message:
-          type: string
     StopStreamResponse:
       type: object
       properties:
@@ -1088,8 +1093,3 @@ components:
         status:
           type: string
           description: Command Status
-    OCPPConfigurationResponse:
-      type: object
-      properties:
-        status:
-          type: string

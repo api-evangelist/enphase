@@ -269,6 +269,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4Systems
+      x-operation-id-source: derived
   /api/v4/systems/search:
     post:
       summary: Search and filter systems
@@ -569,6 +571,8 @@ paths:
                         - encharge_issue
               required:
               - system
+      operationId: postApiV4SystemsSearch
+      x-operation-id-source: derived
   /api/v4/systems/{system_id}:
     get:
       summary: Retrieves a System by id
@@ -794,6 +798,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsBySystemId
+      x-operation-id-source: derived
   /api/v4/systems/{system_id}/summary:
     get:
       summary: Retrieves a system summary
@@ -1038,6 +1044,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsBySystemIdSummary
+      x-operation-id-source: derived
   /api/v4/systems/{system_id}/devices:
     get:
       summary: Retrieves devices for a given system
@@ -1443,6 +1451,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsBySystemIdDevices
+      x-operation-id-source: derived
   /api/v4/systems/retrieve_system_id:
     get:
       summary: Retrieve system for a given envoy serial number
@@ -1599,10 +1609,12 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsRetrieveSystemId
+      x-operation-id-source: derived
   /api/v4/systems/{system_id}/events:
     get:
       summary: To retrieve the list of events for a site
-      description: 'This endpoint is used to retrieve the events for a site. start_time is mandatory and cannot be older than 9 months from the current time.  Maximum 1 week of data can be retrieved in a single call.
+      description: 'This endpoint is used to retrieve the events for a site. start_time is mandatory and cannot be older than 9 months from the current time. Maximum 1 week of data can be retrieved in a single call.
 
 
         An Event is triggered when a site/device meets a pre-defined set of conditions. Each of these pre-defined set of conditions is called an “Event type”. These conditions are defined at both site and device level, therefore events can be triggered at both site and device level. Each event is associated with an event type.
@@ -1811,10 +1823,12 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsBySystemIdEvents
+      x-operation-id-source: derived
   /api/v4/systems/{system_id}/alarms:
     get:
       summary: To retrieve the list of alarms for a site
-      description: 'This endpoint is used to retrieve the alarms for a site. start_time is mandatory and cannot be older than 9 months from the current time.  Maximum 1 week of data can be retrieved in a single call.
+      description: 'This endpoint is used to retrieve the alarms for a site. start_time is mandatory and cannot be older than 9 months from the current time. Maximum 1 week of data can be retrieved in a single call.
 
 
         Many event types (though not all) come with predefined escalation criteria for alarms. When an event meets these configurations, it can trigger an alarm. For example, a common configuration might specify that an event should trigger an alarm if its status remains “Open” beyond a certain time threshold.
@@ -2056,9 +2070,11 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsBySystemIdAlarms
+      x-operation-id-source: derived
   /api/v4/systems/event_types:
     get:
-      summary: To retrieve the list of event_type_id along with event_description and recommended_action
+      summary: To retrieve the list of event_type_id along with event_description and…
       description: This endpoint is used to retrieve the list of all available event_types. The endpoint will return list of event_type_id along with the event_description and recommended_action. If an event_type_id is passed, this endpoint will return the detail of specific event_type
       tags:
       - System Details
@@ -2210,6 +2226,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsEventTypes
+      x-operation-id-source: derived
   /api/v4/systems/{system_id}/open_events:
     get:
       summary: To retrieve the list of all open events of a site
@@ -2379,6 +2397,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsBySystemIdOpenEvents
+      x-operation-id-source: derived
   /api/v4/systems/{system_id}/open_alarms:
     get:
       summary: To retrieve the list of all open alarms of a site
@@ -2565,6 +2585,8 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsBySystemIdOpenAlarms
+      x-operation-id-source: derived
   /api/v4/systems/inverters_summary_by_envoy_or_site:
     get:
       summary: inverters_summary_by_envoy_or_site
@@ -2814,3 +2836,5 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4SystemsInvertersSummaryByEnvoyOrSite
+      x-operation-id-source: derived

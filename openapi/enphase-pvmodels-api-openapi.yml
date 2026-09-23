@@ -160,3 +160,5 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4PvManufacturersByPvManufacturerIdPvModels
+      x-operation-id-source: derived

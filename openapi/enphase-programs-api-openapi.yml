@@ -246,55 +246,37 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
-    Season:
-      required:
-      - duration
-      - name
+    GsApiListProgram:
       type: object
       properties:
-        frequency:
-          type: integer
-          format: int32
+        description:
+          type: string
+          description: description of the program
         name:
           type: string
-        duration:
+          description: name of the program
+        program_status:
           type: string
-        start_month:
-          type: string
-          description: Month Enum - Enrollment Manager | Grid Services
+          description: ProgramApplicationStatus Enum - Program Manager | Grid Services
           enum:
-          - JAN
-          - FEB
-          - MAR
-          - APR
-          - MAY
-          - JUN
-          - JUL
-          - AUG
-          - SEP
-          - OCT
-          - NOV
-          - DEC
-        end_month:
+          - pending
+          - rejected
+          - approved
+        program_id:
           type: string
-          description: Month Enum - Enrollment Manager | Grid Services
-          enum:
-          - JAN
-          - FEB
-          - MAR
-          - APR
-          - MAY
-          - JUN
-          - JUL
-          - AUG
-          - SEP
-          - OCT
-          - NOV
-          - DEC
-        performance_incentives_per_kw:
-          type: number
-          format: double
-      description: list of seasons
+          description: unique id of the program
+        state:
+          type: string
+          description: state code of the program
+        utility_name:
+          type: string
+          description: name of utility administering the program
+        incentive_structure:
+          type: object
+          additionalProperties:
+            type: string
+            description: incentive structure of the program
+          description: incentive structure of the program
     GsApiProgram:
       type: object
       properties:
@@ -387,34 +369,52 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GsApiListProgram'
-    GsApiListProgram:
+    Season:
+      required:
+      - duration
+      - name
       type: object
       properties:
-        description:
-          type: string
-          description: description of the program
+        frequency:
+          type: integer
+          format: int32
         name:
           type: string
-          description: name of the program
-        program_status:
+        duration:
           type: string
-          description: ProgramApplicationStatus Enum - Program Manager | Grid Services
+        start_month:
+          type: string
+          description: Month Enum - Enrollment Manager | Grid Services
           enum:
-          - pending
-          - rejected
-          - approved
-        program_id:
+          - JAN
+          - FEB
+          - MAR
+          - APR
+          - MAY
+          - JUN
+          - JUL
+          - AUG
+          - SEP
+          - OCT
+          - NOV
+          - DEC
+        end_month:
           type: string
-          description: unique id of the program
-        state:
-          type: string
-          description: state code of the program
-        utility_name:
-          type: string
-          description: name of utility administering the program
-        incentive_structure:
-          type: object
-          additionalProperties:
-            type: string
-            description: incentive structure of the program
-          description: incentive structure of the program
+          description: Month Enum - Enrollment Manager | Grid Services
+          enum:
+          - JAN
+          - FEB
+          - MAR
+          - APR
+          - MAY
+          - JUN
+          - JUL
+          - AUG
+          - SEP
+          - OCT
+          - NOV
+          - DEC
+        performance_incentives_per_kw:
+          type: number
+          format: double
+      description: list of seasons

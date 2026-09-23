@@ -140,9 +140,15 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4CompaniesByCompanyIdUsers
+      x-operation-id-source: derived
     post:
       summary: Create company user
-      description: "Create a company user. When the user is created in the context of a company, then the user is belongs to that company. Otherwise, the user does not belong to a company.\n Email, First Name, and Last Name are mandatory fields in the user. Any unneeded fields passed in the request parameter will be skipped and not stored.\n Pass body param in 'application/x-www-form-urlencoded' format, in this endpoint, key will be 'user' and value will be a JSON dictionary of user fields."
+      description: 'Create a company user. When the user is created in the context of a company, then the user is belongs to that company. Otherwise, the user does not belong to a company.
+
+        Email, First Name, and Last Name are mandatory fields in the user. Any unneeded fields passed in the request parameter will be skipped and not stored.
+
+        Pass body param in ''application/x-www-form-urlencoded'' format, in this endpoint, key will be ''user'' and value will be a JSON dictionary of user fields.'
       parameters:
       - name: company_id
         in: path
@@ -353,6 +359,8 @@ paths:
               - email
               - first_name
               - last_name
+      operationId: postApiV4CompaniesByCompanyIdUsers
+      x-operation-id-source: derived
   /api/v4/companies/{company_id}/users/{user_id}:
     put:
       summary: Update company user
@@ -572,6 +580,8 @@ paths:
                 phone:
                   type: string
                   description: The telephone number of the user. Optional. Max length 255.
+      operationId: putApiV4CompaniesByCompanyIdUsersByUserId
+      x-operation-id-source: derived
   /api/v4/companies/self/branches:
     get:
       summary: User's company and its branches
@@ -712,9 +722,11 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4CompaniesSelfBranches
+      x-operation-id-source: derived
   /api/v4/companies/self/authorized_subcontractors:
     get:
-      summary: User's company and its authorized subcontractors.
+      summary: User's company and its authorized subcontractors
       description: Returns all the authorized subcontractors of a given company, if any
       tags:
       - Companies
@@ -855,3 +867,5 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4CompaniesSelfAuthorizedSubcontractors
+      x-operation-id-source: derived

@@ -127,7 +127,7 @@ paths:
       tags:
       - Applications
       summary: Update a rejected application
-      description: Updates a rejected application based on the inputted site_id. Application will be rejected if the site's state is different from the program state or if the site is enrolled in another program or if there is incorrect information in the application form. The API can be used to re apply by sending updated application forms.  Application body in string is mandatory. It needs to be in format {"site_id":site_id_value as integer, "program_id":"program_id_value as string", "ean":"electric account number as string optional"}
+      description: Updates a rejected application based on the inputted site_id. Application will be rejected if the site's state is different from the program state or if the site is enrolled in another program or if there is incorrect information in the application form. The API can be used to re apply by sending updated application forms. Application body in string is mandatory. It needs to be in format {"site_id":site_id_value as integer, "program_id":"program_id_value as string", "ean":"electric account number as string optional"}
       operationId: updateApplication
       parameters:
       - name: site_id
@@ -279,7 +279,10 @@ paths:
       tags:
       - Applications
       summary: Withdraw an application that is not yet approved
-      description: "Withdraw an application from a program based on the inputted site_id.\n\n Applications that are already approved cannot be withdrawn.\n"
+      description: 'Withdraw an application from a program based on the inputted site_id.
+
+
+        Applications that are already approved cannot be withdrawn.'
       operationId: withdrawApplication
       parameters:
       - name: site_id
@@ -555,9 +558,7 @@ paths:
         Application body in string is mandatory. It needs to be in format {"site_id":site_id_value as integer, "program_id":"program_id_value as string", "ean":"electric account number as string optional"}.
 
 
-        application_type can be enrollment or unenrollment. It needs to be in format {"application_type":"unenrollment"}. If not provided then it is considered as enrollment
-
-        '
+        application_type can be enrollment or unenrollment. It needs to be in format {"application_type":"unenrollment"}. If not provided then it is considered as enrollment'
       operationId: createApplication
       parameters:
       - name: ho-access-token
@@ -786,6 +787,25 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
+    GsApiListApplicationResponse:
+      type: object
+      properties:
+        page_no:
+          type: integer
+          format: int32
+        page_size:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        total_count:
+          type: integer
+          format: int32
+        applications:
+          type: array
+          items:
+            $ref: '#/components/schemas/GsApiApplication'
     GsApiApplication:
       required:
       - program_id
@@ -835,25 +855,6 @@ components:
         application_type:
           type: string
           description: application_type - ApplicationType | enrollment or unenrollment
-    GsApiListApplicationResponse:
-      type: object
-      properties:
-        page_no:
-          type: integer
-          format: int32
-        page_size:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        total_count:
-          type: integer
-          format: int32
-        applications:
-          type: array
-          items:
-            $ref: '#/components/schemas/GsApiApplication'
     GsApiApplicationFormFields:
       required:
       - city

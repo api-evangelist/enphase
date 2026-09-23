@@ -9,7 +9,7 @@ tags:
 paths:
   /api/v4/activations/{activation_id}/estimate:
     get:
-      summary: Returns the estimate for this system.
+      summary: Returns the estimate for this system
       description: Provides access to production estimates for a system. An estimate includes the annual degradation factor for the system as well as estimated production, in kWh, for each month. By default degrade_factor value is 0.5 and month_estimates value is an empty array.
       parameters:
       - name: activation_id
@@ -159,8 +159,10 @@ paths:
                 reason: '501'
                 message:
                 - Not Implemented
+      operationId: getApiV4ActivationsByActivationIdEstimate
+      x-operation-id-source: derived
     put:
-      summary: Update the estimate for this system.
+      summary: Update the estimate for this system
       description: Updates the estimate for this system.
       parameters:
       - name: activation_id
@@ -345,3 +347,5 @@ paths:
               required:
               - degrade_factor
               - month_estimates
+      operationId: putApiV4ActivationsByActivationIdEstimate
+      x-operation-id-source: derived
