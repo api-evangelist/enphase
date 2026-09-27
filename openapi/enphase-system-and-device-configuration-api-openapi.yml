@@ -1000,30 +1000,6 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
-    RegisterLiveStreamStatusResponse:
-      type: object
-      properties:
-        serial_number:
-          type: string
-          description: Envoy serial number
-        status:
-          type: string
-          description: Registration status
-          enum:
-          - IN_PROGRESS
-          - COMPLETED
-          - FAILED
-    OCPPConfigurationResponse:
-      type: object
-      properties:
-        status:
-          type: string
-    SiteSettingsResponseDTO:
-      type: object
-      properties:
-        vpp_event_reserve_soc:
-          type: integer
-          format: int32
     OCPPConfigurationStatusResponse:
       type: object
       properties:
@@ -1054,6 +1030,21 @@ components:
         status:
           type: string
           description: Command status
+    SiteSettingsResponseDTO:
+      type: object
+      properties:
+        vpp_event_reserve_soc:
+          type: integer
+          format: int32
+    StopStreamResponse:
+      type: object
+      properties:
+        serial_number:
+          type: string
+          description: Envoy Serial Number
+        status:
+          type: string
+          description: Command Status
     ReservedSOCUpdateRequest:
       required:
       - vpp_event_reserve_soc
@@ -1065,10 +1056,10 @@ components:
           type: integer
           description: VPP Event's reserved SOC %. Value should be between 0 and 100 (Integers only)
           format: int32
-    OCPPResetResponse:
+    OCPPConfigurationResponse:
       type: object
       properties:
-        message:
+        status:
           type: string
     OCPPConfigurationRequest:
       required:
@@ -1084,12 +1075,21 @@ components:
         authKey:
           type: string
           description: Partner's CSMS one time token to be used for authorizing charger's communication with the CSMS that is supplied at the time of registration
-    StopStreamResponse:
+    OCPPResetResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    RegisterLiveStreamStatusResponse:
       type: object
       properties:
         serial_number:
           type: string
-          description: Envoy Serial Number
+          description: Envoy serial number
         status:
           type: string
-          description: Command Status
+          description: Registration status
+          enum:
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED

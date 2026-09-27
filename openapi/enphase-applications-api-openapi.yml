@@ -787,6 +787,37 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
+    GsApiApplicationFormFields:
+      required:
+      - city
+      - country
+      - first_name
+      - postal_code
+      - state
+      - zip
+      type: object
+      properties:
+        city:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+        zip:
+          type: integer
+          format: int32
+        ean:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        siteState:
+          type: string
+          writeOnly: true
+        postal_code:
+          type: string
+      description: form_fields - GsApiApplicationFormFields | Fields that were filled in application form
     GsApiListApplicationResponse:
       type: object
       properties:
@@ -855,34 +886,3 @@ components:
         application_type:
           type: string
           description: application_type - ApplicationType | enrollment or unenrollment
-    GsApiApplicationFormFields:
-      required:
-      - city
-      - country
-      - first_name
-      - postal_code
-      - state
-      - zip
-      type: object
-      properties:
-        city:
-          type: string
-        state:
-          type: string
-        country:
-          type: string
-        zip:
-          type: integer
-          format: int32
-        ean:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        siteState:
-          type: string
-          writeOnly: true
-        postal_code:
-          type: string
-      description: form_fields - GsApiApplicationFormFields | Fields that were filled in application form

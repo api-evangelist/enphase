@@ -4784,62 +4784,12 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
-    ProductionMicroInterval:
+    ChargeDischargeValue:
       type: object
       properties:
-        end_at:
-          type: integer
-          format: int64
-        devices_reporting:
-          type: integer
-          format: int32
         enwh:
           type: integer
           format: int32
-        powr:
-          type: integer
-          format: int32
-    MeterReadings:
-      type: object
-      properties:
-        serial_num:
-          type: string
-          description: The serial number of the meter
-        value:
-          type: integer
-          description: The meter reading, in Wh
-          format: int32
-        read_at:
-          type: integer
-          description: The time when the reading was taken, always prior or equal to the requested 'end_at'
-          format: int32
-    EVSETelemetryInterval:
-      type: object
-      properties:
-        end_at:
-          type: integer
-          description: End time of the telemetry interval.
-          format: int64
-        wh_consumed:
-          type: number
-          description: Energy units consumed per interval (positive will correspond to EV charge, negative will correspond to EV discharge)
-          format: double
-    SystemsLatestTelemetryResponse:
-      type: object
-      properties:
-        system_id:
-          type: integer
-          description: The unique numeric ID of the system
-          format: int32
-        items:
-          type: string
-          description: Named key of the list data. In this endpoint, it is devices
-        devices:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/DeviceLatestTelemetry'
     DeviceLevelEnchargeTelemetryResponse:
       type: object
       properties:
@@ -4885,23 +4835,101 @@ components:
         last_reported_soc:
           type: string
           description: Last reported soc percentage
-    SiteEvent:
+    SystemsProductionLifeTimeResponse:
       type: object
       properties:
-        status:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        system_id:
           type: string
-        event_type_id:
+          description: Unique ID of the site
+        start_date:
+          type: string
+          description: "When no start_date parameter is specified on the request, this is the operational_date of the system.\n May be null if system has never produced.\n When a start_date parameter is included in the request, it is included here in the response."
+        meter_start_date:
+          type: string
+          description: "The first day in the time series when measurements are taken from a meter instead of from micro inverters.\n This field is not present unless the system has a meter"
+        production:
+          type: array
+          description: "An array of production measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty."
+          items:
+            type: integer
+            description: "An array of production measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty."
+            format: int32
+        micro_production:
+          type: array
+          items:
+            type: integer
+            format: int32
+        meter_production:
+          type: array
+          items:
+            type: integer
+            format: int32
+    StormGuardSettingsResponse:
+      type: object
+      properties:
+        system_id:
           type: integer
+          description: Unique ID of the site
           format: int32
-        event_start_time:
-          type: integer
-          format: int64
-        event_end_time:
-          type: integer
-          format: int64
-        serial_number:
+        storm_guard_status:
           type: string
-      description: List of events over the system
+          description: Current storm guard status of the system. Possible values are Enabled, Disabled. Overrides your battery profile to full backup mode when a severe weather condition alert is issued in the locality.
+        storm_alert:
+          type: string
+          description: Storm alert of the system. Possible values are true, false. True if severe weather condition alert is issued in the locality
+    SystemsTelemetryImportResponse:
+      type: object
+      properties:
+        granularity:
+          type: string
+          description: The granularity of the telemetry data. Default is 'day'
+          enum:
+          - week
+          - day
+          - 15mins
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImportInterval'
+        site_id:
+          type: integer
+          description: Unique ID of the site
+          format: int32
+        start_at:
+          type: integer
+          description: Start time for fetching the telemetry data in Epoch time format. If no start_at is specified, defaults to midnight today, in the timezone of the system. If the start_at specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_at.
+          format: int32
+        start_date:
+          type: string
+          description: 'Start date for fetching the telemetry data in yyyy-mm-dd format.
+
+            If no start_date is specified, defaults to midnight today, in the timezone of the system. If the start_date specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_date'
+          format: date-time
+        end_at:
+          type: integer
+          description: End Time of the data series
+          format: int32
+        end_date:
+          type: string
+          description: End Date of the data series
+          format: date-time
+        total_devices:
+          type: integer
+          description: Number of Production meters in the site
+          format: int32
+    SiteEventsResponse:
+      type: object
+      properties:
+        system_id:
+          type: string
+          description: The unique numeric ID of the system
+        events:
+          type: array
+          description: List of events over the system
+          items:
+            $ref: '#/components/schemas/SiteEvent'
     SystemsImportLifeTimeResponse:
       type: object
       properties:
@@ -4924,79 +4952,6 @@ components:
             type: integer
             description: "An array of import measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty\n"
             format: int32
-    DeviceStatus:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int32
-        last_report_at:
-          type: integer
-          format: int64
-        name:
-          type: string
-        serial_number:
-          type: string
-        part_number:
-          type: string
-        sku:
-          type: string
-        model:
-          type: string
-        status:
-          type: string
-        active:
-          type: boolean
-        state:
-          type: string
-        product_name:
-          type: string
-      description: 'Hash keys include all the possible device types: micros, meters, gateways,<br> q_relays, ACBs, Encharges, Enpowers, ev_chargers, heat_pump, iq_collars, iq_air, <br>generators (if the devices of this type are present). For all the device types, <br>the object will contain the serial_number and model with some additional information pertaining to the device type.'
-    SiteOpenEventsResponse:
-      type: object
-      properties:
-        system_id:
-          type: string
-          description: The unique numeric ID of the system
-        events:
-          type: array
-          description: List of events over the system
-          items:
-            $ref: '#/components/schemas/SiteEvent'
-    SystemsConsumptionMeterResponse:
-      type: object
-      properties:
-        system_id:
-          type: integer
-          format: int32
-        total_devices:
-          type: integer
-          format: int32
-        start_at:
-          type: integer
-          format: int64
-        end_at:
-          type: integer
-          format: int64
-        items:
-          type: string
-        granularity:
-          type: string
-        intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConsumptionMeterInterval'
-        meta:
-          $ref: '#/components/schemas/Meta'
-    Charge:
-      type: object
-      properties:
-        enwh:
-          type: integer
-          format: int32
-        devices_reporting:
-          type: integer
-          format: int32
     SystemsBatteryTelemetryResponse:
       type: object
       properties:
@@ -5032,24 +4987,105 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BatteryTelemetryInterval'
-    EnlightenEventType:
+    HPLifeTimeTelemetryResponse:
       type: object
       properties:
-        event_type_id:
+        system_id:
+          type: string
+          description: Unique ID of the site
+        start_date:
+          type: string
+          description: Start Date of the daily time-series data series.
+        end_date:
+          type: string
+          description: End Date of the daily time-series data series.
+        consumption:
+          type: array
+          description: Energy units consumed per day (positive will correspond to energy consumption, negative will correspond to zero consumption). The time series includes one entry for each day from the start_date to the end_date with no gaps in the time series. If the response contains trailing zeroes, such as [909, 4970, 0, 0, 0], then there is no consumption by the HP
+          items:
+            type: number
+            description: Energy units consumed per day (positive will correspond to energy consumption, negative will correspond to zero consumption). The time series includes one entry for each day from the start_date to the end_date with no gaps in the time series. If the response contains trailing zeroes, such as [909, 4970, 0, 0, 0], then there is no consumption by the HP
+            format: double
+    Charge:
+      type: object
+      properties:
+        enwh:
           type: integer
-          description: The unique numeric ID of the event type.
           format: int32
-        event_type_key:
+        devices_reporting:
+          type: integer
+          format: int32
+    MeterReadings:
+      type: object
+      properties:
+        serial_num:
           type: string
-        stateful:
-          type: boolean
-        event_name:
+          description: The serial number of the meter
+        value:
+          type: integer
+          description: The meter reading, in Wh
+          format: int32
+        read_at:
+          type: integer
+          description: The time when the reading was taken, always prior or equal to the requested 'end_at'
+          format: int32
+    SiteAlarmsResponse:
+      type: object
+      properties:
+        systems_id:
           type: string
-        event_description:
+          description: The unique numeric ID of the system
+        alarms:
+          type: array
+          description: List of alarms over the system
+          items:
+            $ref: '#/components/schemas/Alarm'
+    HPTelemetryInterval:
+      type: object
+      properties:
+        end_at:
+          type: integer
+          description: End time of the telemetry interval.
+          format: int64
+        wh_consumed:
+          type: number
+          description: Units consumed per interval. This value can only be zero or positive
+          format: double
+    SystemsAddress:
+      type: object
+      properties:
+        state:
           type: string
-        recommended_action:
+        country:
           type: string
-      description: List of event_type_id along with event_description and recommended_action
+        postal_code:
+          type: string
+    SystemsDetailsResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of systems
+          format: int32
+        current_page:
+          type: integer
+          description: page number of the current page fetched
+          format: int32
+        size:
+          type: integer
+          description: Maximum number of records shown per page. Default=10, Min=1, Max=100.
+          format: int32
+        count:
+          type: integer
+          description: Total number of systems returned for the current page
+          format: int32
+        items:
+          type: string
+          description: Named key of the list data. In this endpoint, it is systems
+        systems:
+          type: array
+          items:
+            $ref: '#/components/schemas/SystemsDetails'
     DeviceLevelPVProductionResponse:
       type: object
       properties:
@@ -5088,10 +5124,435 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PVProductionInterval'
+    GridStatusSettingsResponse:
+      type: object
+      properties:
+        system_id:
+          type: integer
+          description: Unique ID of the site
+          format: int32
+        grid_status:
+          type: string
+          description: Indicates whether the site is On Grid, Off Grid or grid status of site is Unknown
+        last_report_date:
+          type: integer
+          description: Timestamp (in epoch format) at which the system's Envoy last submitted a report
+          format: int32
+    SystemsConsumptionMeterResponse:
+      type: object
+      properties:
+        system_id:
+          type: integer
+          format: int32
+        total_devices:
+          type: integer
+          format: int32
+        start_at:
+          type: integer
+          format: int64
+        end_at:
+          type: integer
+          format: int64
+        items:
+          type: string
+        granularity:
+          type: string
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsumptionMeterInterval'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    SystemsConsumptionLifeTimeResponse:
+      type: object
+      properties:
+        consumption:
+          type: array
+          description: An array of consumption measurements in Wh, one for each day since consumption metering began, or one for each day of the requested period
+          items:
+            type: integer
+            description: An array of consumption measurements in Wh, one for each day since consumption metering began, or one for each day of the requested period
+            format: int32
+        meta:
+          $ref: '#/components/schemas/Meta'
+        system_id:
+          type: string
+          description: Unique ID of the site
+        start_date:
+          type: string
+          description: "When no start_date parameter is specified on the request, this is the operational_date of the system.\n May be null if system has never produced.\n When a start_date parameter is included in the request, it is included here in the response."
+        meter_start_date:
+          type: string
+          description: "The first day in the time series when measurements are taken from a meter instead of from micro inverters.\n This field is not present unless the system has a meter"
+    SystemsTelemetryExportResponse:
+      type: object
+      properties:
+        granularity:
+          type: string
+          description: The granularity of the telemetry data. Default is 'day'
+          enum:
+          - week
+          - day
+          - 15mins
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportInterval'
+        site_id:
+          type: integer
+          description: Unique ID of the site
+          format: int32
+        start_at:
+          type: integer
+          description: Start time for fetching the telemetry data in Epoch time format. If no start_at is specified, defaults to midnight today, in the timezone of the system. If the start_at specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_at.
+          format: int32
+        start_date:
+          type: string
+          description: 'Start date for fetching the telemetry data in yyyy-mm-dd format.
+
+            If no start_date is specified, defaults to midnight today, in the timezone of the system. If the start_date specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_date'
+          format: date-time
+        end_at:
+          type: integer
+          description: End Time of the data series
+          format: int32
+        end_date:
+          type: string
+          description: End Date of the data series
+          format: date-time
+        total_devices:
+          type: integer
+          description: Number of Production meters in the site
+          format: int32
+    DisCharge:
+      type: object
+      properties:
+        enwh:
+          type: integer
+          format: int32
+        devices_reporting:
+          type: integer
+          format: int32
+    SystemsPELPCSResponse:
+      type: object
+      properties:
+        pcs_limit_enabled:
+          type: boolean
+        pcs_limt:
+          type: number
+          format: double
+        pel_enabled:
+          type: boolean
+        pel:
+          type: number
+          format: double
+    DeviceStatus:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        last_report_at:
+          type: integer
+          format: int64
+        name:
+          type: string
+        serial_number:
+          type: string
+        part_number:
+          type: string
+        sku:
+          type: string
+        model:
+          type: string
+        status:
+          type: string
+        active:
+          type: boolean
+        state:
+          type: string
+        product_name:
+          type: string
+      description: 'Hash keys include all the possible device types: micros, meters, gateways,<br> q_relays, ACBs, Encharges, Enpowers, ev_chargers, heat_pump, iq_collars, iq_air, <br>generators (if the devices of this type are present). For all the device types, <br>the object will contain the serial_number and model with some additional information pertaining to the device type.'
+    DeviceLatestTelemetry:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Device ID
+          format: int64
+        name:
+          type: string
+          description: Device Name
+        serial_number:
+          type: string
+          description: Serial Number
+        channel:
+          type: integer
+          description: The reporting channel ID (applicable only in case of meters)
+          format: int32
+        last_report_at:
+          type: integer
+          description: Timestamp at which the device last reported
+          format: int64
+        power:
+          type: integer
+          description: power reading at the last reported time
+          format: int32
+        operational_mode:
+          type: string
+          description: Battery mode. Possible values are Idle, Charging, Discharging<br>EVSE mode. Possible values are PLUGGED_OUT,IDLE,CHARGING,FAULTED<br>HP mode. Possible values are Mode_1,Mode_2,Mode_3,Mode_4.
+    SystemsLatestTelemetryResponse:
+      type: object
+      properties:
+        system_id:
+          type: integer
+          description: The unique numeric ID of the system
+          format: int32
+        items:
+          type: string
+          description: Named key of the list data. In this endpoint, it is devices
+        devices:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/DeviceLatestTelemetry'
+    ProductionMicroInterval:
+      type: object
+      properties:
+        end_at:
+          type: integer
+          format: int64
+        devices_reporting:
+          type: integer
+          format: int32
+        enwh:
+          type: integer
+          format: int32
+        powr:
+          type: integer
+          format: int32
+    PVProductionInterval:
+      type: object
+      properties:
+        end_at:
+          type: integer
+          description: End time of the telemetry interval
+          format: int64
+        enwh:
+          type: integer
+          description: Energy produced (in Watt-Hours) from all the micro inverters combined during that period
+          format: int32
+        pwr:
+          type: integer
+          description: Average power (in Watt) produced by all the micro inverters during this interval, measured in Watts.
+          format: int32
+    SocPercent:
+      type: object
+      properties:
+        percent:
+          type: integer
+          description: Battery soc percentage
+          format: int32
+    ImportInterval:
+      type: object
+      properties:
+        end_at:
+          type: integer
+          description: End time of the telemetry interval
+          format: int32
+        wh_imported:
+          type: integer
+          description: Energy imported per interval
+          format: int32
+    EnchargeInterval:
+      type: object
+      properties:
+        end_at:
+          type: integer
+          description: End time of the telemetry interval.
+          format: int64
+        charge:
+          $ref: '#/components/schemas/ChargeDischargeValue'
+        discharge:
+          $ref: '#/components/schemas/ChargeDischargeValue'
+        soc:
+          $ref: '#/components/schemas/SocPercent'
+    EventTypesResponse:
+      type: object
+      properties:
+        event_types:
+          type: array
+          description: List of event_type_id along with event_description and recommended_action
+          items:
+            $ref: '#/components/schemas/EnlightenEventType'
+    ExportInterval:
+      type: object
+      properties:
+        end_at:
+          type: integer
+          description: End time of the telemetry interval
+          format: int32
+        wh_exported:
+          type: integer
+          description: Energy exported per interval
+          format: int32
+    SystemsDetails:
+      type: object
+      properties:
+        system_id:
+          type: integer
+          description: The unique numeric ID of the system
+          format: int32
+        name:
+          type: string
+          description: Name of the system
+        public_name:
+          type: string
+          description: Name displayed on the public system page. Available values are All, Residential System, Commercial etc. Default='Residential System'. Only for systems that allow public access
+        timezone:
+          type: string
+          description: Timezone to which the system belongs
+        connection_type:
+          type: string
+          description: connection Type of the system. Available values are ethernet, Wi-Fi, Cellular
+        status:
+          type: string
+          description: System's status. Corresponding Enlighten values can be found in table added at the end of page
+        attachment_type:
+          type: string
+          description: Micro inverter attachment type. Available values are rack_mount, zep, acm, bipv, frame_mount, railless_mount
+        interconnect_date:
+          type: string
+          description: Date on which the system was approved to connect to the grid
+        last_energy_at:
+          type: integer
+          description: Timestamp (in epoch format) at which the systems's produced energy was last reported. Even if the last produced energy is 0, its timestamp will be returned
+          format: int64
+        last_report_at:
+          type: integer
+          description: Timestamp (in epoch format) at which the system's Envoy last submitted a report
+          format: int64
+        operational_at:
+          type: integer
+          description: Timestamp (in epoch format) at which this system became operational. Corresponds to the system’s interconnect time, if one is specified. Otherwise, it is the system’s first reported interval end time
+          format: int64
+        address:
+          $ref: '#/components/schemas/SystemsAddress'
     Alarm:
       type: object
       description: List of alarms over the system
-    HPTelemetryInterval:
+    SystemsProductionMeterResponse:
+      type: object
+      properties:
+        system_id:
+          type: integer
+          format: int32
+        total_devices:
+          type: integer
+          format: int32
+        start_at:
+          type: integer
+          format: int64
+        end_at:
+          type: integer
+          format: int64
+        items:
+          type: string
+        granularity:
+          type: string
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductionMeterInterval'
+    SystemsBatterySettingsResponse:
+      type: object
+      properties:
+        system_id:
+          type: integer
+          description: Unique ID of the site
+          format: int32
+        battery_mode:
+          type: string
+          description: Current battery mode of the system. Possible values are Savings Mode, Full Backup, and Self - Consumption
+        reserve_soc:
+          type: integer
+          description: Reserve soc for the current mode
+          format: int32
+        energy_independence:
+          type: string
+          description: 'Energy independence after peak hours enabled/disabled . Enabled: Battery will discharge to save money during peak hours when electricity rates are high. Once that is done, energy independence is prioritized. This will increase the energy self-sufficiency until the reserve soc is hit. Battery will charge from solar in the morning to get ready for the next period Disabled: Battery will discharge only during peak hours when electricity rates are high. During other times, battery will be idle or will charge from solar in the morning to get ready for the next period'
+        charge_from_grid:
+          type: string
+          description: 'Charge battery from grid enabled/disabled. Enabled: Battery may also charge from the grid when in full backup mode or when battery charge is below the reserve capacity in savings or self-consumption mode'
+        battery_shutdown_level:
+          type: integer
+          description: Level at which battery shutdowns to conserve energy. Battery restarts by using the conserved energy when the utility grid restores power or solar panels start producing energy
+          format: int32
+    DeviceLevelHPTelemetryResponse:
+      type: object
+      properties:
+        system_id:
+          type: string
+          description: Unique ID of the site
+        granularity:
+          type: string
+          description: The granularity of the telemetry data. Possible values are 'week', 'day', '15mins', '5mins'. Default is 'day'
+        interval_duration:
+          type: string
+          description: Size of the interval. Can be 5mins, or 15mins. Site must be configured to 5 min telemetry for this to be supported
+        start_at:
+          type: integer
+          description: Start Time of the data series.
+          format: int64
+        end_at:
+          type: integer
+          description: End Time of the telemetry data.
+          format: int64
+        items:
+          type: string
+          description: The list key 'intervals'
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/HPTelemetryInterval'
+    SOC:
+      type: object
+      properties:
+        percent:
+          type: number
+          format: double
+        devices_reporting:
+          type: integer
+          format: int32
+    StorageMeterReadings:
+      type: object
+      properties:
+        system_id:
+          type: integer
+          description: The unique numeric ID of the system
+          format: int32
+        meter_readings:
+          type: array
+          items:
+            $ref: '#/components/schemas/StorageMeter'
+        meta:
+          $ref: '#/components/schemas/MeterReadingsMeta'
+    ConsumptionMeterReadings:
+      type: object
+      properties:
+        system_id:
+          type: integer
+          description: The unique numeric ID of the system
+          format: int32
+        meter_readings:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeterReadings'
+        meta:
+          $ref: '#/components/schemas/MeterReadingsMeta'
+    EVSETelemetryInterval:
       type: object
       properties:
         end_at:
@@ -5100,8 +5561,101 @@ components:
           format: int64
         wh_consumed:
           type: number
-          description: Units consumed per interval. This value can only be zero or positive
+          description: Energy units consumed per interval (positive will correspond to EV charge, negative will correspond to EV discharge)
           format: double
+    SystemsExportLifeTimeResponse:
+      type: object
+      properties:
+        export:
+          type: array
+          description: "An array of export measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty\n"
+          items:
+            type: integer
+            description: "An array of export measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty\n"
+            format: int32
+        meta:
+          $ref: '#/components/schemas/Meta'
+        system_id:
+          type: integer
+          description: Unique ID of the site
+          format: int32
+        start_date:
+          type: string
+          description: "When no start_date parameter is specified on the request, this is the operational_date of the system.\n May be null if system has never produced. When a start_date parameter is included in the request, it is included here in the response.\n"
+        meter_start_date:
+          type: string
+          description: "The first day in the time series when measurements are taken from a meter instead of from micro inverters.\n This field is not present unless the system has a meter.\n"
+    DeviceLevelEVSETelemetryResponse:
+      type: object
+      properties:
+        system_id:
+          type: string
+          description: Unique ID of the site
+        granularity:
+          type: string
+          description: The granularity of the telemetry data. Possible values are 'week', 'day', '15mins', '5mins'. Default is 'day'
+        interval_duration:
+          type: string
+          description: Size of the interval. Can be 5mins, or 15mins. Site must be configured to 5 min telemetry for this to be supported
+        start_at:
+          type: integer
+          description: Start Time of the data series.
+          format: int64
+        end_at:
+          type: integer
+          description: End Time of the telemetry data.
+          format: int64
+        items:
+          type: string
+          description: The list key 'intervals'
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/EVSETelemetryInterval'
+    EVSELifeTimeTelemetryResponse:
+      type: object
+      properties:
+        system_id:
+          type: string
+          description: Unique ID of the site
+        start_date:
+          type: string
+          description: Start Date of the daily time-series data series.
+        end_date:
+          type: string
+          description: End Date of the daily time-series data series.
+        consumption:
+          type: array
+          description: Energy units consumed per day (positive will correspond to EV charge, negative will correspond to EV discharge). The time series includes one entry for each day from the start_date to the end_date with no gaps in the time series. If the response contains trailing zeroes, such as [909, 4970, 0, 0, 0], then there is not charge/discharge of the EV during those days.
+          items:
+            type: number
+            description: Energy units consumed per day (positive will correspond to EV charge, negative will correspond to EV discharge). The time series includes one entry for each day from the start_date to the end_date with no gaps in the time series. If the response contains trailing zeroes, such as [909, 4970, 0, 0, 0], then there is not charge/discharge of the EV during those days.
+            format: double
+    SystemsBatteryLifeTimeResponse:
+      type: object
+      properties:
+        charge:
+          type: array
+          description: "An array of charge measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty"
+          items:
+            type: integer
+            description: "An array of charge measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty"
+            format: int32
+        discharge:
+          type: array
+          description: "An array of discharge measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty"
+          items:
+            type: integer
+            description: "An array of discharge measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty"
+            format: int32
+        meta:
+          $ref: '#/components/schemas/Meta'
+        system_id:
+          type: string
+          description: Unique ID of the site
+        start_date:
+          type: string
+          description: "When no start_date parameter is specified on the request, this is the operational_date of the system.\n May be null if system has never produced. When a start_date parameter is included in the request, it is included here in the response."
     SystemSummaryResponse:
       type: object
       properties:
@@ -5161,396 +5715,6 @@ components:
           type: integer
           description: Total capacity of all the batteries of the system
           format: int32
-    EnchargeInterval:
-      type: object
-      properties:
-        end_at:
-          type: integer
-          description: End time of the telemetry interval.
-          format: int64
-        charge:
-          $ref: '#/components/schemas/ChargeDischargeValue'
-        discharge:
-          $ref: '#/components/schemas/ChargeDischargeValue'
-        soc:
-          $ref: '#/components/schemas/SocPercent'
-    ExportInterval:
-      type: object
-      properties:
-        end_at:
-          type: integer
-          description: End time of the telemetry interval
-          format: int32
-        wh_exported:
-          type: integer
-          description: Energy exported per interval
-          format: int32
-    GridStatusSettingsResponse:
-      type: object
-      properties:
-        system_id:
-          type: integer
-          description: Unique ID of the site
-          format: int32
-        grid_status:
-          type: string
-          description: Indicates whether the site is On Grid, Off Grid or grid status of site is Unknown
-        last_report_date:
-          type: integer
-          description: Timestamp (in epoch format) at which the system's Envoy last submitted a report
-          format: int32
-    SiteEventsResponse:
-      type: object
-      properties:
-        system_id:
-          type: string
-          description: The unique numeric ID of the system
-        events:
-          type: array
-          description: List of events over the system
-          items:
-            $ref: '#/components/schemas/SiteEvent'
-    ConsumptionMeterInterval:
-      type: object
-      properties:
-        end_at:
-          type: integer
-          format: int64
-        devices_reporting:
-          type: integer
-          format: int32
-        enwh:
-          type: integer
-          format: int32
-    SocPercent:
-      type: object
-      properties:
-        percent:
-          type: integer
-          description: Battery soc percentage
-          format: int32
-    SystemsTelemetryExportResponse:
-      type: object
-      properties:
-        granularity:
-          type: string
-          description: The granularity of the telemetry data. Default is 'day'
-          enum:
-          - week
-          - day
-          - 15mins
-        intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportInterval'
-        site_id:
-          type: integer
-          description: Unique ID of the site
-          format: int32
-        start_at:
-          type: integer
-          description: Start time for fetching the telemetry data in Epoch time format. If no start_at is specified, defaults to midnight today, in the timezone of the system. If the start_at specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_at.
-          format: int32
-        start_date:
-          type: string
-          description: 'Start date for fetching the telemetry data in yyyy-mm-dd format.
-
-            If no start_date is specified, defaults to midnight today, in the timezone of the system. If the start_date specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_date'
-          format: date-time
-        end_at:
-          type: integer
-          description: End Time of the data series
-          format: int32
-        end_date:
-          type: string
-          description: End Date of the data series
-          format: date-time
-        total_devices:
-          type: integer
-          description: Number of Production meters in the site
-          format: int32
-    SystemsDetails:
-      type: object
-      properties:
-        system_id:
-          type: integer
-          description: The unique numeric ID of the system
-          format: int32
-        name:
-          type: string
-          description: Name of the system
-        public_name:
-          type: string
-          description: Name displayed on the public system page. Available values are All, Residential System, Commercial etc. Default='Residential System'. Only for systems that allow public access
-        timezone:
-          type: string
-          description: Timezone to which the system belongs
-        connection_type:
-          type: string
-          description: connection Type of the system. Available values are ethernet, Wi-Fi, Cellular
-        status:
-          type: string
-          description: System's status. Corresponding Enlighten values can be found in table added at the end of page
-        attachment_type:
-          type: string
-          description: Micro inverter attachment type. Available values are rack_mount, zep, acm, bipv, frame_mount, railless_mount
-        interconnect_date:
-          type: string
-          description: Date on which the system was approved to connect to the grid
-        last_energy_at:
-          type: integer
-          description: Timestamp (in epoch format) at which the systems's produced energy was last reported. Even if the last produced energy is 0, its timestamp will be returned
-          format: int64
-        last_report_at:
-          type: integer
-          description: Timestamp (in epoch format) at which the system's Envoy last submitted a report
-          format: int64
-        operational_at:
-          type: integer
-          description: Timestamp (in epoch format) at which this system became operational. Corresponds to the system’s interconnect time, if one is specified. Otherwise, it is the system’s first reported interval end time
-          format: int64
-        address:
-          $ref: '#/components/schemas/SystemsAddress'
-    BatteryTelemetryInterval:
-      type: object
-      properties:
-        end_at:
-          type: integer
-          format: int64
-        charge:
-          $ref: '#/components/schemas/Charge'
-        discharge:
-          $ref: '#/components/schemas/DisCharge'
-        soc:
-          $ref: '#/components/schemas/SOC'
-    ConsumptionMeterReadings:
-      type: object
-      properties:
-        system_id:
-          type: integer
-          description: The unique numeric ID of the system
-          format: int32
-        meter_readings:
-          type: array
-          items:
-            $ref: '#/components/schemas/MeterReadings'
-        meta:
-          $ref: '#/components/schemas/MeterReadingsMeta'
-    ChargeDischargeValue:
-      type: object
-      properties:
-        enwh:
-          type: integer
-          format: int32
-    ProductionMeterInterval:
-      type: object
-      properties:
-        end_at:
-          type: integer
-          format: int64
-        devices_reporting:
-          type: integer
-          format: int32
-        wh_del:
-          type: integer
-          format: int32
-    SystemsPELPCSResponse:
-      type: object
-      properties:
-        pcs_limit_enabled:
-          type: boolean
-        pcs_limt:
-          type: number
-          format: double
-        pel_enabled:
-          type: boolean
-        pel:
-          type: number
-          format: double
-    MeterReadingsMeta:
-      type: object
-      properties:
-        status:
-          type: string
-          description: System's status. Corresponding Enlighten values can be found in table added at the end of page.
-        last_report_at:
-          type: integer
-          description: Timestamp (in epoch format) at which the system's Envoy last submitted a report
-          format: int64
-        last_energy_at:
-          type: integer
-          description: Timestamp (in epoch format) at which the systems's production energy was last reported. Even if the last production energy is 0, its timestamp will be returned.
-          format: int64
-        operational_at:
-          type: integer
-          description: Corresponds to the system’s interconnect time, if one is specified. Otherwise, it is the system’s first reported interval end time.
-          format: int64
-    ProductionMeterReadings:
-      type: object
-      properties:
-        system_id:
-          type: integer
-          description: The unique numeric ID of the system
-          format: int32
-        meter_readings:
-          type: array
-          items:
-            $ref: '#/components/schemas/MeterReadings'
-        meta:
-          $ref: '#/components/schemas/MeterReadingsMeta'
-    StormGuardSettingsResponse:
-      type: object
-      properties:
-        system_id:
-          type: integer
-          description: Unique ID of the site
-          format: int32
-        storm_guard_status:
-          type: string
-          description: Current storm guard status of the system. Possible values are Enabled, Disabled. Overrides your battery profile to full backup mode when a severe weather condition alert is issued in the locality.
-        storm_alert:
-          type: string
-          description: Storm alert of the system. Possible values are true, false. True if severe weather condition alert is issued in the locality
-    SystemsProductionMeterResponse:
-      type: object
-      properties:
-        system_id:
-          type: integer
-          format: int32
-        total_devices:
-          type: integer
-          format: int32
-        start_at:
-          type: integer
-          format: int64
-        end_at:
-          type: integer
-          format: int64
-        items:
-          type: string
-        granularity:
-          type: string
-        intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProductionMeterInterval'
-    SystemsDetailsResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of systems
-          format: int32
-        current_page:
-          type: integer
-          description: page number of the current page fetched
-          format: int32
-        size:
-          type: integer
-          description: Maximum number of records shown per page. Default=10, Min=1, Max=100.
-          format: int32
-        count:
-          type: integer
-          description: Total number of systems returned for the current page
-          format: int32
-        items:
-          type: string
-          description: Named key of the list data. In this endpoint, it is systems
-        systems:
-          type: array
-          items:
-            $ref: '#/components/schemas/SystemsDetails'
-    PVProductionInterval:
-      type: object
-      properties:
-        end_at:
-          type: integer
-          description: End time of the telemetry interval
-          format: int64
-        enwh:
-          type: integer
-          description: Energy produced (in Watt-Hours) from all the micro inverters combined during that period
-          format: int32
-        pwr:
-          type: integer
-          description: Average power (in Watt) produced by all the micro inverters during this interval, measured in Watts.
-          format: int32
-    SOC:
-      type: object
-      properties:
-        percent:
-          type: number
-          format: double
-        devices_reporting:
-          type: integer
-          format: int32
-    DeviceLevelHPTelemetryResponse:
-      type: object
-      properties:
-        system_id:
-          type: string
-          description: Unique ID of the site
-        granularity:
-          type: string
-          description: The granularity of the telemetry data. Possible values are 'week', 'day', '15mins', '5mins'. Default is 'day'
-        interval_duration:
-          type: string
-          description: Size of the interval. Can be 5mins, or 15mins. Site must be configured to 5 min telemetry for this to be supported
-        start_at:
-          type: integer
-          description: Start Time of the data series.
-          format: int64
-        end_at:
-          type: integer
-          description: End Time of the telemetry data.
-          format: int64
-        items:
-          type: string
-          description: The list key 'intervals'
-        intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/HPTelemetryInterval'
-    SystemsTelemetryImportResponse:
-      type: object
-      properties:
-        granularity:
-          type: string
-          description: The granularity of the telemetry data. Default is 'day'
-          enum:
-          - week
-          - day
-          - 15mins
-        intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/ImportInterval'
-        site_id:
-          type: integer
-          description: Unique ID of the site
-          format: int32
-        start_at:
-          type: integer
-          description: Start time for fetching the telemetry data in Epoch time format. If no start_at is specified, defaults to midnight today, in the timezone of the system. If the start_at specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_at.
-          format: int32
-        start_date:
-          type: string
-          description: 'Start date for fetching the telemetry data in yyyy-mm-dd format.
-
-            If no start_date is specified, defaults to midnight today, in the timezone of the system. If the start_date specified is earlier than the system’s first reported date, then midnight of the system’s first reported date is considered as start_date'
-          format: date-time
-        end_at:
-          type: integer
-          description: End Time of the data series
-          format: int32
-        end_date:
-          type: string
-          description: End Date of the data series
-          format: date-time
-        total_devices:
-          type: integer
-          description: Number of Production meters in the site
-          format: int32
     SystemsProductionMicroResponse:
       type: object
       properties:
@@ -5576,17 +5740,19 @@ components:
             $ref: '#/components/schemas/ProductionMicroInterval'
         meta:
           $ref: '#/components/schemas/Meta'
-    ImportInterval:
+    ProductionMeterReadings:
       type: object
       properties:
-        end_at:
+        system_id:
           type: integer
-          description: End time of the telemetry interval
+          description: The unique numeric ID of the system
           format: int32
-        wh_imported:
-          type: integer
-          description: Energy imported per interval
-          format: int32
+        meter_readings:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeterReadings'
+        meta:
+          $ref: '#/components/schemas/MeterReadingsMeta'
     StorageMeter:
       type: object
       properties:
@@ -5605,196 +5771,34 @@ components:
           type: integer
           description: The time when the reading was taken, always prior or equal to the requested 'end_at'
           format: int32
-    SystemsBatterySettingsResponse:
-      type: object
-      properties:
-        system_id:
-          type: integer
-          description: Unique ID of the site
-          format: int32
-        battery_mode:
-          type: string
-          description: Current battery mode of the system. Possible values are Savings Mode, Full Backup, and Self - Consumption
-        reserve_soc:
-          type: integer
-          description: Reserve soc for the current mode
-          format: int32
-        energy_independence:
-          type: string
-          description: 'Energy independence after peak hours enabled/disabled . Enabled: Battery will discharge to save money during peak hours when electricity rates are high. Once that is done, energy independence is prioritized. This will increase the energy self-sufficiency until the reserve soc is hit. Battery will charge from solar in the morning to get ready for the next period Disabled: Battery will discharge only during peak hours when electricity rates are high. During other times, battery will be idle or will charge from solar in the morning to get ready for the next period'
-        charge_from_grid:
-          type: string
-          description: 'Charge battery from grid enabled/disabled. Enabled: Battery may also charge from the grid when in full backup mode or when battery charge is below the reserve capacity in savings or self-consumption mode'
-        battery_shutdown_level:
-          type: integer
-          description: Level at which battery shutdowns to conserve energy. Battery restarts by using the conserved energy when the utility grid restores power or solar panels start producing energy
-          format: int32
-    EventTypesResponse:
-      type: object
-      properties:
-        event_types:
-          type: array
-          description: List of event_type_id along with event_description and recommended_action
-          items:
-            $ref: '#/components/schemas/EnlightenEventType'
-    SystemsAddress:
-      type: object
-      properties:
-        state:
-          type: string
-        country:
-          type: string
-        postal_code:
-          type: string
-    EVSELifeTimeTelemetryResponse:
-      type: object
-      properties:
-        system_id:
-          type: string
-          description: Unique ID of the site
-        start_date:
-          type: string
-          description: Start Date of the daily time-series data series.
-        end_date:
-          type: string
-          description: End Date of the daily time-series data series.
-        consumption:
-          type: array
-          description: Energy units consumed per day (positive will correspond to EV charge, negative will correspond to EV discharge). The time series includes one entry for each day from the start_date to the end_date with no gaps in the time series. If the response contains trailing zeroes, such as [909, 4970, 0, 0, 0], then there is not charge/discharge of the EV during those days.
-          items:
-            type: number
-            description: Energy units consumed per day (positive will correspond to EV charge, negative will correspond to EV discharge). The time series includes one entry for each day from the start_date to the end_date with no gaps in the time series. If the response contains trailing zeroes, such as [909, 4970, 0, 0, 0], then there is not charge/discharge of the EV during those days.
-            format: double
-    SystemsProductionLifeTimeResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        system_id:
-          type: string
-          description: Unique ID of the site
-        start_date:
-          type: string
-          description: "When no start_date parameter is specified on the request, this is the operational_date of the system.\n May be null if system has never produced.\n When a start_date parameter is included in the request, it is included here in the response."
-        meter_start_date:
-          type: string
-          description: "The first day in the time series when measurements are taken from a meter instead of from micro inverters.\n This field is not present unless the system has a meter"
-        production:
-          type: array
-          description: "An array of production measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty."
-          items:
-            type: integer
-            description: "An array of production measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty."
-            format: int32
-        micro_production:
-          type: array
-          items:
-            type: integer
-            format: int32
-        meter_production:
-          type: array
-          items:
-            type: integer
-            format: int32
-    SystemsBatteryLifeTimeResponse:
-      type: object
-      properties:
-        charge:
-          type: array
-          description: "An array of charge measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty"
-          items:
-            type: integer
-            description: "An array of charge measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty"
-            format: int32
-        discharge:
-          type: array
-          description: "An array of discharge measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty"
-          items:
-            type: integer
-            description: "An array of discharge measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty"
-            format: int32
-        meta:
-          $ref: '#/components/schemas/Meta'
-        system_id:
-          type: string
-          description: Unique ID of the site
-        start_date:
-          type: string
-          description: "When no start_date parameter is specified on the request, this is the operational_date of the system.\n May be null if system has never produced. When a start_date parameter is included in the request, it is included here in the response."
-    SystemsConsumptionLifeTimeResponse:
-      type: object
-      properties:
-        consumption:
-          type: array
-          description: An array of consumption measurements in Wh, one for each day since consumption metering began, or one for each day of the requested period
-          items:
-            type: integer
-            description: An array of consumption measurements in Wh, one for each day since consumption metering began, or one for each day of the requested period
-            format: int32
-        meta:
-          $ref: '#/components/schemas/Meta'
-        system_id:
-          type: string
-          description: Unique ID of the site
-        start_date:
-          type: string
-          description: "When no start_date parameter is specified on the request, this is the operational_date of the system.\n May be null if system has never produced.\n When a start_date parameter is included in the request, it is included here in the response."
-        meter_start_date:
-          type: string
-          description: "The first day in the time series when measurements are taken from a meter instead of from micro inverters.\n This field is not present unless the system has a meter"
-    DeviceLevelEVSETelemetryResponse:
-      type: object
-      properties:
-        system_id:
-          type: string
-          description: Unique ID of the site
-        granularity:
-          type: string
-          description: The granularity of the telemetry data. Possible values are 'week', 'day', '15mins', '5mins'. Default is 'day'
-        interval_duration:
-          type: string
-          description: Size of the interval. Can be 5mins, or 15mins. Site must be configured to 5 min telemetry for this to be supported
-        start_at:
-          type: integer
-          description: Start Time of the data series.
-          format: int64
-        end_at:
-          type: integer
-          description: End Time of the telemetry data.
-          format: int64
-        items:
-          type: string
-          description: The list key 'intervals'
-        intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/EVSETelemetryInterval'
-    Meta:
+    MeterReadingsMeta:
       type: object
       properties:
         status:
           type: string
-          description: System's status
+          description: System's status. Corresponding Enlighten values can be found in table added at the end of page.
         last_report_at:
           type: integer
           description: Timestamp (in epoch format) at which the system's Envoy last submitted a report
           format: int64
         last_energy_at:
           type: integer
-          description: "Timestamp (in epoch format) at which the system's produced energy was last reported.\n Even if the last produced energy is 0, its timestamp will be returned."
+          description: Timestamp (in epoch format) at which the systems's production energy was last reported. Even if the last production energy is 0, its timestamp will be returned.
           format: int64
         operational_at:
           type: integer
-          description: "Timestamp (in epoch format) at which this system became operational.\n Corresponds to the system’s interconnect time, if one is specified. Otherwise, it is the system’s first reported interval end time."
+          description: Corresponds to the system’s interconnect time, if one is specified. Otherwise, it is the system’s first reported interval end time.
           format: int64
-      description: Information about the system such as its status, when it became operational and last reported to Envoy.
-    DisCharge:
+    ProductionMeterInterval:
       type: object
       properties:
-        enwh:
+        end_at:
+          type: integer
+          format: int64
+        devices_reporting:
           type: integer
           format: int32
-        devices_reporting:
+        wh_del:
           type: integer
           format: int32
     SystemsDevicesResponse:
@@ -5816,96 +5820,92 @@ components:
             items:
               $ref: '#/components/schemas/DeviceStatus'
           description: 'Hash keys include all the possible device types: micros, meters, gateways,<br> q_relays, ACBs, Encharges, Enpowers, ev_chargers, heat_pump, iq_collars, iq_air, <br>generators (if the devices of this type are present). For all the device types, <br>the object will contain the serial_number and model with some additional information pertaining to the device type.'
-    DeviceLatestTelemetry:
+    BatteryTelemetryInterval:
       type: object
       properties:
-        id:
+        end_at:
           type: integer
-          description: Device ID
           format: int64
-        name:
-          type: string
-          description: Device Name
-        serial_number:
-          type: string
-          description: Serial Number
-        channel:
+        charge:
+          $ref: '#/components/schemas/Charge'
+        discharge:
+          $ref: '#/components/schemas/DisCharge'
+        soc:
+          $ref: '#/components/schemas/SOC'
+    ConsumptionMeterInterval:
+      type: object
+      properties:
+        end_at:
           type: integer
-          description: The reporting channel ID (applicable only in case of meters)
+          format: int64
+        devices_reporting:
+          type: integer
           format: int32
+        enwh:
+          type: integer
+          format: int32
+    Meta:
+      type: object
+      properties:
+        status:
+          type: string
+          description: System's status
         last_report_at:
           type: integer
-          description: Timestamp at which the device last reported
+          description: Timestamp (in epoch format) at which the system's Envoy last submitted a report
           format: int64
-        power:
+        last_energy_at:
           type: integer
-          description: power reading at the last reported time
+          description: "Timestamp (in epoch format) at which the system's produced energy was last reported.\n Even if the last produced energy is 0, its timestamp will be returned."
+          format: int64
+        operational_at:
+          type: integer
+          description: "Timestamp (in epoch format) at which this system became operational.\n Corresponds to the system’s interconnect time, if one is specified. Otherwise, it is the system’s first reported interval end time."
+          format: int64
+      description: Information about the system such as its status, when it became operational and last reported to Envoy.
+    SiteEvent:
+      type: object
+      properties:
+        status:
+          type: string
+        event_type_id:
+          type: integer
           format: int32
-        operational_mode:
-          type: string
-          description: Battery mode. Possible values are Idle, Charging, Discharging<br>EVSE mode. Possible values are PLUGGED_OUT,IDLE,CHARGING,FAULTED<br>HP mode. Possible values are Mode_1,Mode_2,Mode_3,Mode_4.
-    HPLifeTimeTelemetryResponse:
-      type: object
-      properties:
-        system_id:
-          type: string
-          description: Unique ID of the site
-        start_date:
-          type: string
-          description: Start Date of the daily time-series data series.
-        end_date:
-          type: string
-          description: End Date of the daily time-series data series.
-        consumption:
-          type: array
-          description: Energy units consumed per day (positive will correspond to energy consumption, negative will correspond to zero consumption). The time series includes one entry for each day from the start_date to the end_date with no gaps in the time series. If the response contains trailing zeroes, such as [909, 4970, 0, 0, 0], then there is no consumption by the HP
-          items:
-            type: number
-            description: Energy units consumed per day (positive will correspond to energy consumption, negative will correspond to zero consumption). The time series includes one entry for each day from the start_date to the end_date with no gaps in the time series. If the response contains trailing zeroes, such as [909, 4970, 0, 0, 0], then there is no consumption by the HP
-            format: double
-    StorageMeterReadings:
-      type: object
-      properties:
-        system_id:
+        event_start_time:
           type: integer
+          format: int64
+        event_end_time:
+          type: integer
+          format: int64
+        serial_number:
+          type: string
+      description: List of events over the system
+    EnlightenEventType:
+      type: object
+      properties:
+        event_type_id:
+          type: integer
+          description: The unique numeric ID of the event type.
+          format: int32
+        event_type_key:
+          type: string
+        stateful:
+          type: boolean
+        event_name:
+          type: string
+        event_description:
+          type: string
+        recommended_action:
+          type: string
+      description: List of event_type_id along with event_description and recommended_action
+    SiteOpenEventsResponse:
+      type: object
+      properties:
+        system_id:
+          type: string
           description: The unique numeric ID of the system
-          format: int32
-        meter_readings:
+        events:
           type: array
+          description: List of events over the system
           items:
-            $ref: '#/components/schemas/StorageMeter'
-        meta:
-          $ref: '#/components/schemas/MeterReadingsMeta'
-    SiteAlarmsResponse:
-      type: object
-      properties:
-        systems_id:
-          type: string
-          description: The unique numeric ID of the system
-        alarms:
-          type: array
-          description: List of alarms over the system
-          items:
-            $ref: '#/components/schemas/Alarm'
-    SystemsExportLifeTimeResponse:
-      type: object
-      properties:
-        export:
-          type: array
-          description: "An array of export measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty\n"
-          items:
-            type: integer
-            description: "An array of export measurements, one for each day since the system started producing, or one for each day of the requested period.\n If the system has never produced energy, the array may be empty\n"
-            format: int32
-        meta:
-          $ref: '#/components/schemas/Meta'
-        system_id:
-          type: integer
-          description: Unique ID of the site
-          format: int32
-        start_date:
-          type: string
-          description: "When no start_date parameter is specified on the request, this is the operational_date of the system.\n May be null if system has never produced. When a start_date parameter is included in the request, it is included here in the response.\n"
-        meter_start_date:
-          type: string
-          description: "The first day in the time series when measurements are taken from a meter instead of from micro inverters.\n This field is not present unless the system has a meter.\n"
+            $ref: '#/components/schemas/SiteEvent'

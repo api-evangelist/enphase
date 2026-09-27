@@ -605,6 +605,43 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
+    VPPUpdateRequest:
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/SitesQuery'
+    SitesQuery:
+      required:
+      - operator
+      - tags
+      type: object
+      properties:
+        tags:
+          type: object
+          additionalProperties:
+            type: array
+            description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
+            items:
+              type: string
+              description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
+          description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
+        operator:
+          type: string
+          description: LogicalOperator Enum - Enrollment Manager | Grid Services
+          enum:
+          - AND
+          - OR
+      description: Sites Query Model - VPP Manager | Grid Services
+    VPPsListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        vpps:
+          type: array
+          items:
+            $ref: '#/components/schemas/GsApiVPP'
     GsApiVPP:
       type: object
       properties:
@@ -652,28 +689,6 @@ components:
           items:
             type: integer
             format: int32
-    SitesQuery:
-      required:
-      - operator
-      - tags
-      type: object
-      properties:
-        tags:
-          type: object
-          additionalProperties:
-            type: array
-            description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
-            items:
-              type: string
-              description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
-          description: System defined parameters on which the VPP is filtered. Possible values are STATE, CITY, SITE_IDS and ZIP/POSTAL_CODE
-        operator:
-          type: string
-          description: LogicalOperator Enum - Enrollment Manager | Grid Services
-          enum:
-          - AND
-          - OR
-      description: Sites Query Model - VPP Manager | Grid Services
     VPPCreateRequest:
       type: object
       properties:
@@ -685,18 +700,3 @@ components:
         program_id:
           type: string
           description: unique ID of the program
-    VPPUpdateRequest:
-      type: object
-      properties:
-        query:
-          $ref: '#/components/schemas/SitesQuery'
-    VPPsListResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        vpps:
-          type: array
-          items:
-            $ref: '#/components/schemas/GsApiVPP'

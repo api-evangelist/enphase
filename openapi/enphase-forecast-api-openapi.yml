@@ -127,6 +127,28 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
+    ForecastRequest:
+      type: object
+      properties:
+        site_ids:
+          uniqueItems: true
+          type: array
+          description: List of all the Site IDs; Only one of the siteList and vpp_id must be passed
+          items:
+            type: integer
+            description: List of all the Site IDs; Only one of the siteList and vpp_id must be passed
+            format: int32
+        vpp_id:
+          type: string
+          description: vpp_id; Only one of the siteList and vpp_id must be passed
+        granularity:
+          type: string
+          description: Required interval size of the forecast data in minutes. Possible values are ‘15mins’.
+          default: 15mins
+        duration:
+          type: string
+          description: Required duration of forecast in hours. Possible values are 3H to 24H. Duration should be multiple of granularity.
+          default: 3H
     ForecastTimeSeries:
       type: object
       properties:
@@ -225,28 +247,6 @@ components:
           items:
             $ref: '#/components/schemas/ForecastTimeSeries'
       description: aggregated forecast data for the sites
-    ForecastRequest:
-      type: object
-      properties:
-        site_ids:
-          uniqueItems: true
-          type: array
-          description: List of all the Site IDs; Only one of the siteList and vpp_id must be passed
-          items:
-            type: integer
-            description: List of all the Site IDs; Only one of the siteList and vpp_id must be passed
-            format: int32
-        vpp_id:
-          type: string
-          description: vpp_id; Only one of the siteList and vpp_id must be passed
-        granularity:
-          type: string
-          description: Required interval size of the forecast data in minutes. Possible values are ‘15mins’.
-          default: 15mins
-        duration:
-          type: string
-          description: Required duration of forecast in hours. Possible values are 3H to 24H. Duration should be multiple of granularity.
-          default: 3H
     ForecastResponse:
       type: object
       properties:

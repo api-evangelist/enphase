@@ -359,16 +359,6 @@ components:
           description: min allowed soc for event creation
           format: int32
           default: 10
-    ProgramsListResponse:
-      type: object
-      properties:
-        total_count:
-          type: integer
-          format: int32
-        programs:
-          type: array
-          items:
-            $ref: '#/components/schemas/GsApiListProgram'
     Season:
       required:
       - duration
@@ -418,3 +408,13 @@ components:
           type: number
           format: double
       description: list of seasons
+    ProgramsListResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+          format: int32
+        programs:
+          type: array
+          items:
+            $ref: '#/components/schemas/GsApiListProgram'
