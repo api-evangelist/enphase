@@ -787,6 +787,25 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
+    GsApiListApplicationResponse:
+      type: object
+      properties:
+        page_no:
+          type: integer
+          format: int32
+        page_size:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        total_count:
+          type: integer
+          format: int32
+        applications:
+          type: array
+          items:
+            $ref: '#/components/schemas/GsApiApplication'
     GsApiApplicationFormFields:
       required:
       - city
@@ -818,25 +837,6 @@ components:
         postal_code:
           type: string
       description: form_fields - GsApiApplicationFormFields | Fields that were filled in application form
-    GsApiListApplicationResponse:
-      type: object
-      properties:
-        page_no:
-          type: integer
-          format: int32
-        page_size:
-          type: integer
-          format: int32
-        count:
-          type: integer
-          format: int32
-        total_count:
-          type: integer
-          format: int32
-        applications:
-          type: array
-          items:
-            $ref: '#/components/schemas/GsApiApplication'
     GsApiApplication:
       required:
       - program_id

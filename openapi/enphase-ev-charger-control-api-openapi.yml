@@ -169,25 +169,6 @@ paths:
                 details: Internal Server Error
 components:
   schemas:
-    ErrorResponseArray:
-      required:
-      - message
-      - reason
-      type: object
-      properties:
-        message:
-          type: array
-          description: message
-          example:
-          - Method not allowed
-          items:
-            type: string
-            description: message
-            example: '["Method not allowed"]'
-        reason:
-          type: string
-          description: statusCode
-          example: '405'
     StartChargingRequestBody:
       type: object
       properties:
@@ -217,3 +198,22 @@ components:
           type: string
           description: Success message
           example: Request sent successfully
+    ErrorResponseArray:
+      required:
+      - message
+      - reason
+      type: object
+      properties:
+        message:
+          type: array
+          description: message
+          example:
+          - Method not allowed
+          items:
+            type: string
+            description: message
+            example: '["Method not allowed"]'
+        reason:
+          type: string
+          description: statusCode
+          example: '405'

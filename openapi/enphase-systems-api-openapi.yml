@@ -694,38 +694,167 @@ paths:
       summary: Search system id
       x-summary-source: derived
 components:
-  responses:
-    ConflictError:
-      description: Conflict
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ConflictError'
-    ClientError:
-      description: Client error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ClientError'
-    ServerError:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ServerError'
-    NotFoundError:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/NotFoundError'
-    UnprocessableEntityError:
-      description: Unprocessable Entity
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UnprocessableEntityError'
   schemas:
+    ConnectionType:
+      description: How the system is connected to the Internet.
+      type: string
+      enum:
+      - ethernet
+      - cellular
+      - wifi
+      example: ethernet
+    Status:
+      description: 'The current status of the system.
+
+        * `comm` - One or more Envoys on the system are not communicating to Enlighten.
+
+        * `power` - There is a production issue on the system.
+
+        * `meter` - There is a communication problem between an Envoy and a revenue-grade meter on the system.
+
+        * `meter_issue` - One or more meters on the system are reporting unusual measurements.
+
+        * `micro` - There is a communication problem between an Envoy and microinverters that it monitors.
+
+        * `battery` - There is a communication problem between an Envoy and an AC battery on the system.
+
+        * `storage_idle` - An AC battery on the system has not changed its state of charge for more than 72 hours.
+
+        * `normal` - The system is operating normally.'
+      type: string
+      enum:
+      - comm
+      - power
+      - meter
+      - meter_issue
+      - micro
+      - battery
+      - storage_idle
+      - normal
+      example: normal
+    EnvoysResponse:
+      type: object
+      properties:
+        system_id:
+          description: The identifier of the system.
+          type: integer
+        envoys:
+          description: A list of active Envoys on this system.
+          type: array
+          items:
+            type: object
+            properties:
+              envoy_id:
+                description: The Enlighten ID of the Envoy.
+                type: integer
+              last_report_at:
+                description: 'The last time this Envoy submitted a report, by default expressed in Unix epoch time. When the `datetime_format` query parameter is `iso8601`, `last_report_at` is in
+
+                  ISO 8601 format. If Enlighten has no record of a report from this Envoy, returns null.'
+                type: integer
+                format: int64
+              name:
+                description: The human-friendly name of this Envoy.
+                type: string
+              part_number:
+                description: The Enphase part number of this Envoy.
+                type: string
+              serial_number:
+                description: The serial number of this Envoy.
+                type: string
+              status:
+                description: 'The current status of this Envoy.
+
+                  * `normal` - The Envoy is operating normally.
+
+                  * `comm` - The Envoy is not communicating to Enlighten.'
+                type: string
+                enum:
+                - normal
+                - comm
+            required:
+            - envoy_id
+            - last_report_at
+            - name
+            - part_number
+            - serial_number
+            - status
+      required:
+      - system_id
+      - envoys
+      example:
+        system_id: 67
+        envoys:
+        - envoy_id: 512
+          last_report_at: 1308008107
+          name: Envoy 010731000003
+          part_number: 800-00002-r00
+          serial_number: '010731000003'
+          status: normal
+        - envoy_id: 841
+          last_report_at: null
+          name: Envoy 010814000001
+          part_number: 910-10000-r01
+          serial_number: 010814000001
+          status: normal
+    MonthlyProductionResponse:
+      type: object
+      properties:
+        system_id:
+          description: Enlighten ID for this system.
+          type: integer
+        start_date:
+          description: 'First day included in the reporting period. The format is `YYYY-mm-dd` unless you pass a `datetime_format` parameter as described
+
+            [here](https://developer.enphase.com/docs#Datetimes).'
+          type: string
+          format: date
+        end_date:
+          description: Last day included in the reporting period.
+          type: string
+          format: date
+        production_wh:
+          description: Total production for the requested period in Watt-hours.
+          type: integer
+        meter_readings:
+          description: If the system has any revenue-grade meters installed, the meter readings at the beginning and end of the reporting period are included here. Otherwise, the array is empty.
+          type: array
+          items:
+            type: object
+            properties:
+              serial_number:
+                type: string
+              start:
+                type: integer
+              end:
+                type: integer
+            required:
+            - serial_number
+            - start
+            - end
+        meta:
+          $ref: '#/components/schemas/Meta'
+      required:
+      - system_id
+      - start_date
+      - end_date
+      - production_wh
+      - meter_readings
+      - meta
+      example:
+        system_id: 66
+        start_date: '2011-07-01'
+        end_date: '2011-07-31'
+        production_wh: 208435
+        meter_readings:
+        - serial_number: '123123123123'
+          start: 196077
+          end: 404512
+        meta:
+          status: normal
+          last_report_at: 1445619615
+          last_energy_at: 1445619033
+          operational_at: 1357023600
     NotFoundError:
       type: object
       properties:
@@ -824,35 +953,31 @@ components:
         status: normal
         summary_date: '2014-01-06'
         system_id: 123
-    Status:
-      description: 'The current status of the system.
-
-        * `comm` - One or more Envoys on the system are not communicating to Enlighten.
-
-        * `power` - There is a production issue on the system.
-
-        * `meter` - There is a communication problem between an Envoy and a revenue-grade meter on the system.
-
-        * `meter_issue` - One or more meters on the system are reporting unusual measurements.
-
-        * `micro` - There is a communication problem between an Envoy and microinverters that it monitors.
-
-        * `battery` - There is a communication problem between an Envoy and an AC battery on the system.
-
-        * `storage_idle` - An AC battery on the system has not changed its state of charge for more than 72 hours.
-
-        * `normal` - The system is operating normally.'
-      type: string
-      enum:
-      - comm
-      - power
-      - meter
-      - meter_issue
-      - micro
-      - battery
-      - storage_idle
-      - normal
-      example: normal
+    Meta:
+      description: Information about the system that you can use to ascertain the timeliness of the production data included in the response.
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        last_report_at:
+          type: integer
+          format: int64
+        last_energy_at:
+          type: integer
+          format: int64
+        operational_at:
+          type: integer
+          format: int64
+      required:
+      - status
+      - last_report_at
+      - last_energy_at
+      - operational_at
+      example:
+        status: normal
+        last_report_at: 1445619615
+        last_energy_at: 1445619033
+        operational_at: 1357023600
     InvertersSummaryByEnvoyOrSiteResponse:
       type: object
       properties:
@@ -995,242 +1120,16 @@ components:
             precision: 0
           grid_profile: 57227c50e4d7973ae602c4e6
           last_report_date: 1600427843
-    UnprocessableEntityError:
-      type: object
-      properties:
-        reason:
-          type: string
-        message:
-          type: string
-        errorMessages:
-          type: array
-          items:
-            type: string
-        start:
-          type: string
-          format: date
-        end:
-          type: string
-          format: date
-        start_at:
-          type: integer
-        end_at:
-          type: integer
-        first_interval:
-          type: integer
-        last_interval:
-          type: integer
-    EnvoysResponse:
+    SearchSystemIdResponse:
       type: object
       properties:
         system_id:
-          description: The identifier of the system.
+          description: The Enlighten ID of the system.
           type: integer
-        envoys:
-          description: A list of active Envoys on this system.
-          type: array
-          items:
-            type: object
-            properties:
-              envoy_id:
-                description: The Enlighten ID of the Envoy.
-                type: integer
-              last_report_at:
-                description: 'The last time this Envoy submitted a report, by default expressed in Unix epoch time. When the `datetime_format` query parameter is `iso8601`, `last_report_at` is in
-
-                  ISO 8601 format. If Enlighten has no record of a report from this Envoy, returns null.'
-                type: integer
-                format: int64
-              name:
-                description: The human-friendly name of this Envoy.
-                type: string
-              part_number:
-                description: The Enphase part number of this Envoy.
-                type: string
-              serial_number:
-                description: The serial number of this Envoy.
-                type: string
-              status:
-                description: 'The current status of this Envoy.
-
-                  * `normal` - The Envoy is operating normally.
-
-                  * `comm` - The Envoy is not communicating to Enlighten.'
-                type: string
-                enum:
-                - normal
-                - comm
-            required:
-            - envoy_id
-            - last_report_at
-            - name
-            - part_number
-            - serial_number
-            - status
       required:
       - system_id
-      - envoys
       example:
-        system_id: 67
-        envoys:
-        - envoy_id: 512
-          last_report_at: 1308008107
-          name: Envoy 010731000003
-          part_number: 800-00002-r00
-          serial_number: '010731000003'
-          status: normal
-        - envoy_id: 841
-          last_report_at: null
-          name: Envoy 010814000001
-          part_number: 910-10000-r01
-          serial_number: 010814000001
-          status: normal
-    ServerError:
-      type: object
-      properties:
-        errorCode:
-          type: integer
-        errorMessages:
-          type: array
-          items:
-            type: string
-      required:
-      - errorCode
-      - errorMessages
-      example:
-        errorCode: 7
-        errorMessages:
-        - Data temporarily unavailable.
-    ClientError:
-      type: object
-      properties:
-        reason:
-          type: string
-        message:
-          type: array
-          items:
-            type: string
-      required:
-      - reason
-      - message
-      example:
-        reason: 401
-        message:
-        - Not authorized to access requested resource.
-    ConsumptionStatsResponse:
-      type: object
-      properties:
-        system_id:
-          description: Enlighten ID for this system.
-          type: integer
-        total_devices:
-          description: Number of active consumption meters for this system.
-          type: integer
-        meta:
-          $ref: '#/components/schemas/Meta'
-        intervals:
-          description: A list of intervals between the requested start and end times.
-          type: array
-          items:
-            type: object
-            properties:
-              end_at:
-                description: End of interval. The format is Unix epoch time unless you pass a `datetime_format` parameter as described [here](https://developer.enphase.com/docs#Datetimes).
-                type: integer
-                format: int64
-              enwh:
-                description: Energy consumed during this interval, in Watt-hours.
-                type: integer
-              devices_reporting:
-                description: Number of consumption meters that reported data for this interval at the time of the request.
-                type: integer
-            required:
-            - end_at
-            - enwh
-            - devices_reporting
-      required:
-      - system_id
-      - total_devices
-      - meta
-      - intervals
-      example:
-        system_id: 1765
-        total_devices: 1
-        meta:
-          status: normal
-          last_report_at: 1449011615
-          last_energy_at: 1449011015
-          operational_at: 1357023600
-        intervals:
-        - end_at: 1448946900
-          enwh: 0
-          devices_reporting: 1
-        - end_at: 1448947800
-          enwh: 0
-          devices_reporting: 1
-        - end_at: 1448948700
-          enwh: 2
-          devices_reporting: 1
-        - end_at: 1448949600
-          enwh: 2
-          devices_reporting: 1
-        - end_at: 1448950500
-          enwh: 3
-          devices_reporting: 1
-    EnergyLifetimeResponse:
-      type: object
-      properties:
-        start_date:
-          description: 'When no `start_date` parameter is specified on the request, this is the `operational_date` of the system. May be null if system has never produced. When a `start_date`
-
-            parameter is included in the request, it is included here in the response.'
-          type: string
-          format: date
-        system_id:
-          description: The identifier of the system.
-          type: integer
-        production:
-          description: 'An array of production measurements, one for each day since the system started producing, or one for each day of the requested period. If the system has never produced energy,
-
-            the array may be empty.'
-          type: array
-          items:
-            type: integer
-        micro_production:
-          type: array
-          items:
-            type: integer
-        meter_production:
-          type: array
-          items:
-            type: integer
-        meter_start_date:
-          description: The first day in the time series when measurements are taken from a meter instead of from microinverters. This field is not present unless the system has a meter.
-          type: string
-          format: date
-        meta:
-          $ref: '#/components/schemas/Meta'
-      required:
-      - start_date
-      - system_id
-      - production
-      - meta
-      example:
-        start_date: '2013-01-01'
-        system_id: 66
-        production:
-        - 15422
-        - 15421
-        - 17118
-        - 18505
-        - 18511
-        - 18487
-        meter_start_date: '2013-02-15'
-        meta:
-          status: normal
-          last_report_at: 1445619615
-          last_energy_at: 1445619033
-          operational_at: 1357023600
+        system_id: 123
     ConflictError:
       type: object
       properties:
@@ -1374,6 +1273,180 @@ components:
           powr: 476
           enwh: 40
           devices_reporting: 31
+    ServerError:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+        errorMessages:
+          type: array
+          items:
+            type: string
+      required:
+      - errorCode
+      - errorMessages
+      example:
+        errorCode: 7
+        errorMessages:
+        - Data temporarily unavailable.
+    ClientError:
+      type: object
+      properties:
+        reason:
+          type: string
+        message:
+          type: array
+          items:
+            type: string
+      required:
+      - reason
+      - message
+      example:
+        reason: 401
+        message:
+        - Not authorized to access requested resource.
+    ProductionMeterReadingsResponse:
+      type: object
+      properties:
+        system_id:
+          type: integer
+        meter_readings:
+          type: array
+          items:
+            type: object
+            properties:
+              serial_number:
+                description: The serial number of the meter.
+                type: string
+              value:
+                description: The odometer reading, in Watt-hours.
+                type: integer
+              read_at:
+                description: The time when the reading was taken, always prior or equal to the requested `end_at`.
+                type: integer
+                format: int64
+            required:
+            - serial_number
+            - value
+            - read_at
+        meta:
+          $ref: '#/components/schemas/Meta'
+      required:
+      - system_id
+      - meter_readings
+      - meta
+      example:
+        system_id: 66
+        meter_readings:
+        - serial_number: 123123123123EIM1
+          value: 6180635
+          read_at: 1473901200
+        meta:
+          status: normal
+          last_report_at: 1473902079
+          last_energy_at: 1473901200
+          operational_at: 1357023600
+    InventoryResponse:
+      type: object
+      properties:
+        system_id:
+          description: Enlighten ID for this system.
+          type: integer
+        envoys:
+          description: A list of Envoys on this system, including serial number.
+          type: array
+          items:
+            type: object
+            properties:
+              sn:
+                type: string
+              model:
+                type: string
+              sku:
+                type: string
+            required:
+            - sn
+            - model
+            - sku
+        inverters:
+          description: A list of inverters on this system, including serial and model numbers.
+          type: array
+          items:
+            type: object
+            properties:
+              sn:
+                type: string
+              model:
+                type: string
+              sku:
+                type: string
+            required:
+            - sn
+            - model
+            - sku
+        meters:
+          description: A list of meters on this system, including serial number, manufacturer, and model number.
+          type: array
+          items:
+            type: object
+            properties:
+              sn:
+                type: string
+              manufacturer:
+                type: string
+              model:
+                type: string
+              status:
+                type: string
+              state:
+                type: string
+            required:
+            - sn
+            - manufacturer
+            - model
+        meta:
+          $ref: '#/components/schemas/Meta'
+      required:
+      - system_id
+      - inverters
+      - meters
+      - meta
+      example:
+        system_id: 1765
+        inverters:
+        - sn: '123456789123'
+          model: M215
+        - sn: '123455589199'
+          model: M215
+        meters:
+        - sn: '999111222333'
+          manufacturer: GE
+          model: I-210+
+    UnprocessableEntityError:
+      type: object
+      properties:
+        reason:
+          type: string
+        message:
+          type: string
+        errorMessages:
+          type: array
+          items:
+            type: string
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+        start_at:
+          type: integer
+        end_at:
+          type: integer
+        first_interval:
+          type: integer
+        last_interval:
+          type: integer
     RgmStatsResponse:
       type: object
       properties:
@@ -1527,173 +1600,60 @@ components:
             end_at: 1384126300
             wh_del: 14
             curr_w: 56
-    ConnectionType:
-      description: How the system is connected to the Internet.
-      type: string
-      enum:
-      - ethernet
-      - cellular
-      - wifi
-      example: ethernet
-    MonthlyProductionResponse:
+    EnergyLifetimeResponse:
       type: object
       properties:
-        system_id:
-          description: Enlighten ID for this system.
-          type: integer
         start_date:
-          description: 'First day included in the reporting period. The format is `YYYY-mm-dd` unless you pass a `datetime_format` parameter as described
+          description: 'When no `start_date` parameter is specified on the request, this is the `operational_date` of the system. May be null if system has never produced. When a `start_date`
 
-            [here](https://developer.enphase.com/docs#Datetimes).'
+            parameter is included in the request, it is included here in the response.'
           type: string
           format: date
-        end_date:
-          description: Last day included in the reporting period.
-          type: string
-          format: date
-        production_wh:
-          description: Total production for the requested period in Watt-hours.
+        system_id:
+          description: The identifier of the system.
           type: integer
-        meter_readings:
-          description: If the system has any revenue-grade meters installed, the meter readings at the beginning and end of the reporting period are included here. Otherwise, the array is empty.
+        production:
+          description: 'An array of production measurements, one for each day since the system started producing, or one for each day of the requested period. If the system has never produced energy,
+
+            the array may be empty.'
           type: array
           items:
-            type: object
-            properties:
-              serial_number:
-                type: string
-              start:
-                type: integer
-              end:
-                type: integer
-            required:
-            - serial_number
-            - start
-            - end
+            type: integer
+        micro_production:
+          type: array
+          items:
+            type: integer
+        meter_production:
+          type: array
+          items:
+            type: integer
+        meter_start_date:
+          description: The first day in the time series when measurements are taken from a meter instead of from microinverters. This field is not present unless the system has a meter.
+          type: string
+          format: date
         meta:
           $ref: '#/components/schemas/Meta'
       required:
-      - system_id
       - start_date
-      - end_date
-      - production_wh
-      - meter_readings
+      - system_id
+      - production
       - meta
       example:
+        start_date: '2013-01-01'
         system_id: 66
-        start_date: '2011-07-01'
-        end_date: '2011-07-31'
-        production_wh: 208435
-        meter_readings:
-        - serial_number: '123123123123'
-          start: 196077
-          end: 404512
+        production:
+        - 15422
+        - 15421
+        - 17118
+        - 18505
+        - 18511
+        - 18487
+        meter_start_date: '2013-02-15'
         meta:
           status: normal
           last_report_at: 1445619615
           last_energy_at: 1445619033
           operational_at: 1357023600
-    InventoryResponse:
-      type: object
-      properties:
-        system_id:
-          description: Enlighten ID for this system.
-          type: integer
-        envoys:
-          description: A list of Envoys on this system, including serial number.
-          type: array
-          items:
-            type: object
-            properties:
-              sn:
-                type: string
-              model:
-                type: string
-              sku:
-                type: string
-            required:
-            - sn
-            - model
-            - sku
-        inverters:
-          description: A list of inverters on this system, including serial and model numbers.
-          type: array
-          items:
-            type: object
-            properties:
-              sn:
-                type: string
-              model:
-                type: string
-              sku:
-                type: string
-            required:
-            - sn
-            - model
-            - sku
-        meters:
-          description: A list of meters on this system, including serial number, manufacturer, and model number.
-          type: array
-          items:
-            type: object
-            properties:
-              sn:
-                type: string
-              manufacturer:
-                type: string
-              model:
-                type: string
-              status:
-                type: string
-              state:
-                type: string
-            required:
-            - sn
-            - manufacturer
-            - model
-        meta:
-          $ref: '#/components/schemas/Meta'
-      required:
-      - system_id
-      - inverters
-      - meters
-      - meta
-      example:
-        system_id: 1765
-        inverters:
-        - sn: '123456789123'
-          model: M215
-        - sn: '123455589199'
-          model: M215
-        meters:
-        - sn: '999111222333'
-          manufacturer: GE
-          model: I-210+
-    Meta:
-      description: Information about the system that you can use to ascertain the timeliness of the production data included in the response.
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/Status'
-        last_report_at:
-          type: integer
-          format: int64
-        last_energy_at:
-          type: integer
-          format: int64
-        operational_at:
-          type: integer
-          format: int64
-      required:
-      - status
-      - last_report_at
-      - last_energy_at
-      - operational_at
-      example:
-        status: normal
-        last_report_at: 1445619615
-        last_energy_at: 1445619033
-        operational_at: 1357023600
     SystemsResponse:
       type: object
       properties:
@@ -1807,65 +1767,67 @@ components:
             last_energy_at: 1449945104
             operational_at: 1418912581
         next: 4e7a453d0a
-    SearchSystemIdResponse:
+    ConsumptionStatsResponse:
       type: object
       properties:
         system_id:
-          description: The Enlighten ID of the system.
+          description: Enlighten ID for this system.
           type: integer
-      required:
-      - system_id
-      example:
-        system_id: 123
-    ProductionMeterReadingsResponse:
-      type: object
-      properties:
-        system_id:
+        total_devices:
+          description: Number of active consumption meters for this system.
           type: integer
-        meter_readings:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        intervals:
+          description: A list of intervals between the requested start and end times.
           type: array
           items:
             type: object
             properties:
-              serial_number:
-                description: The serial number of the meter.
-                type: string
-              value:
-                description: The odometer reading, in Watt-hours.
-                type: integer
-              read_at:
-                description: The time when the reading was taken, always prior or equal to the requested `end_at`.
+              end_at:
+                description: End of interval. The format is Unix epoch time unless you pass a `datetime_format` parameter as described [here](https://developer.enphase.com/docs#Datetimes).
                 type: integer
                 format: int64
+              enwh:
+                description: Energy consumed during this interval, in Watt-hours.
+                type: integer
+              devices_reporting:
+                description: Number of consumption meters that reported data for this interval at the time of the request.
+                type: integer
             required:
-            - serial_number
-            - value
-            - read_at
-        meta:
-          $ref: '#/components/schemas/Meta'
+            - end_at
+            - enwh
+            - devices_reporting
       required:
       - system_id
-      - meter_readings
+      - total_devices
       - meta
+      - intervals
       example:
-        system_id: 66
-        meter_readings:
-        - serial_number: 123123123123EIM1
-          value: 6180635
-          read_at: 1473901200
+        system_id: 1765
+        total_devices: 1
         meta:
           status: normal
-          last_report_at: 1473902079
-          last_energy_at: 1473901200
+          last_report_at: 1449011615
+          last_energy_at: 1449011015
           operational_at: 1357023600
+        intervals:
+        - end_at: 1448946900
+          enwh: 0
+          devices_reporting: 1
+        - end_at: 1448947800
+          enwh: 0
+          devices_reporting: 1
+        - end_at: 1448948700
+          enwh: 2
+          devices_reporting: 1
+        - end_at: 1448949600
+          enwh: 2
+          devices_reporting: 1
+        - end_at: 1448950500
+          enwh: 3
+          devices_reporting: 1
   parameters:
-    SystemId:
-      name: system_id
-      in: path
-      required: true
-      schema:
-        type: integer
-        example: 66
     UserId:
       name: user_id
       in: query
@@ -1873,6 +1835,44 @@ components:
       schema:
         type: string
         example: 4d6a51330a
+    SystemId:
+      name: system_id
+      in: path
+      required: true
+      schema:
+        type: integer
+        example: 66
+  responses:
+    UnprocessableEntityError:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UnprocessableEntityError'
+    ConflictError:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ConflictError'
+    ClientError:
+      description: Client error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ClientError'
+    ServerError:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServerError'
+    NotFoundError:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundError'
   securitySchemes:
     ApiKey:
       type: apiKey

@@ -235,18 +235,6 @@ components:
           type: number
           description: Estimated accuracy or confidence level of the Grid import & export forecast.
           format: double
-    ForecastData:
-      type: object
-      properties:
-        battery_capacity_wh:
-          type: number
-          description: Total usable battery capacity in watt-hours (Wh). Indicates the maximum energy storage of the on-site battery.
-          format: double
-        intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/ForecastTimeSeries'
-      description: aggregated forecast data for the sites
     ForecastResponse:
       type: object
       properties:
@@ -282,3 +270,15 @@ components:
             type: integer
             description: sites not enrolled in any program related to the user account
             format: int32
+    ForecastData:
+      type: object
+      properties:
+        battery_capacity_wh:
+          type: number
+          description: Total usable battery capacity in watt-hours (Wh). Indicates the maximum energy storage of the on-site battery.
+          format: double
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForecastTimeSeries'
+      description: aggregated forecast data for the sites

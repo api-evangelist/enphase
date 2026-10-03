@@ -545,146 +545,6 @@ paths:
                 details: Internal Server Error
 components:
   schemas:
-    ChargerSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 202320010308:698989834
-        sku:
-          type: string
-          example: IQ-EVSE-NA-1040-0110-0100
-        status:
-          type: string
-          example: normal
-        serial_number:
-          type: string
-          example: '202320010308'
-        name:
-          type: string
-          example: IQ EV Charger NACS
-        model:
-          type: string
-          example: IQ-EVSE-40R
-        part_number:
-          type: string
-          example: 800-00555 0303
-        firmware:
-          type: string
-          example: v0.04.22
-        active:
-          type: boolean
-          example: true
-      example:
-        ev_chargers:
-        - id: 202320010308:698989834
-          sku: IQ-EVSE-NA-1040-0110-0100
-          status: normal
-          serial_number: '202320010308'
-          name: IQ EV Charger NACS
-          model: IQ-EVSE-40R
-          part_number: 800-00555 0303
-          last_report_at: 1700074065
-          firmware: v0.04.22
-          active: true
-    ChargeSessionDetail:
-      required:
-      - charge_time
-      - cost
-      - duration
-      - end_time
-      - energy_added
-      - miles_added
-      - start_time
-      type: object
-      properties:
-        start_time:
-          type: integer
-          description: session start time
-          format: int64
-          example: 1700059683
-        end_time:
-          type: integer
-          description: session end time
-          format: int64
-          example: 1700071180
-        duration:
-          type: integer
-          description: session duration in seconds
-          format: int64
-          example: 11497
-        energy_added:
-          type: number
-          description: energy added in Wh
-          format: double
-          example: 14.83
-        charge_time:
-          type: integer
-          description: Total charging time
-          format: int64
-          example: 7080
-        miles_added:
-          type: number
-          description: Miles added
-          format: double
-          example: 1.2
-        cost:
-          type: number
-          description: session cost
-          example: 0.5
-      description: List of sessions
-    SchedulesBodyResponse:
-      type: object
-      properties:
-        system_id:
-          type: integer
-          format: int32
-          example: 698989834
-        charger_schedules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScheduleList'
-    ChargeSessionDetailsResponse:
-      required:
-      - count
-      - sessions
-      - system_id
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Count of sessions
-          format: int32
-          example: 1
-        system_id:
-          type: integer
-          description: system_id
-          format: int32
-          example: 698989834
-        sessions:
-          type: array
-          description: List of sessions
-          items:
-            $ref: '#/components/schemas/ChargeSessionDetail'
-    ErrorResponseArray:
-      required:
-      - message
-      - reason
-      type: object
-      properties:
-        message:
-          type: array
-          description: message
-          example:
-          - Method not allowed
-          items:
-            type: string
-            description: message
-            example: '["Method not allowed"]'
-        reason:
-          type: string
-          description: statusCode
-          example: '405'
     EnergyConsumption:
       type: object
       properties:
@@ -1126,6 +986,59 @@ components:
         end_at:
           type: integer
           format: int64
+    Schedule:
+      type: object
+      properties:
+        days:
+          type: array
+          items:
+            type: integer
+            format: int32
+        start_time:
+          type: string
+        end_time:
+          type: string
+        charging_level:
+          type: integer
+          format: int32
+      example:
+      - days:
+        - 1
+        - 2
+        start_time: '1:00'
+        end_time: '2:00'
+        charging_level: 70
+      - days:
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        start_time: '2:00'
+        end_time: '3:00'
+        charging_level: 80
+    ChargeSessionDetailsResponse:
+      required:
+      - count
+      - sessions
+      - system_id
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Count of sessions
+          format: int32
+          example: 1
+        system_id:
+          type: integer
+          description: system_id
+          format: int32
+          example: 698989834
+        sessions:
+          type: array
+          description: List of sessions
+          items:
+            $ref: '#/components/schemas/ChargeSessionDetail'
     ChargerSummaryResponse:
       type: object
       properties:
@@ -1206,37 +1119,76 @@ components:
           type: integer
           format: int32
           example: 10
-    Schedule:
+    ChargerSummary:
       type: object
       properties:
-        days:
-          type: array
-          items:
-            type: integer
-            format: int32
-        start_time:
+        id:
           type: string
-        end_time:
+          example: 202320010308:698989834
+        sku:
           type: string
-        charging_level:
-          type: integer
-          format: int32
+          example: IQ-EVSE-NA-1040-0110-0100
+        status:
+          type: string
+          example: normal
+        serial_number:
+          type: string
+          example: '202320010308'
+        name:
+          type: string
+          example: IQ EV Charger NACS
+        model:
+          type: string
+          example: IQ-EVSE-40R
+        part_number:
+          type: string
+          example: 800-00555 0303
+        firmware:
+          type: string
+          example: v0.04.22
+        active:
+          type: boolean
+          example: true
       example:
-      - days:
-        - 1
-        - 2
-        start_time: '1:00'
-        end_time: '2:00'
-        charging_level: 70
-      - days:
-        - 3
-        - 4
-        - 5
-        - 6
-        - 7
-        start_time: '2:00'
-        end_time: '3:00'
-        charging_level: 80
+        ev_chargers:
+        - id: 202320010308:698989834
+          sku: IQ-EVSE-NA-1040-0110-0100
+          status: normal
+          serial_number: '202320010308'
+          name: IQ EV Charger NACS
+          model: IQ-EVSE-40R
+          part_number: 800-00555 0303
+          last_report_at: 1700074065
+          firmware: v0.04.22
+          active: true
+    ErrorResponseArray:
+      required:
+      - message
+      - reason
+      type: object
+      properties:
+        message:
+          type: array
+          description: message
+          example:
+          - Method not allowed
+          items:
+            type: string
+            description: message
+            example: '["Method not allowed"]'
+        reason:
+          type: string
+          description: statusCode
+          example: '405'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        details:
+          type: string
     EVEventsResponse:
       type: object
       properties:
@@ -1252,15 +1204,63 @@ components:
           type: integer
           format: int32
           example: 701052773
-    ErrorResponse:
+    SchedulesBodyResponse:
       type: object
       properties:
-        message:
-          type: string
-        code:
-          type: string
-        details:
-          type: string
+        system_id:
+          type: integer
+          format: int32
+          example: 698989834
+        charger_schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleList'
+    ChargeSessionDetail:
+      required:
+      - charge_time
+      - cost
+      - duration
+      - end_time
+      - energy_added
+      - miles_added
+      - start_time
+      type: object
+      properties:
+        start_time:
+          type: integer
+          description: session start time
+          format: int64
+          example: 1700059683
+        end_time:
+          type: integer
+          description: session end time
+          format: int64
+          example: 1700071180
+        duration:
+          type: integer
+          description: session duration in seconds
+          format: int64
+          example: 11497
+        energy_added:
+          type: number
+          description: energy added in Wh
+          format: double
+          example: 14.83
+        charge_time:
+          type: integer
+          description: Total charging time
+          format: int64
+          example: 7080
+        miles_added:
+          type: number
+          description: Miles added
+          format: double
+          example: 1.2
+        cost:
+          type: number
+          description: session cost
+          example: 0.5
+      description: List of sessions
     EventDetail:
       type: object
       properties:
