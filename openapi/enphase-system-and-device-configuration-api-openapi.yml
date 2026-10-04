@@ -1000,28 +1000,6 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
-    StopStreamResponse:
-      type: object
-      properties:
-        serial_number:
-          type: string
-          description: Envoy Serial Number
-        status:
-          type: string
-          description: Command Status
-    RegisterLiveStreamStatusResponse:
-      type: object
-      properties:
-        serial_number:
-          type: string
-          description: Envoy serial number
-        status:
-          type: string
-          description: Registration status
-          enum:
-          - IN_PROGRESS
-          - COMPLETED
-          - FAILED
     ReservedSOCUpdateRequest:
       required:
       - vpp_event_reserve_soc
@@ -1033,11 +1011,6 @@ components:
           type: integer
           description: VPP Event's reserved SOC %. Value should be between 0 and 100 (Integers only)
           format: int32
-    OCPPConfigurationResponse:
-      type: object
-      properties:
-        status:
-          type: string
     OCPPConfigurationRequest:
       required:
       - connectionUrl
@@ -1058,6 +1031,19 @@ components:
         vpp_event_reserve_soc:
           type: integer
           format: int32
+    RegisterLiveStreamStatusResponse:
+      type: object
+      properties:
+        serial_number:
+          type: string
+          description: Envoy serial number
+        status:
+          type: string
+          description: Registration status
+          enum:
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED
     OCPPResetResponse:
       type: object
       properties:
@@ -1072,6 +1058,15 @@ components:
         status:
           type: string
           description: Command status
+    StopStreamResponse:
+      type: object
+      properties:
+        serial_number:
+          type: string
+          description: Envoy Serial Number
+        status:
+          type: string
+          description: Command Status
     OCPPConfigurationStatusResponse:
       type: object
       properties:
@@ -1093,3 +1088,8 @@ components:
         configurationStatusFailureReason:
           type: string
           description: Reason for ACTIVATION_FAILED or DEACTIVATION_FAILED
+    OCPPConfigurationResponse:
+      type: object
+      properties:
+        status:
+          type: string

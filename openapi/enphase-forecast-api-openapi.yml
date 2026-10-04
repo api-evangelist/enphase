@@ -127,28 +127,6 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
-    ForecastRequest:
-      type: object
-      properties:
-        site_ids:
-          uniqueItems: true
-          type: array
-          description: List of all the Site IDs; Only one of the siteList and vpp_id must be passed
-          items:
-            type: integer
-            description: List of all the Site IDs; Only one of the siteList and vpp_id must be passed
-            format: int32
-        vpp_id:
-          type: string
-          description: vpp_id; Only one of the siteList and vpp_id must be passed
-        granularity:
-          type: string
-          description: Required interval size of the forecast data in minutes. Possible values are ‘15mins’.
-          default: 15mins
-        duration:
-          type: string
-          description: Required duration of forecast in hours. Possible values are 3H to 24H. Duration should be multiple of granularity.
-          default: 3H
     ForecastTimeSeries:
       type: object
       properties:
@@ -235,6 +213,40 @@ components:
           type: number
           description: Estimated accuracy or confidence level of the Grid import & export forecast.
           format: double
+    ForecastRequest:
+      type: object
+      properties:
+        site_ids:
+          uniqueItems: true
+          type: array
+          description: List of all the Site IDs; Only one of the siteList and vpp_id must be passed
+          items:
+            type: integer
+            description: List of all the Site IDs; Only one of the siteList and vpp_id must be passed
+            format: int32
+        vpp_id:
+          type: string
+          description: vpp_id; Only one of the siteList and vpp_id must be passed
+        granularity:
+          type: string
+          description: Required interval size of the forecast data in minutes. Possible values are ‘15mins’.
+          default: 15mins
+        duration:
+          type: string
+          description: Required duration of forecast in hours. Possible values are 3H to 24H. Duration should be multiple of granularity.
+          default: 3H
+    ForecastData:
+      type: object
+      properties:
+        battery_capacity_wh:
+          type: number
+          description: Total usable battery capacity in watt-hours (Wh). Indicates the maximum energy storage of the on-site battery.
+          format: double
+        intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForecastTimeSeries'
+      description: aggregated forecast data for the sites
     ForecastResponse:
       type: object
       properties:
@@ -270,15 +282,3 @@ components:
             type: integer
             description: sites not enrolled in any program related to the user account
             format: int32
-    ForecastData:
-      type: object
-      properties:
-        battery_capacity_wh:
-          type: number
-          description: Total usable battery capacity in watt-hours (Wh). Indicates the maximum energy storage of the on-site battery.
-          format: double
-        intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/ForecastTimeSeries'
-      description: aggregated forecast data for the sites

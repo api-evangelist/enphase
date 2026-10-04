@@ -605,27 +605,6 @@ paths:
                   value: "{\n  \"code\": \"422\",\n  \"displayMessage\": \"Unprocessable Entity\",\n  \"additionalInfo\": \"Unprocessable Entity. Please check your request\",\n  \"errorRefNo\": \"e20fdf9aa241bea9\",\n}"
 components:
   schemas:
-    VPPCreateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: name of the VPP
-        query:
-          $ref: '#/components/schemas/SitesQuery'
-        program_id:
-          type: string
-          description: unique ID of the program
-    VPPsListResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: int32
-        vpps:
-          type: array
-          items:
-            $ref: '#/components/schemas/GsApiVPP'
     SitesQuery:
       required:
       - operator
@@ -648,6 +627,21 @@ components:
           - AND
           - OR
       description: Sites Query Model - VPP Manager | Grid Services
+    VPPUpdateRequest:
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/SitesQuery'
+    VPPsListResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: int32
+        vpps:
+          type: array
+          items:
+            $ref: '#/components/schemas/GsApiVPP'
     GsApiVPP:
       type: object
       properties:
@@ -695,8 +689,14 @@ components:
           items:
             type: integer
             format: int32
-    VPPUpdateRequest:
+    VPPCreateRequest:
       type: object
       properties:
+        name:
+          type: string
+          description: name of the VPP
         query:
           $ref: '#/components/schemas/SitesQuery'
+        program_id:
+          type: string
+          description: unique ID of the program
