@@ -120,3 +120,42 @@ plans:
   - System Details And Telemetry
   - System and Device Configuration
   source: https://developer-v4.enphase.com/vpp-plans
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - hybrid
+  - negotiated
+  units: []
+  plans:
+  - name: Watt
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Kilowatt
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods: []
+  - name: Megawatt
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods: []
+  - name: Partner
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: VPP
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
