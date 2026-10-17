@@ -176,6 +176,15 @@ components:
           type: string
           description: Success message
           example: Request sent successfully
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        details:
+          type: string
     StartChargingRequestBody:
       type: object
       properties:
@@ -189,15 +198,6 @@ components:
           type: string
           description: Charging current level. It Should be an integer in [0-100].
           example: '40'
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-        details:
-          type: string
     ErrorResponseArray:
       required:
       - message

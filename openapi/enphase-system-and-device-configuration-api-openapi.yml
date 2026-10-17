@@ -1011,26 +1011,25 @@ components:
           type: integer
           description: VPP Event's reserved SOC %. Value should be between 0 and 100 (Integers only)
           format: int32
-    OCPPConfigurationRequest:
-      required:
-      - connectionUrl
+    OCPPConfigurationResponse:
       type: object
       properties:
-        connectionUrl:
+        status:
           type: string
-          description: 'Partner’s CSMS url to which the charger will establish communication '
-        securityProfile:
-          type: string
-          description: Partner’s CSMS security profile
-        authKey:
-          type: string
-          description: Partner's CSMS one time token to be used for authorizing charger's communication with the CSMS that is supplied at the time of registration
-    SiteSettingsResponseDTO:
+    StopStreamResponse:
       type: object
       properties:
-        vpp_event_reserve_soc:
-          type: integer
-          format: int32
+        serial_number:
+          type: string
+          description: Envoy Serial Number
+        status:
+          type: string
+          description: Command Status
+    OCPPResetResponse:
+      type: object
+      properties:
+        message:
+          type: string
     RegisterLiveStreamStatusResponse:
       type: object
       properties:
@@ -1044,29 +1043,6 @@ components:
           - IN_PROGRESS
           - COMPLETED
           - FAILED
-    OCPPResetResponse:
-      type: object
-      properties:
-        message:
-          type: string
-    StartStreamResponse:
-      type: object
-      properties:
-        serial_number:
-          type: string
-          description: Envoy serial number
-        status:
-          type: string
-          description: Command status
-    StopStreamResponse:
-      type: object
-      properties:
-        serial_number:
-          type: string
-          description: Envoy Serial Number
-        status:
-          type: string
-          description: Command Status
     OCPPConfigurationStatusResponse:
       type: object
       properties:
@@ -1088,8 +1064,32 @@ components:
         configurationStatusFailureReason:
           type: string
           description: Reason for ACTIVATION_FAILED or DEACTIVATION_FAILED
-    OCPPConfigurationResponse:
+    StartStreamResponse:
       type: object
       properties:
+        serial_number:
+          type: string
+          description: Envoy serial number
         status:
           type: string
+          description: Command status
+    SiteSettingsResponseDTO:
+      type: object
+      properties:
+        vpp_event_reserve_soc:
+          type: integer
+          format: int32
+    OCPPConfigurationRequest:
+      required:
+      - connectionUrl
+      type: object
+      properties:
+        connectionUrl:
+          type: string
+          description: 'Partner’s CSMS url to which the charger will establish communication '
+        securityProfile:
+          type: string
+          description: Partner’s CSMS security profile
+        authKey:
+          type: string
+          description: Partner's CSMS one time token to be used for authorizing charger's communication with the CSMS that is supplied at the time of registration
