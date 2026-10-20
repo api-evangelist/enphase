@@ -28,9 +28,39 @@ edges:
   detected_by: sweep-energy.py
   first_seen: '2026-10-20'
   partner_match: register-name
+- partner_name: CharIN e.V. (Charging Interface Initiative)
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.charin.global/community/enphase-energy-inc
+  category: charging-interface standards association membership
+  contract_reference:
+    register: CharIN e.V. members (charin.global/community, membership:core + membership:regular)
+    standard: CCS / MCS / ISO 15118 (Plug & Charge)
+    spec_file: null
+    role: charin-member
+    registered_name: Enphase Energy Inc
+    register_id: https://www.charin.global/community/enphase-energy-inc
+    partner_tier: core
+    member_since: null
+    matched_domain: enphase.com
+    matched_by: domain
+    signal_note: 'participation only: association membership; tier is context, never counted'
+    detected_by: sweep-ev-charging.py
+    detected: '2026-10-20'
+  detected_by: sweep-ev-charging.py
+  first_seen: '2026-10-20'
 generated: '2026-10-20'
 method: searched
 checked:
 - https://solarequipment.energy.ca.gov/Home/DownloadtoExcel?filename=InvertersList
+- https://evroaming.org/members/
+- https://openchargealliance.org/certified-companies/
+- https://openchargealliance.org/withdrawn/
+- https://www.charin.global/community/membership:core
+- https://www.charin.global/community/membership:regular
 source:
 - https://solarequipment.energy.ca.gov/Home/DownloadtoExcel?filename=InvertersList
