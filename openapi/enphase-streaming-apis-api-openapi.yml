@@ -657,3 +657,9 @@ paths:
       summary: Site Level Live Status
       tags:
       - Streaming APIs
+x-provenance:
+  method: harvested
+  publisher: Enphase Energy
+  source: https://developer-v4.enphase.com/swagger/spec/System_API.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

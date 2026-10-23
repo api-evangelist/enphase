@@ -1278,3 +1278,9 @@ components:
           last_report_at: 1700074065
           firmware: v0.04.22
           active: true
+x-provenance:
+  method: harvested
+  publisher: Enphase Energy
+  source: https://developer-v4.enphase.com/swagger/spec/System_API.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
