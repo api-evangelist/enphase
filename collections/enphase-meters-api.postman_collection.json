@@ -1,0 +1,988 @@
+{
+  "info": {
+    "_postman_id": "8226649a-f15b-4c8c-9905-a9c928943685",
+    "name": "Commissioning Meters API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:53:00.000Z",
+    "updatedAt": "2026-10-21T20:53:01.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8226649a-f15b-4c8c-9905-a9c928943685"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v4",
+          "item": [
+            {
+              "name": "systems",
+              "item": [
+                {
+                  "name": "{system_id}",
+                  "item": [
+                    {
+                      "name": "meters",
+                      "item": [
+                        {
+                          "name": "{serial_number}",
+                          "item": [
+                            {
+                              "name": "Returns the requested meter detail",
+                              "id": "244b69b5-c491-4de8-b6a2-c12e872fef38",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/meters/:serial_number",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "meters",
+                                    ":serial_number"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "8cd666e9-59a1-4269-82a1-bf6b639cb944",
+                                      "key": "system_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) System ID"
+                                    },
+                                    {
+                                      "id": "facc84ef-8916-4653-b4a3-6328824d83ab",
+                                      "key": "serial_number",
+                                      "value": "<string>",
+                                      "description": "(Required) Meter serial number"
+                                    }
+                                  ]
+                                },
+                                "description": "Returns the requested meter by serial number. You must have access to the requested system and meter; otherwise a 401 is returned."
+                              },
+                              "response": [
+                                {
+                                  "id": "4a1d0833-7b96-4bc4-89e7-4371a5cf5a9c",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/:system_id/meters/:serial_number",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        ":system_id",
+                                        "meters",
+                                        ":serial_number"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        },
+                                        {
+                                          "key": "serial_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"serial_number\": \"<string>\",\n  \"manufacturer\": \"<string>\",\n  \"model\": \"<string>\",\n  \"type\": \"<string>\",\n  \"operational_date\": \"<string>\",\n  \"first_report_date\": \"<string>\",\n  \"last_report_date\": \"<string>\",\n  \"phase\": \"<string>\",\n  \"envoy_serial_number\": \"<string>\",\n  \"status\": \"<string>\",\n  \"state\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:01.000Z",
+                                  "updatedAt": "2026-10-21T20:53:01.000Z",
+                                  "uid": "35240-4a1d0833-7b96-4bc4-89e7-4371a5cf5a9c"
+                                },
+                                {
+                                  "id": "83559dec-109a-4efb-9dd8-9c676f4397b8",
+                                  "name": "Unauthorized",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/:system_id/meters/:serial_number",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        ":system_id",
+                                        "meters",
+                                        ":serial_number"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        },
+                                        {
+                                          "key": "serial_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:01.000Z",
+                                  "updatedAt": "2026-10-21T20:53:01.000Z",
+                                  "uid": "35240-83559dec-109a-4efb-9dd8-9c676f4397b8"
+                                },
+                                {
+                                  "id": "b45e3c42-f9f7-4b51-992c-28cf72ee3c79",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/:system_id/meters/:serial_number",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        ":system_id",
+                                        "meters",
+                                        ":serial_number"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        },
+                                        {
+                                          "key": "serial_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:01.000Z",
+                                  "updatedAt": "2026-10-21T20:53:01.000Z",
+                                  "uid": "35240-b45e3c42-f9f7-4b51-992c-28cf72ee3c79"
+                                },
+                                {
+                                  "id": "e6942f31-8c64-4936-9c4f-94bedc753fdc",
+                                  "name": "Method Not Allowed",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/:system_id/meters/:serial_number",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        ":system_id",
+                                        "meters",
+                                        ":serial_number"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        },
+                                        {
+                                          "key": "serial_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Method Not Allowed",
+                                  "code": 405,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:01.000Z",
+                                  "updatedAt": "2026-10-21T20:53:01.000Z",
+                                  "uid": "35240-e6942f31-8c64-4936-9c4f-94bedc753fdc"
+                                },
+                                {
+                                  "id": "53f501ca-f804-41b1-9593-8bad8e811a04",
+                                  "name": "Too Many Requests",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/:system_id/meters/:serial_number",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        ":system_id",
+                                        "meters",
+                                        ":serial_number"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        },
+                                        {
+                                          "key": "serial_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Too Many Requests",
+                                  "code": 429,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:01.000Z",
+                                  "updatedAt": "2026-10-21T20:53:01.000Z",
+                                  "uid": "35240-53f501ca-f804-41b1-9593-8bad8e811a04"
+                                },
+                                {
+                                  "id": "eaf1e080-499b-485d-9320-e3bb478baad9",
+                                  "name": "Not Implemented",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/:system_id/meters/:serial_number",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        ":system_id",
+                                        "meters",
+                                        ":serial_number"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        },
+                                        {
+                                          "key": "serial_number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Implemented",
+                                  "code": 501,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:01.000Z",
+                                  "updatedAt": "2026-10-21T20:53:01.000Z",
+                                  "uid": "35240-eaf1e080-499b-485d-9320-e3bb478baad9"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:53:01.000Z",
+                              "updatedAt": "2026-10-21T20:53:01.000Z",
+                              "uid": "35240-244b69b5-c491-4de8-b6a2-c12e872fef38"
+                            }
+                          ],
+                          "id": "b320169c-297d-4471-89ed-a85269d44742",
+                          "createdAt": "2026-10-21T20:53:01.000Z",
+                          "updatedAt": "2026-10-21T20:53:01.000Z",
+                          "uid": "35240-b320169c-297d-4471-89ed-a85269d44742"
+                        }
+                      ],
+                      "id": "d6c55fd7-0f8c-4034-a0af-dad4dfbb7770",
+                      "createdAt": "2026-10-21T20:53:01.000Z",
+                      "updatedAt": "2026-10-21T20:53:01.000Z",
+                      "uid": "35240-d6c55fd7-0f8c-4034-a0af-dad4dfbb7770"
+                    }
+                  ],
+                  "id": "f3730815-48c7-4e71-8f1e-d4484b597512",
+                  "createdAt": "2026-10-21T20:53:01.000Z",
+                  "updatedAt": "2026-10-21T20:53:01.000Z",
+                  "uid": "35240-f3730815-48c7-4e71-8f1e-d4484b597512"
+                }
+              ],
+              "id": "22843a59-ef7c-4156-b33e-e446d56f0b9b",
+              "createdAt": "2026-10-21T20:53:01.000Z",
+              "updatedAt": "2026-10-21T20:53:01.000Z",
+              "uid": "35240-22843a59-ef7c-4156-b33e-e446d56f0b9b"
+            },
+            {
+              "name": "activations",
+              "item": [
+                {
+                  "name": "{activation_id}",
+                  "item": [
+                    {
+                      "name": "meters",
+                      "item": [
+                        {
+                          "name": "{serial_number}",
+                          "item": [
+                            {
+                              "name": "meter_control",
+                              "item": [
+                                {
+                                  "name": "Enable or Disable the meters",
+                                  "id": "a533fc16-9ca8-4e01-857f-c97d2cef487a",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"status\": \"disabled\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/meters/:serial_number/meter_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "meters",
+                                        ":serial_number",
+                                        "meter_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "8fe404f4-ebfe-44ac-8688-2fc6a1bacfee",
+                                          "key": "activation_id",
+                                          "value": "<integer>",
+                                          "description": "(Required) Activation ID"
+                                        },
+                                        {
+                                          "id": "0d7bd518-8b05-458f-ac9a-cbcea19f8329",
+                                          "key": "serial_number",
+                                          "value": "<string>",
+                                          "description": "(Required) Meter serial number"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Enable or Disable the meters. You must have access to the requested system and meter; otherwise a 401 is returned."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "31d1cfdc-f354-4244-9542-254caf777ef4",
+                                      "name": "OK",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"status\": \"disabled\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/activations/:activation_id/meters/:serial_number/meter_control",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "activations",
+                                            ":activation_id",
+                                            "meters",
+                                            ":serial_number",
+                                            "meter_control"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "activation_id"
+                                            },
+                                            {
+                                              "key": "serial_number"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "createdAt": "2026-10-21T20:53:01.000Z",
+                                      "updatedAt": "2026-10-21T20:53:01.000Z",
+                                      "uid": "35240-31d1cfdc-f354-4244-9542-254caf777ef4"
+                                    },
+                                    {
+                                      "id": "6a5b4081-c82f-4d9a-9b6e-d0e443d27b70",
+                                      "name": "Unauthorized",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"status\": \"disabled\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/activations/:activation_id/meters/:serial_number/meter_control",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "activations",
+                                            ":activation_id",
+                                            "meters",
+                                            ":serial_number",
+                                            "meter_control"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "activation_id"
+                                            },
+                                            {
+                                              "key": "serial_number"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "createdAt": "2026-10-21T20:53:01.000Z",
+                                      "updatedAt": "2026-10-21T20:53:01.000Z",
+                                      "uid": "35240-6a5b4081-c82f-4d9a-9b6e-d0e443d27b70"
+                                    },
+                                    {
+                                      "id": "93511582-d95b-418f-8cc7-66953cba75f1",
+                                      "name": "Not found",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"status\": \"disabled\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/activations/:activation_id/meters/:serial_number/meter_control",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "activations",
+                                            ":activation_id",
+                                            "meters",
+                                            ":serial_number",
+                                            "meter_control"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "activation_id"
+                                            },
+                                            {
+                                              "key": "serial_number"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "createdAt": "2026-10-21T20:53:01.000Z",
+                                      "updatedAt": "2026-10-21T20:53:01.000Z",
+                                      "uid": "35240-93511582-d95b-418f-8cc7-66953cba75f1"
+                                    },
+                                    {
+                                      "id": "994e0865-2d3d-4d83-8639-07279561bc27",
+                                      "name": "Method Not Allowed",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"status\": \"disabled\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/activations/:activation_id/meters/:serial_number/meter_control",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "activations",
+                                            ":activation_id",
+                                            "meters",
+                                            ":serial_number",
+                                            "meter_control"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "activation_id"
+                                            },
+                                            {
+                                              "key": "serial_number"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Method Not Allowed",
+                                      "code": 405,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "createdAt": "2026-10-21T20:53:01.000Z",
+                                      "updatedAt": "2026-10-21T20:53:01.000Z",
+                                      "uid": "35240-994e0865-2d3d-4d83-8639-07279561bc27"
+                                    },
+                                    {
+                                      "id": "24bb2659-830f-40e7-b64e-f6158a241434",
+                                      "name": "Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"status\": \"disabled\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/activations/:activation_id/meters/:serial_number/meter_control",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "activations",
+                                            ":activation_id",
+                                            "meters",
+                                            ":serial_number",
+                                            "meter_control"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "activation_id"
+                                            },
+                                            {
+                                              "key": "serial_number"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                      "code": 422,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "createdAt": "2026-10-21T20:53:01.000Z",
+                                      "updatedAt": "2026-10-21T20:53:01.000Z",
+                                      "uid": "35240-24bb2659-830f-40e7-b64e-f6158a241434"
+                                    },
+                                    {
+                                      "id": "a4a5d508-1573-41c1-95ce-d14cb14c7628",
+                                      "name": "Too Many Requests",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"status\": \"disabled\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/activations/:activation_id/meters/:serial_number/meter_control",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "activations",
+                                            ":activation_id",
+                                            "meters",
+                                            ":serial_number",
+                                            "meter_control"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "activation_id"
+                                            },
+                                            {
+                                              "key": "serial_number"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Too Many Requests",
+                                      "code": 429,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                                      "createdAt": "2026-10-21T20:53:01.000Z",
+                                      "updatedAt": "2026-10-21T20:53:01.000Z",
+                                      "uid": "35240-a4a5d508-1573-41c1-95ce-d14cb14c7628"
+                                    },
+                                    {
+                                      "id": "ee57ccfa-1459-40b2-aeda-e36379475879",
+                                      "name": "Not Implemented",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"status\": \"disabled\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/activations/:activation_id/meters/:serial_number/meter_control",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "activations",
+                                            ":activation_id",
+                                            "meters",
+                                            ":serial_number",
+                                            "meter_control"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "activation_id"
+                                            },
+                                            {
+                                              "key": "serial_number"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Implemented",
+                                      "code": 501,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                      "createdAt": "2026-10-21T20:53:01.000Z",
+                                      "updatedAt": "2026-10-21T20:53:01.000Z",
+                                      "uid": "35240-ee57ccfa-1459-40b2-aeda-e36379475879"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-21T20:53:01.000Z",
+                                  "updatedAt": "2026-10-21T20:53:01.000Z",
+                                  "uid": "35240-a533fc16-9ca8-4e01-857f-c97d2cef487a"
+                                }
+                              ],
+                              "id": "9d7c2f75-ac4a-4d15-9dc4-95053b65c09e",
+                              "createdAt": "2026-10-21T20:53:01.000Z",
+                              "updatedAt": "2026-10-21T20:53:01.000Z",
+                              "uid": "35240-9d7c2f75-ac4a-4d15-9dc4-95053b65c09e"
+                            }
+                          ],
+                          "id": "62602419-9697-4336-8612-3a0e47767e52",
+                          "createdAt": "2026-10-21T20:53:01.000Z",
+                          "updatedAt": "2026-10-21T20:53:01.000Z",
+                          "uid": "35240-62602419-9697-4336-8612-3a0e47767e52"
+                        }
+                      ],
+                      "id": "a885722d-2f9c-44cf-8513-b5bdabca7fbd",
+                      "createdAt": "2026-10-21T20:53:01.000Z",
+                      "updatedAt": "2026-10-21T20:53:01.000Z",
+                      "uid": "35240-a885722d-2f9c-44cf-8513-b5bdabca7fbd"
+                    }
+                  ],
+                  "id": "8ddb1966-7c0d-4ecc-8972-95cdcab5ea06",
+                  "createdAt": "2026-10-21T20:53:01.000Z",
+                  "updatedAt": "2026-10-21T20:53:01.000Z",
+                  "uid": "35240-8ddb1966-7c0d-4ecc-8972-95cdcab5ea06"
+                }
+              ],
+              "id": "32a0c98a-00af-49f9-8f06-9b65e3738b06",
+              "createdAt": "2026-10-21T20:53:01.000Z",
+              "updatedAt": "2026-10-21T20:53:01.000Z",
+              "uid": "35240-32a0c98a-00af-49f9-8f06-9b65e3738b06"
+            }
+          ],
+          "id": "8c532793-ea3b-4a90-9148-3d89b3cd5dc5",
+          "createdAt": "2026-10-21T20:53:01.000Z",
+          "updatedAt": "2026-10-21T20:53:01.000Z",
+          "uid": "35240-8c532793-ea3b-4a90-9148-3d89b3cd5dc5"
+        }
+      ],
+      "id": "b2f35fe4-9879-40f3-b9f8-883b8c54e388",
+      "createdAt": "2026-10-21T20:53:01.000Z",
+      "updatedAt": "2026-10-21T20:53:01.000Z",
+      "uid": "35240-b2f35fe4-9879-40f3-b9f8-883b8c54e388"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.enphaseenergy.com"
+    }
+  ]
+}

@@ -1,0 +1,2585 @@
+{
+  "info": {
+    "_postman_id": "5970a6f8-680c-4f15-9d6e-d87c14af1507",
+    "name": "Reference Applications API",
+    "description": "Integrate the VPP API into your application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:51:28.000Z",
+    "updatedAt": "2026-10-21T20:51:28.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5970a6f8-680c-4f15-9d6e-d87c14af1507"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "applications",
+              "item": [
+                {
+                  "name": "{site_id}",
+                  "item": [
+                    {
+                      "name": "withdraw",
+                      "item": [
+                        {
+                          "name": "Withdraw an application that is not yet approved",
+                          "id": "5ae11bca-727b-4ff7-bb53-7b912a5ea67b",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/applications/:site_id/withdraw?program_id=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "applications",
+                                ":site_id",
+                                "withdraw"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) Unique ID of the program",
+                                  "key": "program_id",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a0a9c559-6a7d-4018-934c-186304b14931",
+                                  "key": "site_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Site Id"
+                                }
+                              ]
+                            },
+                            "description": "Withdraw an application from a program based on the inputted site_id.\n\nApplications that are already approved cannot be withdrawn."
+                          },
+                          "response": [
+                            {
+                              "id": "93dcd96a-0b9f-46f3-b1e3-90c036853f09",
+                              "name": "Application withdrawn successfully",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "(Required) Unique API Key of your account",
+                                    "key": "x-api-key",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/applications/:site_id/withdraw?program_id=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "applications",
+                                    ":site_id",
+                                    "withdraw"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Unique ID of the program",
+                                      "key": "program_id",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "site_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "*/*"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "<string>",
+                              "createdAt": "2026-10-21T20:51:28.000Z",
+                              "updatedAt": "2026-10-21T20:51:28.000Z",
+                              "uid": "35240-93dcd96a-0b9f-46f3-b1e3-90c036853f09"
+                            },
+                            {
+                              "id": "f92b74e7-bdc4-4dab-be12-a94633fc20e0",
+                              "name": "Bad Request",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "(Required) Unique API Key of your account",
+                                    "key": "x-api-key",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/applications/:site_id/withdraw?program_id=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "applications",
+                                    ":site_id",
+                                    "withdraw"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Unique ID of the program",
+                                      "key": "program_id",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "site_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "*/*"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Type Mismatch\\\",\\n  \\\"additionalInfo\\\": \\\"Cannot cast the parameter to required type xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Missing Parameter\\\",\\n  \\\"additionalInfo\\\": \\\"Required xxx parameter abc is not present\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Constraint Violation\\\",\\n  \\\"additionalInfo\\\": \\\"xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Content-Type invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Content type xxx not supported\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Request headers or parameters are not appropriate\\\",\\n  \\\"additionalInfo\\\": \\\"Request headers or parameters are not appropriate. Please check request headers and parameters\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                              "createdAt": "2026-10-21T20:51:28.000Z",
+                              "updatedAt": "2026-10-21T20:51:28.000Z",
+                              "uid": "35240-f92b74e7-bdc4-4dab-be12-a94633fc20e0"
+                            },
+                            {
+                              "id": "88f1836b-b081-4de3-b07b-f6ece4c950f2",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "(Required) Unique API Key of your account",
+                                    "key": "x-api-key",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/applications/:site_id/withdraw?program_id=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "applications",
+                                    ":site_id",
+                                    "withdraw"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Unique ID of the program",
+                                      "key": "program_id",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "site_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "*/*"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"Authorization is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Authorization is not provided or invalid. Please check your Authorization\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"You are not authorized for this access\\\",\\n  \\\"additionalInfo\\\": \\\"You are not authorized for this access. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                              "createdAt": "2026-10-21T20:51:28.000Z",
+                              "updatedAt": "2026-10-21T20:51:28.000Z",
+                              "uid": "35240-88f1836b-b081-4de3-b07b-f6ece4c950f2"
+                            },
+                            {
+                              "id": "60e2a8e2-0f48-4e3c-88ec-8b24ba807268",
+                              "name": "Forbidden",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "(Required) Unique API Key of your account",
+                                    "key": "x-api-key",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/applications/:site_id/withdraw?program_id=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "applications",
+                                    ":site_id",
+                                    "withdraw"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Unique ID of the program",
+                                      "key": "program_id",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "site_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "*/*"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"additionalInfo\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Application Withdraw not possible for siteId xxxxx\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Application Update not possible for siteId xxxxx\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"message\\\": \\\"Forbidden\\\"\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not provided or invalid. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"No account found for specified Authorization\\\",\\n  \\\"additionalInfo\\\": \\\"No account found for specified Authorization. Please check your access_token\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-6\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not valid for this account\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not valid for this account. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-7\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"You do not have access to this resource\\\",\\n  \\\"additionalInfo\\\": \\\"You do not have access to this resource. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                              "createdAt": "2026-10-21T20:51:28.000Z",
+                              "updatedAt": "2026-10-21T20:51:28.000Z",
+                              "uid": "35240-60e2a8e2-0f48-4e3c-88ec-8b24ba807268"
+                            },
+                            {
+                              "id": "a42d5d25-ed95-4ba0-adc5-c9ae033f1e56",
+                              "name": "Not Found",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "(Required) Unique API Key of your account",
+                                    "key": "x-api-key",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/applications/:site_id/withdraw?program_id=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "applications",
+                                    ":site_id",
+                                    "withdraw"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Unique ID of the program",
+                                      "key": "program_id",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "site_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "*/*"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"additionalInfo\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"No Application available for site with Id: xxxxxin program : xxxxx\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Requested resource Not Found\\\",\\n  \\\"additionalInfo\\\": \\\"Requested resource Not Found. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                              "createdAt": "2026-10-21T20:51:28.000Z",
+                              "updatedAt": "2026-10-21T20:51:28.000Z",
+                              "uid": "35240-a42d5d25-ed95-4ba0-adc5-c9ae033f1e56"
+                            },
+                            {
+                              "id": "021b27ee-be81-4d8e-97ab-b44f9eb46acc",
+                              "name": "Unprocessable Entity",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "description": "(Required) Unique API Key of your account",
+                                    "key": "x-api-key",
+                                    "value": "<string>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "*/*"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v1/applications/:site_id/withdraw?program_id=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v1",
+                                    "applications",
+                                    ":site_id",
+                                    "withdraw"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "(Required) Unique ID of the program",
+                                      "key": "program_id",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "site_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "*/*"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"422\\\",\\n  \\\"displayMessage\\\": \\\"Unprocessable Entity\\\",\\n  \\\"additionalInfo\\\": \\\"Unprocessable Entity. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                              "createdAt": "2026-10-21T20:51:28.000Z",
+                              "updatedAt": "2026-10-21T20:51:28.000Z",
+                              "uid": "35240-021b27ee-be81-4d8e-97ab-b44f9eb46acc"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:51:28.000Z",
+                          "updatedAt": "2026-10-21T20:51:28.000Z",
+                          "uid": "35240-5ae11bca-727b-4ff7-bb53-7b912a5ea67b"
+                        }
+                      ],
+                      "id": "b8ae74d4-d0b5-4e8b-a68f-7e575157bd5c",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-b8ae74d4-d0b5-4e8b-a68f-7e575157bd5c"
+                    },
+                    {
+                      "name": "Retrieve an application",
+                      "id": "1ca035a4-f0f0-4dc3-a80c-44abdfef948d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications",
+                            ":site_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "e2940d84-c1bc-4502-bcbd-f4a6342a8e6a",
+                              "key": "site_id",
+                              "value": "<integer>",
+                              "description": "(Required) site_id"
+                            }
+                          ]
+                        },
+                        "description": "Returns application based on the inputted site_id. Provides details of the application along with the application status. The forms sent while creation of the application will not be returned."
+                      },
+                      "response": [
+                        {
+                          "id": "f78557ef-b032-47b5-b70c-dc2a557e0736",
+                          "name": "Application details retrieved successfully",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "applications",
+                                ":site_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"program_id\": \"<string>\",\n  \"site_id\": \"<integer>\",\n  \"site_info\": {\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<integer>\",\n    \"ean\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"siteState\": \"<string>\"\n  },\n  \"application_id\": \"<long>\",\n  \"application_status\": \"Application_Drafted\",\n  \"created_at\": \"<dateTime>\",\n  \"approved_at\": \"<dateTime>\",\n  \"rejected_at\": \"<dateTime>\",\n  \"withdrawn_at\": \"<dateTime>\",\n  \"application_type\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:51:28.000Z",
+                          "updatedAt": "2026-10-21T20:51:28.000Z",
+                          "uid": "35240-f78557ef-b032-47b5-b70c-dc2a557e0736"
+                        },
+                        {
+                          "id": "0772fe5f-a697-4cf3-81d2-99a563d40010",
+                          "name": "Bad Request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "applications",
+                                ":site_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Type Mismatch\\\",\\n  \\\"additionalInfo\\\": \\\"Cannot cast the parameter to required type xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Missing Parameter\\\",\\n  \\\"additionalInfo\\\": \\\"Required xxx parameter abc is not present\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Constraint Violation\\\",\\n  \\\"additionalInfo\\\": \\\"xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Content-Type invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Content type xxx not supported\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Request headers or parameters are not appropriate\\\",\\n  \\\"additionalInfo\\\": \\\"Request headers or parameters are not appropriate. Please check request headers and parameters\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:51:28.000Z",
+                          "updatedAt": "2026-10-21T20:51:28.000Z",
+                          "uid": "35240-0772fe5f-a697-4cf3-81d2-99a563d40010"
+                        },
+                        {
+                          "id": "b062cdcf-f4bf-4c93-ab3e-386000902f2f",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "applications",
+                                ":site_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"Authorization is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Authorization is not provided or invalid. Please check your Authorization\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"You are not authorized for this access\\\",\\n  \\\"additionalInfo\\\": \\\"You are not authorized for this access. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:51:28.000Z",
+                          "updatedAt": "2026-10-21T20:51:28.000Z",
+                          "uid": "35240-b062cdcf-f4bf-4c93-ab3e-386000902f2f"
+                        },
+                        {
+                          "id": "2452ce31-d4f1-44f1-b9b7-a728c879380c",
+                          "name": "Forbidden",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "applications",
+                                ":site_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"additionalInfo\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"message\\\": \\\"Forbidden\\\"\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not provided or invalid. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"No account found for specified Authorization\\\",\\n  \\\"additionalInfo\\\": \\\"No account found for specified Authorization. Please check your access_token\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not valid for this account\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not valid for this account. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"You do not have access to this resource\\\",\\n  \\\"additionalInfo\\\": \\\"You do not have access to this resource. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:51:28.000Z",
+                          "updatedAt": "2026-10-21T20:51:28.000Z",
+                          "uid": "35240-2452ce31-d4f1-44f1-b9b7-a728c879380c"
+                        },
+                        {
+                          "id": "60243bd0-b67d-41e8-b8cc-9c000ec2fc9d",
+                          "name": "Not Found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "applications",
+                                ":site_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"No applications found\\\",\\n  \\\"additionalInfo\\\": \\\"There is no application found for the site_id : 12345\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"additionalInfo\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Requested resource Not Found\\\",\\n  \\\"additionalInfo\\\": \\\"Requested resource Not Found. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:51:28.000Z",
+                          "updatedAt": "2026-10-21T20:51:28.000Z",
+                          "uid": "35240-60243bd0-b67d-41e8-b8cc-9c000ec2fc9d"
+                        },
+                        {
+                          "id": "7ba32498-6a79-482c-9110-49edc1736220",
+                          "name": "Unprocessable Entity",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "applications",
+                                ":site_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"422\\\",\\n  \\\"displayMessage\\\": \\\"Unprocessable Entity\\\",\\n  \\\"additionalInfo\\\": \\\"Unprocessable Entity. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:51:28.000Z",
+                          "updatedAt": "2026-10-21T20:51:28.000Z",
+                          "uid": "35240-7ba32498-6a79-482c-9110-49edc1736220"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-1ca035a4-f0f0-4dc3-a80c-44abdfef948d"
+                    },
+                    {
+                      "name": "Update a rejected application",
+                      "id": "e4e1cd6b-111d-4dc6-a776-0a08c94eede2",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                              "key": "application_form",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Signed Enrollment Form URL",
+                              "key": "signed_enrollment_form",
+                              "type": "file",
+                              "value": null
+                            },
+                            {
+                              "description": "Signed TandC Form URL",
+                              "key": "signed_tandc_form",
+                              "type": "file",
+                              "value": null
+                            },
+                            {
+                              "description": "Signed Form1",
+                              "key": "signed_form1",
+                              "type": "file",
+                              "value": null
+                            },
+                            {
+                              "description": "Signed Form2",
+                              "key": "signed_form2",
+                              "type": "file",
+                              "value": null
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications",
+                            ":site_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ea982645-54be-4d42-86c3-76efa01e1e2f",
+                              "key": "site_id",
+                              "value": "<integer>",
+                              "description": "(Required) Site Id"
+                            }
+                          ]
+                        },
+                        "description": "Updates a rejected application based on the inputted site_id. Application will be rejected if the site's state is different from the program state or if the site is enrolled in another program or if there is incorrect information in the application form. The API can be used to re apply by sending updated application forms. Application body in string is mandatory. It needs to be in format {\"site_id\":site_id_value as integer, \"program_id\":\"program_id_value as string\", \"ean\":\"electric account number as string optional\"}"
+                      },
+                      "response": [
+                        {
+                          "id": "58efe89e-f30c-4dc2-a615-84fdf3617a7b",
+                          "name": "Application updated successfully",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "body": {
+                              "mode": "formdata",
+                              "formdata": [
+                                {
+                                  "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                                  "key": "application_form",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Signed Enrollment Form URL",
+                                  "key": "signed_enrollment_form",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed TandC Form URL",
+                                  "key": "signed_tandc_form",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed Form1",
+                                  "key": "signed_form1",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed Form2",
+                                  "key": "signed_form2",
+                                  "type": "file"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "applications",
+                                ":site_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-10-21T20:51:28.000Z",
+                          "updatedAt": "2026-10-21T20:51:28.000Z",
+                          "uid": "35240-58efe89e-f30c-4dc2-a615-84fdf3617a7b"
+                        },
+                        {
+                          "id": "0255fc53-cf43-4da9-b5e5-6fa61c539472",
+                          "name": "Bad Request",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "body": {
+                              "mode": "formdata",
+                              "formdata": [
+                                {
+                                  "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                                  "key": "application_form",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Signed Enrollment Form URL",
+                                  "key": "signed_enrollment_form",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed TandC Form URL",
+                                  "key": "signed_tandc_form",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed Form1",
+                                  "key": "signed_form1",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed Form2",
+                                  "key": "signed_form2",
+                                  "type": "file"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "applications",
+                                ":site_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Multipart File Upload Error\\\",\\n  \\\"additionalInfo\\\": \\\"the request was rejected because no multipart boundary was found\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Bad request, File format is not supported\\\",\\n  \\\"additionalInfo\\\": \\\"File Format Not Allowed\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Bad request, Not enough details in Application body\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"request is invalid with user mail XXXX and application: XXXX\\\",\\n  \\\"additionalInfo\\\": \\\"Request is malformed.\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"User with user_email xxxxx not found or user not part of account with XXXX\\\",\\n  \\\"additionalInfo\\\": \\\"Error while creating new application\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Input application object or forms format check failed.\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-6\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Max Upload Size Exceeded\\\",\\n  \\\"additionalInfo\\\": \\\"Maximum upload size exceeded; nested exception is java.lang.IllegalStateException: org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException: The field xxxxx exceeds its maximum permitted size of nnnnnn bytes.\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-7\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Type Mismatch\\\",\\n  \\\"additionalInfo\\\": \\\"Cannot cast the parameter to required type xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-8\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Missing Parameter\\\",\\n  \\\"additionalInfo\\\": \\\"Required xxx parameter abc is not present\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-9\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Constraint Violation\\\",\\n  \\\"additionalInfo\\\": \\\"xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-10\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Content-Type invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Content type xxx not supported\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-11\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Request headers or parameters are not appropriate\\\",\\n  \\\"additionalInfo\\\": \\\"Request headers or parameters are not appropriate. Please check request headers and parameters\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:51:28.000Z",
+                          "updatedAt": "2026-10-21T20:51:28.000Z",
+                          "uid": "35240-0255fc53-cf43-4da9-b5e5-6fa61c539472"
+                        },
+                        {
+                          "id": "858c80eb-5bd3-49dc-ace0-27929f1ae411",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "body": {
+                              "mode": "formdata",
+                              "formdata": [
+                                {
+                                  "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                                  "key": "application_form",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Signed Enrollment Form URL",
+                                  "key": "signed_enrollment_form",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed TandC Form URL",
+                                  "key": "signed_tandc_form",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed Form1",
+                                  "key": "signed_form1",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed Form2",
+                                  "key": "signed_form2",
+                                  "type": "file"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "applications",
+                                ":site_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"Authorization is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Authorization is not provided or invalid. Please check your Authorization\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"You are not authorized for this access\\\",\\n  \\\"additionalInfo\\\": \\\"You are not authorized for this access. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:51:28.000Z",
+                          "updatedAt": "2026-10-21T20:51:28.000Z",
+                          "uid": "35240-858c80eb-5bd3-49dc-ace0-27929f1ae411"
+                        },
+                        {
+                          "id": "1645a449-0152-498c-abcb-ee8902d47e36",
+                          "name": "Forbidden",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "body": {
+                              "mode": "formdata",
+                              "formdata": [
+                                {
+                                  "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                                  "key": "application_form",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Signed Enrollment Form URL",
+                                  "key": "signed_enrollment_form",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed TandC Form URL",
+                                  "key": "signed_tandc_form",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed Form1",
+                                  "key": "signed_form1",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed Form2",
+                                  "key": "signed_form2",
+                                  "type": "file"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "applications",
+                                ":site_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Only rejected applications can be updated\\\",\\n  \\\"additionalInfo\\\": \\\"Update not feasible as application is in status : XYZ\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Program does not have a workflow attached , application creation not possible for xxxxx\\\",\\n  \\\"additionalInfo\\\": \\\"Error while creating new application\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"additionalInfo\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"No Persmission to access application with ID: XXX by accountId: XXXX\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"No Persmission to udpate application with ID: XXXX  and status: XXXX\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"message\\\": \\\"Forbidden\\\"\\n}\"\n    },\n    \"case-6\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not provided or invalid. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-7\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"No account found for specified Authorization\\\",\\n  \\\"additionalInfo\\\": \\\"No account found for specified Authorization. Please check your access_token\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-8\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not valid for this account\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not valid for this account. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-9\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"You do not have access to this resource\\\",\\n  \\\"additionalInfo\\\": \\\"You do not have access to this resource. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:51:28.000Z",
+                          "updatedAt": "2026-10-21T20:51:28.000Z",
+                          "uid": "35240-1645a449-0152-498c-abcb-ee8902d47e36"
+                        },
+                        {
+                          "id": "7714aa94-001d-4054-b212-bb5d01fbb119",
+                          "name": "Not Found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "body": {
+                              "mode": "formdata",
+                              "formdata": [
+                                {
+                                  "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                                  "key": "application_form",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Signed Enrollment Form URL",
+                                  "key": "signed_enrollment_form",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed TandC Form URL",
+                                  "key": "signed_tandc_form",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed Form1",
+                                  "key": "signed_form1",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed Form2",
+                                  "key": "signed_form2",
+                                  "type": "file"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "applications",
+                                ":site_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Application not found with site_id xxxxx in your account\\\",\\n  \\\"additionalInfo\\\": \\\"Application not found with site_id xxxxx in your account\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"additionalInfo\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"No site found for xxxxx\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"No Application available with Id : XXXX\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Application update not possible, no such element found\\\",\\n  \\\"additionalInfo\\\": \\\"User info error : couldn\u2019t find user obj for usermail: XXXX and accountID: XXXX\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Requested resource Not Found\\\",\\n  \\\"additionalInfo\\\": \\\"Requested resource Not Found. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:51:28.000Z",
+                          "updatedAt": "2026-10-21T20:51:28.000Z",
+                          "uid": "35240-7714aa94-001d-4054-b212-bb5d01fbb119"
+                        },
+                        {
+                          "id": "853b3ee0-0883-4236-978c-5caf61fe01b4",
+                          "name": "Unprocessable Entity",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "body": {
+                              "mode": "formdata",
+                              "formdata": [
+                                {
+                                  "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                                  "key": "application_form",
+                                  "value": "<string>",
+                                  "type": "text"
+                                },
+                                {
+                                  "description": "Signed Enrollment Form URL",
+                                  "key": "signed_enrollment_form",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed TandC Form URL",
+                                  "key": "signed_tandc_form",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed Form1",
+                                  "key": "signed_form1",
+                                  "type": "file"
+                                },
+                                {
+                                  "description": "Signed Form2",
+                                  "key": "signed_form2",
+                                  "type": "file"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/applications/:site_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "applications",
+                                ":site_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"422\\\",\\n  \\\"displayMessage\\\": \\\"Unprocessable Entity\\\",\\n  \\\"additionalInfo\\\": \\\"Unprocessable Entity. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:51:28.000Z",
+                          "updatedAt": "2026-10-21T20:51:28.000Z",
+                          "uid": "35240-853b3ee0-0883-4236-978c-5caf61fe01b4"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-e4e1cd6b-111d-4dc6-a776-0a08c94eede2"
+                    }
+                  ],
+                  "id": "dcb4cbfc-eeb6-4b60-93b8-2f671ebd2516",
+                  "createdAt": "2026-10-21T20:51:28.000Z",
+                  "updatedAt": "2026-10-21T20:51:28.000Z",
+                  "uid": "35240-dcb4cbfc-eeb6-4b60-93b8-2f671ebd2516"
+                },
+                {
+                  "name": "Retrieve all applications of a program",
+                  "id": "38c0d436-c38e-475b-b7f4-8163bc56b1e7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Unique API Key of your account",
+                        "key": "x-api-key",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/applications?program_id=<string>&site_id=<integer>&page_no=1&page_size=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "applications"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Unique ID of the program",
+                          "key": "program_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Unique ID of the Site",
+                          "key": "site_id",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                          "key": "page_no",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                          "key": "page_size",
+                          "value": "10"
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of all the applications of a program based on the inputted program_id. By default, 10 applications are returned in a page."
+                  },
+                  "response": [
+                    {
+                      "id": "c87570ea-6edc-4bd3-b4a5-fa76bdbce031",
+                      "name": "Successfully retrieved Application details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications?program_id=<string>&site_id=<integer>&page_no=1&page_size=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unique ID of the program",
+                              "key": "program_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Unique ID of the Site",
+                              "key": "site_id",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                              "key": "page_no",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                              "key": "page_size",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"page_no\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"count\": \"<integer>\",\n  \"total_count\": \"<integer>\",\n  \"applications\": [\n    {\n      \"program_id\": \"<string>\",\n      \"site_id\": \"<integer>\",\n      \"site_info\": {\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip\": \"<integer>\",\n        \"ean\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"siteState\": \"<string>\"\n      },\n      \"application_id\": \"<long>\",\n      \"application_status\": \"Application_Approved\",\n      \"created_at\": \"<dateTime>\",\n      \"approved_at\": \"<dateTime>\",\n      \"rejected_at\": \"<dateTime>\",\n      \"withdrawn_at\": \"<dateTime>\",\n      \"application_type\": \"<string>\"\n    },\n    {\n      \"program_id\": \"<string>\",\n      \"site_id\": \"<integer>\",\n      \"site_info\": {\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"first_name\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip\": \"<integer>\",\n        \"ean\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"siteState\": \"<string>\"\n      },\n      \"application_id\": \"<long>\",\n      \"application_status\": \"Application_Rejected\",\n      \"created_at\": \"<dateTime>\",\n      \"approved_at\": \"<dateTime>\",\n      \"rejected_at\": \"<dateTime>\",\n      \"withdrawn_at\": \"<dateTime>\",\n      \"application_type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-c87570ea-6edc-4bd3-b4a5-fa76bdbce031"
+                    },
+                    {
+                      "id": "2f991fb8-9dfe-4085-b2d5-c41d11c077dd",
+                      "name": "Bad Request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications?program_id=<string>&site_id=<integer>&page_no=1&page_size=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unique ID of the program",
+                              "key": "program_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Unique ID of the Site",
+                              "key": "site_id",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                              "key": "page_no",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                              "key": "page_size",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Pagination Variables are incorrect. Page number should starts from 1 and page size should be between 1 and 100\\\",\\n  \\\"additionalInfo\\\": \\\"Pagination Variables are incorrect. Page number should starts from 1 and page size should be between 1 and 100\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Type Mismatch\\\",\\n  \\\"additionalInfo\\\": \\\"Cannot cast the parameter to required type xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Missing Parameter\\\",\\n  \\\"additionalInfo\\\": \\\"Required xxx parameter abc is not present\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Constraint Violation\\\",\\n  \\\"additionalInfo\\\": \\\"xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Content-Type invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Content type xxx not supported\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Request headers or parameters are not appropriate\\\",\\n  \\\"additionalInfo\\\": \\\"Request headers or parameters are not appropriate. Please check request headers and parameters\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-2f991fb8-9dfe-4085-b2d5-c41d11c077dd"
+                    },
+                    {
+                      "id": "4c32eabb-46bf-43d4-917f-181421f0eaf8",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications?program_id=<string>&site_id=<integer>&page_no=1&page_size=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unique ID of the program",
+                              "key": "program_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Unique ID of the Site",
+                              "key": "site_id",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                              "key": "page_no",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                              "key": "page_size",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"Authorization is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Authorization is not provided or invalid. Please check your Authorization\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"You are not authorized for this access\\\",\\n  \\\"additionalInfo\\\": \\\"You are not authorized for this access. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-4c32eabb-46bf-43d4-917f-181421f0eaf8"
+                    },
+                    {
+                      "id": "73989ae3-eacc-4451-8edf-75a25c519498",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications?program_id=<string>&site_id=<integer>&page_no=1&page_size=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unique ID of the program",
+                              "key": "program_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Unique ID of the Site",
+                              "key": "site_id",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                              "key": "page_no",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                              "key": "page_size",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"additionalInfo\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"message\\\": \\\"Forbidden\\\"\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not provided or invalid. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"No account found for specified Authorization\\\",\\n  \\\"additionalInfo\\\": \\\"No account found for specified Authorization. Please check your access_token\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not valid for this account\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not valid for this account. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"You do not have access to this resource\\\",\\n  \\\"additionalInfo\\\": \\\"You do not have access to this resource. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-73989ae3-eacc-4451-8edf-75a25c519498"
+                    },
+                    {
+                      "id": "c1fcf8dd-7120-4b5f-86e0-d0c860209b1b",
+                      "name": "Not Found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications?program_id=<string>&site_id=<integer>&page_no=1&page_size=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unique ID of the program",
+                              "key": "program_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Unique ID of the Site",
+                              "key": "site_id",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                              "key": "page_no",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                              "key": "page_size",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"additionalInfo\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Requested resource Not Found\\\",\\n  \\\"additionalInfo\\\": \\\"Requested resource Not Found. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-c1fcf8dd-7120-4b5f-86e0-d0c860209b1b"
+                    },
+                    {
+                      "id": "f44d85f8-555d-46d8-ad23-f012bf473c03",
+                      "name": "Unprocessable Entity",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications?program_id=<string>&site_id=<integer>&page_no=1&page_size=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) Unique ID of the program",
+                              "key": "program_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Unique ID of the Site",
+                              "key": "site_id",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                              "key": "page_no",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                              "key": "page_size",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"422\\\",\\n  \\\"displayMessage\\\": \\\"Unprocessable Entity\\\",\\n  \\\"additionalInfo\\\": \\\"Unprocessable Entity. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-f44d85f8-555d-46d8-ad23-f012bf473c03"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:51:28.000Z",
+                  "updatedAt": "2026-10-21T20:51:28.000Z",
+                  "uid": "35240-38c0d436-c38e-475b-b7f4-8163bc56b1e7"
+                },
+                {
+                  "name": "Create new application",
+                  "id": "93571772-1523-41ae-adf0-0b1b9ff96142",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "Access token generated through oAuth for program enrollment",
+                        "key": "ho-access-token",
+                        "value": "<string>"
+                      },
+                      {
+                        "description": "(Required) Unique API Key of your account",
+                        "key": "x-api-key",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                          "key": "application_form",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Application Type as a String. Format {\"application_type\":\"enrollment\"}",
+                          "key": "application_type",
+                          "value": "<string>",
+                          "type": "text"
+                        },
+                        {
+                          "description": "Signed Enrollment Form URL",
+                          "key": "signed_enrollment_form",
+                          "type": "file",
+                          "value": null
+                        },
+                        {
+                          "description": "Signed TandC Form URL",
+                          "key": "signed_tandc_form",
+                          "type": "file",
+                          "value": null
+                        },
+                        {
+                          "description": "Signed Form1",
+                          "key": "signed_form1",
+                          "type": "file",
+                          "value": null
+                        },
+                        {
+                          "description": "Signed Form2",
+                          "key": "signed_form2",
+                          "type": "file",
+                          "value": null
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/applications",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "applications"
+                      ]
+                    },
+                    "description": "Create a new application to enroll or unenroll a site into a program. The site must belong to the same state as the program's state and must not be enrolled in any other program.\nThe API will also support users to send up to 4 application forms in PDF format with a file size limit of 1MB. Applications when created will be in submitted state and after approval, the state gets updated to approved.\nApplications that are rejected will get updated to rejected state.\n\nApplication body in string is mandatory. It needs to be in format {\"site_id\":site_id_value as integer, \"program_id\":\"program_id_value as string\", \"ean\":\"electric account number as string optional\"}.\n\napplication_type can be enrollment or unenrollment. It needs to be in format {\"application_type\":\"unenrollment\"}. If not provided then it is considered as enrollment"
+                  },
+                  "response": [
+                    {
+                      "id": "0d3fda1f-7186-49c6-bb7a-251fe09f0f57",
+                      "name": "Various possible success responses",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Access token generated through oAuth for program enrollment",
+                            "key": "ho-access-token",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                              "key": "application_form",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Application Type as a String. Format {\"application_type\":\"enrollment\"}",
+                              "key": "application_type",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Signed Enrollment Form URL",
+                              "key": "signed_enrollment_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed TandC Form URL",
+                              "key": "signed_tandc_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form1",
+                              "key": "signed_form1",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form2",
+                              "key": "signed_form2",
+                              "type": "file"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-0d3fda1f-7186-49c6-bb7a-251fe09f0f57"
+                    },
+                    {
+                      "id": "c1578675-79e9-479b-8cd7-3480acbe4c71",
+                      "name": "Bad Request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Access token generated through oAuth for program enrollment",
+                            "key": "ho-access-token",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                              "key": "application_form",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Application Type as a String. Format {\"application_type\":\"enrollment\"}",
+                              "key": "application_type",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Signed Enrollment Form URL",
+                              "key": "signed_enrollment_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed TandC Form URL",
+                              "key": "signed_tandc_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form1",
+                              "key": "signed_form1",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form2",
+                              "key": "signed_form2",
+                              "type": "file"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Multipart File Upload Error\\\",\\n  \\\"additionalInfo\\\": \\\"the request was rejected because no multipart boundary was found\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Application Form is not provided\\\",\\n  \\\"additionalInfo\\\": \\\"Application Form is mandatory. Please provide required details\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Bad request, File format is not supported\\\",\\n  \\\"additionalInfo\\\": \\\"File Format Not Allowed\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Bad request, Not enough details in Application body\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Application could not be processed, Please retry again\\\",\\n  \\\"additionalInfo\\\": \\\"Program feature flags not set. Program: XXXX\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Application could not be processed, Please retry again\\\",\\n  \\\"additionalInfo\\\": \\\"Site object not found with site_id: XXXX\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-6\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Application could not be processed, Please retry again\\\",\\n  \\\"additionalInfo\\\": \\\"Home owner or address details is not available for given site, contact Enphase Customer Care\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-7\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"request is invalid with user mail XXXX and application: XXXX\\\",\\n  \\\"additionalInfo\\\": \\\"Request is malformed.\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-8\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"User with user_email xxxxx not found or user not part of account with XXXX\\\",\\n  \\\"additionalInfo\\\": \\\"Error while creating new application\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-9\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Input application object or forms format check failed.\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-10\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Max Upload Size Exceeded\\\",\\n  \\\"additionalInfo\\\": \\\"Maximum upload size exceeded; nested exception is java.lang.IllegalStateException: org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException: The field xxxxx exceeds its maximum permitted size of nnnnnn bytes.\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-11\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Please provide valid application type\\\",\\n  \\\"additionalInfo\\\": \\\"Valid application_type are enrollment or unenrollment. provided application type is abcd\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-12\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Site is not enrolled in this program.\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-13\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Site is already enrolled in program xxxx\\\",\\n  \\\"additionalInfo\\\": \\\"Site xxxx is already enrolled with enrollmentId xxxx in program xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-14\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Program and site state should match. Program state is xxxx and site state is xxxx\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-15\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Program and site country should match. Program country is xxxx and site country is xxxx\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-16\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Type Mismatch\\\",\\n  \\\"additionalInfo\\\": \\\"Cannot cast the parameter to required type xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-17\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Missing Parameter\\\",\\n  \\\"additionalInfo\\\": \\\"Required xxx parameter abc is not present\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-18\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Constraint Violation\\\",\\n  \\\"additionalInfo\\\": \\\"xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-19\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Content-Type invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Content type xxx not supported\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-20\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Request headers or parameters are not appropriate\\\",\\n  \\\"additionalInfo\\\": \\\"Request headers or parameters are not appropriate. Please check request headers and parameters\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-c1578675-79e9-479b-8cd7-3480acbe4c71"
+                    },
+                    {
+                      "id": "f7ef2ee3-53d4-4c8e-9e75-04cdd9606275",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Access token generated through oAuth for program enrollment",
+                            "key": "ho-access-token",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                              "key": "application_form",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Application Type as a String. Format {\"application_type\":\"enrollment\"}",
+                              "key": "application_type",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Signed Enrollment Form URL",
+                              "key": "signed_enrollment_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed TandC Form URL",
+                              "key": "signed_tandc_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form1",
+                              "key": "signed_form1",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form2",
+                              "key": "signed_form2",
+                              "type": "file"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"Provided Home Owner access token expired\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"Provided Home Owner access token is null, empty or whitespace\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"Provided Home Owner access token is invalid\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"Provided Home Owner access token is not supported\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"Home Owner access token signature validation failed\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"Authorization is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Authorization is not provided or invalid. Please check your Authorization\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-6\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"You are not authorized for this access\\\",\\n  \\\"additionalInfo\\\": \\\"You are not authorized for this access. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-f7ef2ee3-53d4-4c8e-9e75-04cdd9606275"
+                    },
+                    {
+                      "id": "b139c182-1df3-4210-9a67-a4764a166d5f",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Access token generated through oAuth for program enrollment",
+                            "key": "ho-access-token",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                              "key": "application_form",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Application Type as a String. Format {\"application_type\":\"enrollment\"}",
+                              "key": "application_type",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Signed Enrollment Form URL",
+                              "key": "signed_enrollment_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed TandC Form URL",
+                              "key": "signed_tandc_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form1",
+                              "key": "signed_form1",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form2",
+                              "key": "signed_form2",
+                              "type": "file"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"additionalInfo\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Program does not have a workflow attached , application creation not possible for xxxxx\\\",\\n  \\\"additionalInfo\\\": \\\"Error while creating new application\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Portal in application object is different from GSP\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"There already exists an application with this Site ID\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Not a valid ProgramApplicationWorkflow\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\\\",\\n  \\\"additionalInfo\\\": \\\"Enrollment File is empty\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-6\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\\\",\\n  \\\"additionalInfo\\\": \\\"Enrollment Form could not be uploaded to S3 bucket\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-7\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\\\",\\n  \\\"additionalInfo\\\": \\\"Tandc File is empty\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-8\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\\\",\\n  \\\"additionalInfo\\\": \\\"Tandc Form could not be uploaded to S3 bucket\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-9\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\\\",\\n  \\\"additionalInfo\\\": \\\"Signed Form1 File is empty\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-10\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\\\",\\n  \\\"additionalInfo\\\": \\\"Signed Form1 could not be uploaded to S3 bucket\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-11\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\\\",\\n  \\\"additionalInfo\\\": \\\"Signed Form2 File is empty\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-12\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Application status or details update not possible, Application Details are correct but not processable furthur, please contact customer support\\\",\\n  \\\"additionalInfo\\\": \\\"Signed Form2 could not be uploaded to S3 bucket\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-13\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"No Persmission to access application with ID: XXX by accountId: XXXX\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-14\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"No Persmission to udpate application with ID: XXXX  and status: XXXX\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-15\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Not authorized to enroll this site\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-16\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Home Owner Access Token missing\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-17\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Provided Home Owner Access Token does not match with Program ID\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-18\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Provided Home Owner Access Token does not match with Site ID\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-19\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Pre Approved Auth String is missing\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-20\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"There already exists an unenrollment application with the site ID 12345. Please withdraw the unenrollment application to submit a new application\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-21\": {\n      \"value\": \"{\\n  \\\"message\\\": \\\"Forbidden\\\"\\n}\"\n    },\n    \"case-22\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not provided or invalid. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-23\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"No account found for specified Authorization\\\",\\n  \\\"additionalInfo\\\": \\\"No account found for specified Authorization. Please check your access_token\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-24\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not valid for this account\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not valid for this account. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-25\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"You do not have access to this resource\\\",\\n  \\\"additionalInfo\\\": \\\"You do not have access to this resource. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-b139c182-1df3-4210-9a67-a4764a166d5f"
+                    },
+                    {
+                      "id": "766bb4df-fc0b-4e58-8a06-51f38db6f618",
+                      "name": "Not Found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Access token generated through oAuth for program enrollment",
+                            "key": "ho-access-token",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                              "key": "application_form",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Application Type as a String. Format {\"application_type\":\"enrollment\"}",
+                              "key": "application_type",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Signed Enrollment Form URL",
+                              "key": "signed_enrollment_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed TandC Form URL",
+                              "key": "signed_tandc_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form1",
+                              "key": "signed_form1",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form2",
+                              "key": "signed_form2",
+                              "type": "file"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"additionalInfo\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"No site found for xxxx\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Error While sending mail to salesforce with account: XXXX and program : XXXX\\\",\\n  \\\"additionalInfo\\\": \\\"No account found with account id : XXXX\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"No Application available with Id : XXXX\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Application update not possible, no such element found\\\",\\n  \\\"additionalInfo\\\": \\\"User info error : couldn\u2019t find user obj for usermail: XXXX and accountID: XXXX\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Requested resource Not Found\\\",\\n  \\\"additionalInfo\\\": \\\"Requested resource Not Found. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-766bb4df-fc0b-4e58-8a06-51f38db6f618"
+                    },
+                    {
+                      "id": "643878b6-8e2c-47a8-a843-16af7cd18764",
+                      "name": "Conflict",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Access token generated through oAuth for program enrollment",
+                            "key": "ho-access-token",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                              "key": "application_form",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Application Type as a String. Format {\"application_type\":\"enrollment\"}",
+                              "key": "application_type",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Signed Enrollment Form URL",
+                              "key": "signed_enrollment_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed TandC Form URL",
+                              "key": "signed_tandc_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form1",
+                              "key": "signed_form1",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form2",
+                              "key": "signed_form2",
+                              "type": "file"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications"
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"409\\\",\\n  \\\"displayMessage\\\": \\\"Application ID: xxxx for site_id = xxxx processed successfully but Enrollment creation rejected. Reason - xxxx\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-643878b6-8e2c-47a8-a843-16af7cd18764"
+                    },
+                    {
+                      "id": "516a8762-c1d5-404d-8f31-3e7929f054e9",
+                      "name": "Unprocessable Entity",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Access token generated through oAuth for program enrollment",
+                            "key": "ho-access-token",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "Application Body as a String. Format {\"site_id\":12345, \"program_id\":\"test\", \"ean\":\"112233\"}",
+                              "key": "application_form",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Application Type as a String. Format {\"application_type\":\"enrollment\"}",
+                              "key": "application_type",
+                              "value": "<string>",
+                              "type": "text"
+                            },
+                            {
+                              "description": "Signed Enrollment Form URL",
+                              "key": "signed_enrollment_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed TandC Form URL",
+                              "key": "signed_tandc_form",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form1",
+                              "key": "signed_form1",
+                              "type": "file"
+                            },
+                            {
+                              "description": "Signed Form2",
+                              "key": "signed_form2",
+                              "type": "file"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/applications",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "applications"
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"422\\\",\\n  \\\"displayMessage\\\": \\\"Server side error\\\",\\n  \\\"additionalInfo\\\": \\\"Please contact customer support for further assistance\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"422\\\",\\n  \\\"displayMessage\\\": \\\"Unprocessable Entity\\\",\\n  \\\"additionalInfo\\\": \\\"Unprocessable Entity. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:28.000Z",
+                      "updatedAt": "2026-10-21T20:51:28.000Z",
+                      "uid": "35240-516a8762-c1d5-404d-8f31-3e7929f054e9"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:51:28.000Z",
+                  "updatedAt": "2026-10-21T20:51:28.000Z",
+                  "uid": "35240-93571772-1523-41ae-adf0-0b1b9ff96142"
+                }
+              ],
+              "id": "29cf63c1-4b8c-43e1-8b80-6adf07fb8671",
+              "createdAt": "2026-10-21T20:51:28.000Z",
+              "updatedAt": "2026-10-21T20:51:28.000Z",
+              "uid": "35240-29cf63c1-4b8c-43e1-8b80-6adf07fb8671"
+            }
+          ],
+          "id": "292769f3-f2f4-4db9-ad17-5c63ada3c1b2",
+          "createdAt": "2026-10-21T20:51:28.000Z",
+          "updatedAt": "2026-10-21T20:51:28.000Z",
+          "uid": "35240-292769f3-f2f4-4db9-ad17-5c63ada3c1b2"
+        }
+      ],
+      "id": "14e913cc-1247-44d0-bc26-a59c9cb37e4b",
+      "createdAt": "2026-10-21T20:51:28.000Z",
+      "updatedAt": "2026-10-21T20:51:28.000Z",
+      "uid": "35240-14e913cc-1247-44d0-bc26-a59c9cb37e4b"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://vpp.enphaseenergy.com"
+    }
+  ]
+}

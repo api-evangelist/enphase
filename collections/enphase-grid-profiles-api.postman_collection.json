@@ -1,0 +1,329 @@
+{
+  "info": {
+    "_postman_id": "fafe7fcb-07dc-40c3-9aba-fd7f18848d3d",
+    "name": "Commissioning Grid Profiles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:52:37.000Z",
+    "updatedAt": "2026-10-21T20:52:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fafe7fcb-07dc-40c3-9aba-fd7f18848d3d"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v4",
+          "item": [
+            {
+              "name": "partner",
+              "item": [
+                {
+                  "name": "grid_profiles",
+                  "item": [
+                    {
+                      "name": "Lists the available profiles",
+                      "id": "5d0ed265-c78c-4945-85e6-0515f2fe800a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v4/partner/grid_profiles",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v4",
+                            "partner",
+                            "grid_profiles"
+                          ]
+                        },
+                        "description": "Lists the available profiles."
+                      },
+                      "response": [
+                        {
+                          "id": "2507572d-c931-46ab-90a2-0bdf2dcca8e8",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/partner/grid_profiles",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "partner",
+                                "grid_profiles"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"grid_profiles\": [\n    {\n      \"id\": \"<string>\",\n      \"profile_id\": \"<string>\",\n      \"created\": \"<string>\",\n      \"updated\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"version\": \"<string>\",\n      \"envoy_type\": \"<string>\",\n      \"countries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"states\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"state_names\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"ensemble_1_compatible\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"profile_id\": \"<string>\",\n      \"created\": \"<string>\",\n      \"updated\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"version\": \"<string>\",\n      \"envoy_type\": \"<string>\",\n      \"countries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"states\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"state_names\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"ensemble_1_compatible\": \"<boolean>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-21T20:52:38.000Z",
+                          "updatedAt": "2026-10-21T20:52:38.000Z",
+                          "uid": "35240-2507572d-c931-46ab-90a2-0bdf2dcca8e8"
+                        },
+                        {
+                          "id": "ca7b0d51-03e3-42e5-b128-82bb9d13cad1",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/partner/grid_profiles",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "partner",
+                                "grid_profiles"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-10-21T20:52:38.000Z",
+                          "updatedAt": "2026-10-21T20:52:38.000Z",
+                          "uid": "35240-ca7b0d51-03e3-42e5-b128-82bb9d13cad1"
+                        },
+                        {
+                          "id": "84db79c7-d1fd-4cb9-aa39-6dc029909b13",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/partner/grid_profiles",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "partner",
+                                "grid_profiles"
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-10-21T20:52:38.000Z",
+                          "updatedAt": "2026-10-21T20:52:38.000Z",
+                          "uid": "35240-84db79c7-d1fd-4cb9-aa39-6dc029909b13"
+                        },
+                        {
+                          "id": "e5623a86-ab05-4eb6-b964-ac2a7e02c716",
+                          "name": "Method Not Allowed",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/partner/grid_profiles",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "partner",
+                                "grid_profiles"
+                              ]
+                            }
+                          },
+                          "status": "Method Not Allowed",
+                          "code": 405,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-10-21T20:52:38.000Z",
+                          "updatedAt": "2026-10-21T20:52:38.000Z",
+                          "uid": "35240-e5623a86-ab05-4eb6-b964-ac2a7e02c716"
+                        },
+                        {
+                          "id": "0d81ca5f-a1ef-474d-88cb-2dddc3038d03",
+                          "name": "Too Many Requests",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/partner/grid_profiles",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "partner",
+                                "grid_profiles"
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-10-21T20:52:38.000Z",
+                          "updatedAt": "2026-10-21T20:52:38.000Z",
+                          "uid": "35240-0d81ca5f-a1ef-474d-88cb-2dddc3038d03"
+                        },
+                        {
+                          "id": "02984546-df3d-4317-bf30-92442367abab",
+                          "name": "Not Implemented",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/partner/grid_profiles",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "partner",
+                                "grid_profiles"
+                              ]
+                            }
+                          },
+                          "status": "Not Implemented",
+                          "code": 501,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-10-21T20:52:38.000Z",
+                          "updatedAt": "2026-10-21T20:52:38.000Z",
+                          "uid": "35240-02984546-df3d-4317-bf30-92442367abab"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:52:38.000Z",
+                      "updatedAt": "2026-10-21T20:52:38.000Z",
+                      "uid": "35240-5d0ed265-c78c-4945-85e6-0515f2fe800a"
+                    }
+                  ],
+                  "id": "ccb812f6-9779-44ae-bcc9-002766f50e6a",
+                  "createdAt": "2026-10-21T20:52:38.000Z",
+                  "updatedAt": "2026-10-21T20:52:38.000Z",
+                  "uid": "35240-ccb812f6-9779-44ae-bcc9-002766f50e6a"
+                }
+              ],
+              "id": "ca6f9117-1312-4c9e-ac1e-751d52dd1c4d",
+              "createdAt": "2026-10-21T20:52:38.000Z",
+              "updatedAt": "2026-10-21T20:52:38.000Z",
+              "uid": "35240-ca6f9117-1312-4c9e-ac1e-751d52dd1c4d"
+            }
+          ],
+          "id": "bc382eac-57fc-4005-b537-56418fd0b10e",
+          "createdAt": "2026-10-21T20:52:38.000Z",
+          "updatedAt": "2026-10-21T20:52:38.000Z",
+          "uid": "35240-bc382eac-57fc-4005-b537-56418fd0b10e"
+        }
+      ],
+      "id": "61da4060-6376-47da-aa4f-199ba807b30b",
+      "createdAt": "2026-10-21T20:52:38.000Z",
+      "updatedAt": "2026-10-21T20:52:38.000Z",
+      "uid": "35240-61da4060-6376-47da-aa4f-199ba807b30b"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.enphaseenergy.com"
+    }
+  ]
+}

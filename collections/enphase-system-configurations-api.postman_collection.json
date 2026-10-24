@@ -1,0 +1,3367 @@
+{
+  "info": {
+    "_postman_id": "da157aa3-2ca6-4ca1-885d-a8f92424dba1",
+    "name": "Monitoring System Configurations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:53:39.000Z",
+    "updatedAt": "2026-10-21T20:53:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-da157aa3-2ca6-4ca1-885d-a8f92424dba1"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v4",
+          "item": [
+            {
+              "name": "systems",
+              "item": [
+                {
+                  "name": "config",
+                  "item": [
+                    {
+                      "name": "{system_id}",
+                      "item": [
+                        {
+                          "name": "battery_settings",
+                          "item": [
+                            {
+                              "name": "Returns the current battery settings of a system",
+                              "id": "fb279bc1-8f7c-4a27-b103-3bdb012e3cd8",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    "config",
+                                    ":system_id",
+                                    "battery_settings"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "184e6e78-2867-4166-8d08-f6f80f31eac3",
+                                      "key": "system_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The unique numeric id of the system"
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "id": "c99bfa49-0894-4abf-b180-eb6a761f1ad2",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"system_id\": \"<integer>\",\n  \"battery_mode\": \"<string>\",\n  \"reserve_soc\": \"<integer>\",\n  \"energy_independence\": \"<string>\",\n  \"charge_from_grid\": \"<string>\",\n  \"battery_shutdown_level\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-c99bfa49-0894-4abf-b180-eb6a761f1ad2"
+                                },
+                                {
+                                  "id": "fa814111-660b-44c3-b98c-c81788f1e252",
+                                  "name": "Authentication Error",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-fa814111-660b-44c3-b98c-c81788f1e252"
+                                },
+                                {
+                                  "id": "a3072ba9-1046-4096-94e2-a37e5d803ff2",
+                                  "name": "Forbidden",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-a3072ba9-1046-4096-94e2-a37e5d803ff2"
+                                },
+                                {
+                                  "id": "f2d0980a-aa4a-4d0f-a637-1402016c0238",
+                                  "name": "Not Found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-f2d0980a-aa4a-4d0f-a637-1402016c0238"
+                                },
+                                {
+                                  "id": "872d2ba3-8047-46a3-931f-f3aa2eb8e8cc",
+                                  "name": "Method Not Allowed",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Method Not Allowed",
+                                  "code": 405,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-872d2ba3-8047-46a3-931f-f3aa2eb8e8cc"
+                                },
+                                {
+                                  "id": "7c89f6f9-5cd8-4476-b1b5-cc0a83237424",
+                                  "name": "Unprocessable Entity",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-7c89f6f9-5cd8-4476-b1b5-cc0a83237424"
+                                },
+                                {
+                                  "id": "5989411a-c31b-48da-a112-56e95c8cebba",
+                                  "name": "Too Many Requests",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Too Many Requests",
+                                  "code": 429,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\",\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-5989411a-c31b-48da-a112-56e95c8cebba"
+                                },
+                                {
+                                  "id": "2cf58834-c720-4d9c-8d69-43f1f682e518",
+                                  "name": "Not Implemented",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Implemented",
+                                  "code": 501,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-2cf58834-c720-4d9c-8d69-43f1f682e518"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:53:39.000Z",
+                              "updatedAt": "2026-10-21T20:53:39.000Z",
+                              "uid": "35240-fb279bc1-8f7c-4a27-b103-3bdb012e3cd8"
+                            },
+                            {
+                              "name": "Updates the current battery settings of a system",
+                              "id": "f851b5e7-7abe-4c3d-9228-f33a83ff4750",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"battery_mode\": \"<string>\",\n  \"reserve_soc\": \"<integer>\",\n  \"energy_independence\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    "config",
+                                    ":system_id",
+                                    "battery_settings"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "183b2c60-3184-4900-b7eb-0eb2e563d15a",
+                                      "key": "system_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The unique numeric id of the system"
+                                    }
+                                  ]
+                                },
+                                "description": "Updates the current battery settings of a system."
+                              },
+                              "response": [
+                                {
+                                  "id": "0e458b58-9b5a-4ca6-8d86-b4e36eaaba40",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"battery_mode\": \"<string>\",\n  \"reserve_soc\": \"<integer>\",\n  \"energy_independence\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"system_id\": \"<integer>\",\n  \"battery_mode\": \"<string>\",\n  \"reserve_soc\": \"<integer>\",\n  \"energy_independence\": \"<string>\",\n  \"charge_from_grid\": \"<string>\",\n  \"battery_shutdown_level\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-0e458b58-9b5a-4ca6-8d86-b4e36eaaba40"
+                                },
+                                {
+                                  "id": "dd464689-65a5-459b-835e-707df35122e0",
+                                  "name": "Authentication Error",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"battery_mode\": \"<string>\",\n  \"reserve_soc\": \"<integer>\",\n  \"energy_independence\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-dd464689-65a5-459b-835e-707df35122e0"
+                                },
+                                {
+                                  "id": "b7852252-cb32-4508-bfd5-6d670f513050",
+                                  "name": "Forbidden",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"battery_mode\": \"<string>\",\n  \"reserve_soc\": \"<integer>\",\n  \"energy_independence\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-b7852252-cb32-4508-bfd5-6d670f513050"
+                                },
+                                {
+                                  "id": "c116661c-ee55-43f8-8643-4e859bb17684",
+                                  "name": "Not Found",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"battery_mode\": \"<string>\",\n  \"reserve_soc\": \"<integer>\",\n  \"energy_independence\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-c116661c-ee55-43f8-8643-4e859bb17684"
+                                },
+                                {
+                                  "id": "07f5c2be-26bb-4616-831d-7c275f5dabbf",
+                                  "name": "Method Not Allowed",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"battery_mode\": \"<string>\",\n  \"reserve_soc\": \"<integer>\",\n  \"energy_independence\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Method Not Allowed",
+                                  "code": 405,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-07f5c2be-26bb-4616-831d-7c275f5dabbf"
+                                },
+                                {
+                                  "id": "ca1677b0-b807-4fa9-aeec-15b0594f3390",
+                                  "name": "Unprocessable Entity",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"battery_mode\": \"<string>\",\n  \"reserve_soc\": \"<integer>\",\n  \"energy_independence\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-ca1677b0-b807-4fa9-aeec-15b0594f3390"
+                                },
+                                {
+                                  "id": "09452cfe-ce5c-407e-997f-ff27483e18e9",
+                                  "name": "Too Many Requests",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"battery_mode\": \"<string>\",\n  \"reserve_soc\": \"<integer>\",\n  \"energy_independence\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Too Many Requests",
+                                  "code": 429,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\",\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-09452cfe-ce5c-407e-997f-ff27483e18e9"
+                                },
+                                {
+                                  "id": "1793d4ac-45d0-42ef-8b98-848ef886a700",
+                                  "name": "Not Implemented",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"battery_mode\": \"<string>\",\n  \"reserve_soc\": \"<integer>\",\n  \"energy_independence\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/battery_settings",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "battery_settings"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Implemented",
+                                  "code": 501,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-1793d4ac-45d0-42ef-8b98-848ef886a700"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:53:39.000Z",
+                              "updatedAt": "2026-10-21T20:53:39.000Z",
+                              "uid": "35240-f851b5e7-7abe-4c3d-9228-f33a83ff4750"
+                            }
+                          ],
+                          "id": "20b344b8-678c-440d-b783-e5c555c20a51",
+                          "createdAt": "2026-10-21T20:53:39.000Z",
+                          "updatedAt": "2026-10-21T20:53:39.000Z",
+                          "uid": "35240-20b344b8-678c-440d-b783-e5c555c20a51"
+                        },
+                        {
+                          "name": "storm_guard",
+                          "item": [
+                            {
+                              "name": "Returns the current storm guard settings of a system",
+                              "id": "e335b5ee-baf4-4844-98c3-b8a1fe5bda64",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    "config",
+                                    ":system_id",
+                                    "storm_guard"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "d5afd3ff-1668-4117-903e-d36c828703c2",
+                                      "key": "system_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The unique numeric id of the system"
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "id": "2f4c6844-221c-4be6-9866-589e1389caed",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"system_id\": \"<integer>\",\n  \"storm_guard_status\": \"<string>\",\n  \"storm_alert\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-2f4c6844-221c-4be6-9866-589e1389caed"
+                                },
+                                {
+                                  "id": "fa6b3770-1172-421a-9590-c0a893406b3f",
+                                  "name": "Authentication Error",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-fa6b3770-1172-421a-9590-c0a893406b3f"
+                                },
+                                {
+                                  "id": "2a98c923-99e1-4ab1-90ed-bfd930c4542f",
+                                  "name": "Forbidden",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-2a98c923-99e1-4ab1-90ed-bfd930c4542f"
+                                },
+                                {
+                                  "id": "52700bec-21d2-4c49-b022-3fbc59b9d683",
+                                  "name": "Not Found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-52700bec-21d2-4c49-b022-3fbc59b9d683"
+                                },
+                                {
+                                  "id": "45a522d1-6c16-405c-b61c-fbad4bc858a7",
+                                  "name": "Method Not Allowed",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Method Not Allowed",
+                                  "code": 405,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-45a522d1-6c16-405c-b61c-fbad4bc858a7"
+                                },
+                                {
+                                  "id": "f523d456-ecdc-46ff-a707-b7f1eb9a8b33",
+                                  "name": "Unprocessable Entity",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-f523d456-ecdc-46ff-a707-b7f1eb9a8b33"
+                                },
+                                {
+                                  "id": "03d6e520-a601-4b72-aa95-b275ca159baa",
+                                  "name": "Too Many Requests",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Too Many Requests",
+                                  "code": 429,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\",\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-03d6e520-a601-4b72-aa95-b275ca159baa"
+                                },
+                                {
+                                  "id": "21cdb974-6be6-4345-a052-0badadb15a7a",
+                                  "name": "Not Implemented",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Implemented",
+                                  "code": 501,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-21cdb974-6be6-4345-a052-0badadb15a7a"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:53:39.000Z",
+                              "updatedAt": "2026-10-21T20:53:39.000Z",
+                              "uid": "35240-e335b5ee-baf4-4844-98c3-b8a1fe5bda64"
+                            },
+                            {
+                              "name": "Updates the current storm guard settings of a system",
+                              "id": "bd71d54e-5300-44eb-ae06-d0878743cac0",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"storm_guard_status\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    "config",
+                                    ":system_id",
+                                    "storm_guard"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "6f1049e7-67f0-4811-92fa-8e1e683658fd",
+                                      "key": "system_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The unique numeric id of the system"
+                                    }
+                                  ]
+                                },
+                                "description": "Updates the current storm guard status of a system."
+                              },
+                              "response": [
+                                {
+                                  "id": "5bbb8445-9f2f-4c3f-a710-c4c9f1ca2483",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"storm_guard_status\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"system_id\": \"<integer>\",\n  \"storm_guard_status\": \"<string>\",\n  \"storm_alert\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-5bbb8445-9f2f-4c3f-a710-c4c9f1ca2483"
+                                },
+                                {
+                                  "id": "9b628413-f7f5-48b3-893b-890c6be5274f",
+                                  "name": "Authentication Error",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"storm_guard_status\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-9b628413-f7f5-48b3-893b-890c6be5274f"
+                                },
+                                {
+                                  "id": "079097e5-de19-49a9-a1d6-8a238e7f6cf3",
+                                  "name": "Forbidden",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"storm_guard_status\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-079097e5-de19-49a9-a1d6-8a238e7f6cf3"
+                                },
+                                {
+                                  "id": "e2e0ecc0-b241-4769-9eef-9475f2ec17c8",
+                                  "name": "Not Found",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"storm_guard_status\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-e2e0ecc0-b241-4769-9eef-9475f2ec17c8"
+                                },
+                                {
+                                  "id": "07ee3772-9f45-458a-9c71-e721a8dcb7c0",
+                                  "name": "Method Not Allowed",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"storm_guard_status\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Method Not Allowed",
+                                  "code": 405,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-07ee3772-9f45-458a-9c71-e721a8dcb7c0"
+                                },
+                                {
+                                  "id": "bbe980b4-1aef-4ae3-a4d9-2d43ca8f9ff3",
+                                  "name": "Unprocessable Entity",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"storm_guard_status\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-bbe980b4-1aef-4ae3-a4d9-2d43ca8f9ff3"
+                                },
+                                {
+                                  "id": "860e3a13-b2e6-441e-9c86-b7c687ef6938",
+                                  "name": "Too Many Requests",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"storm_guard_status\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Too Many Requests",
+                                  "code": 429,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\",\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-860e3a13-b2e6-441e-9c86-b7c687ef6938"
+                                },
+                                {
+                                  "id": "d6494f31-e692-4146-a73e-70ee3742abb7",
+                                  "name": "Not Implemented",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"storm_guard_status\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/storm_guard",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "storm_guard"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Implemented",
+                                  "code": 501,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-d6494f31-e692-4146-a73e-70ee3742abb7"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:53:39.000Z",
+                              "updatedAt": "2026-10-21T20:53:39.000Z",
+                              "uid": "35240-bd71d54e-5300-44eb-ae06-d0878743cac0"
+                            }
+                          ],
+                          "id": "ed11bbc4-d02e-423b-adc3-38dcfe489765",
+                          "createdAt": "2026-10-21T20:53:39.000Z",
+                          "updatedAt": "2026-10-21T20:53:39.000Z",
+                          "uid": "35240-ed11bbc4-d02e-423b-adc3-38dcfe489765"
+                        },
+                        {
+                          "name": "grid_status",
+                          "item": [
+                            {
+                              "name": "Returns the current grid status of a system",
+                              "id": "30b33714-b01c-435b-89e0-be40f9bdc2c0",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/grid_status",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    "config",
+                                    ":system_id",
+                                    "grid_status"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "1185df2d-19bf-4e7f-afe0-95164eca2e59",
+                                      "key": "system_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The unique numeric id of the system"
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "id": "00571904-4f28-472c-99bd-1e6875b66b55",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/grid_status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "grid_status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"system_id\": \"<integer>\",\n  \"grid_state\": \"<string>\",\n  \"last_report_date\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-00571904-4f28-472c-99bd-1e6875b66b55"
+                                },
+                                {
+                                  "id": "1c5a0401-a4ff-4313-98bc-bd1c357c53fe",
+                                  "name": "Authentication Error",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/grid_status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "grid_status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-1c5a0401-a4ff-4313-98bc-bd1c357c53fe"
+                                },
+                                {
+                                  "id": "59eddd46-79b8-450a-a9c6-a9ba5ed325b7",
+                                  "name": "Forbidden",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/grid_status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "grid_status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-59eddd46-79b8-450a-a9c6-a9ba5ed325b7"
+                                },
+                                {
+                                  "id": "d229c8ac-63d7-483d-94d3-2f496bcc80ce",
+                                  "name": "Not Found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/grid_status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "grid_status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-d229c8ac-63d7-483d-94d3-2f496bcc80ce"
+                                },
+                                {
+                                  "id": "22774aa9-3839-4d58-80c8-da74b21b7fbc",
+                                  "name": "Method Not Allowed",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/grid_status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "grid_status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Method Not Allowed",
+                                  "code": 405,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-22774aa9-3839-4d58-80c8-da74b21b7fbc"
+                                },
+                                {
+                                  "id": "e3446dfd-dd64-4fcd-b227-7da28519bb54",
+                                  "name": "Unprocessable Entity",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/grid_status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "grid_status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-e3446dfd-dd64-4fcd-b227-7da28519bb54"
+                                },
+                                {
+                                  "id": "fa9a0f42-281a-4dee-aea5-3d8c646f63c1",
+                                  "name": "Too Many Requests",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/grid_status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "grid_status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Too Many Requests",
+                                  "code": 429,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-fa9a0f42-281a-4dee-aea5-3d8c646f63c1"
+                                },
+                                {
+                                  "id": "7ebc4b5b-7383-444c-9d90-e2678953a5a5",
+                                  "name": "Not Implemented",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/grid_status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "grid_status"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Implemented",
+                                  "code": 501,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-7ebc4b5b-7383-444c-9d90-e2678953a5a5"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:53:39.000Z",
+                              "updatedAt": "2026-10-21T20:53:39.000Z",
+                              "uid": "35240-30b33714-b01c-435b-89e0-be40f9bdc2c0"
+                            }
+                          ],
+                          "id": "17ed6a77-6e8e-401b-8a20-ca874c7f6111",
+                          "createdAt": "2026-10-21T20:53:39.000Z",
+                          "updatedAt": "2026-10-21T20:53:39.000Z",
+                          "uid": "35240-17ed6a77-6e8e-401b-8a20-ca874c7f6111"
+                        },
+                        {
+                          "name": "load_control",
+                          "item": [
+                            {
+                              "name": "Returns the current load control settings of a system",
+                              "id": "b634b437-61eb-4ed6-bb25-77d175af2025",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    "config",
+                                    ":system_id",
+                                    "load_control"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "e4ebc516-69f5-499c-aa95-b439ca35dda7",
+                                      "key": "system_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The unique numeric id of the system"
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "id": "66f50089-6ef8-49ab-9baa-d8cabd697c26",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"system_id\": \"<integer>\",\n  \"load_control_data\": [\n    {\n      \"name\": \"<string>\",\n      \"load_name\": \"<string>\",\n      \"owner_can_override\": \"<string>\",\n      \"mode\": \"<string>\",\n      \"soc_low\": \"<integer>\",\n      \"soc_high\": \"<integer>\",\n      \"status\": \"<string>\",\n      \"essential_start_time\": \"<integer>\",\n      \"essential_end_time\": \"<integer>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"load_name\": \"<string>\",\n      \"owner_can_override\": \"<string>\",\n      \"mode\": \"<string>\",\n      \"soc_low\": \"<integer>\",\n      \"soc_high\": \"<integer>\",\n      \"status\": \"<string>\",\n      \"essential_start_time\": \"<integer>\",\n      \"essential_end_time\": \"<integer>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-66f50089-6ef8-49ab-9baa-d8cabd697c26"
+                                },
+                                {
+                                  "id": "68888e90-b56d-4e2d-90c5-4e5392598420",
+                                  "name": "Authentication Error",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-68888e90-b56d-4e2d-90c5-4e5392598420"
+                                },
+                                {
+                                  "id": "bed648f2-9f62-4bdc-8021-7c5a9b7dbc90",
+                                  "name": "Forbidden",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-bed648f2-9f62-4bdc-8021-7c5a9b7dbc90"
+                                },
+                                {
+                                  "id": "72adefbd-0f45-4954-b41f-b8ad51d2de43",
+                                  "name": "Not Found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-72adefbd-0f45-4954-b41f-b8ad51d2de43"
+                                },
+                                {
+                                  "id": "844cbca7-a443-45eb-b5fd-89fdff6a833b",
+                                  "name": "Method Not Allowed",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Method Not Allowed",
+                                  "code": 405,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-844cbca7-a443-45eb-b5fd-89fdff6a833b"
+                                },
+                                {
+                                  "id": "fba3ea10-1d84-410c-9217-65ae194fda20",
+                                  "name": "Too Many Requests",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Too Many Requests",
+                                  "code": 429,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\",\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-fba3ea10-1d84-410c-9217-65ae194fda20"
+                                },
+                                {
+                                  "id": "a027b101-efd3-445c-8d2d-4a5039fda02f",
+                                  "name": "Not Implemented",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Implemented",
+                                  "code": 501,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-a027b101-efd3-445c-8d2d-4a5039fda02f"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:53:39.000Z",
+                              "updatedAt": "2026-10-21T20:53:39.000Z",
+                              "uid": "35240-b634b437-61eb-4ed6-bb25-77d175af2025"
+                            },
+                            {
+                              "name": "Updates the current load control settings of a system",
+                              "id": "6716d7d2-c8fa-4d68-9e62-77d5a4277342",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"load_name\": \"<string>\",\n  \"mode\": \"<string>\",\n  \"soc_low\": \"<integer>\",\n  \"essential_start_time\": \"<integer>\",\n  \"essential_end_time\": \"<integer>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    "config",
+                                    ":system_id",
+                                    "load_control"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "a3528c90-0369-407f-9ffc-f2f36ebe4225",
+                                      "key": "system_id",
+                                      "value": "<string>",
+                                      "description": "(Required) The unique numeric id of the system"
+                                    }
+                                  ]
+                                },
+                                "description": "Updates the current load control settings of a system."
+                              },
+                              "response": [
+                                {
+                                  "id": "acf0a804-1778-45b6-b6e9-261423315dc8",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"load_name\": \"<string>\",\n  \"mode\": \"<string>\",\n  \"soc_low\": \"<integer>\",\n  \"essential_start_time\": \"<integer>\",\n  \"essential_end_time\": \"<integer>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"system_id\": \"<integer>\",\n  \"load_control_data\": [\n    {\n      \"name\": \"<string>\",\n      \"load_name\": \"<string>\",\n      \"owner_can_override\": \"<string>\",\n      \"mode\": \"<string>\",\n      \"soc_low\": \"<integer>\",\n      \"soc_high\": \"<integer>\",\n      \"status\": \"<string>\",\n      \"essential_start_time\": \"<integer>\",\n      \"essential_end_time\": \"<integer>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"load_name\": \"<string>\",\n      \"owner_can_override\": \"<string>\",\n      \"mode\": \"<string>\",\n      \"soc_low\": \"<integer>\",\n      \"soc_high\": \"<integer>\",\n      \"status\": \"<string>\",\n      \"essential_start_time\": \"<integer>\",\n      \"essential_end_time\": \"<integer>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-acf0a804-1778-45b6-b6e9-261423315dc8"
+                                },
+                                {
+                                  "id": "6d8fdf20-d170-4955-84c2-6ea5d03fc850",
+                                  "name": "Authentication Error",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"load_name\": \"<string>\",\n  \"mode\": \"<string>\",\n  \"soc_low\": \"<integer>\",\n  \"essential_start_time\": \"<integer>\",\n  \"essential_end_time\": \"<integer>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-6d8fdf20-d170-4955-84c2-6ea5d03fc850"
+                                },
+                                {
+                                  "id": "e9926489-cc51-4458-90a8-abfb1da58f19",
+                                  "name": "Forbidden",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"load_name\": \"<string>\",\n  \"mode\": \"<string>\",\n  \"soc_low\": \"<integer>\",\n  \"essential_start_time\": \"<integer>\",\n  \"essential_end_time\": \"<integer>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-e9926489-cc51-4458-90a8-abfb1da58f19"
+                                },
+                                {
+                                  "id": "1f368bb5-a5f1-42e6-8e96-35bbb5ad95b5",
+                                  "name": "Not Found",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"load_name\": \"<string>\",\n  \"mode\": \"<string>\",\n  \"soc_low\": \"<integer>\",\n  \"essential_start_time\": \"<integer>\",\n  \"essential_end_time\": \"<integer>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-1f368bb5-a5f1-42e6-8e96-35bbb5ad95b5"
+                                },
+                                {
+                                  "id": "13502fbe-da0f-4ff1-8f04-7085877b0da7",
+                                  "name": "Method Not Allowed",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"load_name\": \"<string>\",\n  \"mode\": \"<string>\",\n  \"soc_low\": \"<integer>\",\n  \"essential_start_time\": \"<integer>\",\n  \"essential_end_time\": \"<integer>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Method Not Allowed",
+                                  "code": 405,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-13502fbe-da0f-4ff1-8f04-7085877b0da7"
+                                },
+                                {
+                                  "id": "f5f150a0-ed99-4fbe-9de1-845db51df0f5",
+                                  "name": "Unprocessable Entity",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"load_name\": \"<string>\",\n  \"mode\": \"<string>\",\n  \"soc_low\": \"<integer>\",\n  \"essential_start_time\": \"<integer>\",\n  \"essential_end_time\": \"<integer>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-f5f150a0-ed99-4fbe-9de1-845db51df0f5"
+                                },
+                                {
+                                  "id": "b5509182-8619-41d2-9ea4-43520150ffe8",
+                                  "name": "Too Many Requests",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"load_name\": \"<string>\",\n  \"mode\": \"<string>\",\n  \"soc_low\": \"<integer>\",\n  \"essential_start_time\": \"<integer>\",\n  \"essential_end_time\": \"<integer>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Too Many Requests",
+                                  "code": 429,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"details\": \"<string>\",\n  \"code\": \"<integer>\",\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-b5509182-8619-41d2-9ea4-43520150ffe8"
+                                },
+                                {
+                                  "id": "576b1925-b355-4f53-91fc-7dcfdfd4ca53",
+                                  "name": "Not Implemented",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\",\n  \"load_name\": \"<string>\",\n  \"mode\": \"<string>\",\n  \"soc_low\": \"<integer>\",\n  \"essential_start_time\": \"<integer>\",\n  \"essential_end_time\": \"<integer>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/load_control",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "load_control"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Implemented",
+                                  "code": 501,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:53:39.000Z",
+                                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                                  "uid": "35240-576b1925-b355-4f53-91fc-7dcfdfd4ca53"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:53:39.000Z",
+                              "updatedAt": "2026-10-21T20:53:39.000Z",
+                              "uid": "35240-6716d7d2-c8fa-4d68-9e62-77d5a4277342"
+                            }
+                          ],
+                          "id": "9b07eb85-6909-4ece-bb39-9befebc8a6f1",
+                          "createdAt": "2026-10-21T20:53:39.000Z",
+                          "updatedAt": "2026-10-21T20:53:39.000Z",
+                          "uid": "35240-9b07eb85-6909-4ece-bb39-9befebc8a6f1"
+                        }
+                      ],
+                      "id": "fd3e26ce-1ac1-4228-99d0-3e42a5375d2f",
+                      "createdAt": "2026-10-21T20:53:39.000Z",
+                      "updatedAt": "2026-10-21T20:53:39.000Z",
+                      "uid": "35240-fd3e26ce-1ac1-4228-99d0-3e42a5375d2f"
+                    }
+                  ],
+                  "id": "5a7d888c-2f2d-47ec-bc0b-38823d2c4d35",
+                  "createdAt": "2026-10-21T20:53:39.000Z",
+                  "updatedAt": "2026-10-21T20:53:39.000Z",
+                  "uid": "35240-5a7d888c-2f2d-47ec-bc0b-38823d2c4d35"
+                }
+              ],
+              "id": "ea78076a-aaf8-4b9c-90dc-bf301c92bffe",
+              "createdAt": "2026-10-21T20:53:39.000Z",
+              "updatedAt": "2026-10-21T20:53:39.000Z",
+              "uid": "35240-ea78076a-aaf8-4b9c-90dc-bf301c92bffe"
+            }
+          ],
+          "id": "cbf1067d-6849-4788-aa11-6bf92b543a90",
+          "createdAt": "2026-10-21T20:53:39.000Z",
+          "updatedAt": "2026-10-21T20:53:39.000Z",
+          "uid": "35240-cbf1067d-6849-4788-aa11-6bf92b543a90"
+        }
+      ],
+      "id": "386abfd2-2b96-4dbd-a7bf-8963d4187fd4",
+      "createdAt": "2026-10-21T20:53:39.000Z",
+      "updatedAt": "2026-10-21T20:53:39.000Z",
+      "uid": "35240-386abfd2-2b96-4dbd-a7bf-8963d4187fd4"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-qa2.enphaseenergy.com"
+    }
+  ]
+}

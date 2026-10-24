@@ -1,0 +1,383 @@
+{
+  "info": {
+    "_postman_id": "11c0a6d4-ca3b-4f4e-9713-b986ddf6af0d",
+    "name": "Commissioning Pv Models API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:53:16.000Z",
+    "updatedAt": "2026-10-21T20:53:17.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-11c0a6d4-ca3b-4f4e-9713-b986ddf6af0d"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v4",
+          "item": [
+            {
+              "name": "pv_manufacturers",
+              "item": [
+                {
+                  "name": "{pv_manufacturer_id}",
+                  "item": [
+                    {
+                      "name": "pv_models",
+                      "item": [
+                        {
+                          "name": "Returns PV module manufacturers",
+                          "id": "888da3e6-7b38-47c1-9743-5679616c22fc",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/pv_manufacturers/:pv_manufacturer_id/pv_models",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "pv_manufacturers",
+                                ":pv_manufacturer_id",
+                                "pv_models"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "e26319d7-0b55-429f-bfb0-6adacf305bfb",
+                                  "key": "pv_manufacturer_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Pv manufacturer ID"
+                                }
+                              ]
+                            },
+                            "description": "Returns information about the PV modules known in Enlighten."
+                          },
+                          "response": [
+                            {
+                              "id": "845db511-9e7f-4df1-bc26-6f43f69d38c0",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/pv_manufacturers/:pv_manufacturer_id/pv_models",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "pv_manufacturers",
+                                    ":pv_manufacturer_id",
+                                    "pv_models"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pv_manufacturer_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"pv_manufacturers\": {\n    \"pv_manufacturer_id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"pv_models\": [\n    [],\n    []\n  ]\n}",
+                              "createdAt": "2026-10-21T20:53:17.000Z",
+                              "updatedAt": "2026-10-21T20:53:17.000Z",
+                              "uid": "35240-845db511-9e7f-4df1-bc26-6f43f69d38c0"
+                            },
+                            {
+                              "id": "998af9b2-2b2e-4027-b87b-41f9a81aaadd",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/pv_manufacturers/:pv_manufacturer_id/pv_models",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "pv_manufacturers",
+                                    ":pv_manufacturer_id",
+                                    "pv_models"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pv_manufacturer_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:53:17.000Z",
+                              "updatedAt": "2026-10-21T20:53:17.000Z",
+                              "uid": "35240-998af9b2-2b2e-4027-b87b-41f9a81aaadd"
+                            },
+                            {
+                              "id": "47e5c78a-6ba5-4d9b-a084-127bef5d06dd",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/pv_manufacturers/:pv_manufacturer_id/pv_models",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "pv_manufacturers",
+                                    ":pv_manufacturer_id",
+                                    "pv_models"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pv_manufacturer_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:53:17.000Z",
+                              "updatedAt": "2026-10-21T20:53:17.000Z",
+                              "uid": "35240-47e5c78a-6ba5-4d9b-a084-127bef5d06dd"
+                            },
+                            {
+                              "id": "f8b5b7d3-6594-4fcb-b32c-8b8a29bdeb2d",
+                              "name": "Method Not Allowed",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/pv_manufacturers/:pv_manufacturer_id/pv_models",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "pv_manufacturers",
+                                    ":pv_manufacturer_id",
+                                    "pv_models"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pv_manufacturer_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Method Not Allowed",
+                              "code": 405,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:53:17.000Z",
+                              "updatedAt": "2026-10-21T20:53:17.000Z",
+                              "uid": "35240-f8b5b7d3-6594-4fcb-b32c-8b8a29bdeb2d"
+                            },
+                            {
+                              "id": "361a0c22-34d2-4735-bc25-8249ffd8864c",
+                              "name": "Too Many Requests",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/pv_manufacturers/:pv_manufacturer_id/pv_models",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "pv_manufacturers",
+                                    ":pv_manufacturer_id",
+                                    "pv_models"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pv_manufacturer_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Too Many Requests",
+                              "code": 429,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                              "createdAt": "2026-10-21T20:53:17.000Z",
+                              "updatedAt": "2026-10-21T20:53:17.000Z",
+                              "uid": "35240-361a0c22-34d2-4735-bc25-8249ffd8864c"
+                            },
+                            {
+                              "id": "1038b676-76ee-4303-9ac7-b5aff643c592",
+                              "name": "Not Implemented",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/pv_manufacturers/:pv_manufacturer_id/pv_models",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "pv_manufacturers",
+                                    ":pv_manufacturer_id",
+                                    "pv_models"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "pv_manufacturer_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Implemented",
+                              "code": 501,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:53:17.000Z",
+                              "updatedAt": "2026-10-21T20:53:17.000Z",
+                              "uid": "35240-1038b676-76ee-4303-9ac7-b5aff643c592"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:53:17.000Z",
+                          "updatedAt": "2026-10-21T20:53:17.000Z",
+                          "uid": "35240-888da3e6-7b38-47c1-9743-5679616c22fc"
+                        }
+                      ],
+                      "id": "67d67d31-b438-46ff-95c0-b6c69b18dea1",
+                      "createdAt": "2026-10-21T20:53:17.000Z",
+                      "updatedAt": "2026-10-21T20:53:17.000Z",
+                      "uid": "35240-67d67d31-b438-46ff-95c0-b6c69b18dea1"
+                    }
+                  ],
+                  "id": "54313f36-76a4-472c-b208-878df8f06948",
+                  "createdAt": "2026-10-21T20:53:17.000Z",
+                  "updatedAt": "2026-10-21T20:53:17.000Z",
+                  "uid": "35240-54313f36-76a4-472c-b208-878df8f06948"
+                }
+              ],
+              "id": "557e9913-264f-41ec-bbce-6cb51c033f31",
+              "createdAt": "2026-10-21T20:53:17.000Z",
+              "updatedAt": "2026-10-21T20:53:17.000Z",
+              "uid": "35240-557e9913-264f-41ec-bbce-6cb51c033f31"
+            }
+          ],
+          "id": "edb0306b-d2cc-4c69-af0a-b9f4dd3a0974",
+          "createdAt": "2026-10-21T20:53:17.000Z",
+          "updatedAt": "2026-10-21T20:53:17.000Z",
+          "uid": "35240-edb0306b-d2cc-4c69-af0a-b9f4dd3a0974"
+        }
+      ],
+      "id": "f8dcd819-6921-40e4-9f8d-b7ee2f7283f5",
+      "createdAt": "2026-10-21T20:53:17.000Z",
+      "updatedAt": "2026-10-21T20:53:17.000Z",
+      "uid": "35240-f8dcd819-6921-40e4-9f8d-b7ee2f7283f5"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.enphaseenergy.com"
+    }
+  ]
+}

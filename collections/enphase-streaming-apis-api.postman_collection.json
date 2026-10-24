@@ -1,0 +1,806 @@
+{
+  "info": {
+    "_postman_id": "1bdf4e75-9475-4202-9f32-d43c962069fc",
+    "name": "Monitoring Streaming APIs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:53:32.000Z",
+    "updatedAt": "2026-10-21T20:53:32.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1bdf4e75-9475-4202-9f32-d43c962069fc"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v4",
+          "item": [
+            {
+              "name": "systems",
+              "item": [
+                {
+                  "name": "{system_id}",
+                  "item": [
+                    {
+                      "name": "live_data",
+                      "item": [
+                        {
+                          "name": "Site Level Live Status",
+                          "id": "0f838973-4222-4043-8742-2f27df7edf62",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                "key": "duration",
+                                "value": "<integer>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "text/event-stream"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "systems",
+                                ":system_id",
+                                "live_data"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "9cd571a0-bc9c-4b99-aca1-e309d3acbb2d",
+                                  "key": "system_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The unique numeric ID of the system"
+                                }
+                              ]
+                            },
+                            "description": "API users can get real time live status data on demand for a given system. User can retrieve real time power for PV Production, Grid Import/Export, Consumption, Battery Charge/Discharge, and Generator. Users can also retrieve Grid Status, Battery Mode, and Battery State of Charge. User will receive the stream for a duration of 30 seconds by default and can configure the time in seconds by passing \u2018duration\u2019 as a parameter with a minimum value of 30 and maximum value of 300"
+                          },
+                          "response": [
+                            {
+                              "id": "83cda29b-09a9-4912-b7b7-adc37a89e7be",
+                              "name": "successful operation",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"data\": {\n      \"battery_mode\": \"<string>\",\n      \"battery_power\": \"<integer>\",\n      \"battery_soc\": \"<integer>\",\n      \"consumption_power\": \"<integer>\",\n      \"envoy_serial_number\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"generator_power\": \"<integer>\",\n      \"grid_power\": \"<integer>\",\n      \"grid_status\": \"<string>\",\n      \"pv_power\": \"<integer>\",\n      \"system_id\": \"<integer>\"\n    },\n    \"timestamp_epoch\": \"<integer>\",\n    \"timestamp_utc\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-83cda29b-09a9-4912-b7b7-adc37a89e7be"
+                            },
+                            {
+                              "id": "94379223-997a-4b4d-ab4f-8661525c98a3",
+                              "name": "User will get 401 in the below cases. Response content type is application/json\nNOT_AUTHENTICATED - API key is missing\nUNAUTHORIZED - Access token is invalid\nUNAUTHORIZED - Access token has expired\nNOT_AUTHENTICATED - API Key is invalid\nUNAUTHORIZED - App",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"timestamp_epoch\": \"<integer>\",\n  \"timestamp_utc\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-94379223-997a-4b4d-ab4f-8661525c98a3"
+                            },
+                            {
+                              "id": "3d7d4419-49a9-4b4c-9504-a7451cfe95fa",
+                              "name": "User is not authorized. Response content type is application/json",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"timestamp_epoch\": \"<integer>\",\n  \"timestamp_utc\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-3d7d4419-49a9-4b4c-9504-a7451cfe95fa"
+                            },
+                            {
+                              "id": "00759976-94d9-48fd-9aff-ab060c34d096",
+                              "name": "Too Many Requests. Response content type is application/json",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Too Many Requests",
+                              "code": 429,
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"timestamp_epoch\": \"<integer>\",\n  \"timestamp_utc\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-00759976-94d9-48fd-9aff-ab060c34d096"
+                            },
+                            {
+                              "id": "b54cbae3-f459-4dc5-a844-a0dee9b5d102",
+                              "name": "Duration is less than 30 seconds. Response content type is application/json",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"timestamp_epoch\": \"<integer>\",\n  \"timestamp_utc\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-b54cbae3-f459-4dc5-a844-a0dee9b5d102"
+                            },
+                            {
+                              "id": "fb6d070a-6a5d-4b7d-b277-3ad201d643a2",
+                              "name": "Duration is greater than 300 seconds. Response content type is application/json",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"timestamp_epoch\": \"<integer>\",\n  \"timestamp_utc\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-fb6d070a-6a5d-4b7d-b277-3ad201d643a2"
+                            },
+                            {
+                              "id": "609f4f6e-df87-4523-adbf-64ef029028d2",
+                              "name": "Duration is not integer. Response content type is application/json",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"timestamp_epoch\": \"<integer>\",\n  \"timestamp_utc\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-609f4f6e-df87-4523-adbf-64ef029028d2"
+                            },
+                            {
+                              "id": "16d31814-618c-4c9b-b734-c52e24dac411",
+                              "name": "Envoy must be active and envoy version must be at least 6.0.0. Response content type is application/json",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"timestamp_epoch\": \"<integer>\",\n  \"timestamp_utc\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-16d31814-618c-4c9b-b734-c52e24dac411"
+                            },
+                            {
+                              "id": "0f12eb2b-ae3a-4ce8-950c-2ee910d1c172",
+                              "name": "System ID does not exist. Response content type is application/json",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"timestamp_epoch\": \"<integer>\",\n  \"timestamp_utc\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-0f12eb2b-ae3a-4ce8-950c-2ee910d1c172"
+                            },
+                            {
+                              "id": "c4e57b4d-5410-4097-b053-6c1a5fb14b59",
+                              "name": "For Ensemble sites, live stream will be supported in the following cases - If site has an active battery or active system controller, then site must have  active production meter and active consumption meter; Otherwise, site must have active production me",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"timestamp_epoch\": \"<integer>\",\n  \"timestamp_utc\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-c4e57b4d-5410-4097-b053-6c1a5fb14b59"
+                            },
+                            {
+                              "id": "df412bcd-50d4-42a6-aefc-4922410f9344",
+                              "name": "IQ gateway is not reporting. Response content type is application/json",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"timestamp_epoch\": \"<integer>\",\n  \"timestamp_utc\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-df412bcd-50d4-42a6-aefc-4922410f9344"
+                            },
+                            {
+                              "id": "cd9f0d32-f996-4cb4-9017-b18eafd93442",
+                              "name": "Service unreachable. Response content type is application/json",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"timestamp_epoch\": \"<integer>\",\n  \"timestamp_utc\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-cd9f0d32-f996-4cb4-9017-b18eafd93442"
+                            },
+                            {
+                              "id": "488248b0-7a43-4682-aaea-a7eade00e25c",
+                              "name": "Service unreachable. Response content type is application/json",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"timestamp_epoch\": \"<integer>\",\n  \"timestamp_utc\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-488248b0-7a43-4682-aaea-a7eade00e25c"
+                            },
+                            {
+                              "id": "dcee247e-69c1-4eae-9579-096ab3812382",
+                              "name": "Unable to connect. Response content type is application/json",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "description": "Duration of the stream in seconds. Default=30, Min=30, Max=300, e.g=30",
+                                    "key": "duration",
+                                    "value": "<integer>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "text/event-stream"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/:system_id/live_data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    ":system_id",
+                                    "live_data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "system_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "_postman_previewlanguage": "text",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "text/event-stream"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"timestamp_epoch\": \"<integer>\",\n  \"timestamp_utc\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:53:32.000Z",
+                              "updatedAt": "2026-10-21T20:53:32.000Z",
+                              "uid": "35240-dcee247e-69c1-4eae-9579-096ab3812382"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:53:32.000Z",
+                          "updatedAt": "2026-10-21T20:53:32.000Z",
+                          "uid": "35240-0f838973-4222-4043-8742-2f27df7edf62"
+                        }
+                      ],
+                      "id": "4636de30-0e64-4b7a-9fec-4d00d8c934fe",
+                      "createdAt": "2026-10-21T20:53:32.000Z",
+                      "updatedAt": "2026-10-21T20:53:32.000Z",
+                      "uid": "35240-4636de30-0e64-4b7a-9fec-4d00d8c934fe"
+                    }
+                  ],
+                  "id": "053d36df-8802-49c2-a74a-6d10d791216c",
+                  "createdAt": "2026-10-21T20:53:32.000Z",
+                  "updatedAt": "2026-10-21T20:53:32.000Z",
+                  "uid": "35240-053d36df-8802-49c2-a74a-6d10d791216c"
+                }
+              ],
+              "id": "7994ec21-8eae-401d-bd27-5aad0e8102fd",
+              "createdAt": "2026-10-21T20:53:32.000Z",
+              "updatedAt": "2026-10-21T20:53:32.000Z",
+              "uid": "35240-7994ec21-8eae-401d-bd27-5aad0e8102fd"
+            }
+          ],
+          "id": "6a58cd10-3d58-4d46-a07e-3013065351d8",
+          "createdAt": "2026-10-21T20:53:32.000Z",
+          "updatedAt": "2026-10-21T20:53:32.000Z",
+          "uid": "35240-6a58cd10-3d58-4d46-a07e-3013065351d8"
+        }
+      ],
+      "id": "9ed7b22a-54c9-4376-8840-4beda3cd56bc",
+      "createdAt": "2026-10-21T20:53:32.000Z",
+      "updatedAt": "2026-10-21T20:53:32.000Z",
+      "uid": "35240-9ed7b22a-54c9-4376-8840-4beda3cd56bc"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-qa2.enphaseenergy.com"
+    }
+  ]
+}

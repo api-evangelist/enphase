@@ -1,0 +1,940 @@
+{
+  "info": {
+    "_postman_id": "9d32b614-37cc-46e7-8a21-a18c044b1df5",
+    "name": "Commissioning Estimate API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:52:05.000Z",
+    "updatedAt": "2026-10-21T20:52:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9d32b614-37cc-46e7-8a21-a18c044b1df5"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v4",
+          "item": [
+            {
+              "name": "activations",
+              "item": [
+                {
+                  "name": "{activation_id}",
+                  "item": [
+                    {
+                      "name": "estimate",
+                      "item": [
+                        {
+                          "name": "Returns the estimate for this system",
+                          "id": "9a1f9d9a-77c8-47b5-8199-05446a8ab367",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "activations",
+                                ":activation_id",
+                                "estimate"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "4433bd41-bcd5-458b-a4d1-bb99f92159dd",
+                                  "key": "activation_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Activation ID"
+                                }
+                              ]
+                            },
+                            "description": "Provides access to production estimates for a system. An estimate includes the annual degradation factor for the system as well as estimated production, in kWh, for each month. By default degrade_factor value is 0.5 and month_estimates value is an empty array."
+                          },
+                          "response": [
+                            {
+                              "id": "9bd64dca-846c-4893-a789-df65b4190db7",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "estimate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "activation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"system_id\": \"<integer>\",\n  \"degrade_factor\": \"<string>\",\n  \"month_estimates\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:52:06.000Z",
+                              "updatedAt": "2026-10-21T20:52:06.000Z",
+                              "uid": "35240-9bd64dca-846c-4893-a789-df65b4190db7"
+                            },
+                            {
+                              "id": "0146e495-8520-4bb9-8b12-2fe503f6fa14",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "estimate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "activation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:52:06.000Z",
+                              "updatedAt": "2026-10-21T20:52:06.000Z",
+                              "uid": "35240-0146e495-8520-4bb9-8b12-2fe503f6fa14"
+                            },
+                            {
+                              "id": "bdc4cdb1-0c70-483b-8b0d-324ec48a656e",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "estimate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "activation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:52:06.000Z",
+                              "updatedAt": "2026-10-21T20:52:06.000Z",
+                              "uid": "35240-bdc4cdb1-0c70-483b-8b0d-324ec48a656e"
+                            },
+                            {
+                              "id": "eaaffb0f-856d-44b4-b91b-fe91d36cb117",
+                              "name": "Method Not Allowed",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "estimate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "activation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Method Not Allowed",
+                              "code": 405,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:52:06.000Z",
+                              "updatedAt": "2026-10-21T20:52:06.000Z",
+                              "uid": "35240-eaaffb0f-856d-44b4-b91b-fe91d36cb117"
+                            },
+                            {
+                              "id": "a685c6ba-a2fb-4df0-93fa-a59ad04f4804",
+                              "name": "Too Many Requests",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "estimate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "activation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Too Many Requests",
+                              "code": 429,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                              "createdAt": "2026-10-21T20:52:06.000Z",
+                              "updatedAt": "2026-10-21T20:52:06.000Z",
+                              "uid": "35240-a685c6ba-a2fb-4df0-93fa-a59ad04f4804"
+                            },
+                            {
+                              "id": "8f25622d-d508-4fb0-a4e8-10e26176228f",
+                              "name": "Not Implemented",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "estimate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "activation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Implemented",
+                              "code": 501,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:52:06.000Z",
+                              "updatedAt": "2026-10-21T20:52:06.000Z",
+                              "uid": "35240-8f25622d-d508-4fb0-a4e8-10e26176228f"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:52:06.000Z",
+                          "updatedAt": "2026-10-21T20:52:06.000Z",
+                          "uid": "35240-9a1f9d9a-77c8-47b5-8199-05446a8ab367"
+                        },
+                        {
+                          "name": "Update the estimate for this system",
+                          "id": "03574675-7ad5-44cc-85d4-816719ef0a8c",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/x-www-form-urlencoded"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "urlencoded",
+                              "urlencoded": [
+                                {
+                                  "description": "(Required) The annual production degradation factor for the system, from year 0 of the system's life. Must be 0.0% or higher.",
+                                  "key": "degrade_factor",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                  "key": "month_estimates",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                  "key": "month_estimates",
+                                  "value": "<string>"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "activations",
+                                ":activation_id",
+                                "estimate"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "e1c9c48a-e148-4b69-8667-2e032045c724",
+                                  "key": "activation_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Activation ID"
+                                }
+                              ]
+                            },
+                            "description": "Updates the estimate for this system."
+                          },
+                          "response": [
+                            {
+                              "id": "b9cc7c3b-573a-46a2-9872-7d13e84b0d7a",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "(Required) The annual production degradation factor for the system, from year 0 of the system's life. Must be 0.0% or higher.",
+                                      "key": "degrade_factor",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "estimate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "activation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"system_id\": \"<integer>\",\n  \"degrade_factor\": \"<string>\",\n  \"month_estimates\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:52:06.000Z",
+                              "updatedAt": "2026-10-21T20:52:06.000Z",
+                              "uid": "35240-b9cc7c3b-573a-46a2-9872-7d13e84b0d7a"
+                            },
+                            {
+                              "id": "002fed9b-1178-4807-ad38-21bf048a0d1c",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "(Required) The annual production degradation factor for the system, from year 0 of the system's life. Must be 0.0% or higher.",
+                                      "key": "degrade_factor",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "estimate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "activation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:52:06.000Z",
+                              "updatedAt": "2026-10-21T20:52:06.000Z",
+                              "uid": "35240-002fed9b-1178-4807-ad38-21bf048a0d1c"
+                            },
+                            {
+                              "id": "12abdd0d-0f69-4819-bc6c-0cd530b46c47",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "(Required) The annual production degradation factor for the system, from year 0 of the system's life. Must be 0.0% or higher.",
+                                      "key": "degrade_factor",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "estimate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "activation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:52:06.000Z",
+                              "updatedAt": "2026-10-21T20:52:06.000Z",
+                              "uid": "35240-12abdd0d-0f69-4819-bc6c-0cd530b46c47"
+                            },
+                            {
+                              "id": "50bee2b9-966a-4247-8733-f8978b21f9e3",
+                              "name": "Method Not Allowed",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "(Required) The annual production degradation factor for the system, from year 0 of the system's life. Must be 0.0% or higher.",
+                                      "key": "degrade_factor",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "estimate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "activation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Method Not Allowed",
+                              "code": 405,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:52:06.000Z",
+                              "updatedAt": "2026-10-21T20:52:06.000Z",
+                              "uid": "35240-50bee2b9-966a-4247-8733-f8978b21f9e3"
+                            },
+                            {
+                              "id": "1d7d0d3c-6101-4439-bf41-77da6eb99113",
+                              "name": "Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "(Required) The annual production degradation factor for the system, from year 0 of the system's life. Must be 0.0% or higher.",
+                                      "key": "degrade_factor",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "estimate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "activation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:52:06.000Z",
+                              "updatedAt": "2026-10-21T20:52:06.000Z",
+                              "uid": "35240-1d7d0d3c-6101-4439-bf41-77da6eb99113"
+                            },
+                            {
+                              "id": "c261b956-8be3-451b-b01c-89a1127706d7",
+                              "name": "Too Many Requests",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "(Required) The annual production degradation factor for the system, from year 0 of the system's life. Must be 0.0% or higher.",
+                                      "key": "degrade_factor",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "estimate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "activation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Too Many Requests",
+                              "code": 429,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                              "createdAt": "2026-10-21T20:52:06.000Z",
+                              "updatedAt": "2026-10-21T20:52:06.000Z",
+                              "uid": "35240-c261b956-8be3-451b-b01c-89a1127706d7"
+                            },
+                            {
+                              "id": "ccc39f87-b4d5-4031-b090-eb4a7c595c67",
+                              "name": "Not Implemented",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "(Required) The annual production degradation factor for the system, from year 0 of the system's life. Must be 0.0% or higher.",
+                                      "key": "degrade_factor",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "(Required) The estimated monthly production of the system, in kWh. A value for each month must be provided, and must be greater than 0. Send an empty array if you need to remove monthly estimates.",
+                                      "key": "month_estimates",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/estimate",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "estimate"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "activation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Implemented",
+                              "code": 501,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:52:06.000Z",
+                              "updatedAt": "2026-10-21T20:52:06.000Z",
+                              "uid": "35240-ccc39f87-b4d5-4031-b090-eb4a7c595c67"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:52:06.000Z",
+                          "updatedAt": "2026-10-21T20:52:06.000Z",
+                          "uid": "35240-03574675-7ad5-44cc-85d4-816719ef0a8c"
+                        }
+                      ],
+                      "id": "967802fd-8a9b-4c67-bc19-21487aa489e1",
+                      "createdAt": "2026-10-21T20:52:06.000Z",
+                      "updatedAt": "2026-10-21T20:52:06.000Z",
+                      "uid": "35240-967802fd-8a9b-4c67-bc19-21487aa489e1"
+                    }
+                  ],
+                  "id": "71ba9552-6f33-4f90-b6a3-8d56122ba81c",
+                  "createdAt": "2026-10-21T20:52:06.000Z",
+                  "updatedAt": "2026-10-21T20:52:06.000Z",
+                  "uid": "35240-71ba9552-6f33-4f90-b6a3-8d56122ba81c"
+                }
+              ],
+              "id": "c2f141d4-c735-42d1-8886-8f8a91c5cf8e",
+              "createdAt": "2026-10-21T20:52:06.000Z",
+              "updatedAt": "2026-10-21T20:52:06.000Z",
+              "uid": "35240-c2f141d4-c735-42d1-8886-8f8a91c5cf8e"
+            }
+          ],
+          "id": "9333233c-4227-4634-9dc2-979feab2dcee",
+          "createdAt": "2026-10-21T20:52:06.000Z",
+          "updatedAt": "2026-10-21T20:52:06.000Z",
+          "uid": "35240-9333233c-4227-4634-9dc2-979feab2dcee"
+        }
+      ],
+      "id": "153cfd56-9630-40f9-b149-0149cb8710ed",
+      "createdAt": "2026-10-21T20:52:06.000Z",
+      "updatedAt": "2026-10-21T20:52:06.000Z",
+      "uid": "35240-153cfd56-9630-40f9-b149-0149cb8710ed"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.enphaseenergy.com"
+    }
+  ]
+}

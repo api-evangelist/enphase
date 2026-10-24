@@ -1,0 +1,363 @@
+{
+  "info": {
+    "_postman_id": "c328d91a-9222-41cf-9a70-97e5020045bb",
+    "name": "Reference Auth API",
+    "description": "Integrate the VPP API into your application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:51:39.000Z",
+    "updatedAt": "2026-10-21T20:51:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c328d91a-9222-41cf-9a70-97e5020045bb"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "oauth2",
+          "item": [
+            {
+              "name": "token",
+              "item": [
+                {
+                  "name": "Generate OAuth 2.0 access token",
+                  "id": "0818dbb2-5d81-4ce2-8e41-653d75629250",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/oauth2/token?grant_type=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "oauth2",
+                        "token"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) client_credentials",
+                          "key": "grant_type",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Pass clientId:clientSecret as Base64 encoded value in Authorization header, grant type as client_credentials, Content-Type as application/x-www-form-urlencoded and Accept as application/json . Access token expire 3600 seconds after they are created and must be regenerated through the same process"
+                  },
+                  "response": [
+                    {
+                      "id": "2f50e764-4cfc-4a0c-a84f-3fad7fe768a9",
+                      "name": "Access Token generated successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/oauth2/token?grant_type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "oauth2",
+                            "token"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) client_credentials",
+                              "key": "grant_type",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"access_token\": \"<string>\",\n  \"expires_in\": \"<long>\",\n  \"token_type\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:51:40.000Z",
+                      "updatedAt": "2026-10-21T20:51:40.000Z",
+                      "uid": "35240-2f50e764-4cfc-4a0c-a84f-3fad7fe768a9"
+                    },
+                    {
+                      "id": "8895a211-4936-44c9-8765-e2280eb7b780",
+                      "name": "Bad Request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/oauth2/token?grant_type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "oauth2",
+                            "token"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) client_credentials",
+                              "key": "grant_type",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Invalid parameter or headers\\\",\\n  \\\"additionalInfo\\\": \\\"Query parameter grant_type must be client_credentials. Request header Content-Type must be application/x-www-form-urlencoded. Request header Accept must be application/json. Request header Authorization must be Base64 encoded value of clientId:clientSecret. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Type Mismatch\\\",\\n  \\\"additionalInfo\\\": \\\"Cannot cast the parameter to required type xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Missing Parameter\\\",\\n  \\\"additionalInfo\\\": \\\"Required xxx parameter abc is not present\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Constraint Violation\\\",\\n  \\\"additionalInfo\\\": \\\"xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Content-Type invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Content type xxx not supported\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Request headers or parameters are not appropriate\\\",\\n  \\\"additionalInfo\\\": \\\"Request headers or parameters are not appropriate. Please check request headers and parameters\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:40.000Z",
+                      "updatedAt": "2026-10-21T20:51:40.000Z",
+                      "uid": "35240-8895a211-4936-44c9-8765-e2280eb7b780"
+                    },
+                    {
+                      "id": "e2d8bd20-cca3-4793-9b98-478f37319854",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/oauth2/token?grant_type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "oauth2",
+                            "token"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) client_credentials",
+                              "key": "grant_type",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"grant_type is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"grant_type is not provided or invalid. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"Authorization is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Authorization is not provided or invalid. Please check your Authorization\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"You are not authorized for this access\\\",\\n  \\\"additionalInfo\\\": \\\"You are not authorized for this access. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:40.000Z",
+                      "updatedAt": "2026-10-21T20:51:40.000Z",
+                      "uid": "35240-e2d8bd20-cca3-4793-9b98-478f37319854"
+                    },
+                    {
+                      "id": "3bb6f6f0-460b-4071-b076-eef98688d2f9",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/oauth2/token?grant_type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "oauth2",
+                            "token"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) client_credentials",
+                              "key": "grant_type",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"message\\\": \\\"Forbidden\\\"\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not provided or invalid. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"No account found for specified Authorization\\\",\\n  \\\"additionalInfo\\\": \\\"No account found for specified Authorization. Please check your access_token\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not valid for this account\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not valid for this account. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"You do not have access to this resource\\\",\\n  \\\"additionalInfo\\\": \\\"You do not have access to this resource. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:40.000Z",
+                      "updatedAt": "2026-10-21T20:51:40.000Z",
+                      "uid": "35240-3bb6f6f0-460b-4071-b076-eef98688d2f9"
+                    },
+                    {
+                      "id": "b45dbac9-ad9c-4870-a84b-577e5cde7656",
+                      "name": "Not Found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/oauth2/token?grant_type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "oauth2",
+                            "token"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) client_credentials",
+                              "key": "grant_type",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Requested resource Not Found\\\",\\n  \\\"additionalInfo\\\": \\\"Requested resource Not Found. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:40.000Z",
+                      "updatedAt": "2026-10-21T20:51:40.000Z",
+                      "uid": "35240-b45dbac9-ad9c-4870-a84b-577e5cde7656"
+                    },
+                    {
+                      "id": "78d6cef0-7cec-46b0-860a-3113fb12c272",
+                      "name": "Unprocessable Entity",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/oauth2/token?grant_type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "oauth2",
+                            "token"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) client_credentials",
+                              "key": "grant_type",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"422\\\",\\n  \\\"displayMessage\\\": \\\"Unprocessable Entity\\\",\\n  \\\"additionalInfo\\\": \\\"Unprocessable Entity. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:51:40.000Z",
+                      "updatedAt": "2026-10-21T20:51:40.000Z",
+                      "uid": "35240-78d6cef0-7cec-46b0-860a-3113fb12c272"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:51:40.000Z",
+                  "updatedAt": "2026-10-21T20:51:40.000Z",
+                  "uid": "35240-0818dbb2-5d81-4ce2-8e41-653d75629250"
+                }
+              ],
+              "id": "051cdd69-a68a-4dff-9282-9f1e217a2fa6",
+              "createdAt": "2026-10-21T20:51:40.000Z",
+              "updatedAt": "2026-10-21T20:51:40.000Z",
+              "uid": "35240-051cdd69-a68a-4dff-9282-9f1e217a2fa6"
+            }
+          ],
+          "id": "0789fc12-f8b1-4fa5-9948-7f219f10669f",
+          "createdAt": "2026-10-21T20:51:40.000Z",
+          "updatedAt": "2026-10-21T20:51:40.000Z",
+          "uid": "35240-0789fc12-f8b1-4fa5-9948-7f219f10669f"
+        }
+      ],
+      "id": "19bb37bb-fd6a-4a3c-9a4f-423dc50e237d",
+      "createdAt": "2026-10-21T20:51:40.000Z",
+      "updatedAt": "2026-10-21T20:51:40.000Z",
+      "uid": "35240-19bb37bb-fd6a-4a3c-9a4f-423dc50e237d"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://vpp.enphaseenergy.com"
+    }
+  ]
+}

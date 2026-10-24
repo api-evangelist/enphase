@@ -1,0 +1,621 @@
+{
+  "info": {
+    "_postman_id": "d92f6699-7c29-4165-9531-b8510ddbdcc4",
+    "name": "Commissioning Home Owner API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:52:48.000Z",
+    "updatedAt": "2026-10-21T20:52:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d92f6699-7c29-4165-9531-b8510ddbdcc4"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v4",
+          "item": [
+            {
+              "name": "users",
+              "item": [
+                {
+                  "name": "Create Home owner",
+                  "id": "92835ad8-cb3b-45ce-ba4b-c352d48e4778",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "(Required) The email address of the user. Must be unique within Enlighten. Required",
+                          "key": "email",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The user's first name. Required",
+                          "key": "first_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) The user's last name. Required",
+                          "key": "last_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                          "key": "enlighten_emails",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'. Company id is required when enlighten_view is 'manager'",
+                          "key": "enlighten_view",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The telephone number of the user. Optional. Max length 255.",
+                          "key": "phone",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The Enlighten-generated ID of the company to which the user belongs, if any.",
+                          "key": "company_id",
+                          "value": "<integer>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v4/users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v4",
+                        "users"
+                      ]
+                    },
+                    "description": "Create a home owner user. Email, First Name, and Last Name are mandatory fields in the user. Any unneeded fields passed in the request parameter will be skipped and not stored.\nPass body param in 'application/x-www-form-urlencoded' format, in this endpoint, key will be 'user' and value will be a JSON dictionary of user fields. Using this API to create both homeowner as well as a company user. If you want to create company user, then pass company_id inside the user object."
+                  },
+                  "response": [
+                    {
+                      "id": "afdc6b51-bc70-41d6-befc-8934c3eed645",
+                      "name": "Created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) The email address of the user. Must be unique within Enlighten. Required",
+                              "key": "email",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The user's first name. Required",
+                              "key": "first_name",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The user's last name. Required",
+                              "key": "last_name",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                              "key": "enlighten_emails",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'. Company id is required when enlighten_view is 'manager'",
+                              "key": "enlighten_view",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The telephone number of the user. Optional. Max length 255.",
+                              "key": "phone",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The Enlighten-generated ID of the company to which the user belongs, if any.",
+                              "key": "company_id",
+                              "value": "<integer>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v4/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v4",
+                            "users"
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"active\": \"<boolean>\",\n  \"user_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email\": \"<string>\",\n  \"enlighten_emails\": \"<boolean>\",\n  \"enlighten_view\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"uri\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"updated_at\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-21T20:52:48.000Z",
+                      "updatedAt": "2026-10-21T20:52:48.000Z",
+                      "uid": "35240-afdc6b51-bc70-41d6-befc-8934c3eed645"
+                    },
+                    {
+                      "id": "be6df67d-b5b0-446e-a82e-7dffc0af20b7",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) The email address of the user. Must be unique within Enlighten. Required",
+                              "key": "email",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The user's first name. Required",
+                              "key": "first_name",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The user's last name. Required",
+                              "key": "last_name",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                              "key": "enlighten_emails",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'. Company id is required when enlighten_view is 'manager'",
+                              "key": "enlighten_view",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The telephone number of the user. Optional. Max length 255.",
+                              "key": "phone",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The Enlighten-generated ID of the company to which the user belongs, if any.",
+                              "key": "company_id",
+                              "value": "<integer>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v4/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v4",
+                            "users"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:52:48.000Z",
+                      "updatedAt": "2026-10-21T20:52:48.000Z",
+                      "uid": "35240-be6df67d-b5b0-446e-a82e-7dffc0af20b7"
+                    },
+                    {
+                      "id": "a53418a6-c0fd-4f14-b2ea-2c580d6a8ffa",
+                      "name": "Method Not Allowed",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) The email address of the user. Must be unique within Enlighten. Required",
+                              "key": "email",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The user's first name. Required",
+                              "key": "first_name",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The user's last name. Required",
+                              "key": "last_name",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                              "key": "enlighten_emails",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'. Company id is required when enlighten_view is 'manager'",
+                              "key": "enlighten_view",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The telephone number of the user. Optional. Max length 255.",
+                              "key": "phone",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The Enlighten-generated ID of the company to which the user belongs, if any.",
+                              "key": "company_id",
+                              "value": "<integer>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v4/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v4",
+                            "users"
+                          ]
+                        }
+                      },
+                      "status": "Method Not Allowed",
+                      "code": 405,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:52:48.000Z",
+                      "updatedAt": "2026-10-21T20:52:48.000Z",
+                      "uid": "35240-a53418a6-c0fd-4f14-b2ea-2c580d6a8ffa"
+                    },
+                    {
+                      "id": "7b93d79f-1bfe-4d7f-9123-9d80b01bdea1",
+                      "name": "Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) The email address of the user. Must be unique within Enlighten. Required",
+                              "key": "email",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The user's first name. Required",
+                              "key": "first_name",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The user's last name. Required",
+                              "key": "last_name",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                              "key": "enlighten_emails",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'. Company id is required when enlighten_view is 'manager'",
+                              "key": "enlighten_view",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The telephone number of the user. Optional. Max length 255.",
+                              "key": "phone",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The Enlighten-generated ID of the company to which the user belongs, if any.",
+                              "key": "company_id",
+                              "value": "<integer>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v4/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v4",
+                            "users"
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:52:48.000Z",
+                      "updatedAt": "2026-10-21T20:52:48.000Z",
+                      "uid": "35240-7b93d79f-1bfe-4d7f-9123-9d80b01bdea1"
+                    },
+                    {
+                      "id": "60c69343-7fa1-4d02-a9f4-1f38f9dd6670",
+                      "name": "Too Many Requests",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) The email address of the user. Must be unique within Enlighten. Required",
+                              "key": "email",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The user's first name. Required",
+                              "key": "first_name",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The user's last name. Required",
+                              "key": "last_name",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                              "key": "enlighten_emails",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'. Company id is required when enlighten_view is 'manager'",
+                              "key": "enlighten_view",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The telephone number of the user. Optional. Max length 255.",
+                              "key": "phone",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The Enlighten-generated ID of the company to which the user belongs, if any.",
+                              "key": "company_id",
+                              "value": "<integer>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v4/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v4",
+                            "users"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-21T20:52:48.000Z",
+                      "updatedAt": "2026-10-21T20:52:48.000Z",
+                      "uid": "35240-60c69343-7fa1-4d02-a9f4-1f38f9dd6670"
+                    },
+                    {
+                      "id": "e9b68f25-bf4c-41c6-adfa-b68cdbb03439",
+                      "name": "Not Implemented",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) The email address of the user. Must be unique within Enlighten. Required",
+                              "key": "email",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The user's first name. Required",
+                              "key": "first_name",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) The user's last name. Required",
+                              "key": "last_name",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                              "key": "enlighten_emails",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'. Company id is required when enlighten_view is 'manager'",
+                              "key": "enlighten_view",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The telephone number of the user. Optional. Max length 255.",
+                              "key": "phone",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The Enlighten-generated ID of the company to which the user belongs, if any.",
+                              "key": "company_id",
+                              "value": "<integer>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v4/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v4",
+                            "users"
+                          ]
+                        }
+                      },
+                      "status": "Not Implemented",
+                      "code": 501,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:52:48.000Z",
+                      "updatedAt": "2026-10-21T20:52:48.000Z",
+                      "uid": "35240-e9b68f25-bf4c-41c6-adfa-b68cdbb03439"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:52:48.000Z",
+                  "updatedAt": "2026-10-21T20:52:48.000Z",
+                  "uid": "35240-92835ad8-cb3b-45ce-ba4b-c352d48e4778"
+                }
+              ],
+              "id": "1a59674e-765e-4af0-8133-141a20689eb5",
+              "createdAt": "2026-10-21T20:52:48.000Z",
+              "updatedAt": "2026-10-21T20:52:48.000Z",
+              "uid": "35240-1a59674e-765e-4af0-8133-141a20689eb5"
+            }
+          ],
+          "id": "7d16519c-0c19-42d6-82a1-bc492538f5ec",
+          "createdAt": "2026-10-21T20:52:48.000Z",
+          "updatedAt": "2026-10-21T20:52:48.000Z",
+          "uid": "35240-7d16519c-0c19-42d6-82a1-bc492538f5ec"
+        }
+      ],
+      "id": "83c6b322-f970-4861-b1b0-9d8910664414",
+      "createdAt": "2026-10-21T20:52:48.000Z",
+      "updatedAt": "2026-10-21T20:52:48.000Z",
+      "uid": "35240-83c6b322-f970-4861-b1b0-9d8910664414"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.enphaseenergy.com"
+    }
+  ]
+}

@@ -1,0 +1,789 @@
+{
+  "info": {
+    "_postman_id": "f14c07f3-147d-49c9-8e70-7feabd4c5fd8",
+    "name": "Reference Programs API",
+    "description": "Integrate the VPP API into your application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:53:06.000Z",
+    "updatedAt": "2026-10-21T20:53:06.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f14c07f3-147d-49c9-8e70-7feabd4c5fd8"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "programs",
+              "item": [
+                {
+                  "name": "{program_id}",
+                  "item": [
+                    {
+                      "name": "Retrieve individual program details by program_id",
+                      "id": "0eb61a4a-439e-42d2-ba5b-3f4b1c20c7f7",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/programs/:program_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "programs",
+                            ":program_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "efc016d3-2f50-453b-a9cd-4623cdd6f78e",
+                              "key": "program_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier for a program"
+                            }
+                          ]
+                        },
+                        "description": "Returns program details based on the inputted program_id"
+                      },
+                      "response": [
+                        {
+                          "id": "73039cd5-5831-4e5f-b6de-fe18b59ee2cf",
+                          "name": "All the programs are retrieved successfully",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/programs/:program_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "programs",
+                                ":program_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "program_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"description\": \"<string>\",\n  \"program_end_date\": \"<string>\",\n  \"event_cancellation_allowed_for_upcoming_events\": \"<boolean>\",\n  \"event_ending_allowed_for_ongoing_event\": \"<boolean>\",\n  \"min_envoyversion\": \"<string>\",\n  \"name\": \"<string>\",\n  \"program_status\": \"rejected\",\n  \"program_id\": \"<string>\",\n  \"program_types\": [\n    \"DATA_ONLY\",\n    \"DATA_AND_DISPATCH\"\n  ],\n  \"seasons\": [\n    {\n      \"duration\": \"<string>\",\n      \"name\": \"<string>\",\n      \"frequency\": \"<integer>\",\n      \"start_month\": \"JUN\",\n      \"end_month\": \"MAY\",\n      \"performance_incentives_per_kw\": \"<double>\"\n    },\n    {\n      \"duration\": \"<string>\",\n      \"name\": \"<string>\",\n      \"frequency\": \"<integer>\",\n      \"start_month\": \"AUG\",\n      \"end_month\": \"JUL\",\n      \"performance_incentives_per_kw\": \"<double>\"\n    }\n  ],\n  \"state\": \"<string>\",\n  \"utility_name\": \"<string>\",\n  \"incentive_structure\": {\n    \"sintd6_\": \"<string>\",\n    \"etd\": \"<string>\",\n    \"adipisicing_aa\": \"<string>\"\n  },\n  \"creation_date_time\": \"<string>\",\n  \"asset_type\": [\n    \"PV\",\n    \"HP\"\n  ],\n  \"min_allowed_soc\": 10\n}",
+                          "createdAt": "2026-10-21T20:53:06.000Z",
+                          "updatedAt": "2026-10-21T20:53:06.000Z",
+                          "uid": "35240-73039cd5-5831-4e5f-b6de-fe18b59ee2cf"
+                        },
+                        {
+                          "id": "aa134a90-23d4-4699-b72a-e48b06836781",
+                          "name": "Bad Request",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/programs/:program_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "programs",
+                                ":program_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "program_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Type Mismatch\\\",\\n  \\\"additionalInfo\\\": \\\"Cannot cast the parameter to required type xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Missing Parameter\\\",\\n  \\\"additionalInfo\\\": \\\"Required xxx parameter abc is not present\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Constraint Violation\\\",\\n  \\\"additionalInfo\\\": \\\"xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Content-Type invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Content type xxx not supported\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Request headers or parameters are not appropriate\\\",\\n  \\\"additionalInfo\\\": \\\"Request headers or parameters are not appropriate. Please check request headers and parameters\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:53:06.000Z",
+                          "updatedAt": "2026-10-21T20:53:06.000Z",
+                          "uid": "35240-aa134a90-23d4-4699-b72a-e48b06836781"
+                        },
+                        {
+                          "id": "6cfcbda4-f9c4-4328-8bb6-2b39cd528ffa",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/programs/:program_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "programs",
+                                ":program_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "program_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"Authorization is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Authorization is not provided or invalid. Please check your Authorization\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"You are not authorized for this access\\\",\\n  \\\"additionalInfo\\\": \\\"You are not authorized for this access. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:53:06.000Z",
+                          "updatedAt": "2026-10-21T20:53:06.000Z",
+                          "uid": "35240-6cfcbda4-f9c4-4328-8bb6-2b39cd528ffa"
+                        },
+                        {
+                          "id": "f7754732-e104-456c-8d8e-608381228a6a",
+                          "name": "Forbidden",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/programs/:program_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "programs",
+                                ":program_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "program_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"additionalInfo\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"message\\\": \\\"Forbidden\\\"\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not provided or invalid. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"No account found for specified Authorization\\\",\\n  \\\"additionalInfo\\\": \\\"No account found for specified Authorization. Please check your access_token\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not valid for this account\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not valid for this account. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"You do not have access to this resource\\\",\\n  \\\"additionalInfo\\\": \\\"You do not have access to this resource. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:53:06.000Z",
+                          "updatedAt": "2026-10-21T20:53:06.000Z",
+                          "uid": "35240-f7754732-e104-456c-8d8e-608381228a6a"
+                        },
+                        {
+                          "id": "381767a0-d6e8-43b1-ad8d-36e076a24171",
+                          "name": "Not Found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/programs/:program_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "programs",
+                                ":program_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "program_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"additionalInfo\\\": \\\"Please provide valid Program ID\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Requested resource Not Found\\\",\\n  \\\"additionalInfo\\\": \\\"Requested resource Not Found. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:53:06.000Z",
+                          "updatedAt": "2026-10-21T20:53:06.000Z",
+                          "uid": "35240-381767a0-d6e8-43b1-ad8d-36e076a24171"
+                        },
+                        {
+                          "id": "9ee32032-b7be-4f25-b7fd-4d664a187df6",
+                          "name": "Unprocessable Entity",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "(Required) Unique API Key of your account",
+                                "key": "x-api-key",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v1/programs/:program_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v1",
+                                "programs",
+                                ":program_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "program_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"422\\\",\\n  \\\"displayMessage\\\": \\\"Unprocessable Entity\\\",\\n  \\\"additionalInfo\\\": \\\"Unprocessable Entity. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                          "createdAt": "2026-10-21T20:53:06.000Z",
+                          "updatedAt": "2026-10-21T20:53:06.000Z",
+                          "uid": "35240-9ee32032-b7be-4f25-b7fd-4d664a187df6"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:53:06.000Z",
+                      "updatedAt": "2026-10-21T20:53:06.000Z",
+                      "uid": "35240-0eb61a4a-439e-42d2-ba5b-3f4b1c20c7f7"
+                    }
+                  ],
+                  "id": "6094331a-8007-401f-9cbf-3724914eccf5",
+                  "createdAt": "2026-10-21T20:53:06.000Z",
+                  "updatedAt": "2026-10-21T20:53:06.000Z",
+                  "uid": "35240-6094331a-8007-401f-9cbf-3724914eccf5"
+                },
+                {
+                  "name": "Retrieve all programs under an account",
+                  "id": "64013a0c-6799-424e-852a-96c432ca0830",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Unique API Key of your account",
+                        "key": "x-api-key",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/programs?page_no=1&page_size=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "programs"
+                      ],
+                      "query": [
+                        {
+                          "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                          "key": "page_no",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                          "key": "page_size",
+                          "value": "10"
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of all programs under an account and total count of programs"
+                  },
+                  "response": [
+                    {
+                      "id": "53da5004-77c1-4604-888f-39d9e47a3d7f",
+                      "name": "All the programs are retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/programs?page_no=1&page_size=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "programs"
+                          ],
+                          "query": [
+                            {
+                              "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                              "key": "page_no",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                              "key": "page_size",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"total_count\": \"<integer>\",\n  \"programs\": [\n    {\n      \"description\": \"<string>\",\n      \"name\": \"<string>\",\n      \"program_status\": \"rejected\",\n      \"program_id\": \"<string>\",\n      \"state\": \"<string>\",\n      \"utility_name\": \"<string>\",\n      \"incentive_structure\": {\n        \"nostrud_11\": \"<string>\",\n        \"est3\": \"<string>\"\n      }\n    },\n    {\n      \"description\": \"<string>\",\n      \"name\": \"<string>\",\n      \"program_status\": \"approved\",\n      \"program_id\": \"<string>\",\n      \"state\": \"<string>\",\n      \"utility_name\": \"<string>\",\n      \"incentive_structure\": {\n        \"seded\": \"<string>\",\n        \"mollit__a\": \"<string>\"\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:53:06.000Z",
+                      "updatedAt": "2026-10-21T20:53:06.000Z",
+                      "uid": "35240-53da5004-77c1-4604-888f-39d9e47a3d7f"
+                    },
+                    {
+                      "id": "87641f04-d1fd-4e81-b248-0ddc09025cf5",
+                      "name": "Bad Request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/programs?page_no=1&page_size=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "programs"
+                          ],
+                          "query": [
+                            {
+                              "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                              "key": "page_no",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                              "key": "page_size",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Pagination Variables are incorrect. Page number should starts from 1 and page size should be between 1 and 100\\\",\\n  \\\"additionalInfo\\\": \\\"Pagination Variables are incorrect. Page number should starts from 1 and page size should be between 1 and 100\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Type Mismatch\\\",\\n  \\\"additionalInfo\\\": \\\"Cannot cast the parameter to required type xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Missing Parameter\\\",\\n  \\\"additionalInfo\\\": \\\"Required xxx parameter abc is not present\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Constraint Violation\\\",\\n  \\\"additionalInfo\\\": \\\"xxxx\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Content-Type invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Content type xxx not supported\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"400\\\",\\n  \\\"displayMessage\\\": \\\"Request headers or parameters are not appropriate\\\",\\n  \\\"additionalInfo\\\": \\\"Request headers or parameters are not appropriate. Please check request headers and parameters\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:53:06.000Z",
+                      "updatedAt": "2026-10-21T20:53:06.000Z",
+                      "uid": "35240-87641f04-d1fd-4e81-b248-0ddc09025cf5"
+                    },
+                    {
+                      "id": "0f37d1ea-5972-430a-be9b-67077c16d834",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/programs?page_no=1&page_size=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "programs"
+                          ],
+                          "query": [
+                            {
+                              "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                              "key": "page_no",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                              "key": "page_size",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"Authorization is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"Authorization is not provided or invalid. Please check your Authorization\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"401\\\",\\n  \\\"displayMessage\\\": \\\"You are not authorized for this access\\\",\\n  \\\"additionalInfo\\\": \\\"You are not authorized for this access. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:53:06.000Z",
+                      "updatedAt": "2026-10-21T20:53:06.000Z",
+                      "uid": "35240-0f37d1ea-5972-430a-be9b-67077c16d834"
+                    },
+                    {
+                      "id": "dc7b24bd-7070-416b-9f23-715feaf1c2cb",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/programs?page_no=1&page_size=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "programs"
+                          ],
+                          "query": [
+                            {
+                              "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                              "key": "page_no",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                              "key": "page_size",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"Retrieval of programs causing error, check correctness of data\\\",\\n  \\\"additionalInfo\\\": null,\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-1\": {\n      \"value\": \"{\\n  \\\"message\\\": \\\"Forbidden\\\"\\n}\"\n    },\n    \"case-2\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not provided or invalid\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not provided or invalid. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-3\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"No account found for specified Authorization\\\",\\n  \\\"additionalInfo\\\": \\\"No account found for specified Authorization. Please check your access_token\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-4\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"x-api-key is not valid for this account\\\",\\n  \\\"additionalInfo\\\": \\\"x-api-key is not valid for this account. Please check your x-api-key\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    },\n    \"case-5\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"403\\\",\\n  \\\"displayMessage\\\": \\\"You do not have access to this resource\\\",\\n  \\\"additionalInfo\\\": \\\"You do not have access to this resource. Please check your access\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:53:06.000Z",
+                      "updatedAt": "2026-10-21T20:53:06.000Z",
+                      "uid": "35240-dc7b24bd-7070-416b-9f23-715feaf1c2cb"
+                    },
+                    {
+                      "id": "b504cc75-da5f-4fc9-b4ab-709b740470e6",
+                      "name": "Not Found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/programs?page_no=1&page_size=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "programs"
+                          ],
+                          "query": [
+                            {
+                              "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                              "key": "page_no",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                              "key": "page_size",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"404\\\",\\n  \\\"displayMessage\\\": \\\"Requested resource Not Found\\\",\\n  \\\"additionalInfo\\\": \\\"Requested resource Not Found. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:53:06.000Z",
+                      "updatedAt": "2026-10-21T20:53:06.000Z",
+                      "uid": "35240-b504cc75-da5f-4fc9-b4ab-709b740470e6"
+                    },
+                    {
+                      "id": "5789177e-d07c-4b23-89b2-b1e538330e5e",
+                      "name": "Unprocessable Entity",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Unique API Key of your account",
+                            "key": "x-api-key",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v1/programs?page_no=1&page_size=10",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v1",
+                            "programs"
+                          ],
+                          "query": [
+                            {
+                              "description": "Page to be returned. Default=1, Min=1. For example, if page_no is set to 2, 2nd page is returned",
+                              "key": "page_no",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Maximum number of records shown per page. Default=10, Min=1, Max=100. For example, if max is set to 5, 5 records are shown per page",
+                              "key": "page_size",
+                              "value": "10"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"case-0\": {\n      \"value\": \"{\\n  \\\"code\\\": \\\"422\\\",\\n  \\\"displayMessage\\\": \\\"Unprocessable Entity\\\",\\n  \\\"additionalInfo\\\": \\\"Unprocessable Entity. Please check your request\\\",\\n  \\\"errorRefNo\\\": \\\"e20fdf9aa241bea9\\\",\\n}\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:53:06.000Z",
+                      "updatedAt": "2026-10-21T20:53:06.000Z",
+                      "uid": "35240-5789177e-d07c-4b23-89b2-b1e538330e5e"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:53:06.000Z",
+                  "updatedAt": "2026-10-21T20:53:06.000Z",
+                  "uid": "35240-64013a0c-6799-424e-852a-96c432ca0830"
+                }
+              ],
+              "id": "089ed5df-d06f-493c-9965-f2b9ba1b65ed",
+              "createdAt": "2026-10-21T20:53:06.000Z",
+              "updatedAt": "2026-10-21T20:53:06.000Z",
+              "uid": "35240-089ed5df-d06f-493c-9965-f2b9ba1b65ed"
+            }
+          ],
+          "id": "50f395e1-74b6-4a85-b2d9-3af052a54e57",
+          "createdAt": "2026-10-21T20:53:06.000Z",
+          "updatedAt": "2026-10-21T20:53:06.000Z",
+          "uid": "35240-50f395e1-74b6-4a85-b2d9-3af052a54e57"
+        }
+      ],
+      "id": "c97cf7e5-f80c-431f-8868-a2990522cfd7",
+      "createdAt": "2026-10-21T20:53:06.000Z",
+      "updatedAt": "2026-10-21T20:53:06.000Z",
+      "uid": "35240-c97cf7e5-f80c-431f-8868-a2990522cfd7"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://vpp.enphaseenergy.com"
+    }
+  ]
+}

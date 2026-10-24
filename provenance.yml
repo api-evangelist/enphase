@@ -18,18 +18,105 @@ artifacts:
   changelog/enphase-changelog.yml:
     method: searched
     evidence: declared in the artifact
+  collections/enphase-activations-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-activations-api
+  collections/enphase-applications-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-applications-api
+  collections/enphase-arrays-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-arrays-api
+  collections/enphase-auth-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-auth-api
   collections/enphase-commissioning-api.opencollection.json:
     method: unknown
     evidence: no authorship recorded
   collections/enphase-commissioning-api.postman_collection.json:
     method: unknown
     evidence: no authorship recorded
+  collections/enphase-companies-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-companies-api
+  collections/enphase-device-level-monitoring-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-device-level-monitoring-api
+  collections/enphase-device-level-production-monitoring-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-device-level-production-monitoring-api
+  collections/enphase-estimate-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-estimate-api
+  collections/enphase-ev-charger-control-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-ev-charger-control-api
+  collections/enphase-ev-charger-monitoring-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-ev-charger-monitoring-api
+  collections/enphase-events-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-events-api
+  collections/enphase-forecast-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-forecast-api
+  collections/enphase-grid-profiles-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-grid-profiles-api
+  collections/enphase-home-owner-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-home-owner-api
+  collections/enphase-manage-vpps-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-manage-vpps-api
+  collections/enphase-meters-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-meters-api
   collections/enphase-monitoring-api.opencollection.json:
     method: unknown
     evidence: no authorship recorded
   collections/enphase-monitoring-api.postman_collection.json:
     method: unknown
     evidence: no authorship recorded
+  collections/enphase-programs-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-programs-api
+  collections/enphase-pvmanufacturers-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-pvmanufacturers-api
+  collections/enphase-pvmodels-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-pvmodels-api
+  collections/enphase-site-level-consumption-monitoring-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-site-level-consumption-monitoring-api
+  collections/enphase-site-level-production-monitoring-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-site-level-production-monitoring-api
+  collections/enphase-streaming-apis-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-streaming-apis-api
+  collections/enphase-system-and-device-configuration-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-system-and-device-configuration-api
+  collections/enphase-system-configurations-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-system-configurations-api
+  collections/enphase-system-details-and-telemetry-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-system-details-and-telemetry-api
+  collections/enphase-system-details-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-system-details-api
+  collections/enphase-systems-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-systems-api
+  collections/enphase-tariff-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-tariff-api
+  collections/enphase-users-api.postman_collection.json:
+    method: derived
+    evidence: openapi/enphase-users-api
   collections/enphase-vpp-api.opencollection.json:
     method: unknown
     evidence: no authorship recorded
@@ -51,127 +138,13 @@ artifacts:
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  integrations/_index.yml:
     method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+    evidence: carries an API Evangelist house phrase
+  integrations/enphase-integration-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -255,6 +228,21 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/enphase-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -273,8 +261,8 @@ artifacts:
       to the provider's source is unverified
   openapi/_original/enphase-monitoring-api-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
+    evidence: the same operations as https://developer-v4.enphase.com/swagger/spec/System_API.json (sha256
+      a783ff728669, fetched 2026-10-04)
   openapi/_original/enphase-vpp-api-openapi.json:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
@@ -367,14 +355,14 @@ artifacts:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   overlays/enphase-commissioning-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/enphase-monitoring-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/enphase-vpp-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   packages/enphase-packages.yml:
     method: searched
     evidence: declared in the artifact

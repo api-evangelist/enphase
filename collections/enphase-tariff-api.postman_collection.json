@@ -1,0 +1,398 @@
+{
+  "info": {
+    "_postman_id": "a669281f-9867-4d2b-9a45-649109d330e4",
+    "name": "Commissioning Tariff API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:55:25.000Z",
+    "updatedAt": "2026-10-21T20:55:25.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a669281f-9867-4d2b-9a45-649109d330e4"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v4",
+          "item": [
+            {
+              "name": "systems",
+              "item": [
+                {
+                  "name": "config",
+                  "item": [
+                    {
+                      "name": "{system_id}",
+                      "item": [
+                        {
+                          "name": "tariff",
+                          "item": [
+                            {
+                              "name": "Get tariff for a system",
+                              "id": "e5957744-ecdc-44e7-9a5a-8505ce8bfdd2",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/tariff",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "systems",
+                                    "config",
+                                    ":system_id",
+                                    "tariff"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "af22d6bd-2a85-4300-90fc-8a609153aa79",
+                                      "key": "system_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The unique numeric id of the system"
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "id": "1b7f8473-28af-4c0d-b5e0-14d48f862351",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/tariff",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "tariff"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"tariff\": {\n    \"currency_type\": {\n      \"code\": \"<string>\"\n    },\n    \"single_rate\": {\n      \"rate\": \"<string>\",\n      \"sell\": \"<string>\"\n    },\n    \"seasons\": [\n      {\n        \"id\": \"<string>\",\n        \"start\": \"<string>\",\n        \"days\": [\n          {\n            \"id\": \"<string>\",\n            \"days\": \"<string>\",\n            \"must_charge_start\": \"<integer>\",\n            \"must_charge_duration\": \"<integer>\",\n            \"periods\": [\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              },\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              }\n            ]\n          },\n          {\n            \"id\": \"<string>\",\n            \"days\": \"<string>\",\n            \"must_charge_start\": \"<integer>\",\n            \"must_charge_duration\": \"<integer>\",\n            \"periods\": [\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              },\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              }\n            ]\n          }\n        ],\n        \"enable_charge_from_grid\": \"<boolean>\",\n        \"enable_discharge_to_grid\": \"<boolean>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"start\": \"<string>\",\n        \"days\": [\n          {\n            \"id\": \"<string>\",\n            \"days\": \"<string>\",\n            \"must_charge_start\": \"<integer>\",\n            \"must_charge_duration\": \"<integer>\",\n            \"periods\": [\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              },\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              }\n            ]\n          },\n          {\n            \"id\": \"<string>\",\n            \"days\": \"<string>\",\n            \"must_charge_start\": \"<integer>\",\n            \"must_charge_duration\": \"<integer>\",\n            \"periods\": [\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              },\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              }\n            ]\n          }\n        ],\n        \"enable_charge_from_grid\": \"<boolean>\",\n        \"enable_discharge_to_grid\": \"<boolean>\"\n      }\n    ],\n    \"seasons_sell\": [\n      {\n        \"id\": \"<string>\",\n        \"start\": \"<string>\",\n        \"days\": [\n          {\n            \"id\": \"<string>\",\n            \"days\": \"<string>\",\n            \"must_charge_start\": \"<integer>\",\n            \"must_charge_duration\": \"<integer>\",\n            \"periods\": [\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              },\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              }\n            ]\n          },\n          {\n            \"id\": \"<string>\",\n            \"days\": \"<string>\",\n            \"must_charge_start\": \"<integer>\",\n            \"must_charge_duration\": \"<integer>\",\n            \"periods\": [\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              },\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              }\n            ]\n          }\n        ]\n      },\n      {\n        \"id\": \"<string>\",\n        \"start\": \"<string>\",\n        \"days\": [\n          {\n            \"id\": \"<string>\",\n            \"days\": \"<string>\",\n            \"must_charge_start\": \"<integer>\",\n            \"must_charge_duration\": \"<integer>\",\n            \"periods\": [\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              },\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              }\n            ]\n          },\n          {\n            \"id\": \"<string>\",\n            \"days\": \"<string>\",\n            \"must_charge_start\": \"<integer>\",\n            \"must_charge_duration\": \"<integer>\",\n            \"periods\": [\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              },\n              {\n                \"id\": \"<string>\",\n                \"start\": \"<string>\",\n                \"rate\": \"<string>\",\n                \"error\": {}\n              }\n            ]\n          }\n        ]\n      }\n    ]\n  },\n  \"task\": {\n    \"status\": \"<string>\",\n    \"created_at\": \"<string>\"\n  }\n}",
+                                  "createdAt": "2026-10-21T20:55:25.000Z",
+                                  "updatedAt": "2026-10-21T20:55:25.000Z",
+                                  "uid": "35240-1b7f8473-28af-4c0d-b5e0-14d48f862351"
+                                },
+                                {
+                                  "id": "fe101d84-7232-44e7-bdbc-0e0dd7c2dbfd",
+                                  "name": "Unauthorized",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/tariff",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "tariff"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:25.000Z",
+                                  "updatedAt": "2026-10-21T20:55:25.000Z",
+                                  "uid": "35240-fe101d84-7232-44e7-bdbc-0e0dd7c2dbfd"
+                                },
+                                {
+                                  "id": "33452ee1-87e6-43cc-8e51-29eaaa8c0e50",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/tariff",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "tariff"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:25.000Z",
+                                  "updatedAt": "2026-10-21T20:55:25.000Z",
+                                  "uid": "35240-33452ee1-87e6-43cc-8e51-29eaaa8c0e50"
+                                },
+                                {
+                                  "id": "383888b7-1488-4910-a937-7b1c1be77338",
+                                  "name": "Method Not Allowed",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/tariff",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "tariff"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Method Not Allowed",
+                                  "code": 405,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:25.000Z",
+                                  "updatedAt": "2026-10-21T20:55:25.000Z",
+                                  "uid": "35240-383888b7-1488-4910-a937-7b1c1be77338"
+                                },
+                                {
+                                  "id": "5e5054ae-1c6b-4645-8840-ef9276374594",
+                                  "name": "Too Many Requests",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/tariff",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "tariff"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Too Many Requests",
+                                  "code": 429,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:55:25.000Z",
+                                  "updatedAt": "2026-10-21T20:55:25.000Z",
+                                  "uid": "35240-5e5054ae-1c6b-4645-8840-ef9276374594"
+                                },
+                                {
+                                  "id": "bca0ec3e-b810-4246-a1c3-c0f82ed12790",
+                                  "name": "Not Implemented",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/config/:system_id/tariff",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        "config",
+                                        ":system_id",
+                                        "tariff"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Implemented",
+                                  "code": 501,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:25.000Z",
+                                  "updatedAt": "2026-10-21T20:55:25.000Z",
+                                  "uid": "35240-bca0ec3e-b810-4246-a1c3-c0f82ed12790"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:55:25.000Z",
+                              "updatedAt": "2026-10-21T20:55:25.000Z",
+                              "uid": "35240-e5957744-ecdc-44e7-9a5a-8505ce8bfdd2"
+                            }
+                          ],
+                          "id": "7d35e3ea-27a4-4ef1-996c-d306a68330fe",
+                          "createdAt": "2026-10-21T20:55:25.000Z",
+                          "updatedAt": "2026-10-21T20:55:25.000Z",
+                          "uid": "35240-7d35e3ea-27a4-4ef1-996c-d306a68330fe"
+                        }
+                      ],
+                      "id": "876eb536-9330-425c-9565-17b602f1e144",
+                      "createdAt": "2026-10-21T20:55:25.000Z",
+                      "updatedAt": "2026-10-21T20:55:25.000Z",
+                      "uid": "35240-876eb536-9330-425c-9565-17b602f1e144"
+                    }
+                  ],
+                  "id": "fd61ed9c-50e7-4e2f-8b34-a73e87a26c9f",
+                  "createdAt": "2026-10-21T20:55:25.000Z",
+                  "updatedAt": "2026-10-21T20:55:25.000Z",
+                  "uid": "35240-fd61ed9c-50e7-4e2f-8b34-a73e87a26c9f"
+                }
+              ],
+              "id": "25714a68-4024-42d0-a153-dabbd6d33b88",
+              "createdAt": "2026-10-21T20:55:25.000Z",
+              "updatedAt": "2026-10-21T20:55:25.000Z",
+              "uid": "35240-25714a68-4024-42d0-a153-dabbd6d33b88"
+            }
+          ],
+          "id": "13d9295b-8485-43cd-9b35-59979e0baf9d",
+          "createdAt": "2026-10-21T20:55:25.000Z",
+          "updatedAt": "2026-10-21T20:55:25.000Z",
+          "uid": "35240-13d9295b-8485-43cd-9b35-59979e0baf9d"
+        }
+      ],
+      "id": "af1f8b52-923b-4bc2-aa7b-5afc3c6f6cce",
+      "createdAt": "2026-10-21T20:55:25.000Z",
+      "updatedAt": "2026-10-21T20:55:25.000Z",
+      "uid": "35240-af1f8b52-923b-4bc2-aa7b-5afc3c6f6cce"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.enphaseenergy.com"
+    }
+  ]
+}

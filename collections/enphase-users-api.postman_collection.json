@@ -1,0 +1,2504 @@
+{
+  "info": {
+    "_postman_id": "e24981ca-ea6f-4853-b528-09d5eaa8b647",
+    "name": "Commissioning Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:55:30.000Z",
+    "updatedAt": "2026-10-21T20:55:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e24981ca-ea6f-4853-b528-09d5eaa8b647"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v4",
+          "item": [
+            {
+              "name": "activations",
+              "item": [
+                {
+                  "name": "{activation_id}",
+                  "item": [
+                    {
+                      "name": "users",
+                      "item": [
+                        {
+                          "name": "{user_id}",
+                          "item": [
+                            {
+                              "name": "Returns the requested user",
+                              "id": "6ac760ff-99a7-44de-941a-b10dc39cdd46",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "users",
+                                    ":user_id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information not include in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "476cf2ca-e7cd-4313-a1fe-991322ede4b4",
+                                      "key": "activation_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The Enlighten ID of the activation(system). System-generated."
+                                    },
+                                    {
+                                      "id": "2b4ea8ad-a9a1-43c2-a301-fff778470804",
+                                      "key": "user_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The Enlighten ID of the user. System-generated."
+                                    }
+                                  ]
+                                },
+                                "description": "You must have access to the requested activation and user; otherwise a 401 is returned. The user is requested in the scope of an activation, then it must be the owner or the host of an activation the API user can manage (or) Users created by API user (or) Users who belong to your company or its branches."
+                              },
+                              "response": [
+                                {
+                                  "id": "b5bad46f-ebb9-4566-8a2b-3b21ce6ec763",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id?expand=company",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information not include in the response.",
+                                          "key": "expand",
+                                          "value": "company"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"active\": \"<boolean>\",\n  \"user_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email\": \"<string>\",\n  \"enlighten_emails\": \"<boolean>\",\n  \"enlighten_view\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"uri\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"updated_at\": \"<integer>\",\n  \"company\": {\n    \"company_id\": \"<integer>\",\n    \"company_name\": \"<string>\",\n    \"location\": \"<string>\",\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"uri\": \"<string>\"\n  }\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-b5bad46f-ebb9-4566-8a2b-3b21ce6ec763"
+                                },
+                                {
+                                  "id": "a1bdbf0a-53a5-4362-a4e9-d8fd8581f85c",
+                                  "name": "Unauthorized",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id?expand=company",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information not include in the response.",
+                                          "key": "expand",
+                                          "value": "company"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-a1bdbf0a-53a5-4362-a4e9-d8fd8581f85c"
+                                },
+                                {
+                                  "id": "df012814-8f42-486f-9f3d-3b0c9917d21b",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id?expand=company",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information not include in the response.",
+                                          "key": "expand",
+                                          "value": "company"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-df012814-8f42-486f-9f3d-3b0c9917d21b"
+                                },
+                                {
+                                  "id": "3a33158c-454c-4d4d-b2d8-d213ce386d00",
+                                  "name": "Method Not Allowed",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id?expand=company",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information not include in the response.",
+                                          "key": "expand",
+                                          "value": "company"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Method Not Allowed",
+                                  "code": 405,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-3a33158c-454c-4d4d-b2d8-d213ce386d00"
+                                },
+                                {
+                                  "id": "70670f8a-fccb-477f-81e4-41f2506a4af6",
+                                  "name": "Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id?expand=company",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information not include in the response.",
+                                          "key": "expand",
+                                          "value": "company"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-70670f8a-fccb-477f-81e4-41f2506a4af6"
+                                },
+                                {
+                                  "id": "24162c7a-2212-4f6e-825c-b20881c333ef",
+                                  "name": "Too Many Requests",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id?expand=company",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information not include in the response.",
+                                          "key": "expand",
+                                          "value": "company"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Too Many Requests",
+                                  "code": 429,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-24162c7a-2212-4f6e-825c-b20881c333ef"
+                                },
+                                {
+                                  "id": "3d9695b0-1917-49da-9b41-978bfa1c8a96",
+                                  "name": "Not Implemented",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id?expand=company",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information not include in the response.",
+                                          "key": "expand",
+                                          "value": "company"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Implemented",
+                                  "code": 501,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-3d9695b0-1917-49da-9b41-978bfa1c8a96"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-6ac760ff-99a7-44de-941a-b10dc39cdd46"
+                            },
+                            {
+                              "name": "Update user",
+                              "id": "9f878ad3-487a-4e9a-9025-49fcb5bab263",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/x-www-form-urlencoded"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "urlencoded",
+                                  "urlencoded": [
+                                    {
+                                      "description": "The Enlighten-generated ID of the company to which the user belongs, if any. DEPRECATED: Use the 'company' attribute instead, and the query parameter 'expand=company' to get detailed company information.",
+                                      "key": "company_id",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "The email address of the user. Must be unique within Enlighten. Required.",
+                                      "key": "email",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                                      "key": "enlighten_emails",
+                                      "value": "<boolean>"
+                                    },
+                                    {
+                                      "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'.",
+                                      "key": "enlighten_view",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "The user's first name. Required.",
+                                      "key": "first_name",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "The user's last name. Required.",
+                                      "key": "last_name",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "The telephone number of the user. Optional. Max length 255.",
+                                      "key": "phone",
+                                      "value": "<string>"
+                                    }
+                                  ]
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "activations",
+                                    ":activation_id",
+                                    "users",
+                                    ":user_id"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "7df81741-8cc9-4e54-b53b-c15d74a20b47",
+                                      "key": "activation_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The Enlighten ID of the activation(system). System-generated."
+                                    },
+                                    {
+                                      "id": "a9c63a26-e84a-481f-a67e-58fe5868c8f2",
+                                      "key": "user_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The Enlighten ID of the user. System-generated."
+                                    }
+                                  ]
+                                },
+                                "description": "You must have access to the requested activation and user; otherwise a 401 is returned. The user is requested in the scope of an activation, then it must be the owner or the host of an activation the API user can manage (or) Users created by API user (or) Users who belong to your company or its branches. When 'company_id' is passed in the body param or the user company_id is already defined, we will not consider the 'enlighten_view' field value and the user will become an enlighten manager. You may change a user's company if you have access to the user, the old company, and the new company."
+                              },
+                              "response": [
+                                {
+                                  "id": "0d7f4c96-a048-43e0-9500-dc473cf593f6",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "urlencoded",
+                                      "urlencoded": [
+                                        {
+                                          "description": "The Enlighten-generated ID of the company to which the user belongs, if any. DEPRECATED: Use the 'company' attribute instead, and the query parameter 'expand=company' to get detailed company information.",
+                                          "key": "company_id",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "The email address of the user. Must be unique within Enlighten. Required.",
+                                          "key": "email",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                                          "key": "enlighten_emails",
+                                          "value": "<boolean>"
+                                        },
+                                        {
+                                          "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'.",
+                                          "key": "enlighten_view",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's first name. Required.",
+                                          "key": "first_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's last name. Required.",
+                                          "key": "last_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The telephone number of the user. Optional. Max length 255.",
+                                          "key": "phone",
+                                          "value": "<string>"
+                                        }
+                                      ]
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"active\": \"<boolean>\",\n  \"user_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email\": \"<string>\",\n  \"enlighten_emails\": \"<boolean>\",\n  \"enlighten_view\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"uri\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"updated_at\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-0d7f4c96-a048-43e0-9500-dc473cf593f6"
+                                },
+                                {
+                                  "id": "bff3ae80-e988-43c9-810b-a27afc5f56e5",
+                                  "name": "Unauthorized",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "urlencoded",
+                                      "urlencoded": [
+                                        {
+                                          "description": "The Enlighten-generated ID of the company to which the user belongs, if any. DEPRECATED: Use the 'company' attribute instead, and the query parameter 'expand=company' to get detailed company information.",
+                                          "key": "company_id",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "The email address of the user. Must be unique within Enlighten. Required.",
+                                          "key": "email",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                                          "key": "enlighten_emails",
+                                          "value": "<boolean>"
+                                        },
+                                        {
+                                          "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'.",
+                                          "key": "enlighten_view",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's first name. Required.",
+                                          "key": "first_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's last name. Required.",
+                                          "key": "last_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The telephone number of the user. Optional. Max length 255.",
+                                          "key": "phone",
+                                          "value": "<string>"
+                                        }
+                                      ]
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-bff3ae80-e988-43c9-810b-a27afc5f56e5"
+                                },
+                                {
+                                  "id": "953c5773-2390-4eb9-8fd1-0aab0aadefc1",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "urlencoded",
+                                      "urlencoded": [
+                                        {
+                                          "description": "The Enlighten-generated ID of the company to which the user belongs, if any. DEPRECATED: Use the 'company' attribute instead, and the query parameter 'expand=company' to get detailed company information.",
+                                          "key": "company_id",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "The email address of the user. Must be unique within Enlighten. Required.",
+                                          "key": "email",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                                          "key": "enlighten_emails",
+                                          "value": "<boolean>"
+                                        },
+                                        {
+                                          "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'.",
+                                          "key": "enlighten_view",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's first name. Required.",
+                                          "key": "first_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's last name. Required.",
+                                          "key": "last_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The telephone number of the user. Optional. Max length 255.",
+                                          "key": "phone",
+                                          "value": "<string>"
+                                        }
+                                      ]
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-953c5773-2390-4eb9-8fd1-0aab0aadefc1"
+                                },
+                                {
+                                  "id": "aa41654e-81c2-4fb0-9e8c-17c069cecff1",
+                                  "name": "Method Not Allowed",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "urlencoded",
+                                      "urlencoded": [
+                                        {
+                                          "description": "The Enlighten-generated ID of the company to which the user belongs, if any. DEPRECATED: Use the 'company' attribute instead, and the query parameter 'expand=company' to get detailed company information.",
+                                          "key": "company_id",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "The email address of the user. Must be unique within Enlighten. Required.",
+                                          "key": "email",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                                          "key": "enlighten_emails",
+                                          "value": "<boolean>"
+                                        },
+                                        {
+                                          "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'.",
+                                          "key": "enlighten_view",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's first name. Required.",
+                                          "key": "first_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's last name. Required.",
+                                          "key": "last_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The telephone number of the user. Optional. Max length 255.",
+                                          "key": "phone",
+                                          "value": "<string>"
+                                        }
+                                      ]
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Method Not Allowed",
+                                  "code": 405,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-aa41654e-81c2-4fb0-9e8c-17c069cecff1"
+                                },
+                                {
+                                  "id": "0c80ed36-7e69-408e-ab99-aa4fe46db236",
+                                  "name": "Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "urlencoded",
+                                      "urlencoded": [
+                                        {
+                                          "description": "The Enlighten-generated ID of the company to which the user belongs, if any. DEPRECATED: Use the 'company' attribute instead, and the query parameter 'expand=company' to get detailed company information.",
+                                          "key": "company_id",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "The email address of the user. Must be unique within Enlighten. Required.",
+                                          "key": "email",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                                          "key": "enlighten_emails",
+                                          "value": "<boolean>"
+                                        },
+                                        {
+                                          "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'.",
+                                          "key": "enlighten_view",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's first name. Required.",
+                                          "key": "first_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's last name. Required.",
+                                          "key": "last_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The telephone number of the user. Optional. Max length 255.",
+                                          "key": "phone",
+                                          "value": "<string>"
+                                        }
+                                      ]
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-0c80ed36-7e69-408e-ab99-aa4fe46db236"
+                                },
+                                {
+                                  "id": "0253acea-7110-4256-aa48-77fb155781a1",
+                                  "name": "Too Many Requests",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "urlencoded",
+                                      "urlencoded": [
+                                        {
+                                          "description": "The Enlighten-generated ID of the company to which the user belongs, if any. DEPRECATED: Use the 'company' attribute instead, and the query parameter 'expand=company' to get detailed company information.",
+                                          "key": "company_id",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "The email address of the user. Must be unique within Enlighten. Required.",
+                                          "key": "email",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                                          "key": "enlighten_emails",
+                                          "value": "<boolean>"
+                                        },
+                                        {
+                                          "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'.",
+                                          "key": "enlighten_view",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's first name. Required.",
+                                          "key": "first_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's last name. Required.",
+                                          "key": "last_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The telephone number of the user. Optional. Max length 255.",
+                                          "key": "phone",
+                                          "value": "<string>"
+                                        }
+                                      ]
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Too Many Requests",
+                                  "code": 429,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-0253acea-7110-4256-aa48-77fb155781a1"
+                                },
+                                {
+                                  "id": "21beaa45-cfd5-4a61-9a2d-2511409ab1b2",
+                                  "name": "Not Implemented",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/x-www-form-urlencoded"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "urlencoded",
+                                      "urlencoded": [
+                                        {
+                                          "description": "The Enlighten-generated ID of the company to which the user belongs, if any. DEPRECATED: Use the 'company' attribute instead, and the query parameter 'expand=company' to get detailed company information.",
+                                          "key": "company_id",
+                                          "value": "<integer>"
+                                        },
+                                        {
+                                          "description": "The email address of the user. Must be unique within Enlighten. Required.",
+                                          "key": "email",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "Whether the user receives automated emails from Enlighten. Default false.",
+                                          "key": "enlighten_emails",
+                                          "value": "<boolean>"
+                                        },
+                                        {
+                                          "description": "Which view of Enlighten the user has. Options 'my' for MyEnlighten, 'manager' for Enlighten Manager. Default 'my'. Users who do not belong to companies should be set to 'my'. You must have an agreement with Enphase Energy to set a user to 'manager'.",
+                                          "key": "enlighten_view",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's first name. Required.",
+                                          "key": "first_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user's last name. Required.",
+                                          "key": "last_name",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The telephone number of the user. Optional. Max length 255.",
+                                          "key": "phone",
+                                          "value": "<string>"
+                                        }
+                                      ]
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/activations/:activation_id/users/:user_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "activations",
+                                        ":activation_id",
+                                        "users",
+                                        ":user_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "activation_id"
+                                        },
+                                        {
+                                          "key": "user_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Implemented",
+                                  "code": 501,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:55:31.000Z",
+                                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                                  "uid": "35240-21beaa45-cfd5-4a61-9a2d-2511409ab1b2"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-9f878ad3-487a-4e9a-9025-49fcb5bab263"
+                            }
+                          ],
+                          "id": "1d946ef3-69ec-4086-8e86-9567b5b77b4f",
+                          "createdAt": "2026-10-21T20:55:31.000Z",
+                          "updatedAt": "2026-10-21T20:55:31.000Z",
+                          "uid": "35240-1d946ef3-69ec-4086-8e86-9567b5b77b4f"
+                        }
+                      ],
+                      "id": "3fe1ead6-be5e-4c7a-b291-dde8e316db5f",
+                      "createdAt": "2026-10-21T20:55:31.000Z",
+                      "updatedAt": "2026-10-21T20:55:31.000Z",
+                      "uid": "35240-3fe1ead6-be5e-4c7a-b291-dde8e316db5f"
+                    }
+                  ],
+                  "id": "1ec3dde7-4ad6-4d61-b4bd-c08bb4c3db87",
+                  "createdAt": "2026-10-21T20:55:31.000Z",
+                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                  "uid": "35240-1ec3dde7-4ad6-4d61-b4bd-c08bb4c3db87"
+                }
+              ],
+              "id": "0ad40402-58b4-49b7-aaa7-8626487e1b32",
+              "createdAt": "2026-10-21T20:55:31.000Z",
+              "updatedAt": "2026-10-21T20:55:31.000Z",
+              "uid": "35240-0ad40402-58b4-49b7-aaa7-8626487e1b32"
+            },
+            {
+              "name": "users",
+              "item": [
+                {
+                  "name": "search",
+                  "item": [
+                    {
+                      "name": "Search user",
+                      "id": "a727b19a-6dfb-473c-8c5f-839efc8e1255",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v4/users/search?email=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v4",
+                            "users",
+                            "search"
+                          ],
+                          "query": [
+                            {
+                              "description": "The email address of the user.",
+                              "key": "email",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "description": "Returns the user id for the given email id only if the user exists."
+                      },
+                      "response": [
+                        {
+                          "id": "0d0c75f7-6849-4f2e-a7b2-57ab85879af6",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/users/search?email=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "users",
+                                "search"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The email address of the user.",
+                                  "key": "email",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"user_id\": \"<integer>\",\n  \"company_id\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-21T20:55:31.000Z",
+                          "updatedAt": "2026-10-21T20:55:31.000Z",
+                          "uid": "35240-0d0c75f7-6849-4f2e-a7b2-57ab85879af6"
+                        },
+                        {
+                          "id": "a8b673b5-2e0f-4d9c-93ef-f7f834a4bc0a",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/users/search?email=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "users",
+                                "search"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The email address of the user.",
+                                  "key": "email",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-10-21T20:55:31.000Z",
+                          "updatedAt": "2026-10-21T20:55:31.000Z",
+                          "uid": "35240-a8b673b5-2e0f-4d9c-93ef-f7f834a4bc0a"
+                        },
+                        {
+                          "id": "06a761fb-3bdb-438b-9e1f-1774d899127a",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/users/search?email=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "users",
+                                "search"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The email address of the user.",
+                                  "key": "email",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-10-21T20:55:31.000Z",
+                          "updatedAt": "2026-10-21T20:55:31.000Z",
+                          "uid": "35240-06a761fb-3bdb-438b-9e1f-1774d899127a"
+                        },
+                        {
+                          "id": "3e301c5d-4ab4-4400-ac84-74b6ccc23c88",
+                          "name": "Method Not Allowed",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/users/search?email=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "users",
+                                "search"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The email address of the user.",
+                                  "key": "email",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Method Not Allowed",
+                          "code": 405,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-10-21T20:55:31.000Z",
+                          "updatedAt": "2026-10-21T20:55:31.000Z",
+                          "uid": "35240-3e301c5d-4ab4-4400-ac84-74b6ccc23c88"
+                        },
+                        {
+                          "id": "0873f118-6066-4c2c-aff1-d51332036307",
+                          "name": "Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/users/search?email=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "users",
+                                "search"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The email address of the user.",
+                                  "key": "email",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-10-21T20:55:31.000Z",
+                          "updatedAt": "2026-10-21T20:55:31.000Z",
+                          "uid": "35240-0873f118-6066-4c2c-aff1-d51332036307"
+                        },
+                        {
+                          "id": "c201de21-b20f-49b7-9c69-4cf30aca4477",
+                          "name": "Too Many Requests",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/users/search?email=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "users",
+                                "search"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The email address of the user.",
+                                  "key": "email",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-21T20:55:31.000Z",
+                          "updatedAt": "2026-10-21T20:55:31.000Z",
+                          "uid": "35240-c201de21-b20f-49b7-9c69-4cf30aca4477"
+                        },
+                        {
+                          "id": "c1766cf7-88bf-4b5d-b704-9b3d68cb5564",
+                          "name": "Not Implemented",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/users/search?email=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "users",
+                                "search"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The email address of the user.",
+                                  "key": "email",
+                                  "value": "<string>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Implemented",
+                          "code": 501,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-10-21T20:55:31.000Z",
+                          "updatedAt": "2026-10-21T20:55:31.000Z",
+                          "uid": "35240-c1766cf7-88bf-4b5d-b704-9b3d68cb5564"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:55:31.000Z",
+                      "updatedAt": "2026-10-21T20:55:31.000Z",
+                      "uid": "35240-a727b19a-6dfb-473c-8c5f-839efc8e1255"
+                    }
+                  ],
+                  "id": "ca867ab8-eb06-435c-90a5-e0f554378f17",
+                  "createdAt": "2026-10-21T20:55:31.000Z",
+                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                  "uid": "35240-ca867ab8-eb06-435c-90a5-e0f554378f17"
+                }
+              ],
+              "id": "c63c1a0e-cd4c-4315-87d7-363a7279bed7",
+              "createdAt": "2026-10-21T20:55:31.000Z",
+              "updatedAt": "2026-10-21T20:55:31.000Z",
+              "uid": "35240-c63c1a0e-cd4c-4315-87d7-363a7279bed7"
+            },
+            {
+              "name": "partner",
+              "item": [
+                {
+                  "name": "users",
+                  "item": [
+                    {
+                      "name": "{user_id}",
+                      "item": [
+                        {
+                          "name": "Returns the requested user",
+                          "id": "05727ecb-fbe6-450b-a79e-1f51b8add8bb",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/partner/users/:user_id?expand=company",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "partner",
+                                "users",
+                                ":user_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                  "key": "expand",
+                                  "value": "company"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "9d8ff6d8-db97-4eaf-b977-f9567532b41d",
+                                  "key": "user_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) User ID"
+                                }
+                              ]
+                            },
+                            "description": "You must have permission to view the user. You can view yourself, users you created, and users who belong to your company or its branches. In all other cases, a 401 is returned. Company details are provided in the response only if 'expand' parameter is passed in the URL with value as company. Otherwise, company information will not be provided in the response."
+                          },
+                          "response": [
+                            {
+                              "id": "c55efe26-51b9-41d1-acc6-7a16fade3148",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/:user_id?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    ":user_id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"active\": \"<boolean>\",\n  \"user_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email\": \"<string>\",\n  \"enlighten_emails\": \"<boolean>\",\n  \"enlighten_view\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"uri\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"updated_at\": \"<integer>\",\n  \"company\": {\n    \"company_id\": \"<integer>\",\n    \"company_name\": \"<string>\",\n    \"location\": \"<string>\",\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"uri\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-c55efe26-51b9-41d1-acc6-7a16fade3148"
+                            },
+                            {
+                              "id": "de698625-6882-4ded-89f9-c56af44663c6",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/:user_id?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    ":user_id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-de698625-6882-4ded-89f9-c56af44663c6"
+                            },
+                            {
+                              "id": "1312363c-5c7a-4404-ab8b-61006588ed02",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/:user_id?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    ":user_id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-1312363c-5c7a-4404-ab8b-61006588ed02"
+                            },
+                            {
+                              "id": "edbf6c91-03ec-4020-bdfa-854f2a13d354",
+                              "name": "Method Not Allowed",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/:user_id?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    ":user_id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Method Not Allowed",
+                              "code": 405,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-edbf6c91-03ec-4020-bdfa-854f2a13d354"
+                            },
+                            {
+                              "id": "b9e314b6-3e43-4ab1-9ecf-5352d2fea6c1",
+                              "name": "Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/:user_id?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    ":user_id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-b9e314b6-3e43-4ab1-9ecf-5352d2fea6c1"
+                            },
+                            {
+                              "id": "26f6c3ab-c379-4d48-8d33-17073b3fb7c2",
+                              "name": "Too Many Requests",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/:user_id?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    ":user_id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Too Many Requests",
+                              "code": 429,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-26f6c3ab-c379-4d48-8d33-17073b3fb7c2"
+                            },
+                            {
+                              "id": "9724adfb-164a-48fc-8056-edcffd929bab",
+                              "name": "Not Implemented",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/:user_id?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    ":user_id"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "user_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Implemented",
+                              "code": 501,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-9724adfb-164a-48fc-8056-edcffd929bab"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:55:31.000Z",
+                          "updatedAt": "2026-10-21T20:55:31.000Z",
+                          "uid": "35240-05727ecb-fbe6-450b-a79e-1f51b8add8bb"
+                        }
+                      ],
+                      "id": "81254fe3-fd36-4d37-8e3f-9eacd1c5c697",
+                      "createdAt": "2026-10-21T20:55:31.000Z",
+                      "updatedAt": "2026-10-21T20:55:31.000Z",
+                      "uid": "35240-81254fe3-fd36-4d37-8e3f-9eacd1c5c697"
+                    },
+                    {
+                      "name": "self",
+                      "item": [
+                        {
+                          "name": "Return the current logged in user detail",
+                          "id": "122ce4ce-6f18-4268-8f95-0730022e8ace",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v4/partner/users/self?expand=company",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v4",
+                                "partner",
+                                "users",
+                                "self"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                  "key": "expand",
+                                  "value": "company"
+                                }
+                              ]
+                            },
+                            "description": "Return the current logged in user detail. Company details are provided in the response only if 'expand' parameter is passed in the URL with value as company. Otherwise, company information will not be provided in the response."
+                          },
+                          "response": [
+                            {
+                              "id": "238a7d06-1861-4677-a08f-c30ebd7db4ca",
+                              "name": "OK",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/self?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    "self"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"active\": \"<boolean>\",\n  \"user_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"email\": \"<string>\",\n  \"enlighten_emails\": \"<boolean>\",\n  \"enlighten_view\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"uri\": \"<string>\",\n  \"user_id\": \"<integer>\",\n  \"updated_at\": \"<integer>\",\n  \"company\": {\n    \"company_id\": \"<integer>\",\n    \"company_name\": \"<string>\",\n    \"location\": \"<string>\",\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"uri\": \"<string>\"\n  }\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-238a7d06-1861-4677-a08f-c30ebd7db4ca"
+                            },
+                            {
+                              "id": "be737bef-bd02-4ad9-8b7b-019094558eea",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/self?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    "self"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-be737bef-bd02-4ad9-8b7b-019094558eea"
+                            },
+                            {
+                              "id": "e53bff38-c4d5-4b3f-a877-062e85423004",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/self?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    "self"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-e53bff38-c4d5-4b3f-a877-062e85423004"
+                            },
+                            {
+                              "id": "6b01b624-4d66-42bd-a30f-aa1c42b8522d",
+                              "name": "Method Not Allowed",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/self?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    "self"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Method Not Allowed",
+                              "code": 405,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-6b01b624-4d66-42bd-a30f-aa1c42b8522d"
+                            },
+                            {
+                              "id": "62139bc5-911d-4623-a194-8e9657d9b26f",
+                              "name": "Unprocessable entity. The body contains error information in a hash of errorMessages and an optional errorCode",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/self?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    "self"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"errorCode\": \"<integer>\",\n  \"errorMessages\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-62139bc5-911d-4623-a194-8e9657d9b26f"
+                            },
+                            {
+                              "id": "7c6232f7-01d9-45b3-928b-ecedfec459c1",
+                              "name": "Too Many Requests",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/self?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    "self"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Too Many Requests",
+                              "code": 429,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-7c6232f7-01d9-45b3-928b-ecedfec459c1"
+                            },
+                            {
+                              "id": "e5f843c0-7558-4e4a-8d6c-501ad8cc524f",
+                              "name": "Not Implemented",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/users/self?expand=company",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "users",
+                                    "self"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Passing expand params in the url with valid option, then the response will contain company object fields. Otherwise the company information will not be provided in the response.",
+                                      "key": "expand",
+                                      "value": "company"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Implemented",
+                              "code": 501,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-10-21T20:55:31.000Z",
+                              "updatedAt": "2026-10-21T20:55:31.000Z",
+                              "uid": "35240-e5f843c0-7558-4e4a-8d6c-501ad8cc524f"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:55:31.000Z",
+                          "updatedAt": "2026-10-21T20:55:31.000Z",
+                          "uid": "35240-122ce4ce-6f18-4268-8f95-0730022e8ace"
+                        }
+                      ],
+                      "id": "1f6d3d19-f096-4bb5-ae32-5292eee35030",
+                      "createdAt": "2026-10-21T20:55:31.000Z",
+                      "updatedAt": "2026-10-21T20:55:31.000Z",
+                      "uid": "35240-1f6d3d19-f096-4bb5-ae32-5292eee35030"
+                    }
+                  ],
+                  "id": "827fedca-5a82-4000-8de1-c9517c6f9eb6",
+                  "createdAt": "2026-10-21T20:55:31.000Z",
+                  "updatedAt": "2026-10-21T20:55:31.000Z",
+                  "uid": "35240-827fedca-5a82-4000-8de1-c9517c6f9eb6"
+                }
+              ],
+              "id": "12dea48e-db74-4a4e-92b2-3d36cf5ea293",
+              "createdAt": "2026-10-21T20:55:31.000Z",
+              "updatedAt": "2026-10-21T20:55:31.000Z",
+              "uid": "35240-12dea48e-db74-4a4e-92b2-3d36cf5ea293"
+            }
+          ],
+          "id": "cdc43b9c-93ea-4d83-a5cb-aea7134ff626",
+          "createdAt": "2026-10-21T20:55:31.000Z",
+          "updatedAt": "2026-10-21T20:55:31.000Z",
+          "uid": "35240-cdc43b9c-93ea-4d83-a5cb-aea7134ff626"
+        }
+      ],
+      "id": "197a3a00-39b1-4140-83aa-c58ed8d7d631",
+      "createdAt": "2026-10-21T20:55:31.000Z",
+      "updatedAt": "2026-10-21T20:55:31.000Z",
+      "uid": "35240-197a3a00-39b1-4140-83aa-c58ed8d7d631"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.enphaseenergy.com"
+    }
+  ]
+}

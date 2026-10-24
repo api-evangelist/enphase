@@ -1,0 +1,903 @@
+{
+  "info": {
+    "_postman_id": "3484a1d0-7462-417a-a9cd-7f1480ca7d98",
+    "name": "Monitoring EV Charger Control API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:52:12.000Z",
+    "updatedAt": "2026-10-21T20:52:12.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3484a1d0-7462-417a-a9cd-7f1480ca7d98"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v4",
+          "item": [
+            {
+              "name": "systems",
+              "item": [
+                {
+                  "name": "{system_id}",
+                  "item": [
+                    {
+                      "name": "ev_charger",
+                      "item": [
+                        {
+                          "name": "{serial_no}",
+                          "item": [
+                            {
+                              "name": "start_charging",
+                              "item": [
+                                {
+                                  "name": "Start charging. Illustrative only - access via VPP api for partners",
+                                  "id": "741147dc-6cf4-45d5-8a16-23bb0da975eb",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/octet-stream"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"connectorId\": \"<string>\",\n  \"chargingLevel\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/start_charging",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        ":system_id",
+                                        "ev_charger",
+                                        ":serial_no",
+                                        "start_charging"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "836472c8-5df0-4128-afc0-587814a70ebb",
+                                          "key": "system_id",
+                                          "value": "<integer>",
+                                          "description": "(Required) The unique numeric ID of the system"
+                                        },
+                                        {
+                                          "id": "2e8139ff-5f5f-407f-b404-11c29af4686a",
+                                          "key": "serial_no",
+                                          "value": "<string>",
+                                          "description": "(Required) Serial Number of the EV Charger"
+                                        }
+                                      ]
+                                    },
+                                    "description": "API to send start charging command to the EV Charger"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "7397d77b-e6d8-4a37-b1c6-477b76074d29",
+                                      "name": "Request accepted",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/octet-stream"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"connectorId\": \"<string>\",\n  \"chargingLevel\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/start_charging",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "systems",
+                                            ":system_id",
+                                            "ev_charger",
+                                            ":serial_no",
+                                            "start_charging"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "system_id"
+                                            },
+                                            {
+                                              "key": "serial_no"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Accepted",
+                                      "code": 202,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/octet-stream"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-21T20:52:12.000Z",
+                                      "updatedAt": "2026-10-21T20:52:12.000Z",
+                                      "uid": "35240-7397d77b-e6d8-4a37-b1c6-477b76074d29"
+                                    },
+                                    {
+                                      "id": "fbee3d89-8e4d-46b0-842a-52b37a6ffc6f",
+                                      "name": "Possible Bad request reasons",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/octet-stream"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"connectorId\": \"<string>\",\n  \"chargingLevel\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/start_charging",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "systems",
+                                            ":system_id",
+                                            "ev_charger",
+                                            ":serial_no",
+                                            "start_charging"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "system_id"
+                                            },
+                                            {
+                                              "key": "serial_no"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/octet-stream"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\",\n  \"details\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-21T20:52:12.000Z",
+                                      "updatedAt": "2026-10-21T20:52:12.000Z",
+                                      "uid": "35240-fbee3d89-8e4d-46b0-842a-52b37a6ffc6f"
+                                    },
+                                    {
+                                      "id": "abbd66de-96e3-4a82-accf-23b8aaa0bc06",
+                                      "name": "Unauthorised",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/octet-stream"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"connectorId\": \"<string>\",\n  \"chargingLevel\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/start_charging",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "systems",
+                                            ":system_id",
+                                            "ev_charger",
+                                            ":serial_no",
+                                            "start_charging"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "system_id"
+                                            },
+                                            {
+                                              "key": "serial_no"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/octet-stream"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\",\n  \"details\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-21T20:52:12.000Z",
+                                      "updatedAt": "2026-10-21T20:52:12.000Z",
+                                      "uid": "35240-abbd66de-96e3-4a82-accf-23b8aaa0bc06"
+                                    },
+                                    {
+                                      "id": "4603d630-72b6-476e-9f62-9dfbc4651a49",
+                                      "name": "Forbidden",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/octet-stream"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"connectorId\": \"<string>\",\n  \"chargingLevel\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/start_charging",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "systems",
+                                            ":system_id",
+                                            "ev_charger",
+                                            ":serial_no",
+                                            "start_charging"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "system_id"
+                                            },
+                                            {
+                                              "key": "serial_no"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/octet-stream"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\",\n  \"details\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-21T20:52:12.000Z",
+                                      "updatedAt": "2026-10-21T20:52:12.000Z",
+                                      "uid": "35240-4603d630-72b6-476e-9f62-9dfbc4651a49"
+                                    },
+                                    {
+                                      "id": "d9c4589c-24c2-4030-87f1-3cfaee772c55",
+                                      "name": "Method Not Allowed",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/octet-stream"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"connectorId\": \"<string>\",\n  \"chargingLevel\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/start_charging",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "systems",
+                                            ":system_id",
+                                            "ev_charger",
+                                            ":serial_no",
+                                            "start_charging"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "system_id"
+                                            },
+                                            {
+                                              "key": "serial_no"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Method Not Allowed",
+                                      "code": 405,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/octet-stream"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"reason\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-21T20:52:12.000Z",
+                                      "updatedAt": "2026-10-21T20:52:12.000Z",
+                                      "uid": "35240-d9c4589c-24c2-4030-87f1-3cfaee772c55"
+                                    },
+                                    {
+                                      "id": "5538865c-81c4-42ad-912f-9b3860e5fa44",
+                                      "name": "Internal Server Error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/octet-stream"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"connectorId\": \"<string>\",\n  \"chargingLevel\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/start_charging",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "systems",
+                                            ":system_id",
+                                            "ev_charger",
+                                            ":serial_no",
+                                            "start_charging"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "system_id"
+                                            },
+                                            {
+                                              "key": "serial_no"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/octet-stream"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\",\n  \"details\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-21T20:52:12.000Z",
+                                      "updatedAt": "2026-10-21T20:52:12.000Z",
+                                      "uid": "35240-5538865c-81c4-42ad-912f-9b3860e5fa44"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-21T20:52:12.000Z",
+                                  "updatedAt": "2026-10-21T20:52:12.000Z",
+                                  "uid": "35240-741147dc-6cf4-45d5-8a16-23bb0da975eb"
+                                }
+                              ],
+                              "id": "d0a84182-35dd-4f12-8c06-5d49aa1850df",
+                              "createdAt": "2026-10-21T20:52:12.000Z",
+                              "updatedAt": "2026-10-21T20:52:12.000Z",
+                              "uid": "35240-d0a84182-35dd-4f12-8c06-5d49aa1850df"
+                            },
+                            {
+                              "name": "stop_charging",
+                              "item": [
+                                {
+                                  "name": "Stop charging. Illustrative only - access via VPP api for partners",
+                                  "id": "0288c07e-b663-467e-8966-f25342200951",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/octet-stream"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/stop_charging",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "systems",
+                                        ":system_id",
+                                        "ev_charger",
+                                        ":serial_no",
+                                        "stop_charging"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "4c3dcfd9-8773-4513-bf25-1c3fa7e93b9d",
+                                          "key": "system_id",
+                                          "value": "<integer>",
+                                          "description": "(Required) The unique numeric ID of the system"
+                                        },
+                                        {
+                                          "id": "e78fcb53-0062-4ea5-8379-5ae3ef48de67",
+                                          "key": "serial_no",
+                                          "value": "<string>",
+                                          "description": "(Required) Serial Number of the EV Charger"
+                                        }
+                                      ]
+                                    },
+                                    "description": "API to send stop charging command to the EV Charger"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "0b6d534f-db9b-4076-971e-1ac2963cb5a3",
+                                      "name": "Request accepted",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/octet-stream"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/stop_charging",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "systems",
+                                            ":system_id",
+                                            "ev_charger",
+                                            ":serial_no",
+                                            "stop_charging"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "system_id"
+                                            },
+                                            {
+                                              "key": "serial_no"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Accepted",
+                                      "code": 202,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/octet-stream"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-21T20:52:12.000Z",
+                                      "updatedAt": "2026-10-21T20:52:12.000Z",
+                                      "uid": "35240-0b6d534f-db9b-4076-971e-1ac2963cb5a3"
+                                    },
+                                    {
+                                      "id": "3dca53ba-5433-4b20-9e2e-7bc811976d10",
+                                      "name": "Invalid system_id or serial_no",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/octet-stream"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/stop_charging",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "systems",
+                                            ":system_id",
+                                            "ev_charger",
+                                            ":serial_no",
+                                            "stop_charging"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "system_id"
+                                            },
+                                            {
+                                              "key": "serial_no"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Bad Request",
+                                      "code": 400,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/octet-stream"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\",\n  \"details\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-21T20:52:12.000Z",
+                                      "updatedAt": "2026-10-21T20:52:12.000Z",
+                                      "uid": "35240-3dca53ba-5433-4b20-9e2e-7bc811976d10"
+                                    },
+                                    {
+                                      "id": "3db7529c-3050-44f2-b261-52d17d55108b",
+                                      "name": "Unauthorised",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/octet-stream"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/stop_charging",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "systems",
+                                            ":system_id",
+                                            "ev_charger",
+                                            ":serial_no",
+                                            "stop_charging"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "system_id"
+                                            },
+                                            {
+                                              "key": "serial_no"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/octet-stream"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\",\n  \"details\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-21T20:52:12.000Z",
+                                      "updatedAt": "2026-10-21T20:52:12.000Z",
+                                      "uid": "35240-3db7529c-3050-44f2-b261-52d17d55108b"
+                                    },
+                                    {
+                                      "id": "c89b38e7-0f98-4bf4-858d-0b77a0d78a4a",
+                                      "name": "Forbidden",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/octet-stream"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/stop_charging",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "systems",
+                                            ":system_id",
+                                            "ev_charger",
+                                            ":serial_no",
+                                            "stop_charging"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "system_id"
+                                            },
+                                            {
+                                              "key": "serial_no"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/octet-stream"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\",\n  \"details\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-21T20:52:12.000Z",
+                                      "updatedAt": "2026-10-21T20:52:12.000Z",
+                                      "uid": "35240-c89b38e7-0f98-4bf4-858d-0b77a0d78a4a"
+                                    },
+                                    {
+                                      "id": "65574138-2cc1-4dab-80af-e132b5d3f94e",
+                                      "name": "Method Not Allowed",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/octet-stream"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/stop_charging",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "systems",
+                                            ":system_id",
+                                            "ev_charger",
+                                            ":serial_no",
+                                            "stop_charging"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "system_id"
+                                            },
+                                            {
+                                              "key": "serial_no"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Method Not Allowed",
+                                      "code": 405,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/octet-stream"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"reason\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-21T20:52:12.000Z",
+                                      "updatedAt": "2026-10-21T20:52:12.000Z",
+                                      "uid": "35240-65574138-2cc1-4dab-80af-e132b5d3f94e"
+                                    },
+                                    {
+                                      "id": "8b2a8978-a886-4306-afa1-8de65e827a32",
+                                      "name": "Internal Server Error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/octet-stream"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/api/v4/systems/:system_id/ev_charger/:serial_no/stop_charging",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "api",
+                                            "v4",
+                                            "systems",
+                                            ":system_id",
+                                            "ev_charger",
+                                            ":serial_no",
+                                            "stop_charging"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "system_id"
+                                            },
+                                            {
+                                              "key": "serial_no"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/octet-stream"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<string>\",\n  \"details\": \"<string>\"\n}",
+                                      "createdAt": "2026-10-21T20:52:12.000Z",
+                                      "updatedAt": "2026-10-21T20:52:12.000Z",
+                                      "uid": "35240-8b2a8978-a886-4306-afa1-8de65e827a32"
+                                    }
+                                  ],
+                                  "createdAt": "2026-10-21T20:52:12.000Z",
+                                  "updatedAt": "2026-10-21T20:52:12.000Z",
+                                  "uid": "35240-0288c07e-b663-467e-8966-f25342200951"
+                                }
+                              ],
+                              "id": "27ce24da-aa02-4779-9dc1-c89e5d00b0dc",
+                              "createdAt": "2026-10-21T20:52:12.000Z",
+                              "updatedAt": "2026-10-21T20:52:12.000Z",
+                              "uid": "35240-27ce24da-aa02-4779-9dc1-c89e5d00b0dc"
+                            }
+                          ],
+                          "id": "d382c666-34d5-43fe-8850-1b9624cfaf4f",
+                          "createdAt": "2026-10-21T20:52:12.000Z",
+                          "updatedAt": "2026-10-21T20:52:12.000Z",
+                          "uid": "35240-d382c666-34d5-43fe-8850-1b9624cfaf4f"
+                        }
+                      ],
+                      "id": "68ea1bff-794a-4da1-a0d8-9bf27437853a",
+                      "createdAt": "2026-10-21T20:52:12.000Z",
+                      "updatedAt": "2026-10-21T20:52:12.000Z",
+                      "uid": "35240-68ea1bff-794a-4da1-a0d8-9bf27437853a"
+                    }
+                  ],
+                  "id": "bf620069-ae0d-4648-960a-8e6df616377e",
+                  "createdAt": "2026-10-21T20:52:12.000Z",
+                  "updatedAt": "2026-10-21T20:52:12.000Z",
+                  "uid": "35240-bf620069-ae0d-4648-960a-8e6df616377e"
+                }
+              ],
+              "id": "717b1db2-9ad4-4c4f-a87c-e1692769895f",
+              "createdAt": "2026-10-21T20:52:12.000Z",
+              "updatedAt": "2026-10-21T20:52:12.000Z",
+              "uid": "35240-717b1db2-9ad4-4c4f-a87c-e1692769895f"
+            }
+          ],
+          "id": "e10c0a4d-9f61-42bf-9457-fdd03aaeca10",
+          "createdAt": "2026-10-21T20:52:12.000Z",
+          "updatedAt": "2026-10-21T20:52:12.000Z",
+          "uid": "35240-e10c0a4d-9f61-42bf-9457-fdd03aaeca10"
+        }
+      ],
+      "id": "6ba9cbbb-1adc-4dfd-83f1-9a02314c7f5e",
+      "createdAt": "2026-10-21T20:52:12.000Z",
+      "updatedAt": "2026-10-21T20:52:12.000Z",
+      "uid": "35240-6ba9cbbb-1adc-4dfd-83f1-9a02314c7f5e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-qa2.enphaseenergy.com"
+    }
+  ]
+}

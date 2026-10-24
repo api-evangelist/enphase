@@ -1,0 +1,398 @@
+{
+  "info": {
+    "_postman_id": "9309bd62-745a-49e8-81c3-c0b975cbf371",
+    "name": "Commissioning Arrays API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:51:34.000Z",
+    "updatedAt": "2026-10-21T20:51:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9309bd62-745a-49e8-81c3-c0b975cbf371"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "v4",
+          "item": [
+            {
+              "name": "partner",
+              "item": [
+                {
+                  "name": "systems",
+                  "item": [
+                    {
+                      "name": "{system_id}",
+                      "item": [
+                        {
+                          "name": "arrays",
+                          "item": [
+                            {
+                              "name": "Fetch particular system Array details",
+                              "id": "6c6535e0-df8e-46a8-bc06-0f876e0b52c3",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/v4/partner/systems/:system_id/arrays",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "v4",
+                                    "partner",
+                                    "systems",
+                                    ":system_id",
+                                    "arrays"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "e7250cfc-06a2-4f40-a9d5-bbd56618f471",
+                                      "key": "system_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) System ID"
+                                    }
+                                  ]
+                                }
+                              },
+                              "response": [
+                                {
+                                  "id": "8536e1ba-8eb8-4d4e-8bbb-e29a16c3d45b",
+                                  "name": "OK",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/partner/systems/:system_id/arrays",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "partner",
+                                        "systems",
+                                        ":system_id",
+                                        "arrays"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"system_id\": \"<integer>\",\n  \"created_at\": \"<integer>\",\n  \"updated_at\": \"<integer>\",\n  \"angle\": \"<integer>\",\n  \"arrays\": [\n    {\n      \"id\": \"<integer>\",\n      \"label\": \"<string>\",\n      \"angle\": \"<integer>\",\n      \"tilt\": \"<string>\",\n      \"reporting_envoys\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"provisioned_envoy\": \"<string>\",\n      \"updated_at\": \"<integer>\",\n      \"left\": \"<integer>\",\n      \"top\": \"<integer>\",\n      \"modules\": [\n        {\n          \"id\": \"<integer>\",\n          \"left\": \"<integer>\",\n          \"top\": \"<integer>\",\n          \"angle\": \"<integer>\",\n          \"serial_num\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"left\": \"<integer>\",\n          \"top\": \"<integer>\",\n          \"angle\": \"<integer>\",\n          \"serial_num\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"label\": \"<string>\",\n      \"angle\": \"<integer>\",\n      \"tilt\": \"<string>\",\n      \"reporting_envoys\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"provisioned_envoy\": \"<string>\",\n      \"updated_at\": \"<integer>\",\n      \"left\": \"<integer>\",\n      \"top\": \"<integer>\",\n      \"modules\": [\n        {\n          \"id\": \"<integer>\",\n          \"left\": \"<integer>\",\n          \"top\": \"<integer>\",\n          \"angle\": \"<integer>\",\n          \"serial_num\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"left\": \"<integer>\",\n          \"top\": \"<integer>\",\n          \"angle\": \"<integer>\",\n          \"serial_num\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"inventory\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"inventory_details\": [\n    {\n      \"type\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"serialNum\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"count\": \"<integer>\",\n      \"serialNum\": \"<string>\"\n    }\n  ],\n  \"layers\": [\n    {\n      \"file\": \"<string>\",\n      \"scale\": \"<integer>\",\n      \"angle\": \"<integer>\",\n      \"opaciy\": \"<integer>\",\n      \"width\": \"<integer>\",\n      \"height\": \"<integer>\",\n      \"left\": \"<integer>\",\n      \"top\": \"<integer>\"\n    },\n    {\n      \"file\": \"<string>\",\n      \"scale\": \"<integer>\",\n      \"angle\": \"<integer>\",\n      \"opaciy\": \"<integer>\",\n      \"width\": \"<integer>\",\n      \"height\": \"<integer>\",\n      \"left\": \"<integer>\",\n      \"top\": \"<integer>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:51:35.000Z",
+                                  "updatedAt": "2026-10-21T20:51:35.000Z",
+                                  "uid": "35240-8536e1ba-8eb8-4d4e-8bbb-e29a16c3d45b"
+                                },
+                                {
+                                  "id": "963bc24d-761f-4051-8ebb-519a15e6ef90",
+                                  "name": "Unauthorized",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/partner/systems/:system_id/arrays",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "partner",
+                                        "systems",
+                                        ":system_id",
+                                        "arrays"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:51:35.000Z",
+                                  "updatedAt": "2026-10-21T20:51:35.000Z",
+                                  "uid": "35240-963bc24d-761f-4051-8ebb-519a15e6ef90"
+                                },
+                                {
+                                  "id": "72b4a831-d332-43ac-ac44-4fdee198af15",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/partner/systems/:system_id/arrays",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "partner",
+                                        "systems",
+                                        ":system_id",
+                                        "arrays"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:51:35.000Z",
+                                  "updatedAt": "2026-10-21T20:51:35.000Z",
+                                  "uid": "35240-72b4a831-d332-43ac-ac44-4fdee198af15"
+                                },
+                                {
+                                  "id": "1c3b1925-1cf3-4e89-a15a-3d486980fc16",
+                                  "name": "Method Not Allowed",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/partner/systems/:system_id/arrays",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "partner",
+                                        "systems",
+                                        ":system_id",
+                                        "arrays"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Method Not Allowed",
+                                  "code": 405,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:51:35.000Z",
+                                  "updatedAt": "2026-10-21T20:51:35.000Z",
+                                  "uid": "35240-1c3b1925-1cf3-4e89-a15a-3d486980fc16"
+                                },
+                                {
+                                  "id": "6c4b010b-b9e5-44b0-8b53-0425dc7cba5f",
+                                  "name": "Too Many Requests",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/partner/systems/:system_id/arrays",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "partner",
+                                        "systems",
+                                        ":system_id",
+                                        "arrays"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Too Many Requests",
+                                  "code": 429,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"period\": \"<string>\",\n  \"period_start\": \"<integer>\",\n  \"period_end\": \"<integer>\",\n  \"limit\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:51:35.000Z",
+                                  "updatedAt": "2026-10-21T20:51:35.000Z",
+                                  "uid": "35240-6c4b010b-b9e5-44b0-8b53-0425dc7cba5f"
+                                },
+                                {
+                                  "id": "a2332bde-b4e5-4592-9fe8-37dc7457dec6",
+                                  "name": "Not Implemented",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/v4/partner/systems/:system_id/arrays",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "v4",
+                                        "partner",
+                                        "systems",
+                                        ":system_id",
+                                        "arrays"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "system_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Implemented",
+                                  "code": 501,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"reason\": \"<string>\",\n  \"message\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                                  "createdAt": "2026-10-21T20:51:35.000Z",
+                                  "updatedAt": "2026-10-21T20:51:35.000Z",
+                                  "uid": "35240-a2332bde-b4e5-4592-9fe8-37dc7457dec6"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:51:35.000Z",
+                              "updatedAt": "2026-10-21T20:51:35.000Z",
+                              "uid": "35240-6c6535e0-df8e-46a8-bc06-0f876e0b52c3"
+                            }
+                          ],
+                          "id": "71d8d25e-c397-4a31-9a65-b8a084185127",
+                          "createdAt": "2026-10-21T20:51:35.000Z",
+                          "updatedAt": "2026-10-21T20:51:35.000Z",
+                          "uid": "35240-71d8d25e-c397-4a31-9a65-b8a084185127"
+                        }
+                      ],
+                      "id": "06d8d29d-8eb0-4303-95d9-fbd021987975",
+                      "createdAt": "2026-10-21T20:51:35.000Z",
+                      "updatedAt": "2026-10-21T20:51:35.000Z",
+                      "uid": "35240-06d8d29d-8eb0-4303-95d9-fbd021987975"
+                    }
+                  ],
+                  "id": "868b02de-370d-4d9b-9cc7-8dc2d9349138",
+                  "createdAt": "2026-10-21T20:51:35.000Z",
+                  "updatedAt": "2026-10-21T20:51:35.000Z",
+                  "uid": "35240-868b02de-370d-4d9b-9cc7-8dc2d9349138"
+                }
+              ],
+              "id": "36aa4eb3-ee6b-4528-8b61-8c3c03c450d8",
+              "createdAt": "2026-10-21T20:51:35.000Z",
+              "updatedAt": "2026-10-21T20:51:35.000Z",
+              "uid": "35240-36aa4eb3-ee6b-4528-8b61-8c3c03c450d8"
+            }
+          ],
+          "id": "3514b7c4-fe7d-45cf-9ee9-f20f880f31aa",
+          "createdAt": "2026-10-21T20:51:35.000Z",
+          "updatedAt": "2026-10-21T20:51:35.000Z",
+          "uid": "35240-3514b7c4-fe7d-45cf-9ee9-f20f880f31aa"
+        }
+      ],
+      "id": "4603b036-b0e3-4c36-a60e-403c930d6ef1",
+      "createdAt": "2026-10-21T20:51:35.000Z",
+      "updatedAt": "2026-10-21T20:51:35.000Z",
+      "uid": "35240-4603b036-b0e3-4c36-a60e-403c930d6ef1"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.enphaseenergy.com"
+    }
+  ]
+}
